@@ -1,4 +1,5 @@
 allauth
+email-messages
 roots.nja
 roots.db
 *.pyc
