@@ -1,4 +1,5 @@
+allauth
+roots.nja
 roots.db
 *.pyc
-roots.nja
-allauth
+roots/*.pyc
