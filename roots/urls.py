@@ -1,7 +1,8 @@
+import allauth
 from django.conf.urls import patterns, include, url
-
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.views.generic.simple import direct_to_template
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -14,4 +15,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/profile/', direct_to_template,
+        {'template': 'profile.html'}),
 )
