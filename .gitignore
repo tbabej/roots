@@ -2,5 +2,6 @@ allauth
 email-messages
 roots.nja
 roots.db
+TODO
 *.pyc
 roots/*.pyc
