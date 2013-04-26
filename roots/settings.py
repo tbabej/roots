@@ -1,3 +1,5 @@
+from local_settings import *
+
 # Django settings for roots project.
 
 DEBUG = True
@@ -80,9 +82,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '79b(%xo4ptpv=nxtiv9rxcop*vh)lm-w29f+o3-7pp35et%oy%'
 
 # All-auth requirement
 TEMPLATE_CONTEXT_PROCESSORS = (
