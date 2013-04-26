@@ -11,12 +11,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/tbabej/Projects/roots/roots.db', # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/home/tbabej/Projects/roots/roots.db',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -127,7 +127,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'email-messages' # change this to a proper location
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates" or
+    # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     '/home/tbabej/Projects/roots/templates',
@@ -142,9 +143,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    'base',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    #
+    # Social authentication
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -153,6 +155,15 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.providers.openid',
     #'allauth.socialaccount.providers.twitter',
+    #
+    # My apps
+    'competitions',
+    'events',
+    'leaflets',
+    'photos',
+    'posts',
+    'problems',
+    'users',
 )
 
 # A sample logging configuration. The only tangible logging
