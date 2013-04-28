@@ -5,3 +5,4 @@ roots.db
 TODO
 *.pyc
 roots/*.pyc
+roots/local_settings.py
