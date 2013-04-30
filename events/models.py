@@ -66,13 +66,48 @@ class Camp(Event):
 
     User's have to be invited to be able to register. Usually more users than
     the capacity allows are invited, some are substitutes.'
+
+    Attribute invitation_deadline holds the deadline for accepting invitations.
     """
 
     location = models.CharField(max_length=100)  # temporary placeholder
+    invited = models.ManyToManyField('users.User',
+                                     through='events.CampUserInvitation')
+    invitation_deadline = models.DateTimeField()
 
     def __unicode__(self):
         return self.location
 
+
+class CampUserInvitation(models.Model):
+    """
+    Represents an invitation to the given camp for the given user.
+
+    User's can be invited either as regular participants or substitutes.'
+
+    All users that satisfy given competition's conditions (e.g thay gain
+    sufficient amount of points in the season) should be invited at least
+    as substitutes.
+
+    An information about user's order (priority) is kept.
+    """
+
+    INVITATION_TYPES = (('REG', 'regular'), ('SUB', 'substitute'))
+
+    user = models.ForeignKey('users.User')
+    camp = models.ForeignKey('events.Camp')
+    invited_as = models.CharField(max_length=3, choices=INVITATION_TYPES)
+    order = models.IntegerField()
+    user_accepted = models.BooleanField(default=False)
+    user_accepted_timestamp = models.DateTimeField()
+
+    def __unicode__(self):
+        return (self.user.__unicode__() + u' was invited to '
+                + self.camp.__unicode())
+
+    # TODO: invitation should hold requirements on user profile contents
+    #       e.g. to attend a camp one should have some sort of contact filled
+    #       in the profile
 
 # Register to the admin site
 admin.site.register(Event)
