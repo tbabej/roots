@@ -29,7 +29,23 @@ class CompetitionOrgRegistration(models.Model):
         return (self.user.__unicode__() + u" organizes " +
                self.competition.__unicode__())
 
+
+class Season(models.Model):
+    """
+    Represents an one season of a competition. This is usually autumn or spring
+    season. Using this model, however, we are no limited to 2 seasons per year.
+
+    During each Season there might be several ProblemSets published as parts
+    of that season.
+    """
+
+    competition = models.ForeignKey('competitions.Competition')
+    year = models.IntegerField()
+    number = models.IntegerField()
+    name = models.CharField(max_length=50)
+
 # Register to the admin site
 admin.site.register(Competition)
 admin.site.register(CompetitionUserRegistration)
 admin.site.register(CompetitionOrgRegistration)
+admin.site.register(Season)
