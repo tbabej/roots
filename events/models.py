@@ -17,7 +17,6 @@ class Event(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
-    galerry = models.ForeignKey('posts.Gallery')
     registered_user = models.ManyToManyField('users.User',
                                              through='EventUserRegistration')
     registered_org = models.ManyToManyField('users.Organizer',
@@ -70,7 +69,6 @@ class Camp(Event):
     Attribute invitation_deadline holds the deadline for accepting invitations.
     """
 
-    location = models.CharField(max_length=100)  # temporary placeholder
     invited = models.ManyToManyField('users.User',
                                      through='events.CampUserInvitation')
     invitation_deadline = models.DateTimeField()
