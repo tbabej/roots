@@ -30,7 +30,7 @@ class Event(models.Model):
 
 class EventUserRegistration(models.Model):
     """
-    Represents a user's registration to the event.'
+    Represents a user's registration to the event.
     """
 
     event = models.ForeignKey('events.Event')

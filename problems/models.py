@@ -4,6 +4,10 @@ from django.contrib import admin
 
 # Solution-related models
 class UserSolution(models.Model):
+    '''
+    Represents a user submitted solution of a given problem.
+    '''
+
     user = models.ForeignKey('users.User')
     problem = models.ForeignKey('problems.Problem')
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -14,6 +18,10 @@ class UserSolution(models.Model):
 
 
 class OrgSolution(models.Model):
+    '''
+    Represents an ideal solution of a problem. There can be multiple ideal
+    solutions (more organizers trying to solve it, more ways of solving).
+    '''
     organizer = models.ForeignKey('users.Organizer')
     problem = models.ForeignKey('problems.Problem')
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -25,6 +33,10 @@ class OrgSolution(models.Model):
 
 # Problem-related models
 class Problem(models.Model):
+    '''
+    Represents a problem.
+    '''
+
     text = models.CharField(max_length=1000)
 
     def __unicode__(self):
@@ -32,6 +44,11 @@ class Problem(models.Model):
 
 
 class ProblemSet(models.Model):
+    '''
+    Represents a collections of problems. This can (optionally) be used at
+    event or competition, which organizer should mark here.
+    '''
+
     competition = models.ForeignKey('competitions.Competition',
                                     blank=True, null=True)
     leaflet = models.ForeignKey('leaflets.Leaflet',

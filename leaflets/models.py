@@ -3,6 +3,10 @@ from django.contrib import admin
 
 
 class Leaflet(models.Model):
+    '''
+    Represents a given (generated) leaflet.
+    '''
+
     competition = models.ForeignKey('competitions.Competition')
     year = models.IntegerField()
 

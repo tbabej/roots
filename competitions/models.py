@@ -4,6 +4,12 @@ from django.contrib import admin
 
 # Competition-related models
 class Competition(models.Model):
+    """
+    Represents a competition. One roots site will usually hold several
+    competitions, as there are usually several age categories or several
+    subjects categories. Or both.
+    """
+
     name = models.CharField(max_length=100)
 
     def __unicode__(self):
@@ -11,6 +17,11 @@ class Competition(models.Model):
 
 
 class CompetitionUserRegistration(models.Model):
+    """
+    Represents a relation between user and competition. User himself can
+    register into competition if he satisfies the conditions.
+    """
+
     competition = models.ForeignKey('competitions.Competition')
     user = models.ForeignKey('users.User')
     timestamp = models.DateTimeField()
@@ -21,9 +32,16 @@ class CompetitionUserRegistration(models.Model):
 
 
 class CompetitionOrgRegistration(models.Model):
+    """
+    Represents a relation between organizer and comeptition. Organizer can
+    help organize multiple competitions. Organizer registrations have to
+    be approved.
+    """
+
     competition = models.ForeignKey('competitions.Competition')
     organizer = models.ForeignKey('users.Organizer')
     timestamp = models.DateTimeField()
+    approved = models.BooleanField()
 
     def __unicode__(self):
         return (self.user.__unicode__() + u" organizes " +
