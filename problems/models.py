@@ -39,6 +39,13 @@ class Problem(models.Model):
 
     text = models.CharField(max_length=1000)
 
+    # Fields added via foreign keys:
+
+    #  orgsolution_set
+    #  problemset_set
+    #  user_set
+    #  usersolution_set
+
     def __unicode__(self):
         return self.text
 

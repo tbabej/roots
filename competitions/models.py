@@ -12,6 +12,17 @@ class Competition(models.Model):
 
     name = models.CharField(max_length=100)
 
+    # Fields added via foreign keys:
+
+    #  competitionorgregistration_set
+    #  competitionuserregistration_set
+    #  gallery_set
+    #  leaflet_set
+    #  post_set
+    #  problemset_set
+    #  season_set
+    #  user_set
+
     def __unicode__(self):
         return self.name
 

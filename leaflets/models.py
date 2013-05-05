@@ -10,6 +10,13 @@ class Leaflet(models.Model):
     competition = models.ForeignKey('competitions.Competition')
     year = models.IntegerField()
 
+    # Fields added via foreign keys:
+
+    #  problemset_set
+
+    # TODO: more than one problemset can point to given leaflet, is that a
+    #       problem?
+
     def __unicode__(self):
         return u"Leaflet for " + self.competition.__unicode__()
 

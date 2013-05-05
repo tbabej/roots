@@ -25,6 +25,7 @@ class Gallery(models.Model):
 
     name = models.CharField(max_length=50)
     competition = models.ForeignKey('competitions.Competition')
+    event = models.ForeignKey('events.Event')
     date = models.DateTimeField()
 
     def __unicode__(self):

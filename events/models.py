@@ -21,7 +21,16 @@ class Event(models.Model):
                                              through='EventUserRegistration')
     registered_org = models.ManyToManyField('users.Organizer',
                                             through='EventOrgRegistration',
-                                            related_name='organizers')
+                                            related_name='organized_event_set')
+
+    # Fields added via foreign keys:
+
+    #  gallery_set
+
+    # Fields added via inheritance:
+
+    #  camp
+
 
     def __unicode__(self):
         return self.name
@@ -72,6 +81,10 @@ class Camp(Event):
     invited = models.ManyToManyField('users.User',
                                      through='events.CampUserInvitation')
     invitation_deadline = models.DateTimeField()
+
+    # Fields added via inheritance:
+
+    #  event_ptr
 
     def __unicode__(self):
         return self.location
