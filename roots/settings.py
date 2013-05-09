@@ -154,6 +154,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.providers.openid',
     #'allauth.socialaccount.providers.twitter',
+    # Support database migrations
+    'south',
     # Roots specific apps
     'competitions',
     'events',
