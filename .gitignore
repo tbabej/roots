@@ -1,8 +1,9 @@
 allauth
-email-messages
+email-messages/*
 roots.nja
 roots.db
 TODO
 *.pyc
 roots/*.pyc
 roots/local_settings.py
+!email-messages/README
