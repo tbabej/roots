@@ -1,2 +1,35 @@
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
+
+# Setup database details
+# For developmnet purposes, you can use sqlite3
+# Specify the path to the database file
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/path/to/roots/database/file.db',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
+
+# For development purposes, you need not to change this
+# Emails will appear as files in email-messages folder
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'email-messages'
+
+# For development purposes, specify your path to roots directory
+# as the app comes with the templates pre-made
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or
+    # "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    '/path/to/roots/directory/templates',
+)
+
