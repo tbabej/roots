@@ -132,6 +132,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.providers.openid',
     #'allauth.socialaccount.providers.twitter',
+    # Support for django-extensions
+    'django_extensions',
     # Support database migrations
     'south',
     # Roots specific apps
