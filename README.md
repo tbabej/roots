@@ -61,4 +61,4 @@ Useful tips
 
   The following command should provide you with nice diagram:
 
-  > python manage.py graph_models -a -o models.png
+  > python manage.py graph_models -age -o models.png

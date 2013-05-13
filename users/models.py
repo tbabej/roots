@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib import admin
+from django.contrib.auth.models import User as AuthUser
 
 
 # User-related models
-class User(models.Model):
+class User(AuthUser):
     '''
     Represents an user. Both organizers and participants are considered as
     users. This allows usage of the same accounts for the users that became
@@ -28,7 +29,6 @@ class User(models.Model):
     # Fields added via inheritance:
 
     #  organizer
-
 
     def __unicode__(self):
         return self.login
