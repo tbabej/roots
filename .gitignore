@@ -3,6 +3,7 @@ email-messages/*
 roots.nja
 roots.db
 TODO
+models.png
 *.pyc
 roots/*.pyc
 roots/local_settings.py
