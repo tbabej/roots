@@ -11,11 +11,60 @@ class User(AuthUser):
     organizers later.
     '''
 
-    login = models.CharField(max_length=50)
+    # Fields inherited from AuthUser:
+
+    # username
+    # first_name
+    # last_name
+    # email
+    # password
+    # is_staff
+    # is_active
+    # is_superuser
+    # last_login
+    # date_joined
+
+    date_of_birth = models.DateTimeField(blank=True)
+    sex = models.CharField(max_length=1, blank=True, choices=(('M', 'male'),
+                                                              ('F', 'female')))
+    social_security_number = models.CharField(max_length=11, blank=True)
+    state_id_number = models.CharField(max_length=7, blank=True)
+
     competes = models.ManyToManyField('competitions.Competition',
                     through='competitions.CompetitionUserRegistration')
-    #  TODO this is not designed well, needs extra parameters on this relation
-    solved = models.ManyToManyField('problems.Problem')
+
+    # address information
+    phone_number = models.CharField(max_length=30, blank=True)
+    parent_phone_number = models.CharField(max_length=30, blank=True)
+    street = models.CharField(max_length=200, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    postal_number = models.CharField(max_length=10, blank=True)
+    region = models.CharField(max_length=30, blank=True,
+                              choices=(('KE', 'Kosicky'),
+                                       ('PR', 'Presovsky'),
+                                       ('BB', 'Banskobystricky'),
+                                       ('BA', 'Bratislavsky'),
+                                       ('ZI', 'Zilinsky'),
+                                       ('TC', 'Trenciansky'),
+                                       ('TV', 'Trnavsky'),
+                                       ('NI', 'Nitriansky')))
+
+    # TODO: add school model? we need school address anyway
+    school_class = models.CharField(max_length=20, blank=True)
+    school = models.CharField(max_length=100, blank=True)
+    classlevel = models.CharField(max_length=2, blank=True,
+                                  choices=(('Z2', 'Z2'),
+                                           ('Z3', 'Z3'),
+                                           ('Z4', 'Z4'),
+                                           ('Z5', 'Z5'),
+                                           ('Z6', 'Z6'),
+                                           ('Z7', 'Z7'),
+                                           ('Z8', 'Z8'),
+                                           ('Z9', 'Z9'),
+                                           ('S1', 'S1'),
+                                           ('S2', 'S2'),
+                                           ('S3', 'S3'),
+                                           ('S4', 'S4')))
 
     # Fields added via foreign keys:
 
