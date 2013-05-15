@@ -24,6 +24,7 @@ class User(AuthUser):
     # last_login
     # date_joined
 
+    # personal info
     date_of_birth = models.DateTimeField(blank=True)
     sex = models.CharField(max_length=1, blank=True, choices=(('M', 'male'),
                                                               ('F', 'female')))
@@ -36,22 +37,11 @@ class User(AuthUser):
     # address information
     phone_number = models.CharField(max_length=30, blank=True)
     parent_phone_number = models.CharField(max_length=30, blank=True)
-    street = models.CharField(max_length=200, blank=True)
-    city = models.CharField(max_length=100, blank=True)
-    postal_number = models.CharField(max_length=10, blank=True)
-    region = models.CharField(max_length=30, blank=True,
-                              choices=(('KE', 'Kosicky'),
-                                       ('PR', 'Presovsky'),
-                                       ('BB', 'Banskobystricky'),
-                                       ('BA', 'Bratislavsky'),
-                                       ('ZI', 'Zilinsky'),
-                                       ('TC', 'Trenciansky'),
-                                       ('TV', 'Trnavsky'),
-                                       ('NI', 'Nitriansky')))
+    address = models.ForeignKey('schools.Address')
 
-    # TODO: add school model? we need school address anyway
+    # school related info
+    school = models.ForeignKey('schools.School', blank=True)
     school_class = models.CharField(max_length=20, blank=True)
-    school = models.CharField(max_length=100, blank=True)
     classlevel = models.CharField(max_length=2, blank=True,
                                   choices=(('Z2', 'Z2'),
                                            ('Z3', 'Z3'),

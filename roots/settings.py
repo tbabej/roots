@@ -143,6 +143,7 @@ INSTALLED_APPS = (
     'photos',
     'posts',
     'problems',
+    'schools',
     'users',
 )
 
