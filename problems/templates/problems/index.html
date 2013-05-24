@@ -1,0 +1,14 @@
+<h1> Problem index page </h1>
+
+<p>
+The following problems are in the database:
+    <ul>
+        {% for problem in problem_list %}
+        <li>
+            <a href = "{% url 'problems_detail' problem.id %}">
+                Problem {{ problem.id }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</p>

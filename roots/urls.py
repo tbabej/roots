@@ -1,4 +1,3 @@
-import allauth
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.simple import direct_to_template
@@ -17,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^accounts/profile/', direct_to_template,
-        {'template': 'profile.html'}),
+            {'template': 'profile.html'}),
+    url(r'^problems/', include('problems.urls')),
 )

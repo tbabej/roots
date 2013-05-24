@@ -31,7 +31,6 @@ class Event(models.Model):
 
     #  camp
 
-
     def __unicode__(self):
         return self.name
 

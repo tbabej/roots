@@ -1,0 +1,12 @@
+<h1> Problem detailed view </h1>
+
+{% if id != 1 %}
+    <p>
+    {{ text }}
+    </p>
+{% else %}
+    <p>
+    Sorry, we are not able to show you the problem ID {{ id }} for religious
+    reasons.
+    </p>
+{% endif %}
