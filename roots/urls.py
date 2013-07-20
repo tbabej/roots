@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 
 admin.autodiscover()
 
@@ -15,7 +15,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^accounts/profile/', direct_to_template,
-            {'template': 'profile.html'}),
+    url(r'^accounts/profile/', TemplateView.as_view(
+                               template_name='profile.html')),
     url(r'^problems/', include('problems.urls')),
+    url(r'^$', TemplateView.as_view(template_name='index.html'))
 )
