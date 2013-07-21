@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     # Support database migrations
     'south',
     # Roots specific apps
+    'base',
     'competitions',
     'events',
     'leaflets',

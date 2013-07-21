@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/', TemplateView.as_view(
                                template_name='profile.html')),
     url(r'^problems/', include('problems.urls')),
-    url(r'^$', TemplateView.as_view(template_name='index.html'))
+    url(r'^$', TemplateView.as_view(template_name='base/index.html'))
 )
