@@ -112,6 +112,17 @@ AUTHENTICATION_BACKENDS = (
 )
 
 INSTALLED_APPS = (
+    # Roots specific apps
+    'base',
+    'competitions',
+    'events',
+    'leaflets',
+    'photos',
+    'posts',
+    'problems',
+    'schools',
+    'users',
+    # Non-roots specific apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -136,16 +147,6 @@ INSTALLED_APPS = (
     'django_extensions',
     # Support database migrations
     'south',
-    # Roots specific apps
-    'base',
-    'competitions',
-    'events',
-    'leaflets',
-    'photos',
-    'posts',
-    'problems',
-    'schools',
-    'users',
 )
 
 # A sample logging configuration. The only tangible logging
