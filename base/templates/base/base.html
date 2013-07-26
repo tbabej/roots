@@ -4,11 +4,23 @@
     <title>{% block head_title %}{% endblock head_title %}</title>
   </head>
   <body>
+    {% block menu %}
+    {% endblock menu %}
+
     {% block body %}
     {% block content %}
     {% endblock content %}
     {% endblock body %}
+
     {% block extra_body %}
     {% endblock extra_body %}
+
+    <p>
+    {% if user.is_authenticated %}
+    Logged in as {{user.firstname}} {{user.lastname}} ({{user.username}}).
+    {% else %}
+    You are not logged in.
+    {% endif %}
+
   </body>
 </html>

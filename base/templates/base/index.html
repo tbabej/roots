@@ -1,7 +1,12 @@
+{% extends "base/base.html" %}
+
+{% block head_title %}Welcome to Roots!{% endblock %}
+
+{% block content %}
 <h1> Welcome to Roots! </h1>
 
 <p> Log in <a href="{% url 'account_login' %}"> here </a> </p>
 
 <p> Browse through our problems <a href="{% url 'problems_index' %}"> here </a> </p>
-
+{% endblock %}
 
