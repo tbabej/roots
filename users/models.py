@@ -4,14 +4,14 @@ from django.contrib.auth.models import User as AuthUser
 
 
 # User-related models
-class User(AuthUser):
+class User(models.Model):
     '''
     Represents an user. Both organizers and participants are considered as
     users. This allows usage of the same accounts for the users that became
     organizers later.
     '''
 
-    # Fields inherited from AuthUser:
+    # Fields accessible from AuthUser:
 
     # username
     # first_name
@@ -23,6 +23,8 @@ class User(AuthUser):
     # is_superuser
     # last_login
     # date_joined
+
+    authuser = models.OneToOneField(AuthUser)
 
     # personal info
     date_of_birth = models.DateTimeField(blank=True)
