@@ -72,7 +72,7 @@ class User(models.Model):
     #  organizer
 
     def __unicode__(self):
-        return self.login
+        return self.authuser.username
 
 
 class Organizer(User):
