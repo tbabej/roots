@@ -31,7 +31,7 @@ class User(models.Model):
     sex = models.CharField(max_length=1, blank=True, choices=(('M', 'male'),
                                                               ('F', 'female')))
     social_security_number = models.CharField(max_length=11, blank=True)
-    state_id_number = models.CharField(max_length=7, blank=True)
+    state_id_number = models.CharField(max_length=8, blank=True)
 
     competes = models.ManyToManyField('competitions.Competition',
                     through='competitions.CompetitionUserRegistration')
