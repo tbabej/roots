@@ -71,7 +71,15 @@ class Season(models.Model):
     competition = models.ForeignKey('competitions.Competition')
     year = models.IntegerField()
     number = models.IntegerField()
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)  # TODO: do we really need name?
+
+    def __unicode__(self):
+        template = "{name} {competition} {year}-{number}"
+        return template.format(competition=unicode(self.competition),
+                               year=self.year,
+                               number=self.number,
+                               name=self.name,
+                               )
 
 # Register to the admin site
 admin.site.register(Competition)

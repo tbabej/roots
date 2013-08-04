@@ -20,6 +20,14 @@ class Address(models.Model):
                                        ('TV', 'Trnavsky'),
                                        ('NI', 'Nitriansky')))
 
+    def __unicode__(self):
+        template = "{street}, {city}, {postal}, {region}"
+        return template.format(street=self.street,
+                               city=self.city,
+                               postal=self.postal_number,
+                               region=self.region
+                               )
+
 
 class School(models.Model):
     """
@@ -29,6 +37,9 @@ class School(models.Model):
 
     name = models.CharField(max_length=150)
     address = models.ForeignKey('schools.Address', blank=True)
+
+    def __unicode__(self):
+        return self.name
 
 
 # Register to the admin site
