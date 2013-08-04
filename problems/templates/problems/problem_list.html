@@ -1,14 +1,18 @@
+{% extends "base/base.html" %}
+
+{% block content %}
 <h1> Problem index page </h1>
 
 <p>
 The following problems are in the database:
     <ul>
-        {% for problem in problem_list %}
+        {% for problem in problems %}
         <li>
-            <a href = "{% url 'problems_detail' problem.id %}">
+            <a href = "{% url 'problems_problem_detail' pk=problem.id %}">
                 Problem {{ problem.id }}
             </a>
         </li>
         {% endfor %}
     </ul>
 </p>
+{% endblock %}

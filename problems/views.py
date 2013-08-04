@@ -1,21 +1,15 @@
-# Create your views here.
-
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
-
-from problems.models import Problem  # , UserSolution, OrgSolution
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from problems.models import Problem
 
 
-def index(request):
-    problems = Problem.objects.all()
-    context = dict(problem_list=problems)
+class ProblemListView(ListView):
 
-    return render(request, 'problems/index.html', context)
+    model = Problem
+    context_object_name = 'problems'
 
 
-def problem(request, problem_id):
-    problem = get_object_or_404(Problem, pk=problem_id)
-    context = dict(id=problem.pk,
-                   text=problem.text)
+class ProblemDetailView(DetailView):
 
-    return render(request, 'problems/problem.html', context)
+    model = Problem
+    context_object_name = 'problem'

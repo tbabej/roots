@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, url
 
-from problems import views
+from problems.views import ProblemListView, ProblemDetailView
 
 urlpatterns = patterns('',
-    url(r'^$', views.index, name='problems_index'),
-    url(r'^(?P<problem_id>\d+)/$', views.problem, name='problems_detail')
+    url(r'^$', ProblemListView.as_view(), name='problems_problem_list'),
+    url(r'^(?P<pk>\d+)/$', ProblemDetailView.as_view(),
+        name='problems_problem_detail')
 )
