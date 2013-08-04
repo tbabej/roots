@@ -1,0 +1,13 @@
+<div>
+  <strong>Menu:</strong>
+  <ul>
+    <li><a href="{% url 'posts_list' %}">Look at the posts</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+    <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+    {% else %}
+    <li><a href="{% url 'account_login' %}">Sign In</a></li>
+    <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+    {% endif %}
+  </ul>
+</div>
