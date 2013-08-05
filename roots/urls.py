@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allauth.urls')),
     url(r'^accounts/profile/', TemplateView.as_view(
                                template_name='profile.html')),
+    url(r'^competitions/', include('competitions.urls')),
     url(r'^problems/', include('problems.urls')),
     url(r'^posts/', include('posts.urls')),
     url(r'^$', IndexView.as_view())

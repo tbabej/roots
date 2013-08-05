@@ -35,7 +35,7 @@ class CompetitionUserRegistration(models.Model):
 
     competition = models.ForeignKey('competitions.Competition')
     user = models.ForeignKey('users.User')
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return (self.user.__unicode__() + u" competes in " +

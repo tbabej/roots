@@ -3,6 +3,7 @@
   <ul>
     <li><a href="{% url 'posts_post_list' %}">Look at the posts</a></li>
     <li><a href="{% url 'problems_problem_list' %}">Try your luck with our problems</a></li>
+    <li><a href="{% url 'competitions_competition_register' %}">Register to one of our competitions</a></li>
     {% if user.is_authenticated %}
     <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
     <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
