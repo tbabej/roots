@@ -149,6 +149,8 @@ INSTALLED_APPS = (
     'south',
     # Use django-ratings
     'djangoratings',
+    # Use django-author
+    'author',
 )
 
 # A sample logging configuration. The only tangible logging

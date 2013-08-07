@@ -41,7 +41,7 @@ class Problem(models.Model):
     author = models.ForeignKey('auth.User')
     text = models.CharField(max_length=1000)
     rating = RatingField(range=5)
-    severity = RatingField(range=5)
+    severity = models.ForeignKey('problems.ProblemSeverity')
     category = models.ForeignKey('problems.ProblemCategory')
     competition = models.ForeignKey('competitions.Competition')
 
@@ -89,9 +89,31 @@ class ProblemCategory(models.Model):
         return self.name
 
 
+class ProblemSeverity(models.Model):
+    '''
+    Lets you define custom levels of severity for problems.
+
+    Severity level is represented by its name and level, e.g.:
+        easy - 1
+        medium -2
+        hard - 3
+        godlike - 4
+
+    This is not hardcoded so that every organization can use their own
+    levels of severity to categorize their problems.
+    '''
+
+    name = models.CharField(max_length=50)
+    level = models.IntegerField()
+
+    def __unicode__(self):
+        return unicode(self.level) + ' - ' + self.name
+
+
 # Register to the admin site
 admin.site.register(Problem)
 admin.site.register(ProblemSet)
 admin.site.register(UserSolution)
 admin.site.register(OrgSolution)
 admin.site.register(ProblemCategory)
+admin.site.register(ProblemSeverity)
