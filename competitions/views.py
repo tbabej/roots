@@ -15,7 +15,7 @@ class CompetitionRegistrationView(FormView):
     def form_valid(self, form):
         registration = CompetitionUserRegistration()
         registration.competition = form.cleaned_data['competition']
-        registration.user = self.request.user.user
+        registration.user = self.request.user.userprofile
         registration.save()
         return super(CompetitionRegistrationView, self).form_valid(form)
 

@@ -1,14 +1,14 @@
 from django.db import models
 from django.contrib import admin
-from django.contrib.auth.models import User as AuthUser
 
 
 # User-related models
-class User(models.Model):
+class UserProfile(models.Model):
     '''
-    Represents an user. Both organizers and participants are considered as
-    users. This allows usage of the same accounts for the users that became
-    organizers later.
+    Represents an user profile. This contains non-auth information stored
+    for the particular user.
+
+    Any user can have both UserProfile and OrganizerProfile set.
     '''
 
     # Fields accessible from AuthUser:
@@ -24,7 +24,7 @@ class User(models.Model):
     # last_login
     # date_joined
 
-    authuser = models.OneToOneField(AuthUser)
+    user = models.OneToOneField('auth.User')
 
     # personal info
     date_of_birth = models.DateTimeField(blank=True)
@@ -72,16 +72,18 @@ class User(models.Model):
     #  organizer
 
     def __unicode__(self):
-        return self.authuser.username
+        return self.user.username + "'s user profile"
 
 
-class Organizer(User):
+class OrganizerProfile(models.Model):
     '''
-    Represents an organizer. Organizer can organize multiple competitions
-    or events.
+    Represents an organizer profile.
+
+    Organizer can organize multiple competitions or events.
     '''
 
-    motto = models.CharField(max_length=50)
+    user = models.OneToOneField('auth.User')
+    motto = models.CharField(max_length=250)
 
     # TODO: there are 2 data descriptors added via many-to-many relationship
     #       in this case it's organized_event_set (custom name due to
@@ -102,7 +104,10 @@ class Organizer(User):
 
     #  user_ptr
 
+    def __unicode__(self):
+        return self.user.username + "'s organizer profile"
+
 
 # Register to the admin site
-admin.site.register(User)
-admin.site.register(Organizer)
+admin.site.register(UserProfile)
+admin.site.register(OrganizerProfile)

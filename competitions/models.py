@@ -34,7 +34,7 @@ class CompetitionUserRegistration(models.Model):
     """
 
     competition = models.ForeignKey('competitions.Competition')
-    user = models.ForeignKey('users.User')
+    user = models.ForeignKey('users.UserProfile')
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -50,7 +50,7 @@ class CompetitionOrgRegistration(models.Model):
     """
 
     competition = models.ForeignKey('competitions.Competition')
-    organizer = models.ForeignKey('users.Organizer')
+    organizer = models.ForeignKey('users.UserProfile')
     timestamp = models.DateTimeField()
     approved = models.BooleanField()
 

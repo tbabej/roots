@@ -9,7 +9,7 @@ class Post(models.Model):
     or can be general.
     '''
 
-    author = models.ForeignKey('users.Organizer')
+    author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=100)
     competition = models.ForeignKey('competitions.Competition', blank=True)
 

@@ -17,9 +17,9 @@ class Event(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
-    registered_user = models.ManyToManyField('users.User',
+    registered_user = models.ManyToManyField('auth.User',
                                              through='EventUserRegistration')
-    registered_org = models.ManyToManyField('users.Organizer',
+    registered_org = models.ManyToManyField('auth.User',
                                             through='EventOrgRegistration',
                                             related_name='organized_event_set')
 
@@ -41,7 +41,7 @@ class EventUserRegistration(models.Model):
     """
 
     event = models.ForeignKey('events.Event')
-    user = models.ForeignKey('users.User')
+    user = models.ForeignKey('auth.User')
     timestamp = models.DateTimeField()
 
     def __unicode__(self):
@@ -57,7 +57,7 @@ class EventOrgRegistration(models.Model):
     """
 
     event = models.ForeignKey('events.Event')
-    organizer = models.ForeignKey('users.Organizer')
+    organizer = models.ForeignKey('auth.User')
     timestamp = models.DateTimeField()
 
     def __unicode__(self):
@@ -77,7 +77,7 @@ class Camp(Event):
     Attribute invitation_deadline holds the deadline for accepting invitations.
     """
 
-    invited = models.ManyToManyField('users.User',
+    invited = models.ManyToManyField('auth.User',
                                      through='events.CampUserInvitation')
     invitation_deadline = models.DateTimeField()
 
@@ -104,7 +104,7 @@ class CampUserInvitation(models.Model):
 
     INVITATION_TYPES = (('REG', 'regular'), ('SUB', 'substitute'))
 
-    user = models.ForeignKey('users.User')
+    user = models.ForeignKey('auth.User')
     camp = models.ForeignKey('events.Camp')
     invited_as = models.CharField(max_length=3, choices=INVITATION_TYPES)
     order = models.IntegerField()
