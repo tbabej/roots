@@ -147,6 +147,8 @@ INSTALLED_APPS = (
     'django_extensions',
     # Support database migrations
     'south',
+    # Use django-ratings
+    'djangoratings',
 )
 
 # A sample logging configuration. The only tangible logging

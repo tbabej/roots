@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib import admin
+from djangoratings.fields import RatingField
 
 
 # Solution-related models
@@ -39,7 +40,8 @@ class Problem(models.Model):
 
     author = models.ForeignKey('auth.User')
     text = models.CharField(max_length=1000)
-    # rating = models.ForeignKey('ratings.Rating')
+    rating = RatingField(range=5)
+    severity = RatingField(range=5)
     category = models.ForeignKey('problems.ProblemCategory')
     competition = models.ForeignKey('competitions.Competition')
 
