@@ -120,8 +120,8 @@ INSTALLED_APPS = (
     'photos',
     'posts',
     'problems',
+    'profiles',
     'schools',
-    'users',
     # Non-roots specific apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
