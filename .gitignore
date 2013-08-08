@@ -8,3 +8,5 @@ models.png
 roots/*.pyc
 roots/local_settings.py
 !email-messages/README
+media
+static
