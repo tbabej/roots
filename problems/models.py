@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib import admin
 from djangoratings.fields import RatingField
 from author.decorators import with_author
+from base.util import with_timestamp
 import reversion
 
 
@@ -37,6 +38,7 @@ class OrgSolution(models.Model):
 # Problem-related models
 
 @with_author
+@with_timestamp
 class Problem(models.Model):
     '''
     Represents a problem.
@@ -47,9 +49,6 @@ class Problem(models.Model):
     severity = models.ForeignKey('problems.ProblemSeverity')
     category = models.ForeignKey('problems.ProblemCategory')
     competition = models.ForeignKey('competitions.Competition')
-
-    added = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
 
     # Fields added via foreign keys:
 
@@ -111,6 +110,7 @@ class ProblemSeverity(models.Model):
 
     def __unicode__(self):
         return unicode(self.level) + ' - ' + self.name
+
 
 # Reversion-enabled Admin for problems
 class ProblemAdmin(reversion.VersionAdmin):
