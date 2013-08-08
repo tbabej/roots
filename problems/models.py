@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib import admin
 from djangoratings.fields import RatingField
+from author.decorators import with_author
+import reversion
 
 
 # Solution-related models
@@ -33,12 +35,13 @@ class OrgSolution(models.Model):
 
 
 # Problem-related models
+
+@with_author
 class Problem(models.Model):
     '''
     Represents a problem.
     '''
 
-    author = models.ForeignKey('auth.User')
     text = models.CharField(max_length=1000)
     rating = RatingField(range=5)
     severity = models.ForeignKey('problems.ProblemSeverity')
@@ -109,9 +112,14 @@ class ProblemSeverity(models.Model):
     def __unicode__(self):
         return unicode(self.level) + ' - ' + self.name
 
+# Reversion-enabled Admin for problems
+class ProblemAdmin(reversion.VersionAdmin):
+
+    pass
+
 
 # Register to the admin site
-admin.site.register(Problem)
+admin.site.register(Problem, ProblemAdmin)
 admin.site.register(ProblemSet)
 admin.site.register(UserSolution)
 admin.site.register(OrgSolution)

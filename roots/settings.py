@@ -154,6 +154,8 @@ INSTALLED_APPS = (
     'djangoratings',
     # Use django-author
     'author',
+    # Use django-reversion
+    'reversion',
 )
 
 # A sample logging configuration. The only tangible logging
