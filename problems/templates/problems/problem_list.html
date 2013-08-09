@@ -9,7 +9,7 @@ The following problems are in the database:
         {% for problem in problems %}
         <li>
             <a href = "{% url 'problems_problem_detail' pk=problem.id %}">
-                Problem {{ problem.id }}
+                Problem {{ problem.id }} - {{ problem.added_at }}
             </a>
         </li>
         {% endfor %}

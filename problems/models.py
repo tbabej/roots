@@ -1,9 +1,9 @@
-from django.db import models
-from django.contrib import admin
-from djangoratings.fields import RatingField
-from author.decorators import with_author
-from base.util import with_timestamp
 import reversion
+
+from base.util import with_timestamp, with_author
+from django.contrib import admin
+from django.db import models
+from djangoratings.fields import RatingField
 
 
 # Solution-related models
@@ -76,6 +76,7 @@ class ProblemSet(models.Model):
         return u"ProblemSet for " + self.competition.__unicode__()
 
 
+@with_timestamp
 class ProblemCategory(models.Model):
     '''
     Represents a category of problems, like geometry or functional equations.
