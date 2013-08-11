@@ -1,4 +1,5 @@
 {% extends "base/base.html" %}
+{% load comments %}
 
 {% block content %}
 <h1> Problem detailed view </h1>
@@ -13,4 +14,10 @@
     religious reasons.
     </p>
 {% endif %}
+
+
+{% render_comment_list for problem %}
+
+{% render_comment_form for problem %}
+
 {% endblock %}
