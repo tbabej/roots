@@ -7,28 +7,36 @@ from djangoratings.fields import RatingField
 
 
 # Solution-related models
+
+@with_author
+@with_timestamp
 class UserSolution(models.Model):
     '''
     Represents a user submitted solution of a given problem.
     '''
 
+    # Keep an explicit reference to an User, since somebody else might
+    # be entering the solution on the user's behalf
     user = models.ForeignKey('auth.User')
     problem = models.ForeignKey('problems.Problem')
-    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return (self.user.__unicode__() + u":'s solution of " +
                 self.problem.__unicode__())
 
 
+@with_author
+@with_timestamp
 class OrgSolution(models.Model):
     '''
     Represents an ideal solution of a problem. There can be multiple ideal
     solutions (more organizers trying to solve it, more ways of solving).
     '''
+
+    # Keep an explicit reference to an Organizer, since somebody else might
+    # be entering the solution on the organizer's behalf
     organizer = models.ForeignKey('auth.User')
     problem = models.ForeignKey('problems.Problem')
-    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return (self.user.__unicode__() + u":'s ideal solution of " +
@@ -61,6 +69,8 @@ class Problem(models.Model):
         return self.text
 
 
+@with_author
+@with_timestamp
 class ProblemSet(models.Model):
     '''
     Represents a collections of problems. This can (optionally) be used at
@@ -76,7 +86,6 @@ class ProblemSet(models.Model):
         return u"ProblemSet for " + self.competition.__unicode__()
 
 
-@with_timestamp
 class ProblemCategory(models.Model):
     '''
     Represents a category of problems, like geometry or functional equations.
