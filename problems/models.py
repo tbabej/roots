@@ -52,7 +52,13 @@ class Problem(models.Model):
     Represents a problem.
     '''
 
-    text = models.CharField(max_length=1000)
+    def get_rating(self):
+        return self.rating.get_rating()
+    get_rating.short_description = 'Rating'
+
+    text = models.CharField(max_length=1000,
+                            help_text='The problem itself. Please insert it '
+                                      'in a valid TeX formatting.')
     rating = RatingField(range=5)
     severity = models.ForeignKey('problems.ProblemSeverity')
     category = models.ForeignKey('problems.ProblemCategory')
@@ -67,6 +73,32 @@ class Problem(models.Model):
 
     def __unicode__(self):
         return self.text
+
+
+# Reversion-enabled Admin for problems
+class ProblemAdmin(reversion.VersionAdmin):
+
+    list_display = ('text',
+                    'get_rating',
+                    'severity',
+                    'category',
+                    'competition',
+                    'author',
+                    )
+
+    list_filter = ('competition', 'severity', 'category')
+    search_fields = ['text']
+    readonly_fields = ('author', 'updated_by', 'added_at', 'modified_at')
+
+    fieldsets = (
+        (None, {
+            'fields': ('text', 'severity', 'category', 'competition')
+        }),
+        ('Details', {
+            'classes': ('grp-collapse', 'grp-closed'),
+            'fields': ('author', 'updated_by', 'added_at', 'modified_at')
+        }),
+    )
 
 
 @with_author
@@ -120,12 +152,6 @@ class ProblemSeverity(models.Model):
 
     def __unicode__(self):
         return unicode(self.level) + ' - ' + self.name
-
-
-# Reversion-enabled Admin for problems
-class ProblemAdmin(reversion.VersionAdmin):
-
-    pass
 
 
 # Register to the admin site
