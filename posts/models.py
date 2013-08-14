@@ -18,6 +18,10 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
+
 
 @with_author
 @with_timestamp

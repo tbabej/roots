@@ -24,6 +24,11 @@ class UserSolution(models.Model):
         return (self.user.__unicode__() + u":'s solution of " +
                 self.problem.__unicode__())
 
+    class Meta:
+        order_with_respect_to = 'problem'
+        verbose_name = 'User solution'
+        verbose_name_plural = 'User solutions'
+
 
 @with_author
 @with_timestamp
@@ -41,6 +46,11 @@ class OrgSolution(models.Model):
     def __unicode__(self):
         return (self.user.__unicode__() + u":'s ideal solution of " +
                 self.problem.__unicode__())
+
+    class Meta:
+        order_with_respect_to = 'problem'
+        verbose_name = 'Organizer solution'
+        verbose_name_plural = 'Organizer solutions'
 
 
 # Problem-related models
@@ -73,6 +83,10 @@ class Problem(models.Model):
 
     def __unicode__(self):
         return self.text
+
+    class Meta:
+        verbose_name = 'Problem'
+        verbose_name_plural = 'Problems'
 
 
 # Reversion-enabled Admin for problems
@@ -117,6 +131,10 @@ class ProblemSet(models.Model):
     def __unicode__(self):
         return u"ProblemSet for " + self.competition.__unicode__()
 
+    class Meta:
+        verbose_name = 'Set'
+        verbose_name_plural = 'Sets'
+
 
 class ProblemCategory(models.Model):
     '''
@@ -131,6 +149,11 @@ class ProblemCategory(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
 
 class ProblemSeverity(models.Model):
@@ -152,6 +175,11 @@ class ProblemSeverity(models.Model):
 
     def __unicode__(self):
         return unicode(self.level) + ' - ' + self.name
+
+    class Meta:
+        ordering = ['level']
+        verbose_name = 'Severity'
+        verbose_name_plural = 'Severities'
 
 
 # Register to the admin site

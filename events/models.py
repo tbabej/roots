@@ -34,6 +34,10 @@ class Event(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Event'
+        verbose_name_plural = 'Events'
+
 
 class EventUserRegistration(models.Model):
     """
@@ -47,6 +51,11 @@ class EventUserRegistration(models.Model):
     def __unicode__(self):
         return (self.user.__unicode__() + u" goes to " +
                self.event.__unicode__())
+
+    class Meta:
+        order_with_respect_to = 'event'
+        verbose_name = 'User registration'
+        verbose_name_plural = 'User registrations'
 
 
 class EventOrgRegistration(models.Model):
@@ -63,6 +72,11 @@ class EventOrgRegistration(models.Model):
     def __unicode__(self):
         return (self.user.__unicode__() + u" organizes " +
                self.event.__unicode__())
+
+    class Meta:
+        order_with_respect_to = 'event'
+        verbose_name = 'Organizer registration'
+        verbose_name_plural = 'Organizer registrations'
 
 
 class Camp(Event):
@@ -87,6 +101,10 @@ class Camp(Event):
 
     def __unicode__(self):
         return self.location
+
+    class Meta:
+        verbose_name = 'Camp'
+        verbose_name_plural = 'Camps'
 
 
 class CampUserInvitation(models.Model):
@@ -118,6 +136,12 @@ class CampUserInvitation(models.Model):
     # TODO: invitation should hold requirements on user profile contents
     #       e.g. to attend a camp one should have some sort of contact filled
     #       in the profile
+
+    class Meta:
+        order_with_respect_to = 'camp'
+        verbose_name = 'Camp invitation'
+        verbose_name_plural = 'Camp invitations'
+
 
 # Register to the admin site
 admin.site.register(Event)

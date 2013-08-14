@@ -74,6 +74,10 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.username + "'s user profile"
 
+    class Meta:
+        verbose_name = 'User profile'
+        verbose_name_plural = 'User profiles'
+
 
 class OrganizerProfile(models.Model):
     '''
@@ -106,6 +110,10 @@ class OrganizerProfile(models.Model):
 
     def __unicode__(self):
         return self.user.username + "'s organizer profile"
+
+    class Meta:
+        verbose_name = 'Organizer profile'
+        verbose_name_plural = 'Organizer profiles'
 
 
 # Register to the admin site

@@ -9,6 +9,7 @@ class Leaflet(models.Model):
 
     competition = models.ForeignKey('competitions.Competition')
     year = models.IntegerField()
+    issue = models.IntegerField()
 
     # Fields added via foreign keys:
 
@@ -19,6 +20,12 @@ class Leaflet(models.Model):
 
     def __unicode__(self):
         return u"Leaflet for " + self.competition.__unicode__()
+
+    class Meta:
+        ordering = ['competition', 'year', 'issue']
+        verbose_name = 'Leaflet'
+        verbose_name_plural = 'Leaflets'
+
 
 # Register to the admin site
 admin.site.register(Leaflet)

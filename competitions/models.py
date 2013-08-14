@@ -26,6 +26,11 @@ class Competition(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Competition'
+        verbose_name_plural = 'Competitions'
+
 
 class CompetitionUserRegistration(models.Model):
     """
@@ -40,6 +45,10 @@ class CompetitionUserRegistration(models.Model):
     def __unicode__(self):
         return (self.user.__unicode__() + u" competes in " +
                self.competition.__unicode__())
+
+    class Meta:
+        verbose_name = 'User registration'
+        verbose_name_plural = 'User registrations'
 
 
 class CompetitionOrgRegistration(models.Model):
@@ -57,6 +66,10 @@ class CompetitionOrgRegistration(models.Model):
     def __unicode__(self):
         return (self.user.__unicode__() + u" organizes " +
                self.competition.__unicode__())
+
+    class Meta:
+        verbose_name = 'Organizer registration'
+        verbose_name_plural = 'Organizer registration'
 
 
 class Season(models.Model):
@@ -80,6 +93,12 @@ class Season(models.Model):
                                number=self.number,
                                name=self.name,
                                )
+
+    class Meta:
+        ordering = ['competition', 'year', 'number']
+        verbose_name = 'Season'
+        verbose_name_plural = 'Seasons'
+
 
 # Register to the admin site
 admin.site.register(Competition)
