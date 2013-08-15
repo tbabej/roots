@@ -1,8 +1,11 @@
 from django.db import models
 from django.contrib import admin
+from base.util import with_timestamp, with_author
 
 
 # Event-related models
+@with_author
+@with_timestamp
 class Event(models.Model):
     """
     Event represents a simple event, that is opened to public. This can be
@@ -39,6 +42,7 @@ class Event(models.Model):
         verbose_name_plural = 'Events'
 
 
+@with_timestamp
 class EventUserRegistration(models.Model):
     """
     Represents a user's registration to the event.
@@ -46,7 +50,6 @@ class EventUserRegistration(models.Model):
 
     event = models.ForeignKey('events.Event')
     user = models.ForeignKey('auth.User')
-    timestamp = models.DateTimeField()
 
     def __unicode__(self):
         return (self.user.__unicode__() + u" goes to " +
@@ -58,6 +61,7 @@ class EventUserRegistration(models.Model):
         verbose_name_plural = 'User registrations'
 
 
+@with_timestamp
 class EventOrgRegistration(models.Model):
     """
     Represents a organizer's registration to the event. This is merely for them
@@ -67,7 +71,6 @@ class EventOrgRegistration(models.Model):
 
     event = models.ForeignKey('events.Event')
     organizer = models.ForeignKey('auth.User')
-    timestamp = models.DateTimeField()
 
     def __unicode__(self):
         return (self.user.__unicode__() + u" organizes " +
@@ -107,6 +110,7 @@ class Camp(Event):
         verbose_name_plural = 'Camps'
 
 
+@with_timestamp
 class CampUserInvitation(models.Model):
     """
     Represents an invitation to the given camp for the given user.

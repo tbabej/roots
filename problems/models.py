@@ -66,6 +66,17 @@ class Problem(models.Model):
         return self.rating.get_rating()
     get_rating.short_description = 'Rating'
 
+    def last_used_at(self):
+        max_time = None
+        last_used_at = None
+
+        for problemset in self.problemset_set.all():
+            if problemset.event.start_time:
+                if max_time is None or problemset.event.start_time > max_time:
+                    last_used_at = problemset.event
+
+        return last_used_at
+
     text = models.CharField(max_length=1000,
                             help_text='The problem itself. Please insert it '
                                       'in a valid TeX formatting.')
@@ -98,15 +109,21 @@ class ProblemAdmin(reversion.VersionAdmin):
                     'category',
                     'competition',
                     'author',
+                    'last_used_at',
                     )
 
     list_filter = ('competition', 'severity', 'category')
     search_fields = ['text']
-    readonly_fields = ('author', 'updated_by', 'added_at', 'modified_at')
+    readonly_fields = ('author', 'updated_by', 'added_at', 'modified_at',
+                       'last_used_at')
 
     fieldsets = (
         (None, {
             'fields': ('text', 'severity', 'category', 'competition')
+        }),
+        ('Usage statistics', {
+            'classes': ('grp-collapse', 'grp-opened'),
+            'fields': ('last_used_at', )
         }),
         ('Details', {
             'classes': ('grp-collapse', 'grp-closed'),
@@ -126,6 +143,7 @@ class ProblemSet(models.Model):
     competition = models.ForeignKey('competitions.Competition')
     leaflet = models.ForeignKey('leaflets.Leaflet',
                                 blank=True, null=True)
+    event = models.ForeignKey('events.Event', blank=True, null=True)
     problems = models.ManyToManyField(Problem)
 
     def __unicode__(self):
