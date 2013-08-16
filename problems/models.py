@@ -66,16 +66,33 @@ class Problem(models.Model):
         return self.rating.get_rating()
     get_rating.short_description = 'Rating'
 
+    def get_usages(self):
+        #FIXME: problemsets that have no event will not be displayed
+        sets = self.problemset_set.order_by('-event__start_time')\
+                                  .filter(event__isnull=False)
+
+        if sets.exists():
+            return sets
+        else:
+            return []
+
     def last_used_at(self):
-        max_time = None
-        last_used_at = None
+        usages = self.get_usages()
 
-        for problemset in self.problemset_set.all():
-            if problemset.event.start_time:
-                if max_time is None or problemset.event.start_time > max_time:
-                    last_used_at = problemset.event
+        if usages:
+            if usages[0].event:
+                return usages[0].event
 
-        return last_used_at
+    def last_five_usages(self):
+        usages = self.get_usages()[:5]
+
+        if usages:
+            return ', '.join([str(problemset.event) for problemset in usages])
+        else:
+            return ''
+
+    def times_used(self):
+        return len(self.get_usages())
 
     text = models.CharField(max_length=1000,
                             help_text='The problem itself. Please insert it '
@@ -110,12 +127,13 @@ class ProblemAdmin(reversion.VersionAdmin):
                     'competition',
                     'author',
                     'last_used_at',
+                    'times_used',
                     )
 
     list_filter = ('competition', 'severity', 'category')
     search_fields = ['text']
     readonly_fields = ('author', 'updated_by', 'added_at', 'modified_at',
-                       'last_used_at')
+                       'last_five_usages', 'times_used')
 
     fieldsets = (
         (None, {
@@ -123,7 +141,7 @@ class ProblemAdmin(reversion.VersionAdmin):
         }),
         ('Usage statistics', {
             'classes': ('grp-collapse', 'grp-opened'),
-            'fields': ('last_used_at', )
+            'fields': ('last_five_usages', 'times_used')
         }),
         ('Details', {
             'classes': ('grp-collapse', 'grp-closed'),
@@ -147,7 +165,10 @@ class ProblemSet(models.Model):
     problems = models.ManyToManyField(Problem)
 
     def __unicode__(self):
-        return u"ProblemSet for " + self.competition.__unicode__()
+        if self.event:
+            return u"ProblemSet for " + self.event.__unicode__()
+        else:
+            return u"ProblemSet for " + self.competition.__unicode__()
 
     class Meta:
         verbose_name = 'Set'
