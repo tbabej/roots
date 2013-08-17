@@ -50,3 +50,20 @@ def with_author(cls):
         cls.add_to_class(settings.AUTHOR_UPDATED_BY_FIELD_NAME, modified_by)
 
     return cls
+
+
+def admin_commentable(cls):
+    """
+    Adds a comments section to the change view,
+    """
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['model_object'] = self.model.objects.get(pk=object_id)
+        return super(cls, self).change_view(request,
+            object_id, form_url, extra_context=extra_context)
+
+    cls.change_form_template = 'admin/change_form_commentable.html'
+    cls.change_view = change_view
+
+    return cls

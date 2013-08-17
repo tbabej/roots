@@ -1,6 +1,6 @@
 import reversion
 
-from base.util import with_timestamp, with_author
+from base.util import with_timestamp, with_author, admin_commentable
 from django.contrib import admin
 from django.db import models
 from djangoratings.fields import RatingField
@@ -118,6 +118,7 @@ class Problem(models.Model):
 
 
 # Reversion-enabled Admin for problems
+@admin_commentable
 class ProblemAdmin(reversion.VersionAdmin):
 
     list_display = ('text',
@@ -175,6 +176,12 @@ class ProblemSet(models.Model):
         verbose_name_plural = 'Sets'
 
 
+@admin_commentable
+class ProblemSetAdmin(admin.ModelAdmin):
+
+    pass
+
+
 class ProblemCategory(models.Model):
     '''
     Represents a category of problems, like geometry or functional equations.
@@ -223,7 +230,7 @@ class ProblemSeverity(models.Model):
 
 # Register to the admin site
 admin.site.register(Problem, ProblemAdmin)
-admin.site.register(ProblemSet)
+admin.site.register(ProblemSet, ProblemSetAdmin)
 admin.site.register(UserSolution)
 admin.site.register(OrgSolution)
 admin.site.register(ProblemCategory)
