@@ -1,9 +1,8 @@
-import reversion
-
-from base.util import with_timestamp, with_author, admin_commentable
-from django.contrib import admin
+from base.util import with_timestamp, with_author
 from django.db import models
 from djangoratings.fields import RatingField
+
+from competitions.models import Competition
 
 
 # Solution-related models
@@ -117,40 +116,6 @@ class Problem(models.Model):
         verbose_name_plural = 'Problems'
 
 
-# Reversion-enabled Admin for problems
-@admin_commentable
-class ProblemAdmin(reversion.VersionAdmin):
-
-    list_display = ('text',
-                    'get_rating',
-                    'severity',
-                    'category',
-                    'competition',
-                    'author',
-                    'last_used_at',
-                    'times_used',
-                    )
-
-    list_filter = ('competition', 'severity', 'category')
-    search_fields = ['text']
-    readonly_fields = ('author', 'updated_by', 'added_at', 'modified_at',
-                       'last_five_usages', 'times_used')
-
-    fieldsets = (
-        (None, {
-            'fields': ('text', 'severity', 'category', 'competition')
-        }),
-        ('Usage statistics', {
-            'classes': ('grp-collapse', 'grp-opened'),
-            'fields': ('last_five_usages', 'times_used')
-        }),
-        ('Details', {
-            'classes': ('grp-collapse', 'grp-closed'),
-            'fields': ('author', 'updated_by', 'added_at', 'modified_at')
-        }),
-    )
-
-
 @with_author
 @with_timestamp
 class ProblemSet(models.Model):
@@ -159,27 +124,52 @@ class ProblemSet(models.Model):
     event or competition, which organizer should mark here.
     '''
 
+    name = models.CharField(max_length=100)
     competition = models.ForeignKey('competitions.Competition')
     leaflet = models.ForeignKey('leaflets.Leaflet',
                                 blank=True, null=True)
     event = models.ForeignKey('events.Event', blank=True, null=True)
     problems = models.ManyToManyField(Problem)
 
+    def average_severity(self):
+        problemset = self.problems.filter(competition=self.competition)
+        average = problemset.aggregate(
+                      models.Avg('severity__level'))['severity__level__avg']
+        return average
+
+    def average_severity_by_competition(self):
+        averages = dict()
+
+        for competition in Competition.objects.all():
+            problemset = self.problems.filter(competition=competition)
+            average = problemset.aggregate(
+                          models.Avg('severity__level'))['severity__level__avg']
+
+            if average:
+                key = unicode(competition)
+                averages[key] = average
+
+        return averages
+
     def __unicode__(self):
-        if self.event:
-            return u"ProblemSet for " + self.event.__unicode__()
-        else:
-            return u"ProblemSet for " + self.competition.__unicode__()
+        return self.name
+
+    def get_problem_count(self):
+        return self.problems.count()
+    get_problem_count.short_description = "Problems"
+
+    def get_average_severity_by_competition(self):
+        averages = self.average_severity_by_competition()
+        reports = []
+        for competition, average in averages.iteritems():
+            reports.append("%s (%s)" % (competition, average))
+
+        return ', '.join(reports)
+    get_average_severity_by_competition.short_description = "Average difficulty"
 
     class Meta:
         verbose_name = 'Set'
         verbose_name_plural = 'Sets'
-
-
-@admin_commentable
-class ProblemSetAdmin(admin.ModelAdmin):
-
-    pass
 
 
 class ProblemCategory(models.Model):
@@ -226,12 +216,3 @@ class ProblemSeverity(models.Model):
         ordering = ['level']
         verbose_name = 'Severity'
         verbose_name_plural = 'Severities'
-
-
-# Register to the admin site
-admin.site.register(Problem, ProblemAdmin)
-admin.site.register(ProblemSet, ProblemSetAdmin)
-admin.site.register(UserSolution)
-admin.site.register(OrgSolution)
-admin.site.register(ProblemCategory)
-admin.site.register(ProblemSeverity)
