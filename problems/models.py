@@ -93,8 +93,7 @@ class Problem(models.Model):
     def times_used(self):
         return len(self.get_usages())
 
-    text = models.CharField(max_length=1000,
-                            help_text='The problem itself. Please insert it '
+    text = models.TextField(help_text='The problem itself. Please insert it '
                                       'in a valid TeX formatting.')
     rating = RatingField(range=5)
     severity = models.ForeignKey('problems.ProblemSeverity')
