@@ -1,15 +1,18 @@
-<div>
-  <strong>Menu:</strong>
-  <ul>
-    <li><a href="{% url 'posts_post_list' %}">Look at the posts</a></li>
-    <li><a href="{% url 'problems_problem_list' %}">Try your luck with our problems</a></li>
-    <li><a href="{% url 'competitions_competition_register' %}">Register to one of our competitions</a></li>
-    {% if user.is_authenticated %}
-    <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-    <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-    {% else %}
-    <li><a href="{% url 'account_login' %}">Sign In</a></li>
-    <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-    {% endif %}
-  </ul>
-</div>
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li class="nav-header">Actions</li>
+            <li class="active"><a href="#">Link</a></li>
+            <li><a href="{% url 'posts_post_list' %}">Look at the posts</a></li>
+            <li><a href="{% url 'problems_problem_list' %}">Try your luck with our problems</a></li>
+            <li><a href="{% url 'pl-photologue-root' %}">Browse through our galleries</a></li>
+            <li><a href="{% url 'competitions_competition_register' %}">Register to one of our competitions</a></li>
+        <li class="nav-header">Account stuff</li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+            <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+            {% else %}
+            <li><a href="{% url 'account_login' %}">Sign In</a></li>
+            <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+            {% endif %}
+    </ul>
+</div><!--/.well -->

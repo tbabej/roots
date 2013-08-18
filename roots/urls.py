@@ -27,5 +27,5 @@ urlpatterns = patterns('',
     url(r'^problems/', include('problems.urls')),
     url(r'^posts/', include('posts.urls')),
     url(r'^photos/', include('photologue.urls')),
-    url(r'^$', IndexView.as_view()),
+    url(r'^$', IndexView.as_view(), name='roots_index'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
