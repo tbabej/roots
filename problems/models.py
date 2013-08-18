@@ -116,6 +116,55 @@ class Problem(models.Model):
         verbose_name_plural = 'Problems'
 
 
+class ProblemInSet(models.Model):
+
+    problem = models.ForeignKey('problems.Problem')
+    problemset = models.ForeignKey('problems.ProblemSet')
+    position = models.PositiveSmallIntegerField("Position")
+
+    def get_rating(self):
+        return self.problem.get_rating()
+
+    def get_usages(self):
+        return self.problem.get_usages()
+
+    def last_used_at(self):
+        return self.problem.last_used_at()
+
+    def last_five_usages(self):
+        return self.problem.last_five_usages()
+
+    def times_used(self):
+        return self.problem.times_used()
+
+    def get_category(self):
+        return self.problem.category
+
+    def get_severity(self):
+        return self.problem.severity
+
+    def get_competition(self):
+        return self.problem.competition
+
+    get_rating.short_description = 'Rating'
+    get_usages.short_description = 'Usages'
+    last_used_at.short_description = 'Last used at'
+    last_five_usages.short_description = 'Last five usages'
+    times_used.short_description = 'Times used'
+    get_category.short_description = 'Category'
+    get_severity.short_description = 'Severity'
+    get_competition.short_description = 'Competition'
+
+    def __unicode__(self):
+        return self.problem.__unicode__()
+
+    class Meta:
+        verbose_name = 'Problem'
+        verbose_name_plural = 'Problems'
+        ordering = ['position']
+        unique_together = ['problem', 'problemset']
+
+
 @with_author
 @with_timestamp
 class ProblemSet(models.Model):
@@ -129,7 +178,7 @@ class ProblemSet(models.Model):
     leaflet = models.ForeignKey('leaflets.Leaflet',
                                 blank=True, null=True)
     event = models.ForeignKey('events.Event', blank=True, null=True)
-    problems = models.ManyToManyField(Problem)
+    problems = models.ManyToManyField(Problem, through='problems.ProblemInSet')
 
     def average_severity(self):
         problemset = self.problems.filter(competition=self.competition)

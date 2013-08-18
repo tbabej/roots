@@ -4,8 +4,8 @@ from django.contrib import admin
 from base.admin import PrettyFilterAdmin
 from base.util import admin_commentable
 
-from models import Problem, ProblemSet, ProblemSeverity, ProblemCategory
-from models import UserSolution, OrgSolution
+from models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
+                    UserSolution, OrgSolution, ProblemInSet)
 
 
 # Reversion-enabled Admin for problems
@@ -40,6 +40,21 @@ class ProblemAdmin(PrettyFilterAdmin, VersionAdmin):
             'fields': ('author', 'updated_by', 'added_at', 'modified_at')
         }),
     )
+
+
+class ProblemInSetInline(admin.StackedInline):
+
+    model = ProblemInSet
+    fields = ('position', 'problem',
+              'get_competition', 'get_category', 'get_severity', 'times_used',
+              'last_used_at')
+    readonly_fields = ('get_competition', 'get_category', 'get_severity',
+                       'times_used', 'last_used_at')
+    raw_id_fields = ('problem', )
+    verbose_name = 'Problem'
+    verbose_name_plural = 'Problems'
+    sortable_field_name = "position"
+    extra = 0
 
 
 class AverageSeverityAboveListFilter(admin.SimpleListFilter):
@@ -80,13 +95,13 @@ class ProblemSetAdmin(PrettyFilterAdmin, VersionAdmin):
     search_fields = ['name', 'event']
     readonly_fields = ('author', 'updated_by', 'added_at', 'modified_at',
                        'get_average_severity_by_competition')
-    filter_horizontal = ('problems', )
 
     ordering = ('modified_at', )
+    inlines = [ProblemInSetInline, ]
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'competition', 'leaflet', 'event', 'problems',
+            'fields': ('name', 'competition', 'leaflet', 'event',
                        'get_average_severity_by_competition')
         }),
         ('Details', {
