@@ -2,9 +2,13 @@
 
 {% block content %}
     <h2>Posts</h2>
-    <ul>
-        {% for post in posts %}
-            <li>{{ post.title }}</li>
-        {% endfor %}
-    </ul>
+    {% for post in posts %}
+    <h3>{{ post.title }}</h3>
+    {% autoescape off %}
+    {{ post.text }}
+    {% endautoescape %}
+    <br/>
+    {{ post.author }} - {{ post.added_at}}
+    <br/>
+    {% endfor %}
 {% endblock %}
