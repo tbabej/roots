@@ -1,5 +1,7 @@
 from reversion import VersionAdmin
 from django.contrib import admin
+
+from base.admin import PrettyFilterAdmin
 from base.util import admin_commentable
 
 from models import Problem, ProblemSet, ProblemSeverity, ProblemCategory
@@ -8,7 +10,7 @@ from models import UserSolution, OrgSolution
 
 # Reversion-enabled Admin for problems
 @admin_commentable
-class ProblemAdmin(VersionAdmin):
+class ProblemAdmin(PrettyFilterAdmin, VersionAdmin):
 
     list_display = ('text',
                     'get_rating',
@@ -41,8 +43,8 @@ class ProblemAdmin(VersionAdmin):
 
 
 class AverageSeverityAboveListFilter(admin.SimpleListFilter):
-    title = 'Severity above'
-    parameter_name = 'severity_above'
+    title = 'Difficulty above'
+    parameter_name = 'difficulty_above'
 
     def lookups(self, request, model_admin):
         severities = ProblemSeverity.objects.all()
@@ -65,7 +67,7 @@ class AverageSeverityAboveListFilter(admin.SimpleListFilter):
 
 
 @admin_commentable
-class ProblemSetAdmin(VersionAdmin):
+class ProblemSetAdmin(PrettyFilterAdmin, VersionAdmin):
 
     list_display = ('name',
                     'competition',
