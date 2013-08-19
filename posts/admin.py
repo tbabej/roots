@@ -13,13 +13,13 @@ class PostAdmin(PrettyFilterAdmin, VersionAdmin):
 
     list_display = ('title',
                     'competition',
-                    'author',
+                    'added_by',
                     'added_at',
                     )
 
-    list_filter = ('competition', 'added_at', 'author')
+    list_filter = ('competition', 'added_at', 'added_by')
     search_fields = ['text', 'title']
-    readonly_fields = ('author', 'updated_by', 'added_at', 'modified_at')
+    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
     fieldsets = (
         (None, {
@@ -27,7 +27,7 @@ class PostAdmin(PrettyFilterAdmin, VersionAdmin):
         }),
         ('Details', {
             'classes': ('grp-collapse', 'grp-closed'),
-            'fields': ('author', 'updated_by', 'added_at', 'modified_at')
+            'fields': ('added_by', 'modified_by', 'added_at', 'modified_at')
         }),
     )
 

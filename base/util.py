@@ -32,16 +32,16 @@ def with_author(cls):
 
     created_by = models.ForeignKey(user_model,
                                    related_name='%s_created' % cls_name,
-                                   verbose_name=_('author'),
-                                   blank=True,
+                                   verbose_name='author',
                                    null=True,
+                                   blank=True,
                                    editable=False)
 
     modified_by = models.ForeignKey(user_model,
                                     related_name='%s_modified' % cls_name,
-                                    verbose_name=_('last_modified_by'),
-                                    blank=True,
+                                    verbose_name='last modified by',
                                     null=True,
+                                    blank=True,
                                     editable=False)
 
     if not hasattr(cls, settings.AUTHOR_CREATED_BY_FIELD_NAME):
@@ -65,5 +65,21 @@ def admin_commentable(cls):
 
     cls.change_form_template = 'admin/change_form_commentable.html'
     cls.change_view = change_view
+
+    return cls
+
+
+def editonly_fieldsets(cls):
+    """
+    Hides edit-only fieldsets when adding a new object.
+    """
+
+    def get_fieldsets(self, request, obj=None):
+        if obj and hasattr(cls, 'editonly_fieldsets'):
+            return cls.fieldsets + cls.editonly_fieldsets
+        else:
+            return cls.fieldsets
+
+    cls.get_fieldsets = get_fieldsets
 
     return cls

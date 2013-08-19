@@ -2,7 +2,7 @@ from reversion import VersionAdmin
 from django.contrib import admin
 
 from base.admin import PrettyFilterAdmin
-from base.util import admin_commentable
+from base.util import admin_commentable, editonly_fieldsets
 
 from models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
                     UserSolution, OrgSolution, ProblemInSet)
@@ -10,6 +10,7 @@ from models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
 
 # Reversion-enabled Admin for problems
 @admin_commentable
+@editonly_fieldsets
 class ProblemAdmin(PrettyFilterAdmin, VersionAdmin):
 
     list_display = ('text',
@@ -17,27 +18,30 @@ class ProblemAdmin(PrettyFilterAdmin, VersionAdmin):
                     'severity',
                     'category',
                     'competition',
-                    'author',
+                    'added_by',
                     'last_used_at',
                     'times_used',
                     )
 
     list_filter = ('competition', 'severity', 'category')
     search_fields = ['text']
-    readonly_fields = ('author', 'updated_by', 'added_at', 'modified_at',
+    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at',
                        'last_five_usages', 'times_used')
 
     fieldsets = (
         (None, {
             'fields': ('text', 'severity', 'category', 'competition')
         }),
+    )
+
+    editonly_fieldsets = (
         ('Usage statistics', {
             'classes': ('grp-collapse', 'grp-opened'),
             'fields': ('last_five_usages', 'times_used')
         }),
         ('Details', {
             'classes': ('grp-collapse', 'grp-closed'),
-            'fields': ('author', 'updated_by', 'added_at', 'modified_at')
+            'fields': ('added_by', 'modified_by', 'added_at', 'modified_at')
         }),
     )
 
@@ -82,6 +86,7 @@ class AverageSeverityAboveListFilter(admin.SimpleListFilter):
 
 
 @admin_commentable
+@editonly_fieldsets
 class ProblemSetAdmin(PrettyFilterAdmin, VersionAdmin):
 
     list_display = ('name',
@@ -93,7 +98,7 @@ class ProblemSetAdmin(PrettyFilterAdmin, VersionAdmin):
 
     list_filter = ('competition', 'event', AverageSeverityAboveListFilter)
     search_fields = ['name', 'event']
-    readonly_fields = ('author', 'updated_by', 'added_at', 'modified_at',
+    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at',
                        'get_average_severity_by_competition')
 
     ordering = ('modified_at', )
@@ -104,9 +109,12 @@ class ProblemSetAdmin(PrettyFilterAdmin, VersionAdmin):
             'fields': ('name', 'competition', 'leaflet', 'event',
                        'get_average_severity_by_competition')
         }),
+    )
+
+    editonly_fieldsets = (
         ('Details', {
             'classes': ('grp-collapse', 'grp-closed'),
-            'fields': ('author', 'updated_by', 'added_at', 'modified_at')
+            'fields': ('added_by', 'modified_by', 'added_at', 'modified_at')
         }),
     )
 
