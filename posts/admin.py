@@ -2,13 +2,14 @@ from reversion import VersionAdmin
 from django.contrib import admin
 
 from base.admin import PrettyFilterAdmin
-from base.util import admin_commentable
+from base.util import admin_commentable, editonly_fieldsets
 
 from models import Post
 
 
 # Reversion-enabled Admin for problems
 @admin_commentable
+@editonly_fieldsets
 class PostAdmin(PrettyFilterAdmin, VersionAdmin):
 
     list_display = ('title',
@@ -25,6 +26,9 @@ class PostAdmin(PrettyFilterAdmin, VersionAdmin):
         (None, {
             'fields': ('title', 'competition', 'text')
         }),
+    )
+
+    editonly_fieldsets = (
         ('Details', {
             'classes': ('grp-collapse', 'grp-closed'),
             'fields': ('added_by', 'modified_by', 'added_at', 'modified_at')
