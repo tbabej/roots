@@ -27,24 +27,25 @@ class UserProfile(models.Model):
     user = models.OneToOneField('auth.User')
 
     # personal info
-    date_of_birth = models.DateTimeField(blank=True)
-    sex = models.CharField(max_length=1, blank=True, choices=(('M', 'male'),
-                                                              ('F', 'female')))
-    social_security_number = models.CharField(max_length=11, blank=True)
-    state_id_number = models.CharField(max_length=8, blank=True)
+    date_of_birth = models.DateTimeField(blank=True, null=True)
+    sex = models.CharField(max_length=1, blank=True, null=True,
+                           choices=(('M', 'male'), ('F', 'female')))
+    social_security_number = models.CharField(max_length=11, blank=True,
+                                              null=True)
+    state_id_number = models.CharField(max_length=8, blank=True, null=True)
 
     competes = models.ManyToManyField('competitions.Competition',
                     through='competitions.CompetitionUserRegistration')
 
     # address information
-    phone_number = models.CharField(max_length=30, blank=True)
-    parent_phone_number = models.CharField(max_length=30, blank=True)
-    address = models.ForeignKey('schools.Address')
+    phone_number = models.CharField(max_length=30, blank=True, null=True)
+    parent_phone_number = models.CharField(max_length=30, blank=True, null=True)
+    address = models.ForeignKey('schools.Address', blank=True, null=True)
 
     # school related info
-    school = models.ForeignKey('schools.School', blank=True)
-    school_class = models.CharField(max_length=20, blank=True)
-    classlevel = models.CharField(max_length=2, blank=True,
+    school = models.ForeignKey('schools.School', blank=True, null=True)
+    school_class = models.CharField(max_length=20, blank=True, null=True)
+    classlevel = models.CharField(max_length=2, blank=True, null=True,
                                   choices=(('Z2', 'Z2'),
                                            ('Z3', 'Z3'),
                                            ('Z4', 'Z4'),
@@ -87,7 +88,7 @@ class OrganizerProfile(models.Model):
     '''
 
     user = models.OneToOneField('auth.User')
-    motto = models.CharField(max_length=250)
+    motto = models.CharField(max_length=250, blank=True, null=True)
 
     # TODO: there are 2 data descriptors added via many-to-many relationship
     #       in this case it's organized_event_set (custom name due to
