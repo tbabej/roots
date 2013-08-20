@@ -72,6 +72,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'author.middlewares.AuthorDefaultBackendMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -136,6 +137,8 @@ INSTALLED_APPS = (
     'reversion',
     # Use django-photologue
     'photologue',
+    # Use django-debug-toolbar
+    'debug_toolbar',
 )
 
 # A sample logging configuration. The only tangible logging
