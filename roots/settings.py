@@ -185,3 +185,13 @@ AUTHOR_UPDATED_BY_FIELD_NAME = 'modified_by'
 # Remove (None) values from the Admin
 from django.contrib.admin.views import main
 main.EMPTY_CHANGELIST_VALUE = u''
+
+# Set the message tags as classes in Bootstrap
+from django.contrib.messages import constants as message_constants
+MESSAGE_TAGS = {
+        message_constants.DEBUG: 'alert-info',
+        message_constants.INFO: 'alert-info',
+        message_constants.SUCCESS: 'alert-success',
+        message_constants.WARNING: 'alert-warning',
+        message_constants.ERROR: 'alert-danger',
+    }
