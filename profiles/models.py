@@ -39,7 +39,8 @@ class UserProfile(models.Model):
     state_id_number = models.CharField(max_length=8, blank=True, null=True)
 
     competes = models.ManyToManyField('competitions.Competition',
-                    through='competitions.CompetitionUserRegistration')
+                    through='competitions.CompetitionUserRegistration',
+                    blank=True)
 
     # address information
     phone_number = models.CharField(max_length=30, blank=True, null=True)

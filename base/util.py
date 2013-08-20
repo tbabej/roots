@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import ugettext_lazy as _
-
+from django.utils.decorators import method_decorator
 
 def with_timestamp(cls):
     """Decorator to add added/modified field to particular model"""
@@ -83,3 +83,18 @@ def editonly_fieldsets(cls):
     cls.get_fieldsets = get_fieldsets
 
     return cls
+
+
+def class_view_decorator(function_decorator):
+    """Convert a function based decorator into a class based decorator usable
+    on class based Views.
+
+    Can't subclass the `View` as it breaks inheritance (super in particular),
+    so we monkey-patch instead.
+    """
+
+    def simple_decorator(View):
+        View.dispatch = method_decorator(function_decorator)(View.dispatch)
+        return View
+
+    return simple_decorator
