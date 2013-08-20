@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<h1>Update your profile</h1>
+
+<form method="post" action="">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.label_tag }} {{ field }} {{field.errors}}
+        {% endfor %}
+<input type="submit" value="submit">
+</form>
+{% endblock %}

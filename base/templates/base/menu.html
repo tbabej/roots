@@ -8,6 +8,7 @@
             <li><a href="{% url 'competitions_competition_register' %}">Register to one of our competitions</a></li>
         <li class="nav-header">Account stuff</li>
             {% if user.is_authenticated %}
+            <li><a href="{% url 'profiles_userprofile_update' %}">Update your profile</a></li>
             <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
             <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
             {% else %}
