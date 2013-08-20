@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib import admin
+from django.contrib.auth.models import User
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 # User-related models
@@ -115,6 +119,13 @@ class OrganizerProfile(models.Model):
     class Meta:
         verbose_name = 'Organizer profile'
         verbose_name_plural = 'Organizer profiles'
+
+
+@receiver(post_save)
+def assign_user_profile(sender, **kwargs):
+    if sender == User and kwargs['created'] is True:
+        profile = UserProfile(user=kwargs['instance'])
+        profile.save()
 
 
 # Register to the admin site
