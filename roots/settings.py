@@ -195,3 +195,7 @@ MESSAGE_TAGS = {
         message_constants.WARNING: 'alert-warning',
         message_constants.ERROR: 'alert-danger',
     }
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    }
