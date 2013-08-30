@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib import admin
 from base.util import with_timestamp, with_author
 
 
@@ -17,6 +16,7 @@ class Event(models.Model):
 
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
+    description = models.CharField(max_length=500)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
@@ -37,7 +37,16 @@ class Event(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_num_users(self):
+        return self.registered_user.count()
+    get_num_users.short_description = 'Users attending:'
+
+    def get_num_orgs(self):
+        return self.registered_org.count()
+    get_num_orgs.short_description = 'Organizers attending:'
+
     class Meta:
+        ordering = ['start_time', 'end_time']
         verbose_name = 'Event'
         verbose_name_plural = 'Events'
 
@@ -82,6 +91,8 @@ class EventOrgRegistration(models.Model):
         verbose_name_plural = 'Organizer registrations'
 
 
+@with_author
+@with_timestamp
 class Camp(Event):
     """
     This class is called Camp from historical reasons. It is supposed to model
@@ -96,14 +107,35 @@ class Camp(Event):
 
     invited = models.ManyToManyField('auth.User',
                                      through='events.CampUserInvitation')
-    invitation_deadline = models.DateTimeField()
+    invitation_deadline = models.DateTimeField(blank=True, null=True)
+    limit = models.IntegerField(blank=True, null=True)
+    season = models.ForeignKey('competitions.Season', blank=True, null=True)
 
     # Fields added via inheritance:
 
     #  event_ptr
 
-    def __unicode__(self):
-        return self.location
+    def get_num_users_invited(self):
+        return self.invited.count()
+    get_num_users_invited.short_description = "Number of invited users"
+
+    def get_users_signed(self):
+        return (self.invited
+                .filter(campuserinvitation__user_accepted=True)
+            )
+
+    def get_num_users_signed(self):
+        return self.get_users_signed().count()
+    get_num_users_signed.short_description = "Number of users that signed"
+
+    def get_users_accepted(self):
+        return (self.get_users_signed()
+            .filter(campuserinvitation__org_accepted=True)
+            )
+
+    def get_num_users_accepted(self):
+        return self.get_users_accepted().count()
+    get_num_users_accepted.short_description = "Number of users were accepted"
 
     class Meta:
         verbose_name = 'Camp'
@@ -132,6 +164,7 @@ class CampUserInvitation(models.Model):
     order = models.IntegerField()
     user_accepted = models.BooleanField(default=False)
     user_accepted_timestamp = models.DateTimeField()
+    org_accepted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return (self.user.__unicode__() + u' was invited to '
@@ -145,10 +178,3 @@ class CampUserInvitation(models.Model):
         order_with_respect_to = 'camp'
         verbose_name = 'Camp invitation'
         verbose_name_plural = 'Camp invitations'
-
-
-# Register to the admin site
-admin.site.register(Event)
-admin.site.register(EventUserRegistration)
-admin.site.register(EventOrgRegistration)
-admin.site.register(Camp)
