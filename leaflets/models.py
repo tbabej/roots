@@ -1,7 +1,4 @@
-import reversion
-
 from django.db import models
-from django.contrib import admin
 
 
 class Leaflet(models.Model):
@@ -37,15 +34,3 @@ class Leaflet(models.Model):
         ordering = ['competition', '-year', 'issue']
         verbose_name = 'Leaflet'
         verbose_name_plural = 'Leaflets'
-
-
-class LeafletAdmin(reversion.VersionAdmin):
-
-    list_display = ('competition',
-                    'year',
-                    'issue',
-                    )
-
-
-# Register to the admin site
-admin.site.register(Leaflet, LeafletAdmin)
