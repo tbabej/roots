@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load account %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,7 +52,7 @@
           </div><!--/.nav-collapse -->
           <div class="navbar-text pull-right">
               {% if user.is_authenticated %}
-              Logged in as {{user.first_name}} {{user.last_name}} ({{user.username}}).
+              Logged in as {% user_display user %}.
               {% else %}
               You are not logged in.
               {% endif %}
