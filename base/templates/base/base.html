@@ -51,7 +51,7 @@
           </div><!--/.nav-collapse -->
           <div class="navbar-text pull-right">
               {% if user.is_authenticated %}
-              Logged in as {{user.firstname}} {{user.lastname}} ({{user.username}}).
+              Logged in as {{user.first_name}} {{user.last_name}} ({{user.username}}).
               {% else %}
               You are not logged in.
               {% endif %}
