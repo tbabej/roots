@@ -199,3 +199,6 @@ MESSAGE_TAGS = {
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     }
+
+# Require email address at sign up
+ACCOUNT_EMAIL_REQUIRED = True
