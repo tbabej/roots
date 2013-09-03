@@ -1,12 +1,17 @@
 from django.db import models
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from base import util
+
 
 class Leaflet(models.Model):
     '''
     Represents a given (generated) leaflet.
     '''
 
-    def generate_name(self, filename):
+    def generate_name(self, *args):
         return "leaflets/{competition}-{year}-{issue}.pdf"\
                .format(competition=self.competition,
                        year=self.year,
@@ -34,3 +39,16 @@ class Leaflet(models.Model):
         ordering = ['competition', '-year', 'issue']
         verbose_name = 'Leaflet'
         verbose_name_plural = 'Leaflets'
+
+
+@receiver(post_save)
+def generate_leaflet_thumbnail(sender, instance, created, **kwargs):
+    if sender == Leaflet and created:
+        source_path = instance.generate_name(None)
+        dest_path = source_path.replace('leaflets/', 'leaflets/thumbnails/')\
+                               .replace('.pdf', '.jpg')
+
+        util.generate_pdf_thumbnail(source=source_path,
+                                    destination=dest_path,
+                                    height=297,
+                                    width=210)

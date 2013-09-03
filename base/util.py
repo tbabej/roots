@@ -4,6 +4,10 @@ from django.db import models
 from django.utils.text import ugettext_lazy as _
 from django.utils.decorators import method_decorator
 
+from wand.image import Image
+from wand.color import Color
+
+
 def with_timestamp(cls):
     """Decorator to add added/modified field to particular model"""
 
@@ -98,3 +102,15 @@ def class_view_decorator(function_decorator):
         return View
 
     return simple_decorator
+
+
+def generate_pdf_thumbnail(source, destination, width, height):
+
+    source = settings.MEDIA_ROOT + source + '[0]'
+    destination = settings.MEDIA_ROOT + destination
+
+    with Image(filename=source) as img:
+        img.alpha_channel = False
+        img.background_color = Color('white')
+        img.resize(width, height)
+        img.save(filename=destination)
