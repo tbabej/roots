@@ -1,6 +1,6 @@
 from django.db import models
 
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_delete, post_save
 from django.dispatch import receiver
 
 from base import util
@@ -11,11 +11,11 @@ class Leaflet(models.Model):
     Represents a given (generated) leaflet.
     '''
 
-    def generate_name(self, *args):
-        return "leaflets/{competition}-{year}-{issue}.pdf"\
-               .format(competition=self.competition,
-                       year=self.year,
-                       issue=self.issue)
+    def get_leaflet_path(self, *args):
+        return "leaflets/{name}.pdf".format(name=unicode(self))
+
+    def get_thumbnail_path(self):
+        return "leaflets/thumbnails/{name}.jpg".format(name=unicode(self))
 
     def __unicode__(self):
         return "{competition}-{year}-{issue}"\
@@ -26,7 +26,7 @@ class Leaflet(models.Model):
     competition = models.ForeignKey('competitions.Competition')
     year = models.IntegerField()
     issue = models.IntegerField()
-    leaflet = models.FileField(upload_to=generate_name)
+    leaflet = models.FileField(upload_to=get_leaflet_path)
 
     # Fields added via foreign keys:
 
@@ -44,9 +44,8 @@ class Leaflet(models.Model):
 @receiver(post_save)
 def generate_leaflet_thumbnail(sender, instance, created, **kwargs):
     if sender == Leaflet and created:
-        source_path = instance.generate_name(None)
-        dest_path = source_path.replace('leaflets/', 'leaflets/thumbnails/')\
-                               .replace('.pdf', '.jpg')
+        source_path = instance.get_leaflet_path()
+        dest_path = instance.get_thumbnail_path()
 
         util.generate_pdf_thumbnail(source=source_path,
                                     destination=dest_path,
