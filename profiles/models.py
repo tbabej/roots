@@ -121,8 +121,8 @@ class OrganizerProfile(models.Model):
         verbose_name_plural = 'Organizer profiles'
 
 
-@receiver(post_save)
-def assign_user_profile(sender, **kwargs):
-    if sender == User and kwargs['created'] is True:
-        profile = UserProfile(user=kwargs['instance'])
+@receiver(post_save, sender=User)
+def assign_user_profile(sender, instance, created, **kwargs):
+    if created:
+        profile = UserProfile(user=instance)
         profile.save()

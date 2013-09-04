@@ -41,9 +41,9 @@ class Leaflet(models.Model):
         verbose_name_plural = 'Leaflets'
 
 
-@receiver(post_save)
+@receiver(post_save, sender=Leaflet)
 def generate_leaflet_thumbnail(sender, instance, created, **kwargs):
-    if sender == Leaflet and created:
+    if created:
         source_path = instance.get_leaflet_path()
         dest_path = instance.get_thumbnail_path()
 
