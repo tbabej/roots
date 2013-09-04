@@ -1,0 +1,11 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    <h2>Leaflets</h2>
+    {% for leaflet in leaflets %}
+    <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}"">
+        <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" />
+    </a>
+    <br/>
+    {% endfor %}
+{% endblock %}
