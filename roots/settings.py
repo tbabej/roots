@@ -1,4 +1,4 @@
-from unipath import Path
+import os
 
 from local_settings import *
 
@@ -205,20 +205,21 @@ DEBUG_TOOLBAR_CONFIG = {
 # Require email address at sign up
 ACCOUNT_EMAIL_REQUIRED = True
 
-
-PROJECT_ROOT = Path().ancestor(1)
+# Get the projet root
+path_parts = os.path.dirname(os.path.realpath(__file__)).split('/')[:-1]
+PROJECT_ROOT = '/'.join(path_parts) + '/'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or
     # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    PROJECT_ROOT.child('templates'),
+    PROJECT_ROOT + 'templates/',
 )
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = PROJECT_ROOT.child('media')
+MEDIA_ROOT = PROJECT_ROOT + 'media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -229,7 +230,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = PROJECT_ROOT.child('static')
+STATIC_ROOT = PROJECT_ROOT + 'static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
