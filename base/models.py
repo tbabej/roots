@@ -15,7 +15,9 @@ class MediaRemovalMixin(object):
 
     def delete(self):
         for media_file in self.get_media_files():
-            path = settings.PROJECT_ROOT.child(media_file)
-            os.remove(path)
+            path = settings.PROJECT_ROOT + media_file
+
+            if os.path.exists(path):
+                os.remove(path)
 
         return super(MediaRemovalMixin, self).delete()

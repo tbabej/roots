@@ -1,12 +1,13 @@
 from django.db import models
 
-from django.db.models.signals import pre_delete, post_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from base import util
+from base.models import MediaRemovalMixin
 
 
-class Leaflet(models.Model):
+class Leaflet(MediaRemovalMixin, models.Model):
     '''
     Represents a given (generated) leaflet.
     '''
@@ -16,6 +17,9 @@ class Leaflet(models.Model):
 
     def get_thumbnail_path(self):
         return "leaflets/thumbnails/{name}.jpg".format(name=unicode(self))
+
+    def get_media_files(self):
+        return [self.get_leaflet_path(), self.get_thumbnail_path()]
 
     def __unicode__(self):
         return "{competition}-{year}-{issue}"\
