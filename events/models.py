@@ -85,7 +85,7 @@ class Event(models.Model):
         super(Event, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ['start_time', 'end_time']
+        ordering = ['-start_time', 'end_time']
         verbose_name = 'Event'
         verbose_name_plural = 'Events'
 
