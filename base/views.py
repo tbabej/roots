@@ -1,7 +1,8 @@
 # Create your views here.
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, RedirectView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse_lazy
 
 
 class BaseView(TemplateView):
@@ -26,3 +27,17 @@ class SecureBaseView(BaseView):
 class IndexView(TemplateView):
 
     template_name = "base/index.html"
+
+
+class RedirectBackView(RedirectView):
+
+    default_return_view = None
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        if self.default_return_view:
+            default_url = reverse_lazy(self.default_return_view)
+        else:
+            default_url = '/'
+
+        return self.request.META.get('HTTP_REFERER', default_url)
