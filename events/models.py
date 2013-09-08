@@ -105,6 +105,7 @@ class EventUserRegistration(models.Model):
 
     class Meta:
         order_with_respect_to = 'event'
+        unique_together = ('event', 'user')
         verbose_name = 'User registration'
         verbose_name_plural = 'User registrations'
 
@@ -126,6 +127,7 @@ class EventOrgRegistration(models.Model):
 
     class Meta:
         order_with_respect_to = 'event'
+        unique_together = ('event', 'organizer')
         verbose_name = 'Organizer registration'
         verbose_name_plural = 'Organizer registrations'
 
