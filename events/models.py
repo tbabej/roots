@@ -1,4 +1,10 @@
+from datetime import datetime
+
 from django.db import models
+from django.core.validators import MaxValueValidator
+from django.core.exceptions import ValidationError
+from django.utils.timezone import now
+
 from base.util import with_timestamp, with_author
 
 
@@ -19,6 +25,11 @@ class Event(models.Model):
     description = models.CharField(max_length=500)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    registration_end_time = models.DateTimeField(
+                                blank=True,
+                                null=True,  # default is set in save() method
+                                validators=[MaxValueValidator(start_time)],
+                                )
 
     registered_user = models.ManyToManyField('auth.User',
                                              through='EventUserRegistration')
@@ -44,6 +55,34 @@ class Event(models.Model):
     def get_num_orgs(self):
         return self.registered_org.count()
     get_num_orgs.short_description = 'Organizers attending:'
+
+    def started(self):
+        return self.start_time < now()
+
+    def ended(self):
+        return self.end_time < now()
+
+    def registration_open(self):
+        return now() < self.registration_end_time
+
+    def in_progress(self):
+        return self.started() and not self.ended()
+
+    def register_user(self, user):
+        if self.registration_open():
+            registration = EventUserRegistration(event=self, user=user)
+            registration.save()
+        else:
+            raise ValidationError("Cannot register  user {user} to event "
+                                  "{event}: Registration ended at {end}"
+                                  .format(user=user, event=self,
+                                          end=self.registration_end_time)
+                                 )
+
+    def save(self, *args, **kwargs):
+        if not self.registration_end_time:
+            self.registration_end_time = self.start_time
+        super(Event, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['start_time', 'end_time']

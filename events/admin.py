@@ -16,8 +16,10 @@ class EventAdmin(PrettyFilterAdmin, VersionAdmin):
                     'location',
                     'start_time',
                     'end_time',
+                    'registration_end_time',
                     'get_num_users',
                     'get_num_orgs',
+                    'started',
                     )
 
     list_filter = ('start_time', 'added_at', 'added_by')
@@ -28,7 +30,7 @@ class EventAdmin(PrettyFilterAdmin, VersionAdmin):
     fieldsets = (
         (None, {
             'fields': ('name', 'location', 'description',
-                       'start_time', 'end_time')
+                       'start_time', 'end_time', 'registration_end_time')
         }),
     )
 
