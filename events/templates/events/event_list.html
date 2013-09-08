@@ -5,6 +5,8 @@
     {% for event in events %}
     <h3>{{ event.name }}</h3>
     <h4><i> {{ event.description }} </i></h4>
+    <a href="{% url 'events_event_user_registration' event_id=event.pk %}"> Register </a>
+    <br/>
     <ul>
         <li> Location: {{ event.location }} </li>
         <li> Start time: {{ event.start_time }} </li>
