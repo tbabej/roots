@@ -198,10 +198,6 @@ MESSAGE_TAGS = {
         message_constants.ERROR: 'alert-danger',
     }
 
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-    }
-
 # Require email address at sign up
 ACCOUNT_EMAIL_REQUIRED = True
 
