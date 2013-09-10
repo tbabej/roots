@@ -132,8 +132,6 @@ class EventOrgRegistration(models.Model):
         verbose_name_plural = 'Organizer registrations'
 
 
-@with_author
-@with_timestamp
 class Camp(Event):
     """
     This class is called Camp from historical reasons. It is supposed to model
