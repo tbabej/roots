@@ -64,7 +64,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "allauth.account.context_processors.account",
     "allauth.socialaccount.context_processors.socialaccount",
+    "sekizai.context_processors.sekizai",
 )
+
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -147,6 +149,19 @@ INSTALLED_APPS = (
     'photologue',
     # Use django-debug-toolbar
     'debug_toolbar',
+    # Use django-wiki and its requirements
+    'django.contrib.humanize',
+    'django_notify',
+    'mptt',
+    'sekizai',
+    'sorl.thumbnail',
+    'wiki',
+    'wiki.plugins.attachments',
+    'wiki.plugins.notifications',
+    'wiki.plugins.images',
+    'wiki.plugins.links',
+    'wiki.plugins.help',
+    'wiki.plugins.macros',
 )
 
 # A sample logging configuration. The only tangible logging

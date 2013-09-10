@@ -5,6 +5,9 @@ from base.views import IndexView
 from django.conf import settings
 from django.conf.urls.static import static
 
+from wiki.urls import get_pattern as get_wiki_pattern
+from django_notify.urls import get_pattern as get_notify_pattern
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -32,3 +35,9 @@ urlpatterns = patterns('',
     url(r'^profiles/', include('profiles.urls')),
     url(r'^$', IndexView.as_view(), name='roots_index'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Add django-wiki related patterns
+urlpatterns += patterns('',
+    (r'^wiki/notify/', get_notify_pattern()),
+    (r'^wiki/', get_wiki_pattern())
+)
