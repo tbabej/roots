@@ -213,5 +213,6 @@ class CampUserInvitation(models.Model):
 
     class Meta:
         order_with_respect_to = 'camp'
+        unique_together = ('user', 'camp')
         verbose_name = 'Camp invitation'
         verbose_name_plural = 'Camp invitations'
