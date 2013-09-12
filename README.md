@@ -10,6 +10,29 @@ Many educational seminar communities exist, and often each of them provides thei
 
 Roots is being built with the purpose of being an universal solution.
 
+
+Feature list (non-technical)
+---------------------------
+
+ - Sign up and sign in both iusing Gmail and Facebook
+   - Also support for ordinary registration
+ - Support both for staff and user accounts
+   - Support for user groups, permissions
+   - User and staff profiles
+ - Event and Camp management
+   - Support for online signup for events
+ - Post publication, LaTeX support in posts
+   - Posts are written in MS-Word like environment
+ - Leaflet publication
+ - Photo gallery management
+   - With watermark support
+ - Sotisphicated problem database support
+   - Rating, comments, generation of problem sets
+   - Last event usages, number of usages shown
+   - Categories
+ - Built-in wiki for staff
+
+
 Technologies
 ------------
 
