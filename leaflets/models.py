@@ -32,6 +32,11 @@ class Leaflet(MediaRemovalMixin, models.Model):
     issue = models.IntegerField()
     leaflet = models.FileField(upload_to=get_leaflet_path)
 
+    def save(self, *args, **kwargs):
+        if self.pk:
+            self.leaflet = self.get_leaflet_path()
+        return super(Leaflet, self).save(*args, **kwargs)
+
     # Fields added via foreign keys:
 
     #  problemset_set
