@@ -41,6 +41,7 @@ class Leaflet(MediaRemovalMixin, models.Model):
 
     class Meta:
         ordering = ['competition', '-year', 'issue']
+        unique_together = ('competition', 'year', 'issue')
         verbose_name = 'Leaflet'
         verbose_name_plural = 'Leaflets'
 
