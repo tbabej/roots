@@ -84,10 +84,10 @@ class Season(models.Model):
     competition = models.ForeignKey('competitions.Competition')
     year = models.IntegerField()
     number = models.IntegerField()
-    name = models.CharField(max_length=50)  # TODO: do we really need name?
+    name = models.CharField(max_length=50)
 
     def __unicode__(self):
-        template = "{name} {competition} {year}-{number}"
+        template = "{name} ({competition} {year}-{number})"
         return template.format(competition=unicode(self.competition),
                                year=self.year,
                                number=self.number,
@@ -100,8 +100,36 @@ class Season(models.Model):
         verbose_name_plural = 'Seasons'
 
 
+class Series(models.Model):
+    """
+    Represents one series of problems in the season of the competetion.
+    """
+
+    #TODO: add validator that makes it impossoble to make season active unless
+    #      submission deadline and problemset are set
+
+    season = models.ForeignKey('competitions.Season')
+    name = models.CharField(max_length=50)
+    number = models.PositiveSmallIntegerField()
+    problemset = models.OneToOneField('problems.ProblemSet', blank=True,
+                                      null=True)
+    submission_deadline = models.DateTimeField()
+    is_active = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+
+        ordering = ['submission_deadline']
+        unique_together = ('season', 'number')
+        verbose_name = 'Series'
+        verbose_name_plural = 'Series'
+
+
 # Register to the admin site
 admin.site.register(Competition)
 admin.site.register(CompetitionUserRegistration)
 admin.site.register(CompetitionOrgRegistration)
 admin.site.register(Season)
+admin.site.register(Series)
