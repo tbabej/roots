@@ -1,8 +1,12 @@
 from django.db import models
 from django.contrib import admin
 
+from base.util import with_timestamp, with_author
+
 
 # Competition-related models
+@with_author
+@with_timestamp
 class Competition(models.Model):
     """
     Represents a competition. One roots site will usually hold several
@@ -32,6 +36,8 @@ class Competition(models.Model):
         verbose_name_plural = 'Competitions'
 
 
+@with_author
+@with_timestamp
 class CompetitionUserRegistration(models.Model):
     """
     Represents a relation between user and competition. User himself can
@@ -40,7 +46,6 @@ class CompetitionUserRegistration(models.Model):
 
     competition = models.ForeignKey('competitions.Competition')
     user = models.ForeignKey('profiles.UserProfile')
-    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return (self.user.__unicode__() + u" competes in " +
@@ -52,6 +57,8 @@ class CompetitionUserRegistration(models.Model):
         verbose_name_plural = 'User registrations'
 
 
+@with_author
+@with_timestamp
 class CompetitionOrgRegistration(models.Model):
     """
     Represents a relation between organizer and comeptition. Organizer can
@@ -73,6 +80,8 @@ class CompetitionOrgRegistration(models.Model):
         verbose_name_plural = 'Organizer registration'
 
 
+@with_author
+@with_timestamp
 class Season(models.Model):
     """
     Represents an one season of a competition. This is usually autumn or spring
@@ -86,6 +95,7 @@ class Season(models.Model):
     year = models.IntegerField()
     number = models.IntegerField()
     name = models.CharField(max_length=50)
+    join_deadline = models.DateTimeField(blank=True, null=True)
 
     def __unicode__(self):
         template = "{name} ({competition} {year}-{number})"
@@ -101,6 +111,8 @@ class Season(models.Model):
         verbose_name_plural = 'Seasons'
 
 
+@with_author
+@with_timestamp
 class Series(models.Model):
     """
     Represents one series of problems in the season of the competetion.
