@@ -173,6 +173,7 @@ class ProblemSet(models.Model):
     '''
 
     name = models.CharField(max_length=100)
+    description = models.CharField(max_length=400, blank=True, null=True)
     competition = models.ForeignKey('competitions.Competition')
     leaflet = models.ForeignKey('leaflets.Leaflet',
                                 blank=True, null=True)
