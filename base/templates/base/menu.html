@@ -1,21 +1,22 @@
+{% load roots_tags %}
+
 <div class="well sidebar-nav">
     <ul class="nav nav-list">
         <li class="nav-header">Actions</li>
-            <li class="active"><a href="#">Link</a></li>
-            <li><a href="{% url 'posts_post_list' %}">Look at the posts</a></li>
-            <li><a href="{% url 'leaflets_leaflet_list' %}">Download present and past leaflets</a></li>
-            <li><a href="{% url 'problems_problem_list' %}">Try your luck with our problems</a></li>
-            <li><a href="{% url 'pl-photologue-root' %}">Browse through our galleries</a></li>
-            <li><a href="{% url 'events_event_list' %}">Look at upcoming events</a></li>
-            <li><a href="{% url 'competitions_competition_register' %}">Register to one of our competitions</a></li>
+            <li class="{% url_active request 'posts_post_list' %}"><a href="{% url 'posts_post_list' %}">Look at the posts</a></li>
+            <li class="{% url_active request 'leaflets_leaflet_list' %}"><a href="{% url 'leaflets_leaflet_list' %}">Download present and past leaflets</a></li>
+            <li class="{% url_active request 'problems_problem_list' %}"><a href="{% url 'problems_problem_list' %}">Try your luck with our problems</a></li>
+            <li class="{% url_active request 'pl-gallery-archive' %}"><a href="{% url 'pl-gallery-archive' %}">Browse through our galleries</a></li>
+            <li class="{% url_active request 'events_event_list' %}"><a href="{% url 'events_event_list' %}">Look at upcoming events</a></li>
+            <li class="{% url_active request 'competitions_competition_register' %}"><a href="{% url 'competitions_competition_register' %}">Register to one of our competitions</a></li>
         <li class="nav-header">Account stuff</li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'profiles_userprofile_update' %}">Update your profile</a></li>
-            <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-            <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+            <li class="{% url_active request 'profiles_userprofile_update' %}"><a href="{% url 'profiles_userprofile_update' %}">Update your profile</a></li>
+            <li class="{% url_active request 'account_email' %}"><a href="{% url 'account_email' %}">Change E-mail</a></li>
+            <li class="{% url_active request 'account_logout' %}"><a href="{% url 'account_logout' %}">Sign Out</a></li>
             {% else %}
-            <li><a href="{% url 'account_login' %}">Sign In</a></li>
-            <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+            <li class="{% url_active request 'account_login' %}"><a href="{% url 'account_login' %}">Sign In</a></li>
+            <li class="{% url_active request 'account_signup' %}"><a href="{% url 'account_signup' %}">Sign Up</a></li>
             {% endif %}
     </ul>
 </div><!--/.well -->
