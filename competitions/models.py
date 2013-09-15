@@ -47,6 +47,7 @@ class CompetitionUserRegistration(models.Model):
                self.competition.__unicode__())
 
     class Meta:
+        ordering = ['added_at']
         verbose_name = 'User registration'
         verbose_name_plural = 'User registrations'
 
@@ -60,7 +61,6 @@ class CompetitionOrgRegistration(models.Model):
 
     competition = models.ForeignKey('competitions.Competition')
     organizer = models.ForeignKey('profiles.UserProfile')
-    timestamp = models.DateTimeField()
     approved = models.BooleanField()
 
     def __unicode__(self):
@@ -68,6 +68,7 @@ class CompetitionOrgRegistration(models.Model):
                self.competition.__unicode__())
 
     class Meta:
+        ordering = ['added_at']
         verbose_name = 'Organizer registration'
         verbose_name_plural = 'Organizer registration'
 
