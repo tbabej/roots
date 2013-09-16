@@ -18,5 +18,10 @@
             <li class="{% url_active request 'account_login' %}"><a href="{% url 'account_login' %}">Sign In</a></li>
             <li class="{% url_active request 'account_signup' %}"><a href="{% url 'account_signup' %}">Sign Up</a></li>
             {% endif %}
+      {% if user.is_staff %}
+      <li class="nav-header">Organizer stuff</li>
+            <li class="{% url_active request 'wiki:root' %}"><a href="{% url 'wiki:root' %}">Wiki for organizers</a></li>
+      {% else %}
+      {% endif %}
     </ul>
 </div><!--/.well -->
