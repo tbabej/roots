@@ -1,8 +1,9 @@
-import reversion
 from django.contrib import admin
+import reversion
 
 from base.admin import PrettyFilterAdmin
-from profiles.models import UserProfile, OrganizerProfile
+
+from .models import UserProfile, OrganizerProfile
 
 
 class UserProfileAdmin(PrettyFilterAdmin, reversion.VersionAdmin):

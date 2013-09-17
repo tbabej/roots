@@ -1,11 +1,11 @@
-from reversion import VersionAdmin
 from django.contrib import admin
+from reversion import VersionAdmin
 
 from base.admin import PrettyFilterAdmin
 from base.util import admin_commentable, editonly_fieldsets
 
-from events.models import (Event, EventOrgRegistration, EventUserRegistration,
-                           Camp)
+from .models import (Event, EventOrgRegistration, EventUserRegistration,
+                     Camp)
 
 
 @admin_commentable

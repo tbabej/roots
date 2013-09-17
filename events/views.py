@@ -1,10 +1,9 @@
-from django.views.generic.list import ListView
-from base.views import RedirectBackView
-
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
 
 from base.util import class_view_decorator
+from base.views import RedirectBackView
 
 from .models import Event, EventUserRegistration
 

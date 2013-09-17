@@ -1,13 +1,11 @@
-# Create your views here.
-
-from django.views.generic.edit import UpdateView
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
+
 from base.util import class_view_decorator
 
-from profiles.forms import UserProfileForm
-from profiles.models import UserProfile
-
-from django.contrib import messages
+from .forms import UserProfileForm
+from .models import UserProfile
 
 
 @class_view_decorator(login_required)

@@ -1,10 +1,10 @@
-from reversion import VersionAdmin
 from django.contrib import admin
+from reversion import VersionAdmin
 
 from base.admin import PrettyFilterAdmin
 from base.util import admin_commentable, editonly_fieldsets
 
-from models import Post
+from .models import Post
 
 
 # Reversion-enabled Admin for problems

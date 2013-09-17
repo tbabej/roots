@@ -1,5 +1,6 @@
 from django.views.generic.list import ListView
-from posts.models import Post
+
+from .models import Post
 
 
 class PostListView(ListView):

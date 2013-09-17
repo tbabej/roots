@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from profiles.views import UserProfileUpdate
+from .views import UserProfileUpdate
 
 urlpatterns = patterns('',
     url(r'update$', UserProfileUpdate.as_view(),

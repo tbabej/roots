@@ -1,5 +1,6 @@
 from django import forms
-from competitions.models import Competition
+
+from .models import Competition
 
 
 class CompetitionRegistrationForm(forms.Form):

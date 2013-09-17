@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
-from events.views import EventListView, EventUserRegisterView
+
+from .views import EventListView, EventUserRegisterView
 
 urlpatterns = patterns('',
     url(

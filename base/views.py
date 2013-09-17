@@ -1,8 +1,7 @@
-# Create your views here.
-from django.views.generic.base import TemplateView, RedirectView
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic.base import TemplateView, RedirectView
 
 
 class BaseView(TemplateView):

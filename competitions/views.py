@@ -1,9 +1,9 @@
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-
+from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
-from competitions.forms import CompetitionRegistrationForm
-from competitions.models import CompetitionUserRegistration
+
+from .forms import CompetitionRegistrationForm
+from .models import CompetitionUserRegistration
 
 
 class CompetitionRegistrationView(FormView):

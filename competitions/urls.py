@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
-from competitions.views import CompetitionRegistrationView
+
+from .views import CompetitionRegistrationView
 
 urlpatterns = patterns('',
     url(r'^$', CompetitionRegistrationView.as_view(),

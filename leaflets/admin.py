@@ -1,7 +1,8 @@
 import reversion
+
 from django.contrib import admin
 
-from leaflets.models import Leaflet
+from .models import Leaflet
 
 
 class LeafletAdmin(reversion.VersionAdmin):

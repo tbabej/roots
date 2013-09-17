@@ -1,11 +1,11 @@
-from reversion import VersionAdmin
 from django.contrib import admin
+from reversion import VersionAdmin
 
 from base.admin import PrettyFilterAdmin
 from base.util import admin_commentable, editonly_fieldsets
 
-from models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
-                    UserSolution, OrgSolution, ProblemInSet)
+from .models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
+                     UserSolution, OrgSolution, ProblemInSet)
 
 
 # Reversion-enabled Admin for problems

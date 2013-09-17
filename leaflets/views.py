@@ -1,5 +1,6 @@
 from django.views.generic.list import ListView
-from leaflets.models import Leaflet
+
+from .models import Leaflet
 
 
 class LeafletListView(ListView):
