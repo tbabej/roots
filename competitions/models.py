@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from base.util import with_timestamp, with_author
@@ -118,9 +119,6 @@ class Series(models.Model):
     Represents one series of problems in the season of the competetion.
     """
 
-    #TODO: add validator that makes it impossoble to make season active unless
-    #      submission deadline and problemset are set
-
     season = models.ForeignKey('competitions.Season')
     name = models.CharField(max_length=50)
     number = models.PositiveSmallIntegerField()
@@ -128,6 +126,23 @@ class Series(models.Model):
                                       null=True)
     submission_deadline = models.DateTimeField()
     is_active = models.BooleanField(default=False)
+
+    def clean(self, *args, **kwargs):
+        if self.is_active:
+            if not self.submission_deadline:
+                raise ValidationError("Submission deadline must be set to "
+                                      "make the series active")
+            if not self.problemset:
+                raise ValidationError("Corresponding set of problems must be "
+                                      "set to make the series active")
+
+            active_series = Series.objects.filter(is_active=True)\
+                                          .filter(competition=self.competition)
+
+            if active_series and active_series[0].pk != self.pk:
+                raise ValidationError("There already exists an active series.")
+
+        super(Series, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
