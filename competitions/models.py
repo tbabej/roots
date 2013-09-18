@@ -86,7 +86,7 @@ class CompetitionOrgRegistration(models.Model):
 class Season(models.Model):
     """
     Represents an one season of a competition. This is usually autumn or spring
-    season. Using this model, however, we are no limited to 2 seasons per year.
+    season. Using this model, however, we are not limited to 2 seasons per year.
 
     During each Season there might be several ProblemSets published as parts
     of that season.
