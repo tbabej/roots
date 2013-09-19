@@ -80,7 +80,10 @@ def editonly_fieldsets(cls):
 
     def get_fieldsets(self, request, obj=None):
         if obj and hasattr(cls, 'editonly_fieldsets'):
-            return cls.fieldsets + cls.editonly_fieldsets
+            if cls.fieldsets:
+                return cls.fieldsets + cls.editonly_fieldsets
+            else:
+                return cls.editonly_fieldsets
         else:
             return cls.fieldsets
 
