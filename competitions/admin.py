@@ -1,5 +1,8 @@
-from django.contrib import admin
 from reversion import VersionAdmin
+
+from django.contrib import admin
+from django.contrib import messages
+from django.core.exceptions import ValidationError
 
 from base.admin import PrettyFilterMixin
 from base.util import editonly_fieldsets
@@ -136,6 +139,21 @@ class SeriesAdmin(PrettyFilterMixin, VersionAdmin):
             'fields': ('added_at', 'modified_at', 'added_by', 'modified_by')
         }),
     )
+
+    actions = ['make_active']
+
+    def make_active(self, request, queryset):
+        for series in queryset:
+            try:
+                series.is_active = True
+                series.full_clean()
+                series.save()
+            except ValidationError, e:
+                for message in e.messages:
+                    self.message_user(request,
+                                      message=message,
+                                      level=messages.ERROR)
+    make_active.short_description = "Make active"
 
 
 # Register to the admin site
