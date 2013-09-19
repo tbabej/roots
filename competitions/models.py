@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -72,7 +71,7 @@ class CompetitionOrgRegistration(models.Model):
     approved = models.BooleanField()
 
     def __unicode__(self):
-        return (self.user.__unicode__() + u" organizes " +
+        return (self.organizer.__unicode__() + u" organizes " +
                self.competition.__unicode__())
 
     class Meta:
