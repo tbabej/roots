@@ -1,7 +1,7 @@
 from django.contrib import admin
 from reversion import VersionAdmin
 
-from base.admin import PrettyFilterAdmin
+from base.admin import PrettyFilterMixin
 from base.util import admin_commentable, editonly_fieldsets
 
 from .models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
@@ -11,7 +11,7 @@ from .models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
 # Reversion-enabled Admin for problems
 @admin_commentable
 @editonly_fieldsets
-class ProblemAdmin(PrettyFilterAdmin, VersionAdmin):
+class ProblemAdmin(PrettyFilterMixin, VersionAdmin):
 
     list_display = ('text',
                     'get_rating',
@@ -87,7 +87,7 @@ class AverageSeverityAboveListFilter(admin.SimpleListFilter):
 
 @admin_commentable
 @editonly_fieldsets
-class ProblemSetAdmin(PrettyFilterAdmin, VersionAdmin):
+class ProblemSetAdmin(PrettyFilterMixin, VersionAdmin):
 
     list_display = ('name',
                     'competition',

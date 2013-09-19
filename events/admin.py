@@ -1,7 +1,7 @@
 from django.contrib import admin
 from reversion import VersionAdmin
 
-from base.admin import PrettyFilterAdmin
+from base.admin import PrettyFilterMixin
 from base.util import admin_commentable, editonly_fieldsets
 
 from .models import (Event, EventOrgRegistration, EventUserRegistration,
@@ -10,7 +10,7 @@ from .models import (Event, EventOrgRegistration, EventUserRegistration,
 
 @admin_commentable
 @editonly_fieldsets
-class EventAdmin(PrettyFilterAdmin, VersionAdmin):
+class EventAdmin(PrettyFilterMixin, VersionAdmin):
 
     list_display = ('name',
                     'location',
@@ -48,7 +48,7 @@ class EventAdmin(PrettyFilterAdmin, VersionAdmin):
 
 @admin_commentable
 @editonly_fieldsets
-class EventUserRegistrationAdmin(PrettyFilterAdmin, VersionAdmin):
+class EventUserRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
 
     list_display = ('event',
                     'user',
@@ -75,7 +75,7 @@ class EventUserRegistrationAdmin(PrettyFilterAdmin, VersionAdmin):
 
 @admin_commentable
 @editonly_fieldsets
-class EventOrgRegistrationAdmin(PrettyFilterAdmin, VersionAdmin):
+class EventOrgRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
 
     list_display = ('event',
                     'organizer',
@@ -102,7 +102,7 @@ class EventOrgRegistrationAdmin(PrettyFilterAdmin, VersionAdmin):
 
 @admin_commentable
 @editonly_fieldsets
-class CampAdmin(PrettyFilterAdmin, VersionAdmin):
+class CampAdmin(PrettyFilterMixin, VersionAdmin):
 
     list_display = ('name',
                     'location',

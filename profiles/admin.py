@@ -1,12 +1,12 @@
 from django.contrib import admin
 import reversion
 
-from base.admin import PrettyFilterAdmin
+from base.admin import PrettyFilterMixin
 
 from .models import UserProfile, OrganizerProfile
 
 
-class UserProfileAdmin(PrettyFilterAdmin, reversion.VersionAdmin):
+class UserProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):
 
     list_display = ('user',
                     'sex',
@@ -19,7 +19,7 @@ class UserProfileAdmin(PrettyFilterAdmin, reversion.VersionAdmin):
                    'classlevel')
 
 
-class OrganizerProfileAdmin(PrettyFilterAdmin, reversion.VersionAdmin):
+class OrganizerProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):
 
     list_display = ('user',
                     'motto',
