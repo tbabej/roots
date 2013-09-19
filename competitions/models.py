@@ -152,11 +152,3 @@ class Series(models.Model):
         unique_together = ('season', 'number')
         verbose_name = 'Series'
         verbose_name_plural = 'Series'
-
-
-# Register to the admin site
-admin.site.register(Competition)
-admin.site.register(CompetitionUserRegistration)
-admin.site.register(CompetitionOrgRegistration)
-admin.site.register(Season)
-admin.site.register(Series)
