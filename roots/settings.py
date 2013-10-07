@@ -235,3 +235,6 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
+# Django-wiki related settings
+WIKI_ATTACHMENTS_EXTENSIONS = ['pdf', 'doc', 'odt', 'docx', 'txt', 'zip', 'rar', 'tar', 'gz', 'jpg', 'jpeg', 'png', 'gif', 'tex']
