@@ -41,3 +41,5 @@ LANGUAGE_CODE = 'en-us'
 ADMINS = (
      ('Your Name', 'yourname@email.com'),
 )
+
+MANAGERS = ADMINS
