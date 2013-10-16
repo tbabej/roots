@@ -133,6 +133,8 @@ INSTALLED_APPS = (
     'photologue',
     # Use django-debug-toolbar
     'debug_toolbar',
+    # Use django-mathjax
+    'django_mathjax',
     # Use django-wiki and its requirements
     'django.contrib.humanize',
     'django_notify',
@@ -236,3 +238,17 @@ STATICFILES_DIRS = (
 
 # Django-wiki related settings
 WIKI_ATTACHMENTS_EXTENSIONS = ['pdf', 'doc', 'odt', 'docx', 'txt', 'zip', 'rar', 'tar', 'gz', 'jpg', 'jpeg', 'png', 'gif', 'tex']
+
+# Enable Django-MathJax
+MATHJAX_ENABLED = True
+
+MATHJAX_CONFIG_FILE = "TeX-AMS_HTML.js"
+
+MATHJAX_CONFIG_DATA = {
+  "tex2jax": {
+    "inlineMath":
+      [
+          ['$','$'],
+      ]
+  }
+}
