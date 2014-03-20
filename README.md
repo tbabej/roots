@@ -48,9 +48,9 @@ You are welcome to fork and submit your pull requests. Here's simple guide:
 
 * Install django
   - On Fedora-based systems:
-    sudo yum install django
+    sudo yum install python-django
   - With pip enabled:
-    pip install django
+    sudo pip install django
   - On Windows or other Linux systems(simple manual install):
     https://docs.djangoproject.com/en/dev/topics/install/#installing-an-official-release-manually
 
@@ -77,6 +77,21 @@ You are welcome to fork and submit your pull requests. Here's simple guide:
     > http://127.0.0.1/admin
 
 * Have fun and play :)
+
+Requirements
+------------
+
+Make sure you have basic packages installed:
+
+    > sudo yum install git gcc -y
+
+For compilation of the python packages, you will also need:
+
+    > sudo yum install python-devel ImageMagick-devel -y
+
+Install the following python packages:
+    > pip install django wiki django-mathjax django-debug-toolbar django-photologue django-reversion django-author django-ratings django-extensions django-allauth django-grappelli Wand 
+
 
 Useful tips
 -----------
