@@ -135,6 +135,8 @@ INSTALLED_APPS = (
     'debug_toolbar',
     # Use django-mathjax
     'django_mathjax',
+    # Use crispy-forms
+    'crispy_forms',
     # Use django-wiki and its requirements
     'django.contrib.humanize',
     'django_notify',
@@ -252,3 +254,6 @@ MATHJAX_CONFIG_DATA = {
       ]
   }
 }
+
+# Crispy froms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
