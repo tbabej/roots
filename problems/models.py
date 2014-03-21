@@ -2,6 +2,7 @@ from base.util import with_timestamp, with_author
 from django.db import models
 from djangoratings.fields import RatingField
 
+from base.models import MediaRemovalMixin
 from competitions.models import Competition
 
 
@@ -9,15 +10,22 @@ from competitions.models import Competition
 
 @with_author
 @with_timestamp
-class UserSolution(models.Model):
+class UserSolution(MediaRemovalMixin, models.Model):
     '''
     Represents a user submitted solution of a given problem.
     '''
+
+    def get_solution_path(self):
+        return 'solutions/{user}-{problem}.pdf'.format(
+                user=unicode(self.user),
+                problem=self.problem.pk,
+            )
 
     # Keep an explicit reference to an User, since somebody else might
     # be entering the solution on the user's behalf
     user = models.ForeignKey('auth.User')
     problem = models.ForeignKey('problems.Problem')
+    solution = models.FileField(upload_to=get_solution_path)
 
     def __unicode__(self):
         return (self.user.__unicode__() + u":'s solution of " +

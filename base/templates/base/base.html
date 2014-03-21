@@ -34,37 +34,41 @@
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="sr-only"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Roots</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="{% url 'roots_index' %}">Home</a></li>
-              {% if user.is_staff %}
-              <li><a href="{% url 'admin:index' %}">Administration</a></li>
-              {% else %}
-              {% endif %}
-            </ul>
-          </div><!--/.nav-collapse -->
-          <div class="navbar-text pull-right">
+        <a class="navbar-brand" href="#">Roots</a>
+        </div><!--/ navbar-header -->
+
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'roots_index' %}">Home</a></li>
+            {% if user.is_staff %}
+            <li><a href="{% url 'admin:index' %}">Administration</a></li>
+            {% else %}
+            {% endif %}
+          </ul>
+
+          <div class="nav navbar-text pull-right">
               {% if user.is_authenticated %}
               Logged in as {% user_display user %}.
               {% else %}
               You are not logged in.
               {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
+          </div><!--/.navbar-text pull-rigt -->
+        </div><!--/ navbar-collapse -->
+      </div><!-- container -->
+    </div><!-- navbar -->
 
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span3">
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
 
                     {% block menu %}
                     {% include "base/menu.html" %}
@@ -72,13 +76,13 @@
 
             </div><!--/span-->
 
-            <div class="span6">
+            <div class="col-sm-6 col-md-6">
 
                 <!-- messages -->
                 {% if messages %}
                 {% for message in messages %}
-                <div class="alert alert-dismissable fade in {{ message.tags }}">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <div class="alert alert-dismissable fade in {{ message.tags }} alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     {{ message }}
                 </div>
                 {% endfor %}
