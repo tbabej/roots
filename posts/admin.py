@@ -22,9 +22,11 @@ class PostAdmin(PrettyFilterMixin, VersionAdmin):
     search_fields = ['text', 'title']
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
+    prepopulated_fields = {"slug": ("title",)}
+
     fieldsets = (
         (None, {
-            'fields': ('title', 'competition', 'text')
+            'fields': ('title', 'competition', 'slug', 'text')
         }),
     )
 

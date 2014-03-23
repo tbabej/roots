@@ -16,6 +16,7 @@ class Post(models.Model):
     competition = models.ForeignKey('competitions.Competition', blank=True,
                                     null=True)
     text = models.TextField()
+    slug = models.SlugField()
 
     def __unicode__(self):
         return self.title
