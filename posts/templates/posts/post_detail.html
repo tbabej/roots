@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+{% load roots_tags %}
+
+{% block content %}
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h1 class="panel-title"><b>{{ post.title }}</b></h1>
+    </div><!-- panel-heading -->
+
+    <div class="panel-body">
+      {% autoescape off %}
+      {{ post.text }}
+      {% endautoescape %}
+    </div><!-- panel-body -->
+
+    <div class="panel-footer">
+      <span class="glyphicon glyphicon-user"></span>
+      {{ post.added_by.get_full_name }}
+      <div class="pull-right">
+        <span class="glyphicon glyphicon-time"></span>
+        {{ post.added_at}}
+      </div>
+    </div><!-- panel-footer -->
+  </div><!-- panel -->
+  </br>
+{% endblock %}
+
