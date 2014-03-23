@@ -4,7 +4,7 @@ This is extended version of grappelli's base.html template.
 - Adds an extra_content block.
 {% endcomment %}
 
-{% load admin_static %}{% load url from future %}{% load i18n grp_tags %}
+{% load admin_static %}{% load firstof from future %}{% load i18n grp_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
@@ -13,7 +13,7 @@ This is extended version of grappelli's base.html template.
     {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
     <!-- STYLESHEETS -->
     {% block stylesheets %}
-        <link href="{% static "grappelli/jquery/ui/css/custom-theme/jquery-ui-1.8.18.custom.css" %}" rel="stylesheet" type="text/css" media="screen" />
+        <link href="{% static "grappelli/jquery/ui/css/custom-theme/jquery-ui-1.10.3.custom.min.css" %}" rel="stylesheet" type="text/css" media="screen" />
         <link href="{% static "grappelli/stylesheets/screen.css" %}" rel="stylesheet" type="text/css" media="screen" />
         {% if LANGUAGE_BIDI %}
             <link href="{% static "grappelli/stylesheets/mueller/grid/output-rtl.css" %}" rel="stylesheet" type="text/css" media="screen" />
@@ -27,18 +27,19 @@ This is extended version of grappelli's base.html template.
     <!-- JAVASCRIPTS -->
     {% block javascripts %}
         <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "grappelli/" %}{% endfilter %}";</script>
+        <script type="text/javascript">window.__admin_utc_offset__ = "{% filter escapejs %}{% now "Z" %}{% endfilter %}";</script>
         <script type="text/javascript" charset="utf-8">
             // GLOBALS
             var grappelli = {},
                 ADMIN_URL = "{% url 'admin:index' %}",
-                MODEL_URL_ARRAY = {% get_content_types %},
+                MODEL_URL_ARRAY = {% if user.is_staff %}{% get_content_types %}{% else %}[]{% endif %},
                 DATE_FORMAT = "{% get_date_format %}",
                 TIME_FORMAT = "{% get_time_format %}",
                 DATETIME_FORMAT = "{% get_datetime_format %}";
         </script>
         <!-- jQuery, jQuery-UI -->
-        <script src="{% static "grappelli/jquery/jquery-1.7.2.min.js" %}" type="text/javascript"></script>
-        <script src="{% static "grappelli/jquery/ui/js/jquery-ui-1.8.18.custom.min.js" %}" type="text/javascript"></script>
+        <script src="{% static "grappelli/jquery/jquery-1.9.1.min.js" %}" type="text/javascript"></script>
+        <script src="{% static "grappelli/jquery/ui/js/jquery-ui-1.10.3.custom.min.js" %}" type="text/javascript"></script>
         {% if debug %}
             <!-- Grappelli Main JS -->
             <script src="{% static "grappelli/js/grappelli.js" %}" type="text/javascript"></script>
@@ -77,40 +78,25 @@ This is extended version of grappelli's base.html template.
 
                 <!-- NAVIGATION -->
                 <div id="grp-navigation">
-                    <h1 id="grp-admin-title">{% if grappelli_admin_title %}{{ grappelli_admin_title }}{% else %}{% get_admin_title %}{% endif %}</h1>
+                    {% block admin_title %}<h1 id="grp-admin-title">{% if grappelli_admin_title %}{{ grappelli_admin_title }}{% else %}{% get_admin_title %}{% endif %}</h1>{% endblock %}
                     {% if user.is_authenticated and user.is_staff %}
                         <ul id="grp-user-tools">
                             <!-- Userlinks -->
                             {% block userlinks %}
                                 <!-- Username -->
-                                <li class="grp-user-options-container grp-collapse grp-closed">
-                                    <a href="javascript://" class="user-options-handler grp-collapse-handler">{% filter force_escape %}{% firstof user.first_name user.username user.get_short_name user.get_username %}{% endfilter %}</a>
+                                <li class="grp-user-options-container grp-collapse grp-closed {% if request.session.original_user %}grp-switch-user-is-target{% endif %}">
+                                    <a href="javascript://" class="user-options-handler grp-collapse-handler {% if request.session.original_user %}grp-switch-user-is-target{% else %}grp-switch-user-is-original{% endif %}">{% firstof user.get_short_name user.get_username %}</a>
                                     <ul class="grp-user-options">
                                         <!-- Change Password -->
                                         {% if user.has_usable_password %}
-                                            {% url 'admin:password_change' as password_change_url %}
-                                            {% if password_change_url %}
-                                                <li><a href="{{ password_change_url }}">
-                                            {% else %}
-                                                <li><a href="{{ root_path }}password_change/">
-                                            {% endif %}
-                                            {% trans 'Change password' %}</a></li>
+                                            <li><a href="{% url 'admin:password_change' %}" class="grp-change-password">{% trans 'Change password' %}</a></li>
                                         {% endif %}
                                         <!-- Logout -->
-                                        {% url 'admin:logout' as logout_url %}
-                                        {% if logout_url %}
-                                            <li><a href="{{ logout_url }}">
-                                        {% else %}
-                                            <li><a href="{{ root_path }}logout/">
-                                        {% endif %}
-                                        {% trans 'Log out' %}</a></li>
+                                        <li><a href="{% url 'admin:logout' %}" class="grp-logout">{% trans 'Log out' %}</a></li>
+                                        <!-- Switch -->
+                                        {% switch_user_dropdown %}
                                     </ul>
                                 </li>
-                                <!-- JS tests -->
-                                {% url 'test-index' as testindexurl %}
-                                {% if testindexurl %}
-                                    <li><a href="{{ testindexurl }}">{% trans 'Tests' %}</a></li>
-                                {% endif %}
                                 <!-- Documentation -->
                                 {% url 'django-admindocs-docroot' as docsroot %}
                                 {% if docsroot %}
@@ -129,7 +115,7 @@ This is extended version of grappelli's base.html template.
                         <header style="display:none"><h1>Breadcrumbs</h1></header>
                         {% block breadcrumbs %}
                             <ul>
-                                <li><a href="/">{% trans 'Home' %}</a></li>
+                                <li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
                                 {% if title %}
                                     <li> &rsaquo; {{ title }}</li>
                                 {% endif %}
@@ -148,13 +134,16 @@ This is extended version of grappelli's base.html template.
         <article id="grp-content" class="{% block content-class %}{% endblock %}">
             
             <!-- MESSAGES -->
-            {% if messages %}
-                <ul class="grp-messagelist">
-                    {% for message in messages %}
-                        <li{% if message.tags %} class="grp-{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+            {% block messages %}
+                {% if messages %}
+                    <ul class="grp-messagelist">
+                        <!-- NOTE: no message|capfirst by purpose, because it does not work in some languages -->
+                        {% for message in messages %} 
+                            <li{% if message.tags %} class="grp-{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endblock %}
 
             <!-- CONTENT TITLE -->
             <header id="grp-content-title">
@@ -170,7 +159,7 @@ This is extended version of grappelli's base.html template.
                     {% block filters %}{% endblock %}
                 {% endblock %}
                 {% block extra_content %}
-                {% endblock %} 
+                {% endblock %}
             </div>
 
         </article>
