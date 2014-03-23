@@ -1,14 +1,29 @@
 {% extends "base/base.html" %}
+{% load roots_tags %}
 
 {% block content %}
-    <h2>Posts</h2>
-    {% for post in posts %}
-    <h3>{{ post.title }}</h3>
-    {% autoescape off %}
-    {{ post.text }}
-    {% endautoescape %}
-    <br/>
-    {{ post.added_by }} - {{ post.added_at}}
-    <br/>
-    {% endfor %}
+  {% for post in posts %}
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h1 class="panel-title"><b>{{ post.title }}</b></h1>
+    </div><!-- panel-heading -->
+
+    <div class="panel-body">
+      {% autoescape off %}
+      {{ post.text | truncatewords_html:20 | remove_uncomplete_latex}}
+      {% endautoescape %}
+    <a href="{% url 'posts_post_detail' post.slug %}">Read the full article</a>
+    </div><!-- panel-body -->
+
+    <div class="panel-footer">
+      <span class="glyphicon glyphicon-user"></span>
+      {{ post.added_by.get_full_name }}
+      <div class="pull-right">
+        <span class="glyphicon glyphicon-time"></span>
+        {{ post.added_at}}
+      </div>
+    </div><!-- panel-footer -->
+  </div><!-- panel -->
+  </br>
+  {% endfor %}
 {% endblock %}
