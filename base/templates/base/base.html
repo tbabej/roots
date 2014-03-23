@@ -69,10 +69,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-3">
+                {% block logo %}
+                <img src="{% static "logo.png" %}" class="center-block">
+                {% endblock logo %}
 
-                    {% block menu %}
-                    {% include "base/menu.html" %}
-                    {% endblock menu %}
+                {% block menu %}
+                {% include "base/menu.html" %}
+                {% endblock menu %}
 
             </div><!--/span-->
 
