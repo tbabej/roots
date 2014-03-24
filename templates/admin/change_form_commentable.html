@@ -1,0 +1,45 @@
+{% extends "admin/change_form.html" %}
+{% load comments %}
+
+{% block extra_content %}
+{% if model_object %}
+{% get_comment_count for model_object as comment_count %}
+{% get_comment_list for model_object as comment_list %}
+
+<div class="grp-module grp-collapse grp-closed">
+    <h2 class="grp-collapse-handler">Comments ({{ comment_count }})</h2>
+    {% for comment in comment_list %}
+    <div class="grp-row">
+        <p>
+            {{comment.user_name}} ({{comment.submit_date}}): {{ comment.comment }}
+        </p>
+    </div>
+    {% endfor %}
+    <div class="grp-module grp-collapse grp-closed">
+        <h3 class="grp-collapse-handler">Add a new comment</h3>
+        {% if user.is_authenticated %}
+            {% get_comment_form for model_object as form %}
+            <div class="grp-row">
+                <form enctype="multipart/form-data" action="{% comment_form_target %}" method="POST">
+                {% csrf_token %}
+                {{ form.comment }}
+                <div style="display: None">
+                    {{ form.honeypot }}
+                </div>
+                {{ form.content_type }}
+                {{ form.object_pk }}
+                {{ form.timestamp }}
+                {{ form.security_hash }}
+                <input type="hidden" name="next" value="{{ request.path }}" />
+                <p>
+                    <input type="submit" value="Add comment" id="id_submit" />
+                </p>
+                </form>
+            </div>
+        {% else %}
+        {% endif %}
+    </div>
+</div>
+{% else %}
+{% endif %}
+{% endblock %}
