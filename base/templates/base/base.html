@@ -33,11 +33,12 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+    {% block extra_head  %}
+    {% endblock %}
   </head>
 
-  <body>
-
   {% block body %}
+  <body>
     {% block navbar %}
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
