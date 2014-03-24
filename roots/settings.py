@@ -137,6 +137,8 @@ INSTALLED_APPS = (
     'django_mathjax',
     # Use crispy-forms
     'crispy_forms',
+    # Use django-jquery-lightbox
+    'jquery_lightbox',
     # Use django-wiki and its requirements
     'django.contrib.humanize',
     'django_notify',
