@@ -31,9 +31,12 @@
     <script src=http://code.jquery.com/jquery.js></script>
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
+  {% block body %}
+    {% block navbar %}
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
 
+        {% block navbar-header %}
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
             <span class="sr-only"></span>
@@ -41,31 +44,42 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-        <a class="navbar-brand" href="#">Roots</a>
+          <a class="navbar-brand" href="#">
+            {% block navbar-brand %}
+            Roots
+            {% endblock %}
+          </a>
         </div><!--/ navbar-header -->
+        {% endblock %}
 
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'roots_index' %}">Home</a></li>
-            {% if user.is_staff %}
-            <li><a href="{% url 'admin:index' %}">Administration</a></li>
-            {% else %}
-            {% endif %}
+            {% block navbar-links  %}
+              <li class="active"><a href="{% url 'roots_index' %}">Home</a></li>
+              {% if user.is_staff %}
+                <li><a href="{% url 'admin:index' %}">Administration</a></li>
+              {% else %}
+              {% endif %}
+            {% endblock %}
           </ul>
 
+          {% block navbar-right %}
           <div class="nav navbar-text pull-right">
-              {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
               Logged in as {% user_display user %}.
-              {% else %}
+            {% else %}
               You are not logged in.
-              {% endif %}
+            {% endif %}
+          {% endblock %}
           </div><!--/.navbar-text pull-rigt -->
         </div><!--/ navbar-collapse -->
       </div><!-- container -->
     </div><!-- navbar -->
+    {% endblock %}
 
     <div class="container-fluid">
         <div class="row">
+            {% block left_panel %}
             <div class="col-sm-3 col-md-3">
                 {% block logo %}
                 <img src="{% static "logo.png" %}" class="center-block">
@@ -76,10 +90,13 @@
                 {% endblock menu %}
 
             </div><!--/span-->
+            {% endblock %}
 
+            {% block middle_panel %}
             <div class="col-sm-6 col-md-6">
 
                 <!-- messages -->
+                {% block messages %}
                 {% if messages %}
                 {% for message in messages %}
                 <div class="alert alert-dismissable fade in {{ message.tags }} alert-warning">
@@ -88,19 +105,18 @@
                 </div>
                 {% endfor %}
                 {% endif %}
+                {% endblock %}
                 <!-- messages-end -->
 
-                {% block body %}
                 {% block content %}
                 {% endblock content %}
-                {% endblock body %}
-
-                {% block extra_body %}
-                {% endblock extra_body %}
 
             </div><!--/span-->
+            {% endblock %}
         </div><!--/row-->
     </div> <!-- /container -->
+  {% endblock %}
+
   <script src=http://code.jquery.com/jquery.js></script>
   <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
   <script src="{% static "js/lightbox.js" %}"></script>
