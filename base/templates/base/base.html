@@ -17,6 +17,8 @@
     <link href="{% static "css/lightbox.css" %}" rel="stylesheet" />
 
     {% render_block "css" %}
+    {% block roots_css %}
+    {% endblock %}
 
     <style>
       body {
@@ -34,8 +36,6 @@
   </head>
 
   <body>
-    <script src=http://code.jquery.com/jquery.js></script>
-    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
   {% block body %}
     {% block navbar %}
@@ -127,5 +127,8 @@
   <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
   <script src="{% static "js/lightbox.js" %}"></script>
   {% render_block "js" %}
+  {% block roots_js %}
+  {% endblock %}
+
   </body>
 </html>
