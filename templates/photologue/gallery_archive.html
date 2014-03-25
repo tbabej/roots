@@ -1,6 +1,6 @@
 {% extends "photologue/root.html" %}
 {% load url from future %}
-
+{% load roots_tags %}
 {% block title %}Latest Photo Galleries{% endblock %}
 
 {% block content %}
@@ -8,20 +8,32 @@
 <h1>Latest Photo Galleries</h1>
 
 {% if latest %}
-    {% for gallery in latest %}
-    <div class="photo-gallery">
-        <h2><a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a></h2>
+  {% for gallery in latest %}
+    {% define gallery_heading %}
+    <a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a>
+    {% enddefine %}
+
+    {% define gallery_content %}
         {% for photo in gallery.sample %}
         <div class="gallery-photo">
-            <a href="{{ photo.image.url }}" data-lightbox="{{ gallery.title  }}" title="{{ photo.title  }}"><img src="{{ photo.get_thumbnail_url }}" class="{% block gallery-photo-class %}{% endblock %}" alt="{{ photo.title }}"/></a>
+            <a href="{{ photo.image.url }}" data-lightbox="{{ gallery.title  }}" title="{{ photo.caption  }}"><img src="{{ photo.get_thumbnail_url }}" class="{% block gallery-photo-class %}{% endblock %}" alt="{{ photo.title }}"/></a>
         </div>
-        {% endfor %}
+      {% endfor %}
+    {% enddefine %}
+
+    {% define gallery_footer %}
+    &nbsp;
+    <div class="pull-right">
+      <span class="glyphicon glyphicon-time"></span>
+      {{ gallery.date_added }}
     </div>
-    {% endfor %}
+    {% enddefine %}
+
+    {% include "base/panel.html" with content_heading=gallery_heading content=gallery_content content_footer=gallery_footer %}
+
+  {% endfor %}
 {% else %}
     <p>No galleries were found.</p>
 {% endif %}
-
 <p><a href="{% url 'pl-gallery-list' 1 %}">View all galleries.</a></p>
-
 {% endblock %}

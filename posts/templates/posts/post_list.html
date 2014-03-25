@@ -3,27 +3,28 @@
 
 {% block content %}
   {% for post in posts %}
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h1 class="panel-title"><b>{{ post.title }}</b></h1>
-    </div><!-- panel-heading -->
 
-    <div class="panel-body">
-      {% autoescape off %}
-      {{ post.text | truncatewords_html:20 | remove_uncomplete_latex}}
-      {% endautoescape %}
+    {% define heading %}
+    {{ post.title }}
+    {% enddefine %}
+
+    {% define content %}
+    {% autoescape off %}
+    {{ post.text | truncatewords_html:20 | remove_uncomplete_latex}}
+    {% endautoescape %}
     <a href="{% url 'posts_post_detail' post.slug %}">Read the full article</a>
-    </div><!-- panel-body -->
+    {% enddefine %}
 
-    <div class="panel-footer">
-      <span class="glyphicon glyphicon-user"></span>
-      {{ post.added_by.get_full_name }}
-      <div class="pull-right">
-        <span class="glyphicon glyphicon-time"></span>
-        {{ post.added_at}}
-      </div>
-    </div><!-- panel-footer -->
-  </div><!-- panel -->
-  </br>
+    {% define footer %}
+    <span class="glyphicon glyphicon-user"></span>
+    {{ post.added_by.get_full_name }}
+    <div class="pull-right">
+      <span class="glyphicon glyphicon-time"></span>
+      {{ post.added_at}}
+    </div>
+    {% enddefine %}
+
+    {% include "base/panel.html" with content_heading=heading content=content content_footer=footer %}
+
   {% endfor %}
 {% endblock %}

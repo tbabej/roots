@@ -1,19 +1,20 @@
 {% extends "base/base.html" %}
+{% load roots_tags  %}
 
 {% block content_wrapper %}
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h1 class="panel-title"><b>{% block content_heading %}{% endblock %}</b></h1>
-    </div><!-- panel-heading -->
 
-    <div class="panel-body">
-    {% block content %}
-    {% endblock %}  
-    </div><!-- panel-body -->
+{% define def_content_heading %}
+{% block content_heading %}{% endblock %}
+{% enddefine %}
 
-    <div class="panel-footer">
-      {% block content_footer %}
-      {% endblock %}
-    </div><!-- panel-footer -->
-  </div><!-- panel -->
+{% define def_content %}
+{% block content %}{% endblock %}
+{% enddefine %}
+
+{% define def_content_footer %}
+{% block content_footer %}{% endblock %}
+{% enddefine %}
+
+{% include "base/panel.html" with content_heading=def_content_heading content=def_content content_footer=def_content_footer %}
+
 {% endblock %}
