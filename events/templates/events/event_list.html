@@ -1,9 +1,15 @@
 {% extends "base/base.html" %}
+{% load roots_tags %}
 
 {% block content %}
     <h2>Upcoming events</h2>
     {% for event in events %}
-    <h3>{{ event.name }}</h3>
+
+    {% define content_heading %}
+    {{ event.name }}
+    {% enddefine %}
+
+    {% define content %}
     <h4><i> {{ event.description }} </i></h4>
     <a href="{% url 'events_event_user_registration' event_id=event.pk %}"> Register </a>
     <br/>
@@ -14,8 +20,18 @@
         <li> Users attending: {{ event.get_num_users }} </li>
         <li> Organizers attending: {{ event.get_num_orgs }} </li>
     </ul>
-    <br/>
-    {{ event.added_by }} - {{ event.added_at}}
-    <br/>
+    {% enddefine %}
+
+    {% define content_footer %}
+    <span class="glyphicon glyphicon-user"></span>
+    {{ event.added_by.get_full_name }}
+    <div class="pull-right">
+      <span class="glyphicon glyphicon-time"></span>
+      {{ event.added_at}}
+    </div>
+    {% enddefine %}
+
+    {% include "base/panel.html" with content_heading=content_heading content=content content_footer=content_footer %}
+
     {% endfor %}
 {% endblock %}
