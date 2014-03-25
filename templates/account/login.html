@@ -5,10 +5,9 @@
 {% load url from future %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block content_heading %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-
-<h1>{% trans "Sign In" %}</h1>
 
 {% if socialaccount.providers  %}
 <p>{% blocktrans with site.name as site_name %}Please sign in with one

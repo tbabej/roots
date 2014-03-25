@@ -1,10 +1,10 @@
 {% extends 'base/base_single.html' %}
 {% load crispy_forms_tags %}
 
+{% block content_heading %}
+Update your profile
+{% endblock %}
+
 {% block content %}
-
-<h1>Update your profile</h1>
-
 {% crispy form %}
-
 {% endblock %}

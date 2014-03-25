@@ -1,7 +1,10 @@
-{% extends "base/base.html" %}
+{% extends "base/base_single.html" %}
+
+{% block content_heading %}
+Register to competition!
+{% endblock %}
 
 {% block content %}
-<h1> Register to competition! </h1>
 
 {% load crispy_forms_tags %}
 {% crispy form %}
