@@ -114,8 +114,9 @@
                 {% endif %}
                 {% endblock %}
                 <!-- messages-end -->
-
-                {% block content %}
+                {% block content_wrapper %}
+                  {% block content %}
+                  {% endblock %}
                 {% endblock %}
             </div><!--/span-->
             {% endblock %}
