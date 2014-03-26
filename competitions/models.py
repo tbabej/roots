@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.timezone import now
 
 from base.util import with_timestamp, with_author
-
 
 # Competition-related models
 @with_author
@@ -135,11 +135,9 @@ class Series(models.Model):
                 raise ValidationError("Corresponding set of problems must be "
                                       "set to make the series active")
 
-            active_series = Series.objects.filter(is_active=True)\
-                                          .filter(competition=self.competition)
-
-            if active_series and active_series[0].pk != self.pk:
-                raise ValidationError("There already exists an active series.")
+            if now() > self.submission_deadline:
+                raise ValidationError("Series that is past its submission "
+                                      "deadline cannot be made active") 
 
         super(Series, self).save(*args, **kwargs)
 
