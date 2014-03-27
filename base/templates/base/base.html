@@ -102,6 +102,9 @@
             {% block middle_panel %}
             <div class="col-sm-7 col-md-7">
 
+                {% include "base/carousel.html" %}
+
+                <div class="row">
                 <!-- messages -->
                 {% block messages %}
                 {% if messages %}
@@ -118,6 +121,7 @@
                   {% block content %}
                   {% endblock %}
                 {% endblock %}
+                </div>
             </div><!--/span-->
             {% endblock %}
         </div><!--/row-->
