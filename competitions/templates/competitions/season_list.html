@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load roots_tags %}
+{% load sekizai_tags %}
 
 {% block content %}
 {% for season in seasons %}
@@ -56,4 +57,11 @@
 {% include "base/panel.html" with content_heading=content_heading content=content %}
 
 {% endfor %}
+
+{% addtoblock "js" %}
+  <script language="javascript">
+    $('button').tooltip();
+  </script>
+{% endaddtoblock %}
+
 {% endblock %}
