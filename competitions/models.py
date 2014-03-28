@@ -126,6 +126,9 @@ class Series(models.Model):
     submission_deadline = models.DateTimeField()
     is_active = models.BooleanField(default=False)
 
+    def is_past_submission_deadline(self):
+        return now() > self.submission_deadline
+
     def clean(self, *args, **kwargs):
         if self.is_active:
             if not self.submission_deadline:
@@ -135,7 +138,7 @@ class Series(models.Model):
                 raise ValidationError("Corresponding set of problems must be "
                                       "set to make the series active")
 
-            if now() > self.submission_deadline:
+            if self.is_past_submission_deadline():
                 raise ValidationError("Series that is past its submission "
                                       "deadline cannot be made active") 
 

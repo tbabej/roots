@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load roots_tags %}
+
+{% block content %}
+{% for season in seasons %}
+
+{% define content_heading %}
+{{ season.competition }} - {{ season.name }}
+{% enddefine%}
+
+{% define content %}
+
+  <ul class="nav nav-tabs">
+  {% for series in season.series_set.all %}
+        <li {% if forloop.first %}class="active"{% endif %}>
+          <a href="#problem-{{series.pk}}" data-toggle="tab">{{series.name}}</a>
+        </li>
+  {% endfor %}
+  </ul>
+  <div class="tab-content">
+  {% for series in season.series_set.all %}
+      <div class="tab-pane fade {% if forloop.first %}in active{% endif %}" id="problem-{{series.pk}}">
+
+          </br>
+          <blockquote class="blockquote-info">
+            <h4>
+              <span class="glyphicon glyphicon-time"></span>
+              Series deadline: 
+              <span class="text-{%if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
+                {{series.submission_deadline}}
+              </span>
+              </h4>
+          </blockquote>
+
+        {% for problem in series.problemset.problems.all %}
+          <div class="row">
+            <div class="col-lg-9">
+              <div class="well">
+                {{forloop.counter}}. {{problem.text}}
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-warning btn-default center-block" data-toggle="tooltip" data-placement="bottom" title="Not yet submitted">
+              Submit
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+  {% endfor %}
+  </div>
+
+{% enddefine %}
+
+{% include "base/panel.html" with content_heading=content_heading content=content %}
+
+{% endfor %}
+{% endblock %}
