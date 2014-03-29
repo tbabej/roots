@@ -4,13 +4,12 @@ from django.core.urlresolvers import reverse
 register = template.Library()
 
 @register.simple_tag
-def url_active(request, urls):
-    if request.path in (reverse(url) for url in urls.split()):
+def url_active(request, urls, *args, **kwargs):
+    if request.path in (reverse(url, args=list(*args), kwargs=dict(**kwargs))
+                        for url in urls.split()):
         return "active"
-    return "request.path: {req}, urls: {url}".format(
-            req=request.path,
-            url=", ".join(reverse(url) for url in urls.split())
-        )
+    else:
+        return ""
 
 @register.filter
 def remove_uncomplete_latex(text):
