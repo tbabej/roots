@@ -3,7 +3,6 @@
 {% load sekizai_tags %}
 
 {% block content %}
-{% for season in seasons %}
 
 {% define content_heading %}
 {{ season.competition }} - {{ season.name }}
@@ -55,8 +54,6 @@
 {% enddefine %}
 
 {% include "base/panel.html" with content_heading=content_heading content=content %}
-
-{% endfor %}
 
 {% addtoblock "js" %}
   <script language="javascript">

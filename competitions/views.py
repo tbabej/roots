@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
-from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+
+from problems.models import UserSolution
 
 from .forms import CompetitionRegistrationForm, SeasonJoinForm
 from .models import CompetitionUserRegistration, Season
@@ -25,6 +27,23 @@ class CompetitionRegistrationView(FormView):
         return super(CompetitionRegistrationView, self).dispatch(*arg, **kwarg)
 
 
-class SeasonListView(ListView):
-    queryset = Season.objects.all()
-    context_object_name = 'seasons'
+class SeasonDetailView(DetailView):
+    model = Season
+    context_object_name = 'season'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SeasonDetailView, self).get_context_data(*args, **kwargs)
+
+        context['solutions'] = dict()
+
+        for series in self.object.series_set.all():
+
+            context['solutions'][str(series.pk)] = dict()
+
+            for problem in series.problemset.problems.all():
+                solution = UserSolution.objects.filter(user=self.request.user.pk, problem=problem.pk) or None
+
+                context['solutions'][str(series.pk)][str(problem.pk)] = solution
+
+        return context
+        
