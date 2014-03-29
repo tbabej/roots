@@ -26,7 +26,7 @@
             <h4>
               <span class="glyphicon glyphicon-time"></span>
               Series deadline: 
-              <span class="text-{%if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
+              <span class="text-{% if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
                 {{series.submission_deadline}}
               </span>
               </h4>
@@ -46,6 +46,10 @@
                 {% define button_level %}success{% enddefine %}
                 {% define button_title %}{{solution.added_at}}{{solution.pk}}{% enddefine %}
                 {% define button_text%}Submitted{% enddefine %}
+              {% elif series.is_past_submission_deadline %}
+                {% define button_level %}danger{% enddefine %}
+                {% define button_title %}Not submitted{% enddefine %}
+                {% define button_text%}Not submitted{% enddefine %}
               {% else %}
                 {% define button_level %}warning{% enddefine %}
                 {% define button_title %}Not yet submitted{% enddefine %}
