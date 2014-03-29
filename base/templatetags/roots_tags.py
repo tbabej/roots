@@ -62,3 +62,7 @@ def define(parser, token):
     parser.delete_first_token()
 
     return DefineNode(name, nodelist)
+
+@register.filter
+def access(value, arg):
+    return value.get(arg, {})
