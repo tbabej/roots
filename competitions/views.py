@@ -38,12 +38,12 @@ class SeasonDetailView(DetailView):
 
         for series in self.object.series_set.all():
 
-            context['solutions'][str(series.pk)] = dict()
+            context['solutions'][series.pk] = dict()
 
             for problem in series.problemset.problems.all():
                 solution = UserSolution.objects.filter(user=self.request.user.pk, problem=problem.pk) or None
 
-                context['solutions'][str(series.pk)][str(problem.pk)] = solution
+                context['solutions'][series.pk][problem.pk] = solution
 
         return context
         
