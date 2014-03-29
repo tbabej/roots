@@ -40,9 +40,22 @@
               </div>
             </div>
             <div class="col-lg-3">
-              <button type="button" class="btn btn-warning btn-default center-block" data-toggle="tooltip" data-placement="bottom" title="Not yet submitted">
-              Submit
+
+            {% with solutions|access:series.pk|access:problem.pk as solution %}
+              {% if solution %}
+                {% define button_level %}success{% enddefine %}
+                {% define button_title %}{{solution.added_at}}{{solution.pk}}{% enddefine %}
+                {% define button_text%}Submitted{% enddefine %}
+              {% else %}
+                {% define button_level %}warning{% enddefine %}
+                {% define button_title %}Not yet submitted{% enddefine %}
+                {% define button_text%}Submit{% enddefine %}
+              {% endif %}
+
+              <button type="button" class="btn btn-{{button_level}} btn-default center-block" data-toggle="tooltip" data-placement="bottom" title="{{button_title}}">
+                {{button_text}}
               </button>
+            {% endwith %}
             </div>
           </div>
         {% endfor %}

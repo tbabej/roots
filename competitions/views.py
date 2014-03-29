@@ -41,7 +41,8 @@ class SeasonDetailView(DetailView):
             context['solutions'][series.pk] = dict()
 
             for problem in series.problemset.problems.all():
-                solution = UserSolution.objects.filter(user=self.request.user.pk, problem=problem.pk) or None
+                solutions = UserSolution.objects.filter(user=self.request.user.pk, problem=problem.pk)
+                solution = solutions[0] if solutions else None
 
                 context['solutions'][series.pk][problem.pk] = solution
 
