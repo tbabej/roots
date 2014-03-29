@@ -15,7 +15,7 @@ class UserSolution(MediaRemovalMixin, models.Model):
     Represents a user submitted solution of a given problem.
     '''
 
-    def get_solution_path(self):
+    def get_solution_path(self, *args, **kwargs):
         return 'solutions/{user}-{problem}.pdf'.format(
                 user=unicode(self.user),
                 problem=self.problem.pk,
