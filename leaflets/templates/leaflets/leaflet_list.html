@@ -2,10 +2,22 @@
 
 {% block content %}
     <h2>Leaflets</h2>
-    {% for leaflet in leaflets %}
-    <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}"">
-        <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" />
-    </a>
-    <br/>
+
+    {% for context_data_item in data %}    
+        <h3>{{context_data_item.competition.name}}</h3>
+        <ul>
+        {% for leaflet in context_data_item.leaflets %}
+        <li>
+        <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}"">
+            {# <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" /> #}
+            {{leaflet}}
+        </a>
+        </li>
+        {% endfor %}
+        </li>
+        <a href= "{% url 'leaflets_leaflet_competition_list' competition_id=context_data_item.competition.id %}">
+            (all)    
+        </a>
+        </ul>
     {% endfor %}
 {% endblock %}
