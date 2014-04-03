@@ -13,7 +13,7 @@
   <ul class="nav nav-tabs">
   {% for series in season.series_set.all %}
         <li {% if forloop.first %}class="active"{% endif %}>
-          <a href="#problem-{{series.pk}}" data-toggle="tab">{{series.name}}</a>
+          <a href="#series-{{forloop.counter}}" data-toggle="tab">{{series.name}}</a>
         </li>
   {% endfor %}
   </ul>
