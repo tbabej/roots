@@ -43,3 +43,5 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
+TIME_ZONE='Europe/Prague'
