@@ -1,23 +1,35 @@
 {% extends "base/base.html" %}
+{% load roots_tags %}
 
 {% block content %}
     <h2>Leaflets</h2>
 
     {% for context_data_item in data %}    
-        <h3>{{context_data_item.competition.name}}</h3>
-        <ul>
+
+        {% define content_heading %}
+        {{context_data_item.competition.name}} 
+        {% enddefine %}
+        
+        {% define content %}
+        <ul class="list-inline">
         {% for leaflet in context_data_item.leaflets %}
-        <li>
-        <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}"">
-            {# <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" /> #}
-            {{leaflet}}
-        </a>
-        </li>
+            <li>
+            <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}"">
+                <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" class="img-thumbnail" width=150pts /> 
+                <br>
+                <div align="center">{{leaflet.year}} - {{leaflet.issue}}</div>
+            </a>
+            </li>
         {% endfor %}
-        </li>
-        <a href= "{% url 'leaflets_leaflet_competition_list' competition_id=context_data_item.competition.id %}">
-            (all)    
-        </a>
         </ul>
+        {% enddefine %}
+        
+        {% define content_footer %}
+        <a href= "{% url 'leaflets_leaflet_competition_list' competition_id=context_data_item.competition.id %}">
+        show all leaflets for {{context_data_item.competition.name}}</a>
+        {% enddefine %}
+                
+        {% include "base/panel.html" with content_heading=content_heading content=content content_footer=content_footer%}
+
     {% endfor %}
 {% endblock %}

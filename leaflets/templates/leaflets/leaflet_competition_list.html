@@ -1,17 +1,31 @@
 {% extends "base/base.html" %}
+{% load roots_tags %}
 
 {% block content %}
-    <h2>Leaflets - {{data.competition.name}}</h2>
-    <ul>
-    {% for leaflet in data.leaflets %}
-    <li>
-    <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}"">
-        {# <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" /> #}
-        {{leaflet}}
-    </a>
-    </li>
+    <h2>Leaflets - {{competition.name}}</h2>
+    {% for item in data %}
+        
+        {% define content_heading %}
+        {{competition.name}} {{item.year}}
+        {% enddefine %}
+        
+        {% define content %}
+        <ul class="list-inline">  
+        {% for leaflet in item.leaflets %}  
+            <li>
+            <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}"">
+                <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" 
+                    class="img-thumbnail" width=150pts 
+                    />
+                <br>
+                <div align="center">{{leaflet.year}} - {{leaflet.issue}}</div>
+            </a>
+            </li>
+        {% endfor %}
+        </ul>
+        {% enddefine %}
+        
+        {% include "base/panel.html" with content_heading=content_heading content=content %}
+        
     {% endfor %}
-    </ul>
-    
-{% endblock %}
-
+{% endblock %}  

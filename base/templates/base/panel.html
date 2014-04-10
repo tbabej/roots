@@ -7,9 +7,12 @@
     {{ content }}
     {{ endblock }}
     </div><!-- panel-body -->
-
+    
+    {% if content_footer %}
     <div class="panel-footer">
       {{content_footer }}
     </div><!-- panel-footer -->
+    {% endif %}
   </div><!-- panel -->
+  
 

@@ -1,13 +1,18 @@
 from django.views.generic.list import ListView
-
+from django.contrib.auth.models import User
 from .models import Leaflet
-from  competitions.models import Competition
+from  competitions.models import Competition     
 from django.shortcuts import get_object_or_404
 
 
 class LeafletViewContextItem:
     def __init__(self, competition=None, leaflets=None):
         self.competition = competition
+        self.leaflets = leaflets
+        
+class LeafletCompetitionViewContextItem:
+    def __init__(self, year=None, leaflets=None):
+        self.year = year
         self.leaflets = leaflets
 
 class LeafletListView(ListView):
@@ -19,16 +24,16 @@ class LeafletListView(ListView):
     def get_context_data(self, **kwargs):
         """Return the last 2 published leaflets in each competition"""
         context = super(ListView, self).get_context_data(**kwargs)
-        d=[]
-        
-        for c in Competition.objects.all() :
+        data = []
+        competitions = Competition.objects.all()
+        for competition in competitions :                
             item = LeafletViewContextItem()
-            item.competition = c
+            item.competition = competition
             item.leaflets = Leaflet.objects.\
-                filter(competition = c).\
-                order_by('-year').order_by('-issue')[:2]
-            d.append(item)
-        context['data']=d     
+                filter(competition = competition).\
+                order_by('-year', '-issue')[:2]
+            data.append(item)
+        context['data']=data     
         return context
         
 class LeafletCompetitionListView(ListView):
@@ -38,13 +43,26 @@ class LeafletCompetitionListView(ListView):
     template_name ="leaflets/leaflet_competition_list.html"
     
     def get_context_data(self, **kwargs):
-        """Return all leaflets in given competition"""
+        """Return all leaflets in given competition grouped by years"""
         context = super(ListView, self).get_context_data(**kwargs)
-        c = get_object_or_404(Competition,id = self.kwargs['competition_id'])
-        item = LeafletViewContextItem()
-        item.competition = c
-        item.leaflets = Leaflet.objects.\
-            filter(competition = c).\
-            order_by('-year').order_by('-issue')
-        context['data']=item   
+        data = []
+        competition = get_object_or_404(Competition,id = self.kwargs['competition_id'])
+        leaflets = Leaflet.objects.\
+            filter(competition = competition).order_by('-year', '-issue')
+        previous_leaflet = leaflets[0]
+        item = LeafletCompetitionViewContextItem(
+            year = previous_leaflet.year,
+            leaflets = [])
+        item.year = previous_leaflet.year
+        for leaflet in leaflets:
+            if leaflet.year != previous_leaflet.year:
+                data.append(item)
+                item = LeafletCompetitionViewContextItem(
+                    year = leaflet.year,
+                    leaflets = [])
+            item.leaflets.append(leaflet)
+            previous_leaflet = leaflet
+        data.append(item)               
+        context['data']=data 
+        context['competition'] = competition 
         return context             
