@@ -16,7 +16,7 @@
     {% define gallery_content %}
         {% for photo in gallery.public %}
         <span class="gallery-photo" style="margin: 5px 5px 5px 5px">
-            <a href="{{ photo.image.url }}" data-lightbox="{{ gallery.title  }}" title="{{ photo.caption  }}"><img src="{{ photo.get_thumbnail_url }}" class="{% block gallery-photo-class %}{% endblock %}" alt="{{ photo.title }}"/></a>
+            <a href="{{ photo.get_display_url }}" data-lightbox="{{ gallery.title  }}" title="{{ photo.caption  }}"><img src="{{ photo.get_thumbnail_url }}" class="{% block gallery-photo-class %}{% endblock %}" alt="{{ photo.title }}"/></a>
         </span>
       {% endfor %}
     {% enddefine %}
