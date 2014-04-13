@@ -1,7 +1,9 @@
 from django.views.generic.list import ListView
-from .models import Leaflet
-from  competitions.models import Competition
 from django.shortcuts import get_object_or_404
+
+from competitions.models import Competition
+
+from .models import Leaflet
 
 
 class LeafletViewContextItem:
@@ -32,7 +34,7 @@ class LeafletListView(ListView):
             item.competition = competition
             item.leaflets = Leaflet.objects.\
                                     filter(competition=competition).\
-                                    order_by('-year', 'issue')[:5]
+                                    order_by('-year', '-issue')[:5]
             data.append(item)
         context['data'] = data
         return context
@@ -53,7 +55,7 @@ class LeafletCompetitionListView(ListView):
                                         id=self.kwargs['competition_id'])
         leaflets = Leaflet.objects\
                            .filter(competition=competition)\
-                           .order_by('-year', '-issue')
+                           .order_by('-year', 'issue')
         previous_leaflet = leaflets[0]
 
         item = LeafletCompetitionViewContextItem(
