@@ -32,7 +32,7 @@ class LeafletListView(ListView):
             item.competition = competition
             item.leaflets = Leaflet.objects.\
                                     filter(competition=competition).\
-                                    order_by('-year', '-issue')[:2]
+                                    order_by('-year', 'issue')[:5]
             data.append(item)
         context['data'] = data
         return context
