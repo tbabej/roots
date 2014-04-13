@@ -4,18 +4,18 @@
 {% block content %}
     <h2>Leaflets - {{competition.name}}</h2>
     {% for item in data %}
-        
+
         {% define content_heading %}
         {{competition.name}} {{item.year}}
         {% enddefine %}
-        
+
         {% define content %}
-        <ul class="list-inline">  
-        {% for leaflet in item.leaflets %}  
+        <ul class="list-inline">
+        {% for leaflet in item.leaflets %}
             <li>
             <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}"">
-                <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" 
-                    class="img-thumbnail" width=150pts 
+                <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}"
+                    class="img-thumbnail" width=150pts
                     />
                 <br>
                 <div align="center">{{leaflet.year}} - {{leaflet.issue}}</div>
@@ -24,8 +24,8 @@
         {% endfor %}
         </ul>
         {% enddefine %}
-        
+
         {% include "base/panel.html" with content_heading=content_heading content=content %}
-        
+
     {% endfor %}
-{% endblock %}  
+{% endblock %}
