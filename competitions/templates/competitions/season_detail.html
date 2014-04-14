@@ -19,7 +19,7 @@
   </ul>
   <div class="tab-content">
   {% for series in season.series_set.all %}
-      <div class="tab-pane fade {% if forloop.first %}in active{% endif %}" id="problem-{{series.pk}}">
+      <div class="tab-pane fade {% if forloop.first %}in active{% endif %}" id="series-{{series.pk}}">
 
           </br>
           <blockquote class="blockquote-info">
