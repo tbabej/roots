@@ -6,13 +6,13 @@ from competitions.models import Competition
 from .models import Leaflet
 
 
-class LeafletViewContextItem:
+class LeafletViewContextItem(object):
     def __init__(self, competition=None, leaflets=None):
         self.competition = competition
         self.leaflets = leaflets
 
 
-class LeafletCompetitionViewContextItem:
+class LeafletCompetitionViewContextItem(object):
     def __init__(self, year=None, leaflets=None):
         self.year = year
         self.leaflets = leaflets
