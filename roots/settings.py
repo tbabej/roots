@@ -91,6 +91,7 @@ INSTALLED_APPS = (
     'competitions',
     'events',
     'leaflets',
+    'photos',
     'posts',
     'problems',
     'profiles',
