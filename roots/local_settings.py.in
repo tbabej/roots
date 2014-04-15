@@ -16,12 +16,25 @@ DATABASES = {
     }
 }
 
+# == Mail configuration ==
+
 # For development purposes, you need not to change this
 # Emails will appear as files in email-messages folder
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'email-messages'
 
+# For local SMTP server, use the following configuration
+# EMAIL_HOST='webserver.roots.com'
+
+# Configure from addresses
+DEFAULT_FROM_EMAIL='web@roots.com'
+SERVER_EMAIL='root@roots.com'
+
+# Configure email prefix
+EMAIL_SUBJECT_PREFIX='[Roots] '
+
+# == Django-debug-toolbar configuration ==
 INTERNAL_IPS = ('127.0.0.1',)
 
 DEBUG_TOOLBAR_CONFIG = {
