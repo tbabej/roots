@@ -1,6 +1,7 @@
 import os
 
 from local_settings import *
+from base.permissions import wiki_can_read
 
 # Django settings for roots project.
 
@@ -242,7 +243,13 @@ STATICFILES_DIRS = (
 )
 
 # Django-wiki related settings
-WIKI_ATTACHMENTS_EXTENSIONS = ['pdf', 'doc', 'odt', 'docx', 'txt', 'zip', 'rar', 'tar', 'gz', 'jpg', 'jpeg', 'png', 'gif', 'tex']
+WIKI_ATTACHMENTS_EXTENSIONS = ['pdf', 'doc', 'odt', 'docx', 'txt', 'zip',
+                               'rar', 'tar', 'gz', 'jpg', 'jpeg', 'png', 'gif',
+                               'tex']
+WIKI_ANONYMOUS = False  # Do not allow anonymous access
+WIKI_CAN_READ = wiki_can_read
+WIKI_ACCOUNT_HANDLING = False
+
 
 # Enable Django-MathJax
 MATHJAX_ENABLED = True
