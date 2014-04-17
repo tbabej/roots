@@ -129,6 +129,16 @@ class Series(models.Model):
     def is_past_submission_deadline(self):
         return now() > self.submission_deadline
 
+    def is_nearest_deadline(self):
+        # Series are returned sorted by the submission deadline
+        active_series = [s for s in Series.objects.all()
+                           if not s.is_past_submission_deadline()]
+
+        if active_series:
+            return active_series[0] == self
+        else:
+            return False
+
     def clean(self, *args, **kwargs):
         if self.is_active:
             if not self.submission_deadline:
@@ -140,7 +150,7 @@ class Series(models.Model):
 
             if self.is_past_submission_deadline():
                 raise ValidationError("Series that is past its submission "
-                                      "deadline cannot be made active") 
+                                      "deadline cannot be made active")
 
         super(Series, self).save(*args, **kwargs)
 

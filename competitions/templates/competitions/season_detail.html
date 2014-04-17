@@ -13,7 +13,7 @@
   <!-- navigation-tabs -->
   <ul class="nav nav-tabs">
   {% for series in season.series_set.all %}
-        <li {% if forloop.first %}class="active"{% endif %}>
+        <li {% if series.is_nearest_deadline %}class="active"{% endif %}>
           <a href="#series-{{forloop.counter}}" data-toggle="tab">{{series.name}}</a>
         </li>
   {% endfor %}
@@ -23,7 +23,7 @@
   <!-- tab-content -->
   <div class="tab-content">
   {% for series in season.series_set.all %}
-      <div class="tab-pane fade {% if forloop.first %}in active{% endif %}" id="series-{{series.pk}}">
+      <div class="tab-pane fade {% if series.is_nearest_deadline %}in active{% endif %}" id="series-{{series.pk}}">
 
           </br>
           <blockquote class="blockquote-info">
