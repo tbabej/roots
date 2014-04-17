@@ -10,6 +10,7 @@
 
 {% define content %}
 
+  <!-- navigation-tabs -->
   <ul class="nav nav-tabs">
   {% for series in season.series_set.all %}
         <li {% if forloop.first %}class="active"{% endif %}>
@@ -17,6 +18,9 @@
         </li>
   {% endfor %}
   </ul>
+  <!-- end navigation-tabs -->
+
+  <!-- tab-content -->
   <div class="tab-content">
   {% for series in season.series_set.all %}
       <div class="tab-pane fade {% if forloop.first %}in active{% endif %}" id="series-{{series.pk}}">
@@ -25,7 +29,7 @@
           <blockquote class="blockquote-info">
             <h4>
               <span class="glyphicon glyphicon-time"></span>
-              Series deadline: 
+              Series deadline:
               <span class="text-{% if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
                 {{series.submission_deadline}}
               </span>
@@ -33,40 +37,82 @@
           </blockquote>
 
         {% for problem in series.problemset.problems.all %}
-          <div class="row">
-            <div class="col-lg-9">
-              <div class="well">
-                {{forloop.counter}}. {{problem.text}}
+          {% with solutions|access:series.pk|access:problem.pk as solution %}
+            {% if solution %}
+              {% define button_level %}success{% enddefine %}
+              {% define button_title %}{{solution.added_at}}{{solution.pk}}{% enddefine %}
+              {% define button_text %}Submitted{% enddefine %}
+              {% define button_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
+            {% elif series.is_past_submission_deadline %}
+              {% define button_level %}danger{% enddefine %}
+              {% define button_title %}Not submitted{% enddefine %}
+              {% define button_text%}Not submitted{% enddefine %}
+              {% define button_modal %}{% enddefine %}
+            {% else %}
+              {% define button_level %}warning{% enddefine %}
+              {% define button_title %}Not yet submitted{% enddefine %}
+              {% define button_text%}Submit{% enddefine %}
+              {% define button_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
+            {% endif %}
+
+            <div class="row">
+              <div class="col-lg-9">
+                <div class="well">
+                  {{forloop.counter}}. {{problem.text}}
+                </div>
               </div>
-            </div>
-            <div class="col-lg-3">
 
-            {% with solutions|access:series.pk|access:problem.pk as solution %}
-              {% if solution %}
-                {% define button_level %}success{% enddefine %}
-                {% define button_title %}{{solution.added_at}}{{solution.pk}}{% enddefine %}
-                {% define button_text%}Submitted{% enddefine %}
-              {% elif series.is_past_submission_deadline %}
-                {% define button_level %}danger{% enddefine %}
-                {% define button_title %}Not submitted{% enddefine %}
-                {% define button_text%}Not submitted{% enddefine %}
-              {% else %}
-                {% define button_level %}warning{% enddefine %}
-                {% define button_title %}Not yet submitted{% enddefine %}
-                {% define button_text%}Submit{% enddefine %}
-              {% endif %}
-
-              <button type="button" class="btn btn-{{button_level}} btn-default center-block" data-toggle="tooltip" data-placement="bottom" title="{{button_title}}">
-                {{button_text}}
-              </button>
-            {% endwith %}
-            </div>
-          </div>
+              <div class="col-lg-3">
+                <button type="button" class="btn btn-{{button_level}} btn-default center-block" data-placement="bottom" title="{{button_title}}" {{button_modal}}>
+                  {{button_text}}
+                </button>
+              </div>
+            </div><!-- row -->
+          {% endwith %}
         {% endfor %}
 
-      </div>
+      </div><!-- tabe-pane -->
+
+      {% for problem in series.problemset.problems.all %}
+        {% if not series.is_past_submission_deadline %}
+          <!-- Modal -->
+          <div class="modal fade" id="problem-submit-{{problem.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">
+                    Problem submission: {{series.name}} - problem {{forloop.counter}}
+                  </h4>
+                </div>
+
+                {% with forms|access:series.pk|access:problem.pk as form %}
+                <div class="modal-body">
+                <p> {{problem.text}} </p>
+
+                <form class="form" action="{% url 'problems_usersolution_submit' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                  </form>
+                </div>
+
+
+                {% endwith %}
+
+              </div> <!-- modal-content -->
+            </div> <!-- modal-dialog -->
+          </div> <!-- modal -->
+      {% endif %}
+    {% endfor %}
   {% endfor %}
-  </div>
+  </div> <!-- tab-content -->
+
 
 {% enddefine %}
 
