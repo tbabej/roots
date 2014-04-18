@@ -35,6 +35,7 @@ urlpatterns = patterns('',
     url(r'^photos/', include('photologue.urls')),
     url(r'^profiles/', include('profiles.urls')),
     url(r'^$', IndexView.as_view(), name='roots_index'),
+    url(r'^media/protected/', include('downloads.urls'))
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Add django-wiki related patterns
