@@ -59,6 +59,7 @@ class UserSolution(MediaRemovalMixin, AccessFilePermissionMixin, models.Model):
         order_with_respect_to = 'problem'
         verbose_name = 'User solution'
         verbose_name_plural = 'User solutions'
+        unique_together = ['user', 'problem']
 
 
 @with_author
