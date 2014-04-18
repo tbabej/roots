@@ -14,13 +14,13 @@ from .models import (Competition, Season, Series,
 @editonly_fieldsets
 class CompetitionAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'added_at')
+    list_display = ('name', 'organizer_group', 'added_at')
 
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
     fieldsets = (
         (None, {
-            'fields': ('name', )
+            'fields': ('name', 'organizer_group')
         }),
     )
 
