@@ -143,6 +143,8 @@ INSTALLED_APPS = (
     'jquery',
     # Use django-jquery-lightbox
     'jquery_lightbox',
+    # Use django-sendfile
+    'sendfile',
     # Use django-wiki and its requirements
     'django.contrib.humanize',
     'django_notify',
@@ -269,3 +271,8 @@ MATHJAX_CONFIG_DATA = {
 
 # Crispy froms settings
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# Django-sendfile related settings
+SENDFILE_DIR = 'protected/'
+SENDFILE_ROOT = os.path.join(MEDIA_ROOT, SENDFILE_DIR)
+SENDFILE_URL = MEDIA_URL + SENDFILE_DIR

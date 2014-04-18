@@ -58,3 +58,10 @@ ADMINS = (
 MANAGERS = ADMINS
 
 TIME_ZONE='Europe/Prague'
+
+# Django-sendfile related settings
+SENDFILE_BACKEND = 'sendfile.backends.simple'
+
+# It is recommended to setup mod_xsendfile in apache
+# and use the following.
+#SENDFILE_BACKEND = 'sendfile.backends.xsendfile'
