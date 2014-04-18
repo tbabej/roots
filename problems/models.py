@@ -3,6 +3,7 @@ from django.db import models
 from djangoratings.fields import RatingField
 
 from base.models import MediaRemovalMixin
+from base.storage import OverwriteFileSystemStorage
 from competitions.models import Competition
 from downloads.models import AccessFilePermissionMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -47,7 +48,8 @@ class UserSolution(MediaRemovalMixin, AccessFilePermissionMixin, models.Model):
     # be entering the solution on the user's behalf
     user = models.ForeignKey('auth.User')
     problem = models.ForeignKey('problems.Problem')
-    solution = models.FileField(upload_to=get_solution_path)
+    solution = models.FileField(upload_to=get_solution_path,
+                                storage=OverwriteFileSystemStorage())
 
     def __unicode__(self):
         return (self.user.__unicode__() + u":'s solution of " +

@@ -4,6 +4,7 @@ from django.dispatch import receiver
 
 from base import util
 from base.models import MediaRemovalMixin
+from base.storage import OverwriteFileSystemStorage
 
 
 class Leaflet(MediaRemovalMixin, models.Model):
@@ -29,7 +30,8 @@ class Leaflet(MediaRemovalMixin, models.Model):
     competition = models.ForeignKey('competitions.Competition')
     year = models.IntegerField()
     issue = models.IntegerField()
-    leaflet = models.FileField(upload_to=get_leaflet_path)
+    leaflet = models.FileField(upload_to=get_leaflet_path,
+                               storage=OverwriteFileSystemStorage())
 
     def save(self, *args, **kwargs):
         if self.pk:
