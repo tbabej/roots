@@ -11,7 +11,8 @@ class MediaRemovalMixin(object):
 
     # Models that use this mixin need to override this method
     def get_media_files(self):
-        return
+        raise NotImplemented("Models using MediaRemovalMixin needs to override "
+                             "get_media_files method.")
 
     def delete(self, *args, **kwargs):
         for media_file in self.get_media_files():
