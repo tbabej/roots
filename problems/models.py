@@ -4,22 +4,41 @@ from djangoratings.fields import RatingField
 
 from base.models import MediaRemovalMixin
 from competitions.models import Competition
+from downloads.models import AccessFilePermissionMixin
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Solution-related models
 
 @with_author
 @with_timestamp
-class UserSolution(MediaRemovalMixin, models.Model):
+class UserSolution(MediaRemovalMixin, AccessFilePermissionMixin, models.Model):
     '''
     Represents a user submitted solution of a given problem.
     '''
+
+    @classmethod
+    def get_by_filepath(cls, path):
+        try:
+            return cls.objects.get(solution=path)
+        except ObjectDoesNotExist:
+            return None
+
+    def can_access_files(self, user):
+        if self.user == user:
+            # If you are the author, you can access
+            return True
+        else:
+            # If the problem is in the competition you organize, you can access
+            # the solution
+            organizer_group = self.problem.competition.organizer_group
+            return user.groups.filter(id=organizer_group.pk).exists()
 
     def get_media_files(self):
         return [self.get_solution_path()]
 
     def get_solution_path(self, *args, **kwargs):
-        return 'solutions/{user}-{problem}.pdf'.format(
+        return 'protected/solutions/{user}-{problem}.pdf'.format(
                 user=unicode(self.user),
                 problem=self.problem.pk,
             )
