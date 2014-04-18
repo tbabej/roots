@@ -1,7 +1,7 @@
 from django.contrib import admin
 from reversion import VersionAdmin
 
-from base.admin import PrettyFilterMixin
+from base.admin import PrettyFilterMixin, MediaRemovalAdminMixin
 from base.util import admin_commentable, editonly_fieldsets
 
 from .models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
@@ -119,10 +119,36 @@ class ProblemSetAdmin(PrettyFilterMixin, VersionAdmin):
     )
 
 
+@admin_commentable
+@editonly_fieldsets
+class UserSolutionAdmin(MediaRemovalAdminMixin, VersionAdmin):
+
+    list_display = ('user',
+                    'problem',
+                    'solution'
+                    )
+
+    list_filter = ('user',)
+    search_fields = ['user']
+    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
+
+    fieldsets = (
+        (None, {
+            'fields': ('user', 'problem', 'solution')
+        }),
+    )
+
+    editonly_fieldsets = (
+        ('Details', {
+            'classes': ('grp-collapse', 'grp-closed'),
+            'fields': ('added_by', 'modified_by', 'added_at', 'modified_at')
+        }),
+    )
+
 # Register to the admin site
 admin.site.register(Problem, ProblemAdmin)
 admin.site.register(ProblemSet, ProblemSetAdmin)
-admin.site.register(UserSolution)
+admin.site.register(UserSolution, UserSolutionAdmin)
 admin.site.register(OrgSolution)
 admin.site.register(ProblemCategory)
 admin.site.register(ProblemSeverity)
