@@ -1,8 +1,10 @@
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.timezone import now
 
 from base.util import with_timestamp, with_author
+
 
 # Competition-related models
 @with_author
@@ -15,6 +17,7 @@ class Competition(models.Model):
     """
 
     name = models.CharField(max_length=100)
+    organizer_group = models.ForeignKey(Group, blank=True, null=True)
 
     # Fields added via foreign keys:
 
