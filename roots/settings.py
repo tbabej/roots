@@ -90,6 +90,7 @@ INSTALLED_APPS = (
     # Roots specific apps
     'base',
     'competitions',
+    'downloads',
     'events',
     'leaflets',
     'photos',
