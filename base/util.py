@@ -1,3 +1,5 @@
+import unicodedata
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -7,6 +9,8 @@ from django.utils.decorators import method_decorator
 from wand.image import Image
 from wand.color import Color
 
+def remove_accents(string):
+    return unicodedata.normalize('NFKD', unicode(string)).encode('ascii','ignore')
 
 def with_timestamp(cls):
     """Decorator to add added/modified field to particular model"""

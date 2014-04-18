@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.timezone import now
 
-from base.util import with_timestamp, with_author
+from base.util import with_timestamp, with_author, remove_accents
 
 
 # Competition-related models
@@ -102,10 +102,10 @@ class Season(models.Model):
 
     def __unicode__(self):
         template = "{name} ({competition} {year}-{number})"
-        return template.format(competition=unicode(self.competition),
+        return template.format(competition=remove_accents(self.competition),
                                year=self.year,
                                number=self.number,
-                               name=self.name,
+                               name=remove_accents(self.name),
                                )
 
     class Meta:
