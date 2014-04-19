@@ -52,8 +52,10 @@ class UserSolution(MediaRemovalMixin, AccessFilePermissionMixin, models.Model):
                                 storage=OverwriteFileSystemStorage())
 
     def __unicode__(self):
-        return (self.user.__unicode__() + u":'s solution of " +
-                self.problem.__unicode__())
+        return (u":{user}'s solution of problem {problem_id}"
+                .format(user=unicode(self.user),
+                        problem_id=unicode(self.problem.pk))
+                )
 
     class Meta:
         order_with_respect_to = 'problem'
