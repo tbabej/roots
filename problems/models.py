@@ -50,6 +50,9 @@ class UserSolution(MediaRemovalMixin, AccessFilePermissionMixin, models.Model):
     problem = models.ForeignKey('problems.Problem')
     solution = models.FileField(upload_to=get_solution_path,
                                 storage=OverwriteFileSystemStorage())
+    score = models.IntegerField(blank=True, null=True)
+    corrected_by = models.ManyToManyField('auth.User',
+                       related_name='usersolutions_corrected_set')
 
     def __unicode__(self):
         return (u":{user}'s solution of problem {problem_id}"
