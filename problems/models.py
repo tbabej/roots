@@ -9,6 +9,9 @@ from competitions.models import Competition
 from downloads.models import AccessFilePermissionMixin
 from django.core.exceptions import ObjectDoesNotExist
 
+from django.template.defaultfilters import truncatewords
+from base.templatetags.roots_tags import remove_uncomplete_latex
+
 
 # Solution-related models
 
@@ -151,7 +154,7 @@ class Problem(models.Model):
     #  usersolution_set
 
     def __unicode__(self):
-        return self.text
+        return remove_uncomplete_latex(truncatewords(self.text, 10))
 
     class Meta:
         verbose_name = 'Problem'
