@@ -1,8 +1,9 @@
 from base.util import with_timestamp, with_author
+from django.conf import settings
 from django.db import models
 from djangoratings.fields import RatingField
 
-from base.models import MediaRemovalMixin
+from base.models import MediaRemovalMixin, ContentTypeRestrictedFileField
 from base.storage import OverwriteFileSystemStorage
 from competitions.models import Competition
 from downloads.models import AccessFilePermissionMixin
@@ -13,7 +14,9 @@ from django.core.exceptions import ObjectDoesNotExist
 
 @with_author
 @with_timestamp
-class UserSolution(MediaRemovalMixin, AccessFilePermissionMixin, models.Model):
+class UserSolution(MediaRemovalMixin,
+                   AccessFilePermissionMixin,
+                   models.Model):
     '''
     Represents a user submitted solution of a given problem.
     '''
@@ -48,8 +51,10 @@ class UserSolution(MediaRemovalMixin, AccessFilePermissionMixin, models.Model):
     # be entering the solution on the user's behalf
     user = models.ForeignKey('auth.User')
     problem = models.ForeignKey('problems.Problem')
-    solution = models.FileField(upload_to=get_solution_path,
-                                storage=OverwriteFileSystemStorage())
+    solution = ContentTypeRestrictedFileField(upload_to=get_solution_path,
+                                storage=OverwriteFileSystemStorage(),
+                                max_size=settings.ROOTS_MAX_SOLUTION_SIZE)
+
     score = models.IntegerField(blank=True, null=True)
     corrected_by = models.ManyToManyField('auth.User',
                        related_name='usersolutions_corrected_set')

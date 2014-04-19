@@ -128,10 +128,12 @@ class UserSolutionAdmin(MediaRemovalAdminMixin,
 
     list_display = ('user',
                     'problem',
-                    'solution'
+                    'solution',
+                    'score',
                     )
 
     list_filter = ('user',)
+    list_editable = ('score',)
     search_fields = ['user']
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 

@@ -1,6 +1,9 @@
 import os
 
 from django.conf import settings
+from django.forms import forms
+from django.db.models import FileField
+from django.template.defaultfilters import filesizeformat
 
 
 class MediaRemovalMixin(object):
@@ -39,3 +42,37 @@ class MediaRemovalMixin(object):
                     os.rename(full_old_path, full_new_path)
 
         return super(MediaRemovalMixin, self).save(*args, **kwargs)
+
+
+class ContentTypeRestrictedFileField(FileField):
+    """
+    Same as FileField, but you can specify:
+        * content_types - list containing allowed content_types.
+                          Example: ['application/pdf', 'image/jpeg']
+        * max_size - a number indicating the maximum file size
+                            allowed for upload.
+    """
+
+    def __init__(self, *args, **kwargs):
+        self.content_types = kwargs.pop("content_types", None)
+        self.max_size = kwargs.pop("max_size", None)
+
+        super(ContentTypeRestrictedFileField, self).__init__(*args, **kwargs)
+
+    def clean(self, *args, **kwargs):
+        data = super(ContentTypeRestrictedFileField,
+                     self).clean(*args, **kwargs)
+
+        file_obj = data.file
+        content_type = file_obj.content_type
+
+        if self.content_types is None or content_type in self.content_types:
+            if self.max_size is None or file_obj._size > int(self.max_size):
+                raise forms.ValidationError(
+                    'Please keep filesize under %s. Current filesize %s' %
+                    (filesizeformat(self.max_size),
+                     filesizeformat(file_obj._size)))
+        else:
+            raise forms.ValidationError('Filetype not supported.')
+
+        return data
