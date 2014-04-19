@@ -1,7 +1,9 @@
 from django import template
 from django.core.urlresolvers import reverse
+from django.template.base import TemplateSyntaxError
 
 register = template.Library()
+
 
 @register.simple_tag
 def url_active(request, urls, *args, **kwargs):
@@ -10,6 +12,7 @@ def url_active(request, urls, *args, **kwargs):
         return "active"
     else:
         return ""
+
 
 @register.filter
 def remove_uncomplete_latex(text):
@@ -23,6 +26,7 @@ def remove_uncomplete_latex(text):
     else:
         return text
 
+
 class DefineNode(template.Node):
     def __init__(self, name, nodelist):
         self.name = name
@@ -34,6 +38,7 @@ class DefineNode(template.Node):
     def render(self, context):
         context[self.name] = self.nodelist.render(context)
         return ''
+
 
 @register.tag
 def define(parser, token):
@@ -62,6 +67,7 @@ def define(parser, token):
     parser.delete_first_token()
 
     return DefineNode(name, nodelist)
+
 
 @register.filter
 def access(value, arg):
