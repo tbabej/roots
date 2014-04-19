@@ -28,13 +28,17 @@ class MediaRemovalAdminMixin(object):
         if 'delete_selected' in actions:
             del actions['delete_selected']
 
-        # We use self.__class__ here so that self is not binded, otherwise
-        # we would be passing 4 arguments instead of 3 (and self twice)
-        new_delete = (self.__class__.delete_selected_with_media,
-                      "delete_selected_with_media",
-                      "Deletes objects with associated media files")
+        # Add new delete method only for the superuser, as it is quite dangerous
+        if request.user.is_superuser:
 
-        actions['delete_selected_with_media'] = new_delete
+            # We use self.__class__ here so that self is not binded, otherwise
+            # we would be passing 4 arguments instead of 3 (and self twice)
+            new_delete = (self.__class__.delete_selected_with_media,
+                          "delete_selected_with_media",
+                          "Delete objects with associated media files")
+
+            actions['delete_selected_with_media'] = new_delete
+
         return actions
 
     def delete_selected_with_media(self, request, queryset):
