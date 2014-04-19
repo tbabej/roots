@@ -1,7 +1,8 @@
 from django.contrib import admin
 from reversion import VersionAdmin
 
-from base.admin import PrettyFilterMixin, MediaRemovalAdminMixin
+from base.admin import (PrettyFilterMixin, MediaRemovalAdminMixin,
+                        DownloadMediaFilesMixin)
 from base.util import admin_commentable, editonly_fieldsets
 
 from .models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
@@ -121,7 +122,9 @@ class ProblemSetAdmin(PrettyFilterMixin, VersionAdmin):
 
 @admin_commentable
 @editonly_fieldsets
-class UserSolutionAdmin(MediaRemovalAdminMixin, VersionAdmin):
+class UserSolutionAdmin(MediaRemovalAdminMixin,
+                        DownloadMediaFilesMixin,
+                        VersionAdmin):
 
     list_display = ('user',
                     'problem',
