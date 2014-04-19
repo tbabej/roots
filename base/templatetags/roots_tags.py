@@ -1,5 +1,6 @@
 from django import template
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.template.base import TemplateSyntaxError
 
 register = template.Library()
@@ -72,3 +73,8 @@ def define(parser, token):
 @register.filter
 def access(value, arg):
     return value.get(arg, {})
+
+
+@register.simple_tag
+def settings_value(name):
+    return getattr(settings, name, "")

@@ -91,6 +91,12 @@
                 <div class="modal-body">
                 <p> {{problem.text}} </p>
 
+                {% define max_size %}
+                {% settings_value "ROOTS_MAX_SOLUTION_SIZE" %}
+                {% enddefine %}
+
+                <p> Maximum size of solution is: {{max_size|filesizeformat}} </p>
+
                 <form class="form" action="{% url 'problems_usersolution_submit' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
