@@ -65,3 +65,25 @@ SENDFILE_BACKEND = 'sendfile.backends.simple'
 # It is recommended to setup mod_xsendfile in apache
 # and use the following.
 #SENDFILE_BACKEND = 'sendfile.backends.xsendfile'
+
+# Logging settings. This is a developer machine configuration, which
+# allows to easily log every log message to a single file, which can
+# be tailed.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/path/to/your/logs/roots.log',
+        },
+    },
+    'loggers': {
+        'roots': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    }
+}
+
