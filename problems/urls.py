@@ -1,12 +1,12 @@
 from django.conf.urls import patterns, url
 
-from problems.views import ProblemListView, ProblemDetailView
-from problems.views import user_problem_submission
+from problems.views import ProblemDetailView
+from problems.views import UserSolutionSubmissionView
 
 urlpatterns = patterns('',
 #    url(r'^$', ProblemListView.as_view(), name='problems_problem_list'),
     url(r'^(?P<pk>\d+)/$', ProblemDetailView.as_view(),
         name='problems_problem_detail'),
-    url(r'^submit/$', user_problem_submission,
+    url(r'^submit/$', UserSolutionSubmissionView.as_view(),
         name='problems_usersolution_submit')
 )
