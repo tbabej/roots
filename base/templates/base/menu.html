@@ -8,6 +8,7 @@
 
   <a class="list-group-item {% url_active request 'posts_post_list' %}" href="{% url 'posts_post_list' %}">Look at the posts</a>
   <a class="list-group-item {% url_active request 'competitions_season_detail' pk=1 %}" href="{% url 'competitions_season_detail' pk=1 %}">See the problems</a>
+  <a class="list-group-item {% url_active request 'competitions_season_results' pk=1 %}" href="{% url 'competitions_season_results' pk=1 %}">See the results</a>
   <a class="list-group-item {% url_active request 'leaflets_leaflet_list' %}" href="{% url 'leaflets_leaflet_list' %}">Download present and past leaflets</a>
   <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'pl-gallery-archive' %}">Browse through our galleries</a>
   <a class="list-group-item {% url_active request 'events_event_list' %}" href="{% url 'events_event_list' %}">Look at upcoming events</a>

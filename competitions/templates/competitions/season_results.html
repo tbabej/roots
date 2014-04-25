@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load roots_tags %}
+{% load sekizai_tags %}
+
+{% block content %}
+
+{% define content_heading %}
+{{ season.competition }} - {{ season.name }}
+{% enddefine%}
+
+{% define content %}
+
+  <!-- navigation-tabs -->
+  <ul class="nav nav-tabs">
+  {% for series in season.series_set.all %}
+        <li {% if series.is_nearest_deadline %}class="active"{% endif %}>
+          <a href="#series-{{forloop.counter}}" data-toggle="tab">{{series.name}}</a>
+        </li>
+  {% endfor %}
+  </ul>
+  <!-- end navigation-tabs -->
+
+  <!-- tab-content -->
+  <div class="tab-content">
+  {% for series in season.series_set.all %}
+      <div class="tab-pane fade {% if series.is_nearest_deadline %}in active{% endif %}" id="series-{{series.pk}}">
+
+          </br>
+          <blockquote class="blockquote-info">
+            <h4>
+              <span class="glyphicon glyphicon-time"></span>
+              Series deadline:
+              <span class="text-{% if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
+                {{series.submission_deadline}}
+              </span>
+              </h4>
+          </blockquote>
+
+    <table class="table table-condensed table-striped">
+    <thead>
+    <tr>
+    <th> Name </th>
+    {% for problem in series.problemset.problems.all %}
+      <th> Problem {{forloop.counter}} </th>
+    {% endfor %}
+    <th> Total </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for competitor in series.get_competitors %}
+      <tr>
+      <td> {{competitor.get_full_name|default:competitor.username}} </td>
+        {% for problem in series.problemset.problems.all %}
+        <td>
+          {% with results|access:series.pk|access:competitor.pk|access:problem.pk as solution %}
+            {% if solution %}
+              {% define score %}{% if solution.score %}{{solution.score}}{% else %}not corrected{% endif %}{% enddefine %}
+            {% else %}
+              {% define score %}-{% enddefine %}
+            {% endif %}
+            {{score}}
+          {% endwith %}
+        </td>
+        {% endfor %}
+        <td>{{ results|access:series.pk|access:competitor.pk|access:"sum"  }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div><!-- tabe-pane -->
+  {% endfor %}
+
+  </div> <!-- tab-content -->
+
+
+{% enddefine %}
+
+{% include "base/panel.html" with content_heading=content_heading content=content %}
+
+{% endblock %}
