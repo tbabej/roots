@@ -120,8 +120,8 @@ INSTALLED_APPS = (
     # ... include the providers you want to enable:
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    #'allauth.socialaccount.providers.openid',
-    #'allauth.socialaccount.providers.twitter',
+    # 'allauth.socialaccount.providers.openid',
+    # 'allauth.socialaccount.providers.twitter',
     # Support for django-extensions
     'django_extensions',
     # Support database migrations
@@ -233,12 +233,12 @@ MATHJAX_ENABLED = True
 MATHJAX_CONFIG_FILE = "TeX-AMS_HTML.js"
 
 MATHJAX_CONFIG_DATA = {
-  "tex2jax": {
-    "inlineMath":
-      [
-          ['$','$'],
-      ]
-  }
+    "tex2jax": {
+        "inlineMath":
+            [
+               ['$', '$'],
+            ]
+     }
 }
 
 # Crispy froms settings

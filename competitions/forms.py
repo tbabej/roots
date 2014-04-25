@@ -1,7 +1,7 @@
 from django import forms
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, ButtonHolder, Div
+from crispy_forms.layout import Submit, Layout, Div
 
 from .models import Competition, Season
 
@@ -22,13 +22,15 @@ class CompetitionRegistrationForm(forms.Form):
         self.helper.layout = Layout(
             Div(
                 Div('competition', css_class='col-lg-12'),
-                Div(Submit('submit', 'Submit', css_class='center-block'), css_class="col-lg-12"),
+                Div(Submit('submit', 'Submit', css_class='center-block'),
+                    css_class="col-lg-12"),
                 css_class='center-block'
             )
         )
 
+
 class SeasonJoinForm(forms.Form):
 
-    #season = forms.ModelChoiceField(queryset=SeasonJoinForm.user.competitions
+    # season = forms.ModelChoiceField(queryset=SeasonJoinForm.user.competitions
     #                                         .filter(is_active=True))
     season = forms.ModelChoiceField(queryset=Season.objects.all())

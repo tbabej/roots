@@ -28,11 +28,11 @@ EMAIL_FILE_PATH = 'email-messages'
 # EMAIL_HOST='webserver.roots.com'
 
 # Configure from addresses
-DEFAULT_FROM_EMAIL='web@roots.com'
-SERVER_EMAIL='root@roots.com'
+DEFAULT_FROM_EMAIL = 'web@roots.com'
+SERVER_EMAIL = 'root@roots.com'
 
 # Configure email prefix
-EMAIL_SUBJECT_PREFIX='[Roots] '
+EMAIL_SUBJECT_PREFIX = '[Roots] '
 
 # == Django-debug-toolbar configuration ==
 INTERNAL_IPS = ('127.0.0.1',)
@@ -57,14 +57,14 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-TIME_ZONE='Europe/Prague'
+TIME_ZONE = 'Europe/Prague'
 
 # Django-sendfile related settings
 SENDFILE_BACKEND = 'sendfile.backends.simple'
 
 # It is recommended to setup mod_xsendfile in apache
 # and use the following.
-#SENDFILE_BACKEND = 'sendfile.backends.xsendfile'
+# SENDFILE_BACKEND = 'sendfile.backends.xsendfile'
 
 # Logging settings. This is a developer machine configuration, which
 # allows to easily log every log message to a single file, which can
@@ -86,4 +86,3 @@ LOGGING = {
         },
     }
 }
-

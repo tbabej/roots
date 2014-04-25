@@ -112,7 +112,7 @@ class Problem(models.Model):
     get_rating.short_description = 'Rating'
 
     def get_usages(self):
-        #FIXME: problemsets that have no event will not be displayed
+        # FIXME: problemsets that have no event will not be displayed
         sets = self.problemset_set.order_by('-event__start_time')\
                                   .filter(event__isnull=False)
 
@@ -275,8 +275,7 @@ class ProblemCategory(models.Model):
     name = models.CharField(max_length=50)
 
     # Fields added via foreign keys:
-
-        # problem_set
+    #     problem_set
 
     def __unicode__(self):
         return self.name

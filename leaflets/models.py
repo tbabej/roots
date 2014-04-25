@@ -53,7 +53,7 @@ def generate_leaflet_thumbnail(sender, instance, created, **kwargs):
         source_path = instance.get_leaflet_path()
         dest_path = instance.get_thumbnail_path()
 
-        util.generate_pdf_thumbnail(source= source_path,
+        util.generate_pdf_thumbnail(source=source_path,
                                     destination=dest_path,
                                     height=212,
                                     width=150)

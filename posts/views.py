@@ -16,7 +16,8 @@ class PostListView(ListView):
 
         queryset = super(PostListView, self).get_queryset()
         return queryset.order_by('-added_at')
-        
+
+
 class PostDetailView(DetailView):
 
     model = Post

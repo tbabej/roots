@@ -13,4 +13,3 @@ class OverwriteFileSystemStorage(FileSystemStorage):
 
     def get_available_name(self, name):
         return name
-

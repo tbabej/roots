@@ -34,7 +34,3 @@ class EventUserRegisterView(RedirectBackView):
 
         return super(EventUserRegisterView, self).dispatch(request,
                                                            *args, **kwargs)
-
-
-
-
