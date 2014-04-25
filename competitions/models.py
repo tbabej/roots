@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.timezone import now
@@ -100,6 +100,19 @@ class Season(models.Model):
     name = models.CharField(max_length=50)
     join_deadline = models.DateTimeField(blank=True, null=True)
 
+    def get_competitors(self):
+        """
+        Returns the list of the competitors in the given season as everybody
+        who submitted at least one problem solution in that season.
+        """
+
+        competitors = User.objects.none()
+
+        for series in self.series_set.all():
+            competitors = competitors | series.get_competitors()
+
+        return competitors
+
     def __unicode__(self):
         template = "{name} ({competition} {year}-{number})"
         return template.format(competition=remove_accents(self.competition),
@@ -128,6 +141,21 @@ class Series(models.Model):
                                       null=True)
     submission_deadline = models.DateTimeField()
     is_active = models.BooleanField(default=False)
+
+    def get_competitors(self):
+        """
+        Returns the list of the competitors in the given series as everybody
+        who submitted at least one problem solution.
+        """
+
+        competitors = User.objects.none()
+
+        for problem in self.problemset.problems.all():
+            problemset_competitors = User.objects.filter(
+                usersolution__pk__in=problem.usersolution_set.all())
+            competitors = competitors | problemset_competitors
+
+        return competitors
 
     def is_past_submission_deadline(self):
         return now() > self.submission_deadline
