@@ -78,6 +78,17 @@ You are welcome to fork and submit your pull requests. Here's simple guide:
 
 * Have fun and play :)
 
+Coding style
+------------
+
+We use relaxed version of the PEP8 standart:
+* PEP8 erros E121 - E128 are ignored
+* lines can be up to 80 characters long
+
+You can check it using the following command:
+> pep8 . --exclude=migrations --ignore=E121,E122,E123,E124,E125,E126,E127,E128 | grep -v '80 > 79'
+
+
 Requirements
 ------------
 
