@@ -28,6 +28,43 @@ class CompetitionRegistrationView(FormView):
         return super(CompetitionRegistrationView, self).dispatch(*arg, **kwarg)
 
 
+class SeasonResultsView(DetailView):
+    model = Season
+    context_object_name = 'season'
+    template_name = 'competitions/season_results.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SeasonResultsView, self).get_context_data(*args,
+                                                                 **kwargs)
+
+        # Find UserSolution objects for the problems
+        context['results'] = dict()
+
+        for series in self.object.series_set.all():
+            context['results'][series.pk] = dict()
+
+            for competitor in self.object.get_competitors():
+                context['results'][series.pk][competitor.pk] = dict()
+                competitor_sum = 0
+
+                for problem in series.problemset.problems.all():
+                    solutions = UserSolution.objects.filter(
+                                        user=competitor.pk,
+                                        problem=problem.pk)
+                    solution = solutions[0] if solutions else None
+
+                    context['results'][series.pk]\
+                                      [competitor.pk][problem.pk] = solution
+
+                    if solution and solution.score:
+                        competitor_sum += solution.score
+
+                context['results'][series.pk]\
+                                  [competitor.pk]['sum'] = competitor_sum
+
+        return context
+
+
 class SeasonDetailView(DetailView):
     model = Season
     context_object_name = 'season'
