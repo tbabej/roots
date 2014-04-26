@@ -155,7 +155,7 @@ class Series(models.Model):
                 usersolution__pk__in=problem.usersolution_set.all())
             competitors = competitors | problemset_competitors
 
-        return competitors
+        return competitors.distinct()
 
     def is_past_submission_deadline(self):
         return now() > self.submission_deadline
