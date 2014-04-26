@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'photologue',
     # Use django-debug-toolbar
     'debug_toolbar',
+    'debug_toolbar_line_profiler',
     # Use django-mathjax
     'django_mathjax',
     # Use crispy-forms
