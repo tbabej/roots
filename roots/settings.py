@@ -61,13 +61,13 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'author.middlewares.AuthorDefaultBackendMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -251,3 +251,6 @@ SENDFILE_URL = MEDIA_URL + SENDFILE_DIR
 
 # Roots-related settings
 ROOTS_MAX_SOLUTION_SIZE = 10485760  # 10MB
+
+# We manually install django-debug-toolbar
+DEBUG_TOOLBAR_PATCH_SETTINGS = False

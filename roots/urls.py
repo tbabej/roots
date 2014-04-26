@@ -43,3 +43,10 @@ urlpatterns += patterns('',
     (r'^wiki/notify/', get_notify_pattern()),
     (r'^wiki/', get_wiki_pattern())
 )
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
