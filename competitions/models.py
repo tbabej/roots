@@ -33,6 +33,14 @@ class Competition(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_active_season(self):
+        season_candidates = self.season_set.filter(start__lt=now(),
+                                                   end__gt=now())
+        if season_candidates.exists():
+            return season_candidates[0]
+        else:
+            return None
+
     class Meta:
         ordering = ['name']
         verbose_name = 'Competition'
@@ -115,6 +123,14 @@ class Season(models.Model):
 
         return competitors
 
+    def get_series_nearest_deadline(self):
+        active_series = self.series_set.filter(submission_deadline__gt=now())
+
+        if active_series.exists():
+            return active_series[0]
+        else:
+            return None
+
     def __unicode__(self):
         template = "{name} ({competition} {year}-{number})"
         return template.format(competition=remove_accents(self.competition),
@@ -164,13 +180,7 @@ class Series(models.Model):
 
     def is_nearest_deadline(self):
         # Series are returned sorted by the submission deadline
-        active_series = [s for s in Series.objects.all()
-                           if not s.is_past_submission_deadline()]
-
-        if active_series:
-            return active_series[0] == self
-        else:
-            return False
+        return self == self.season.get_series_nearest_deadline()
 
     def clean(self, *args, **kwargs):
         if self.is_active:
