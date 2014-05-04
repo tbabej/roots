@@ -5,6 +5,8 @@ from base.admin import (PrettyFilterMixin, MediaRemovalAdminMixin,
                         DownloadMediaFilesMixin)
 from base.util import admin_commentable, editonly_fieldsets
 
+from competitions.models import Competition
+
 from .models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
                      UserSolution, OrgSolution, ProblemInSet)
 
@@ -86,6 +88,29 @@ class AverageSeverityAboveListFilter(admin.SimpleListFilter):
         return queryset
 
 
+class CurrentSeasonFilter(admin.SimpleListFilter):
+
+    title = 'problem in current season'
+    parameter_name = 'current_season_problem'
+
+    def lookups(self, request, model_admin):
+        for competition in Competition.objects.all():
+            # If the competition does not have active season, skip it
+            if competition.get_active_season() is None:
+                continue
+
+            for series in competition.get_active_season().series_set.all():
+                for problem in series.problemset.problems.all():
+                    yield (problem.pk,
+                           "%s, %s: %s" % (competition, series, problem))
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(problem__pk=self.value())
+        else:
+            return queryset
+
+
 @admin_commentable
 @editonly_fieldsets
 class ProblemSetAdmin(PrettyFilterMixin, VersionAdmin):
@@ -132,7 +157,7 @@ class UserSolutionAdmin(MediaRemovalAdminMixin,
                     'score',
                     )
 
-    list_filter = ('user',)
+    list_filter = ('user', CurrentSeasonFilter)
     list_editable = ('score',)
     search_fields = ['user']
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
