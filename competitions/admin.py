@@ -91,6 +91,8 @@ class SeasonAdmin(PrettyFilterMixin, VersionAdmin):
                     'year',
                     'name',
                     'number',
+                    'start',
+                    'end',
                     'join_deadline'
                     )
 
@@ -100,7 +102,14 @@ class SeasonAdmin(PrettyFilterMixin, VersionAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('competition', 'year', 'number', 'name', 'join_deadline')
+            'fields': ('competition',
+                       'name',
+                       'year',
+                       'number',
+                       'start',
+                       'end',
+                       'join_deadline',
+                       )
         }),
     )
 

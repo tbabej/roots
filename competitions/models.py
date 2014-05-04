@@ -99,6 +99,8 @@ class Season(models.Model):
     number = models.IntegerField()
     name = models.CharField(max_length=50)
     join_deadline = models.DateTimeField(blank=True, null=True)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
 
     def get_competitors(self):
         """
