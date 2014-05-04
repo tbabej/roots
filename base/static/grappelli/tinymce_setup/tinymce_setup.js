@@ -56,6 +56,8 @@ tinyMCE.init({
         {title: 'Code', block : 'p', classes: 'code'}
     ],
     verify_html: true,
+    entity_encoding : 'raw',
+
 
     // URL
     relative_urls: false,
