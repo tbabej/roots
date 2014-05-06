@@ -124,12 +124,23 @@ class Season(models.Model):
         return competitors
 
     def get_series_nearest_deadline(self):
+        """
+        Returns the most relevant series for the deadline. That is usually the
+        series which is still active, but closest to its deadline.
+
+        If all series are past their deadline, returns the last series.
+        If there are no series in this season, returns None.
+        """
+
         active_series = self.series_set.filter(submission_deadline__gt=now())
 
         if active_series.exists():
             return active_series[0]
         else:
-            return None
+            if self.series_set.exists():
+                return self.series_set.order_by('-submission_deadline')[0]
+            else:
+                return None
 
     def __unicode__(self):
         template = "{name} ({competition} {year}-{number})"
