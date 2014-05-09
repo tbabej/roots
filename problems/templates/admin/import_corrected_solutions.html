@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+  <fieldset class="grp-module ">
+    {% for field in form %}
+      <div class="grp-row grp-cells-1">
+      <div class="l-2c-fluid l-d-4">
+        <div class="c-1">{{field.label_tag}}</div>
+        <div class="c-2 {% if form.errors %} grp-errors{% endif %}">
+          {{field.errors}}{{field}}
+        </div>
+      </div>
+      </div>
+    {% endfor %}
+  </fieldset>
+
+  <input class="grp-button grp-default" value="Import corrected solutions" type="submit">
+</form>
+
+{% endblock %}
+
+<div class="grp-row grp-cells-1 {% if form.errors %} grp-errors{% endif %}">
+  <div class="l-2c-fluid l-d-4">
+    <div class="c-1">
+      <label class="required" for="id_solution">Solution</label></div>
+    <div class="c-2"><input id="id_solution" name="solution" type="file"></div>
+</div></div>

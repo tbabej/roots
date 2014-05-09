@@ -10,3 +10,8 @@ class UserSolutionForm(forms.ModelForm):
         widgets = {
             'problem': forms.HiddenInput
         }
+
+
+class ImportCorrectedSolutionsForm(forms.Form):
+    zipfile = forms.FileField()
+    # TODO: include field for people that corrected the solutions

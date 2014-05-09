@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.shortcuts import redirect
 from reversion import VersionAdmin
 
 from base.admin import (PrettyFilterMixin, MediaRemovalAdminMixin,
@@ -150,6 +151,12 @@ class ProblemSetAdmin(PrettyFilterMixin, VersionAdmin):
 class UserSolutionAdmin(MediaRemovalAdminMixin,
                         DownloadMediaFilesMixin,
                         VersionAdmin):
+
+    def import_from_zip(self, request, queryset):
+        return redirect('problems_import_solutions_from_zip')
+    import_from_zip.short_description = 'Import solutions from zip'
+
+    actions = ['import_from_zip']
 
     list_display = ('user',
                     'problem',
