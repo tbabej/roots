@@ -100,9 +100,11 @@ class SeasonDetailView(DetailView):
                                                  user=self.request.user.pk,
                                                  problem=problem.pk)
                 if not solutions:
-                    form = UserSolutionForm(initial={'problem': problem})
+                    form = UserSolutionForm(initial={'problem': problem.pk})
                 else:
-                    form = UserSolutionForm(instance=solutions[0])
+                    form = UserSolutionForm(
+                               initial={'problem': problem.pk,
+                                        'solution': solutions[0].solution})
 
                 context['forms'][series.pk][problem.pk] = form
 

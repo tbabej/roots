@@ -95,11 +95,26 @@
                 {% settings_value "ROOTS_MAX_SOLUTION_SIZE" %}
                 {% enddefine %}
 
-                <p> Maximum size of solution is: {{max_size|filesizeformat}} </p>
+                <div class="well" style="background-color: rgb(232,232,232)">
 
-                <form class="form" action="{% url 'problems_usersolution_submit' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
+                  {% if form.solution.value %}
+                  <p> Current solution:
+                    <a href="{{MEDIA_URL}}{{form.solution.value}}">{{form.solution.value}} </a>
+                  </p>
+                  {% endif %}
+
+                  <b>Instructions</b>:
+                  <ul>
+                    <li>Preferable format is single PDF file.</li>
+                    <li>However, supported formats are: .doc, .jpg, .png, .gif, .tiff</li>
+                    <li>These formats will be converted to PDF.</li>
+                    <li>You can upload mutliple files, they will be merged into one PDF file.</li>
+                    <li>Maximum size of solution is: {{max_size|filesizeformat}}</li>
+                  </ul>
+                  <form class="form" action="{% url 'problems_usersolution_submit' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                  </div>
                 </div>
 
                 <div class="modal-footer">

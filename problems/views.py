@@ -1,5 +1,6 @@
 from zipfile import ZipFile
 
+from django.core.exceptions import ValidationError
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -9,7 +10,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import View
 
-from base.util import get_uploaded_filepath
+from base.util import convert_files_to_single_pdf, get_uploaded_filepath
 
 from problems.models import Problem, UserSolution
 from problems.forms import UserSolutionForm, ImportCorrectedSolutionsForm
@@ -38,9 +39,21 @@ class UserSolutionSubmissionView(View):
         form = self.form_class(request.POST, request.FILES)
 
         if form.is_valid():
-            submission = form.save(commit=False)
-            submission.user = request.user
-            submission.save()
+            data = dict(
+                user=request.user,
+                problem=Problem.objects.get(pk=form.cleaned_data['problem'])
+            )
+
+            submission, created = UserSolution.objects.get_or_create(**data)
+
+            try:
+                filelist = request.FILES.getlist('solution')
+                submission.solution = convert_files_to_single_pdf(
+                                          submission.get_solution_path(),
+                                          filelist)
+                submission.save()
+            except ValidationError, e:
+                messages.error(request, str(e))
         else:
             for field, errors in form.errors.iteritems():
                 messages.error(request, u"{error}".format(

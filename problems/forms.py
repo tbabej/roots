@@ -1,15 +1,14 @@
 from django import forms
+from django.conf import settings
 
-from .models import UserSolution
+from base.forms import MultiFileField
 
 
-class UserSolutionForm(forms.ModelForm):
-    class Meta:
-        model = UserSolution
-        fields = ['solution', 'problem']
-        widgets = {
-            'problem': forms.HiddenInput
-        }
+class UserSolutionForm(forms.Form):
+    solution = MultiFileField(min_num=1,
+                              max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
+                              max_total_size=settings.ROOTS_MAX_SOLUTION_SIZE)
+    problem = forms.IntegerField(widget=forms.HiddenInput)
 
 
 class ImportCorrectedSolutionsForm(forms.Form):
