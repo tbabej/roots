@@ -164,8 +164,11 @@ def convert_to_pdf_soffice(filepath):
     PDF file.
     """
 
-    stdout, _, rc = run(['soffice',
+    stdout, _, rc = run(['xvfb-run', '-a', '-w', '0',
+                         'soffice',
                          '--headless',
+                         '--invisible',
+                         '--nofirststartwizard',
                          '--convert-to', 'pdf',
                          '--outdir', '/tmp',
                          filepath])
