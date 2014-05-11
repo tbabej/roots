@@ -1,15 +1,15 @@
-from tempfile import NamedTemporaryFile
 from zipfile import ZipFile
 
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.core.files.uploadedfile import TemporaryUploadedFile
 
 from django.shortcuts import redirect, render
 
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import View
+
+from base.util import get_uploaded_filepath
 
 from problems.models import Problem, UserSolution
 from problems.forms import UserSolutionForm, ImportCorrectedSolutionsForm
@@ -67,16 +67,8 @@ class ImportCorrectedSolutionsView(View):
         if form.is_valid():
             try:
                 file_data = form.cleaned_data['zipfile']
-
-                if isinstance(file_data, TemporaryUploadedFile):
-                    temp_file = None
-                    solutions_zip = ZipFile(file_data.temporary_file_path())
-                else:
-                    temp_file = NamedTemporaryFile()
-                    for chunk in file_data.chunks():
-                        temp_file.write(chunk)
-                    temp_file.flush()
-                    solutions_zip = ZipFile(temp_file.name)
+                filepath = get_uploaded_filepath(file_data)
+                solutions_zip = ZipFile(filepath)
 
                 # Check for any corrupted files in the zip
                 # testzip returns the list of corrupted ones
@@ -127,8 +119,6 @@ class ImportCorrectedSolutionsView(View):
                 # If any exceptions happened, errors should be in messages
                 messages.error(request, 'exception happened: %s' % e)
             finally:
-                if temp_file is not None:
-                    temp_file.close()
                 # redirect back to admin site
                 return redirect('admin:problems_usersolution_changelist')
 

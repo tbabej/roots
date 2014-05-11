@@ -2,9 +2,12 @@ import unicodedata
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db import models
 from django.utils.text import ugettext_lazy as _
 from django.utils.decorators import method_decorator
+
+from tempfile import NamedTemporaryFile
 
 from wand.image import Image
 from wand.color import Color
@@ -124,3 +127,21 @@ def generate_pdf_thumbnail(source, destination, width, height):
         img.background_color = Color('white')
         img.resize(width, height)
         img.save(filename=destination)
+
+
+def get_uploaded_filepath(f):
+    """
+    Returns path to the uploaded file. If the file is small enough for Django
+    to handle it using InMemoryUploadedFile, save it and return the path.
+    """
+
+    if isinstance(f, TemporaryUploadedFile):
+        return f.temporary_file_path()
+    else:
+        temp_file = NamedTemporaryFile(delete=False)
+        #temp_file = open('/home/tbabej/temp/%s' % f.name, 'w')
+        for chunk in f.chunks():
+            temp_file.write(chunk)
+        temp_file.flush()
+
+        return temp_file.name
