@@ -1,7 +1,10 @@
+import os
 import unicodedata
+import subprocess
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db import models
 from django.utils.text import ugettext_lazy as _
@@ -145,3 +148,122 @@ def get_uploaded_filepath(f):
         temp_file.flush()
 
         return temp_file.name
+
+
+def run(args):
+    child = subprocess.Popen(args, stdout=subprocess.PIPE)
+    stdout, stderr = child.communicate()
+    rc = child.returncode
+
+    return stdout, stderr, rc
+
+
+def convert_to_pdf_soffice(filepath):
+    """
+    Converts file to PDF using soffice. Returns the path of the newly created
+    PDF file.
+    """
+
+    stdout, _, rc = run(['soffice',
+                         '--headless',
+                         '--convert-to', 'pdf',
+                         '--outdir', '/tmp',
+                         filepath])
+
+    if rc != 0:
+        raise ValidationError(u"Failed to convert file to PDF file.")
+
+    output_path = stdout.split(' -> ')[1].split(' ')[0]
+
+    return output_path
+
+
+def convert_to_pdf_convert(filepath):
+    """
+    Converts file to PDF using convert. Returns the path of the newly created
+    PDF file.
+    """
+
+    filedir, filename = os.path.split(filepath)
+    pdf_path = os.path.join("/tmp", filename + '.pdf')
+
+    out, err, rc = run(['convert', filepath, pdf_path])
+
+    if rc != 0:
+        raise ValidationError(u"Failed to convert image to PDF file.")
+
+    return pdf_path
+
+
+def merge_pdf_files(output_path, filepaths):
+    if not filepaths:
+        raise ValidationError(u"No PDF files to merge.")
+    elif not output_path:
+        raise ValidationError(u"No path given.")
+
+    out, err, rc = run(['pdftk'] +
+                       filepaths +
+                       ['cat', 'output', settings.MEDIA_ROOT + output_path])
+
+    if rc != 0:
+        raise ValidationError(u"Failed to merge PDF files.")
+
+    return output_path
+
+
+def convert_files_to_single_pdf(output_path, files):
+    CONTENT_TYPES = {
+        'noconvert': ['application/pdf'],
+        'soffice': ['application/msword',
+                    'application/vnd.openxmlformats-'
+                    'officedocument.wordprocessingml.document',
+                    'application/vnd.oasis.opendocument.text'],
+        'image': ['image/jpeg', 'image/bmp', 'image/gif', 'image/png',
+                  'image/tiff']
+    }
+
+    EXTENSIONS = {
+        'noconvert': ['.pdf'],
+        'soffice': ['.doc', 'docx'],
+        'image': ['.jpg', '.jpeg', '.png', '.gif', '.png', '.tiff']
+    }
+
+    def get_file_category(f):
+        for category, types in CONTENT_TYPES.iteritems():
+            if f.content_type in types:
+                return category
+
+        for category, extensions in EXTENSIONS.iteritems():
+            for extension in extensions:
+                if f.name.endswith(extension):
+                    return category
+
+        raise ValidationError(u"Unable to convert: File format not allowed.")
+
+    if not files:
+        raise ValidationError(u"No files to convert.")
+
+    # Convert each file to pdf
+    new_paths = []
+    to_remove_paths = []
+
+    for f in files:
+        if get_file_category(f) == 'noconvert':
+            new_paths.append(get_uploaded_filepath(f))
+        elif get_file_category(f) == 'soffice':
+            new_path = convert_to_pdf_soffice(get_uploaded_filepath(f))
+            new_paths.append(new_path)
+            to_remove_paths.append(new_path)
+        elif get_file_category(f) == 'image':
+            new_path = convert_to_pdf_convert(get_uploaded_filepath(f))
+            new_paths.append(new_path)
+            to_remove_paths.append(new_path)
+
+    merged_file_path = merge_pdf_files(output_path, new_paths)
+
+    # Remove all temporary files
+    for path in to_remove_paths:
+        if os.path.exists(path):
+            os.unlink(path)
+
+    return merged_file_path
