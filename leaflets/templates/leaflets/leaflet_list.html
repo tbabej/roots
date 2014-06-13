@@ -14,7 +14,7 @@
         <ul class="list-inline">
         {% for leaflet in context_data_item.leaflets %}
             <li>
-            <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}"">
+            <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}" target="_blank">
                 <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" class="img-thumbnail" width=150pts />
                 <br>
                 <div align="center">{{leaflet.year}} - {{leaflet.issue}}</div>
