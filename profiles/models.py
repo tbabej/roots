@@ -78,6 +78,10 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.username + "'s user profile"
 
+    def organizes_competitions(self):
+        return [registration.competition for registration in
+                self.competitionorgregistration_set.filter(approved=True)]
+
     class Meta:
         verbose_name = 'User profile'
         verbose_name_plural = 'User profiles'

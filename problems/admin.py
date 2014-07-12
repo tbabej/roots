@@ -3,7 +3,8 @@ from django.shortcuts import redirect
 from reversion import VersionAdmin
 
 from base.admin import (PrettyFilterMixin, MediaRemovalAdminMixin,
-                        DownloadMediaFilesMixin)
+                        DownloadMediaFilesMixin,
+                        RestrictedCompetitionAdminMixin)
 from base.util import admin_commentable, editonly_fieldsets
 
 from competitions.models import Competition
@@ -15,7 +16,8 @@ from .models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
 # Reversion-enabled Admin for problems
 @admin_commentable
 @editonly_fieldsets
-class ProblemAdmin(PrettyFilterMixin, VersionAdmin):
+class ProblemAdmin(RestrictedCompetitionAdminMixin,
+                   PrettyFilterMixin, VersionAdmin):
 
     list_display = ('text',
                     'get_rating',
@@ -50,7 +52,7 @@ class ProblemAdmin(PrettyFilterMixin, VersionAdmin):
     )
 
 
-class ProblemInSetInline(admin.StackedInline):
+class ProblemInSetInline(RestrictedCompetitionAdminMixin, admin.StackedInline):
 
     model = ProblemInSet
     fields = ('position', 'problem',
@@ -63,6 +65,7 @@ class ProblemInSetInline(admin.StackedInline):
     verbose_name_plural = 'Problems'
     sortable_field_name = "position"
     extra = 0
+    competition_field = 'problem__competition'
 
 
 class AverageSeverityAboveListFilter(admin.SimpleListFilter):
@@ -114,7 +117,8 @@ class CurrentSeasonFilter(admin.SimpleListFilter):
 
 @admin_commentable
 @editonly_fieldsets
-class ProblemSetAdmin(PrettyFilterMixin, VersionAdmin):
+class ProblemSetAdmin(RestrictedCompetitionAdminMixin,
+                      PrettyFilterMixin, VersionAdmin):
 
     list_display = ('name',
                     'competition',
@@ -148,7 +152,8 @@ class ProblemSetAdmin(PrettyFilterMixin, VersionAdmin):
 
 @admin_commentable
 @editonly_fieldsets
-class UserSolutionAdmin(MediaRemovalAdminMixin,
+class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
+                        MediaRemovalAdminMixin,
                         DownloadMediaFilesMixin,
                         VersionAdmin):
 
@@ -181,6 +186,8 @@ class UserSolutionAdmin(MediaRemovalAdminMixin,
             'fields': ('added_by', 'modified_by', 'added_at', 'modified_at')
         }),
     )
+
+    competition_field = 'problem__competition'
 
 # Register to the admin site
 admin.site.register(Problem, ProblemAdmin)

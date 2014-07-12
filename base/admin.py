@@ -12,6 +12,19 @@ class PrettyFilterMixin(object):
     change_list_filter_template = "admin/filter_listing.html"
 
 
+class RestrictedCompetitionAdminMixin(object):
+    competition_field = 'competition'
+
+    def get_queryset(self, request):
+        qs = super(RestrictedCompetitionAdminMixin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+
+        competitions = request.user.userprofile.organizes_competitions()
+        kwargs = {self.competition_field + '__in': competitions}
+        return qs.filter(**kwargs)
+
+
 class MediaRemovalAdminMixin(object):
     """
     This mixin overrides default delete_selected Admin action and replaces it
