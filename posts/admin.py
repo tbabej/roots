@@ -1,7 +1,7 @@
 from django.contrib import admin
 from reversion import VersionAdmin
 
-from base.admin import PrettyFilterMixin
+from base.admin import PrettyFilterMixin, RestrictedCompetitionAdminMixin
 from base.util import admin_commentable, editonly_fieldsets
 
 from .models import Post
@@ -10,7 +10,8 @@ from .models import Post
 # Reversion-enabled Admin for problems
 @admin_commentable
 @editonly_fieldsets
-class PostAdmin(PrettyFilterMixin, VersionAdmin):
+class PostAdmin(RestrictedCompetitionAdminMixin,
+                PrettyFilterMixin, VersionAdmin):
 
     list_display = ('title',
                     'competition',

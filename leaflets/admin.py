@@ -2,12 +2,14 @@ import reversion
 
 from django.contrib import admin
 
-from base.admin import MediaRemovalAdminMixin, DownloadMediaFilesMixin
+from base.admin import (MediaRemovalAdminMixin, DownloadMediaFilesMixin,
+                        RestrictedCompetitionAdminMixin)
 
 from .models import Leaflet
 
 
-class LeafletAdmin(MediaRemovalAdminMixin,
+class LeafletAdmin(RestrictedCompetitionAdminMixin,
+                   MediaRemovalAdminMixin,
                    DownloadMediaFilesMixin,
                    reversion.VersionAdmin):
 
