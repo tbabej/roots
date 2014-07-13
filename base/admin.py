@@ -5,6 +5,8 @@ import StringIO
 from django.conf import settings
 from django.http import HttpResponse
 
+from competitions.models import Competition
+
 
 class PrettyFilterMixin(object):
 
@@ -13,6 +15,21 @@ class PrettyFilterMixin(object):
 
 
 class RestrictedCompetitionAdminMixin(object):
+    """
+    Extends ModelAdmin in the following ways:
+        - makes visible only those objects whose competition_field is one of
+          the competitions that request.user organizes
+        - makes it possible for the user to assign objects to those competitions
+          that he organizes
+
+    Following class attributes can be set to modify the behaviour of this mixin:
+        - competition_field: Specifies the field that contains the foreign key
+                             to the competition that this object belongs to.
+                             Note that this can span several objects through
+                             foreign keys, that is, it does not need to be
+                             a attribute directly on this model.
+    """
+
     competition_field = 'competition'
 
     def get_queryset(self, request):
@@ -20,9 +37,28 @@ class RestrictedCompetitionAdminMixin(object):
         if request.user.is_superuser:
             return qs
 
-        competitions = request.user.userprofile.organizes_competitions()
-        kwargs = {self.competition_field + '__in': competitions}
-        return qs.filter(**kwargs)
+        # TODO: Investigate adding querysets, for now exclude all objects
+        #       associated with the competitions user does not organize
+
+        competitions = [c.id for c
+                        in request.user.userprofile.organizes_competitions()]
+        not_organized_competitions = Competition.objects.exclude(
+                                                           id__in=competitions)
+        kwargs = {self.competition_field + '__in': not_organized_competitions}
+        return qs.exclude(**kwargs)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+
+        if not request.user.is_superuser:
+            if db_field.name == self.competition_field:
+                # TODO: Make organizes_competitions return proper queryset
+                competitions = request.user.userprofile.organizes_competitions()
+                competitions = [c.id for c in competitions]
+                kwargs["queryset"] = Competition.objects.filter(
+                                                         id__in=competitions)
+
+        return super(RestrictedCompetitionAdminMixin,
+                     self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class MediaRemovalAdminMixin(object):
