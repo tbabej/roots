@@ -1,7 +1,7 @@
 from django.contrib import admin
 from reversion import VersionAdmin
 
-from base.admin import PrettyFilterMixin
+from base.admin import PrettyFilterMixin, RestrictedCompetitionAdminMixin
 from base.util import admin_commentable, editonly_fieldsets
 
 from .models import (Event, EventOrgRegistration, EventUserRegistration,
@@ -10,7 +10,8 @@ from .models import (Event, EventOrgRegistration, EventUserRegistration,
 
 @admin_commentable
 @editonly_fieldsets
-class EventAdmin(PrettyFilterMixin, VersionAdmin):
+class EventAdmin(RestrictedCompetitionAdminMixin,
+                 PrettyFilterMixin, VersionAdmin):
 
     list_display = ('name',
                     'location',
