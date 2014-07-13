@@ -19,6 +19,8 @@ class Event(models.Model):
     """
 
     name = models.CharField(max_length=100)
+    competition = models.ForeignKey('competitions.Competition', blank=True,
+                                    null=True)
     location = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     start_time = models.DateTimeField()
