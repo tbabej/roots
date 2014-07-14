@@ -2,6 +2,7 @@ from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
 
 from base.util import with_timestamp, with_author, remove_accents
 
@@ -16,8 +17,12 @@ class Competition(models.Model):
     subjects categories. Or both.
     """
 
-    name = models.CharField(max_length=100)
-    organizer_group = models.ForeignKey(Group, blank=True, null=True)
+    name = models.CharField(max_length=100,
+                            verbose_name=_('competition name'))
+    organizer_group = models.ForeignKey(Group,
+                                        blank=True,
+                                        null=True,
+                                        verbose_name=_('organizer group'))
 
     # Fields added via foreign keys:
 
@@ -43,8 +48,8 @@ class Competition(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = 'Competition'
-        verbose_name_plural = 'Competitions'
+        verbose_name = _('competition')
+        verbose_name_plural = _('competitions')
 
 
 @with_author
@@ -55,8 +60,10 @@ class CompetitionUserRegistration(models.Model):
     register into competition if he satisfies the conditions.
     """
 
-    competition = models.ForeignKey('competitions.Competition')
-    user = models.ForeignKey('profiles.UserProfile')
+    competition = models.ForeignKey('competitions.Competition',
+                                    verbose_name=_('competition'))
+    user = models.ForeignKey('profiles.UserProfile',
+                             verbose_name=_('user'))
 
     def __unicode__(self):
         return (self.user.__unicode__() + u" competes in " +
@@ -64,8 +71,8 @@ class CompetitionUserRegistration(models.Model):
 
     class Meta:
         ordering = ['added_at']
-        verbose_name = 'User registration'
-        verbose_name_plural = 'User registrations'
+        verbose_name = _('user registration')
+        verbose_name_plural = _('user registrations')
 
 
 @with_author
@@ -77,18 +84,20 @@ class CompetitionOrgRegistration(models.Model):
     be approved.
     """
 
-    competition = models.ForeignKey('competitions.Competition')
-    organizer = models.ForeignKey('profiles.UserProfile')
-    approved = models.BooleanField()
+    competition = models.ForeignKey('competitions.Competition',
+                                    verbose_name=_('competition'))
+    organizer = models.ForeignKey('profiles.UserProfile',
+                                  verbose_name=_('organizer'))
+    approved = models.BooleanField(verbose_name=_('registration approved'))
 
     def __unicode__(self):
-        return (self.organizer.__unicode__() + u" organizes " +
+        return (self.organizer.__unicode__() + _(" organizes ") +
                self.competition.__unicode__())
 
     class Meta:
         ordering = ['added_at']
-        verbose_name = 'Organizer registration'
-        verbose_name_plural = 'Organizer registration'
+        verbose_name = _('organizer registration')
+        verbose_name_plural = _('organizer registration')
 
 
 @with_author
@@ -102,13 +111,16 @@ class Season(models.Model):
     of that season.
     """
 
-    competition = models.ForeignKey('competitions.Competition')
-    year = models.IntegerField()
-    number = models.IntegerField()
-    name = models.CharField(max_length=50)
-    join_deadline = models.DateTimeField(blank=True, null=True)
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    competition = models.ForeignKey('competitions.Competition',
+                                    verbose_name=_('competition'))
+    year = models.IntegerField(verbose_name=_('year'))
+    number = models.IntegerField(verbose_name=_('number'))
+    name = models.CharField(max_length=50, verbose_name=_('name'))
+    join_deadline = models.DateTimeField(blank=True,
+                                         null=True,
+                                         verbose_name=_('join deadline'))
+    start = models.DateTimeField(verbose_name=_('season start'))
+    end = models.DateTimeField(verbose_name=_('season end'))
 
     def get_competitors(self):
         """
@@ -152,8 +164,8 @@ class Season(models.Model):
 
     class Meta:
         ordering = ['competition', 'year', 'number']
-        verbose_name = 'Season'
-        verbose_name_plural = 'Seasons'
+        verbose_name = _('Season')
+        verbose_name_plural = _('Seasons')
 
 
 @with_author
@@ -163,13 +175,19 @@ class Series(models.Model):
     Represents one series of problems in the season of the competetion.
     """
 
-    season = models.ForeignKey('competitions.Season')
-    name = models.CharField(max_length=50)
-    number = models.PositiveSmallIntegerField()
-    problemset = models.OneToOneField('problems.ProblemSet', blank=True,
-                                      null=True)
-    submission_deadline = models.DateTimeField()
-    is_active = models.BooleanField(default=False)
+    season = models.ForeignKey('competitions.Season',
+                               verbose_name=_('season'))
+    name = models.CharField(max_length=50,
+                            verbose_name=_('name'))
+    number = models.PositiveSmallIntegerField(verbose_name=_('number'))
+    problemset = models.OneToOneField('problems.ProblemSet',
+                                      blank=True,
+                                      null=True,
+                                      verbose_name=_('problem set assigned'))
+    submission_deadline = models.DateTimeField(
+                              verbose_name=_('series submission deadline'))
+    is_active = models.BooleanField(default=False,
+                                    verbose_name=_('is series active'))
 
     def get_competitors(self):
         """
@@ -215,5 +233,5 @@ class Series(models.Model):
 
         ordering = ['submission_deadline']
         unique_together = ('season', 'number')
-        verbose_name = 'Series'
-        verbose_name_plural = 'Series'
+        verbose_name = _('Series')
+        verbose_name_plural = _('Series')
