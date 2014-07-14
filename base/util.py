@@ -45,18 +45,18 @@ def with_author(cls):
     """
 
     user_model = get_user_model()
-    cls_name = cls._meta.verbose_name_plural.lower()
+    cls_name = cls.__name__
 
     created_by = models.ForeignKey(user_model,
-                                   related_name='%s_created' % cls_name,
-                                   verbose_name='author',
+                                   related_name=u'%s_created' % cls_name,
+                                   verbose_name=_('author'),
                                    null=True,
                                    blank=True,
                                    editable=False)
 
     modified_by = models.ForeignKey(user_model,
-                                    related_name='%s_modified' % cls_name,
-                                    verbose_name='last modified by',
+                                    related_name=u'%s_modified' % cls_name,
+                                    verbose_name=_('last modified by'),
                                     null=True,
                                     blank=True,
                                     editable=False)
