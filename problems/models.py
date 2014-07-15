@@ -1,16 +1,18 @@
-from base.util import with_timestamp, with_author
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.template.defaultfilters import truncatewords
+from django.utils.translation import ugettext_lazy as _
+
 from djangoratings.fields import RatingField
 
 from base.models import MediaRemovalMixin, ContentTypeRestrictedFileField
 from base.storage import OverwriteFileSystemStorage
+from base.templatetags.roots_tags import remove_uncomplete_latex
+from base.util import with_timestamp, with_author
+
 from competitions.models import Competition
 from downloads.models import AccessFilePermissionMixin
-from django.core.exceptions import ObjectDoesNotExist
-
-from django.template.defaultfilters import truncatewords
-from base.templatetags.roots_tags import remove_uncomplete_latex
 
 
 # Solution-related models
@@ -52,26 +54,32 @@ class UserSolution(MediaRemovalMixin,
 
     # Keep an explicit reference to an User, since somebody else might
     # be entering the solution on the user's behalf
-    user = models.ForeignKey('auth.User')
-    problem = models.ForeignKey('problems.Problem')
-    solution = ContentTypeRestrictedFileField(upload_to=get_solution_path,
+    user = models.ForeignKey('auth.User',
+                             verbose_name=_('user'))
+    problem = models.ForeignKey('problems.Problem',
+                                verbose_name=_('problem'))
+    solution = ContentTypeRestrictedFileField(
+                                upload_to=get_solution_path,
                                 storage=OverwriteFileSystemStorage(),
-                                max_size=settings.ROOTS_MAX_SOLUTION_SIZE)
-
-    score = models.IntegerField(blank=True, null=True)
+                                max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
+                                verbose_name=_('solution'))
+    score = models.IntegerField(blank=True,
+                                null=True,
+                                verbose_name=_('score'))
     corrected_by = models.ManyToManyField('auth.User',
-                       related_name='usersolutions_corrected_set')
+                       related_name='usersolutions_corrected_set',
+                       verbose_name=_('corrected by'))
 
     def __unicode__(self):
-        return (u":{user}'s solution of problem {problem_id}"
+        return (_("User solution: {user} - {problem_id}")
                 .format(user=unicode(self.user),
                         problem_id=unicode(self.problem.pk))
-                )
+               )
 
     class Meta:
         order_with_respect_to = 'problem'
-        verbose_name = 'User solution'
-        verbose_name_plural = 'User solutions'
+        verbose_name = _('user solution')
+        verbose_name_plural = _('user solutions')
         unique_together = ['user', 'problem']
 
 
@@ -85,17 +93,21 @@ class OrgSolution(models.Model):
 
     # Keep an explicit reference to an Organizer, since somebody else might
     # be entering the solution on the organizer's behalf
-    organizer = models.ForeignKey('auth.User')
-    problem = models.ForeignKey('problems.Problem')
+    organizer = models.ForeignKey('auth.User',
+                                  verbose_name=_('organizer'))
+    problem = models.ForeignKey('problems.Problem',
+                                verbose_name=_('problem'))
 
     def __unicode__(self):
-        return (self.user.__unicode__() + u":'s ideal solution of " +
-                self.problem.__unicode__())
+        return (_("Organizer solution: {user} - {problem_id}")
+                .format(user=unicode(self.organizer),
+                        problem_id=unicode(self.problem.pk))
+               )
 
     class Meta:
         order_with_respect_to = 'problem'
-        verbose_name = 'Organizer solution'
-        verbose_name_plural = 'Organizer solutions'
+        verbose_name = _('organizer solution')
+        verbose_name_plural = _('organizer solutions')
 
 
 # Problem-related models
@@ -109,7 +121,7 @@ class Problem(models.Model):
 
     def get_rating(self):
         return self.rating.get_rating()
-    get_rating.short_description = 'Rating'
+    get_rating.short_description = _('Rating')
 
     def get_usages(self):
         # FIXME: problemsets that have no event will not be displayed
@@ -139,12 +151,17 @@ class Problem(models.Model):
     def times_used(self):
         return len(self.get_usages())
 
-    text = models.TextField(help_text='The problem itself. Please insert it '
-                                      'in a valid TeX formatting.')
-    rating = RatingField(range=5)
-    severity = models.ForeignKey('problems.ProblemSeverity')
-    category = models.ForeignKey('problems.ProblemCategory')
-    competition = models.ForeignKey('competitions.Competition')
+    text = models.TextField(verbose_name=_('problem text'),
+                            help_text=_('The problem itself. Please insert it '
+                                        'in a valid TeX formatting.'))
+    rating = RatingField(range=5,
+                         verbose_name=_('rating'))
+    severity = models.ForeignKey('problems.ProblemSeverity',
+                                 verbose_name=_('severity'))
+    category = models.ForeignKey('problems.ProblemCategory',
+                                 verbose_name=_('category'))
+    competition = models.ForeignKey('competitions.Competition',
+                                    verbose_name=_('competition'))
 
     # Fields added via foreign keys:
 
@@ -157,15 +174,17 @@ class Problem(models.Model):
         return remove_uncomplete_latex(truncatewords(self.text, 10))
 
     class Meta:
-        verbose_name = 'Problem'
-        verbose_name_plural = 'Problems'
+        verbose_name = _('problem')
+        verbose_name_plural = _('problems')
 
 
 class ProblemInSet(models.Model):
 
-    problem = models.ForeignKey('problems.Problem')
-    problemset = models.ForeignKey('problems.ProblemSet')
-    position = models.PositiveSmallIntegerField("Position")
+    problem = models.ForeignKey('problems.Problem',
+                                verbose_name=_('problem'))
+    problemset = models.ForeignKey('problems.ProblemSet',
+                                   verbose_name=_('problem set'))
+    position = models.PositiveSmallIntegerField(verbose_name=_('position'))
 
     def get_rating(self):
         return self.problem.get_rating()
@@ -191,21 +210,21 @@ class ProblemInSet(models.Model):
     def get_competition(self):
         return self.problem.competition
 
-    get_rating.short_description = 'Rating'
-    get_usages.short_description = 'Usages'
-    last_used_at.short_description = 'Last used at'
-    last_five_usages.short_description = 'Last five usages'
-    times_used.short_description = 'Times used'
-    get_category.short_description = 'Category'
-    get_severity.short_description = 'Severity'
-    get_competition.short_description = 'Competition'
+    get_rating.short_description = _('Rating')
+    get_usages.short_description = _('Usages')
+    last_used_at.short_description = _('Last used at')
+    last_five_usages.short_description = _('Last five usages')
+    times_used.short_description = _('Times used')
+    get_category.short_description = _('Category')
+    get_severity.short_description = _('Severity')
+    get_competition.short_description = _('Competition')
 
     def __unicode__(self):
         return self.problem.__unicode__()
 
     class Meta:
-        verbose_name = 'Problem'
-        verbose_name_plural = 'Problems'
+        verbose_name = _('problem')
+        verbose_name_plural = _('problems')
         ordering = ['position']
         unique_together = ['problem', 'problemset']
 
@@ -218,13 +237,25 @@ class ProblemSet(models.Model):
     event or competition, which organizer should mark here.
     '''
 
-    name = models.CharField(max_length=100)
-    description = models.CharField(max_length=400, blank=True, null=True)
-    competition = models.ForeignKey('competitions.Competition')
+    name = models.CharField(max_length=100,
+                            verbose_name=('name'))
+    description = models.CharField(max_length=400,
+                                   blank=True,
+                                   null=True,
+                                   verbose_name=('description'))
+    competition = models.ForeignKey('competitions.Competition',
+                                    verbose_name=_('competition'))
     leaflet = models.ForeignKey('leaflets.Leaflet',
-                                blank=True, null=True)
-    event = models.ForeignKey('events.Event', blank=True, null=True)
-    problems = models.ManyToManyField(Problem, through='problems.ProblemInSet')
+                                blank=True,
+                                null=True,
+                                verbose_name=_('leaflet'))
+    event = models.ForeignKey('events.Event',
+                              blank=True,
+                              null=True,
+                              verbose_name=_('event'))
+    problems = models.ManyToManyField(Problem,
+                                      through='problems.ProblemInSet',
+                                      verbose_name=_('problems'))
 
     def average_severity(self):
         problemset = self.problems.filter(competition=self.competition)
@@ -251,7 +282,7 @@ class ProblemSet(models.Model):
 
     def get_problem_count(self):
         return self.problems.count()
-    get_problem_count.short_description = "Problems"
+    get_problem_count.short_description = _("problems")
 
     def get_average_severity_by_competition(self):
         averages = self.average_severity_by_competition()
@@ -260,11 +291,12 @@ class ProblemSet(models.Model):
             reports.append("%s (%s)" % (competition, average))
 
         return ', '.join(reports)
-    get_average_severity_by_competition.short_description = "Average difficulty"
+    get_average_severity_by_competition.short_description = _("average "
+                                                              "difficulty")
 
     class Meta:
-        verbose_name = 'Set'
-        verbose_name_plural = 'Sets'
+        verbose_name = _('set')
+        verbose_name_plural = _('sets')
 
 
 class ProblemCategory(models.Model):
@@ -272,7 +304,8 @@ class ProblemCategory(models.Model):
     Represents a category of problems, like geometry or functional equations.
     '''
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,
+                            verbose_name=_('name'))
 
     # Fields added via foreign keys:
     #     problem_set
@@ -282,8 +315,8 @@ class ProblemCategory(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
+        verbose_name = _('category')
+        verbose_name_plural = _('categories')
 
 
 class ProblemSeverity(models.Model):
@@ -300,13 +333,14 @@ class ProblemSeverity(models.Model):
     levels of severity to categorize their problems.
     '''
 
-    name = models.CharField(max_length=50)
-    level = models.IntegerField()
+    name = models.CharField(max_length=50,
+                            verbose_name=_('name'))
+    level = models.IntegerField(verbose_name=_('level'))
 
     def __unicode__(self):
         return unicode(self.level) + ' - ' + self.name
 
     class Meta:
         ordering = ['level']
-        verbose_name = 'Severity'
-        verbose_name_plural = 'Severities'
+        verbose_name = _('severity')
+        verbose_name_plural = _('severities')
