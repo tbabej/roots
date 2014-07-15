@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Roots\n"
+"POT-Creation-Date: 2014-07-15 19:56+0200\n"
+"Last-Translator: Tomas Babej\n"
+"Language-Team: tomasbabej@gmail.com \n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:31 models.py:131
+msgid "user"
+msgstr "užívateľ"
+
+#: models.py:36
+msgid "date of birth"
+msgstr "dátum narodenia"
+
+#: models.py:41
+msgid "sex"
+msgstr "pohlavie"
+
+#: models.py:46
+msgid "social security number"
+msgstr "rodné číslo"
+
+#: models.py:50
+msgid "ID number"
+msgstr "číslo občianskeho preukazu / pasu"
+
+#: models.py:55
+msgid "competes in"
+msgstr "súťaží v"
+
+#: models.py:61
+msgid "phone number"
+msgstr "telefónne číslo"
+
+#: models.py:66
+msgid "parent phone number"
+msgstr "telefónne číslo na rodičov"
+
+#: models.py:70
+msgid "address"
+msgstr "adresa"
+
+#: models.py:76
+msgid "school"
+msgstr "škola"
+
+#: models.py:80
+msgid "school class"
+msgstr "trieda"
+
+#: models.py:84
+msgid "class level"
+msgstr "ročník"
+
+#: models.py:112
+#, python-brace-format
+msgid "user profile: {user}"
+msgstr "užívateľský profil: {user}"
+
+#: models.py:119
+msgid "user profile"
+msgstr "užívateľský profil"
+
+#: models.py:120
+msgid "user profiles"
+msgstr "užívateľské profily"
+
+#: models.py:135
+msgid "motto"
+msgstr "motto"
+
+#: models.py:157
+#, python-brace-format
+msgid "organizer profile: {user}"
+msgstr "vedúcovský profil: {user}"
+
+#: models.py:160
+msgid "organizer profile"
+msgstr "vedúcovský profil"
+
+#: models.py:161
+msgid "organizer profiles"
+msgstr "vedúcovské profily"
+
+#: urls.py:7
+msgid "update$"
+msgstr "aktualizuj$"
+
+#: templates/profiles/userprofile_form.html:6
+msgid "Update your profile"
+msgstr "Aktualizuj si svoj profil"

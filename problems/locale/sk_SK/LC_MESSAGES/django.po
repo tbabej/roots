@@ -1,0 +1,171 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Roots\n"
+"POT-Creation-Date: 2014-07-15 19:56+0200\n"
+"Last-Translator: Tomas Babej\n"
+"Language-Team: tomasbabej@gmail.com \n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:58
+msgid "user"
+msgstr "užívateľ"
+
+#: models.py:60 models.py:99 models.py:177 models.py:184 models.py:226
+msgid "problem"
+msgstr "príklad"
+
+#: models.py:65
+msgid "solution"
+msgstr "riešenie"
+
+#: models.py:68
+msgid "score"
+msgstr "hodnotenie"
+
+#: models.py:71
+msgid "corrected by"
+msgstr "opravené vedúcim"
+
+#: models.py:74
+msgid "User solution: {user} - {problem_id}"
+msgstr "Užívateľské riešenie: {user} - {problem_id}"
+
+#: models.py:81
+msgid "user solution"
+msgstr "užívateľské riešenie"
+
+#: models.py:82
+msgid "user solutions"
+msgstr "užívateľské riešenia"
+
+#: models.py:97
+msgid "organizer"
+msgstr "organizuje"
+
+#: models.py:102
+#, python-brace-format
+msgid "Organizer solution: {user} - {problem_id}"
+msgstr "Vzorové riešenie: {user} - {problem_id}"
+
+#: models.py:109
+msgid "organizer solution"
+msgstr "vzorové riešenie"
+
+#: models.py:110
+msgid "organizer solutions"
+msgstr "vzorové riešenia"
+
+#: models.py:124 models.py:213
+msgid "Rating"
+msgstr "Rating"
+
+#: models.py:154
+msgid "problem text"
+msgstr "zadanie príkladu"
+
+#: models.py:155
+msgid "The problem itself. Please insert it in a valid TeX formatting."
+msgstr "Text samotného zadania príkladu. Prosím vložte príklad v TeX formáte."
+
+#: models.py:158
+msgid "rating"
+msgstr "rating"
+
+#: models.py:160 models.py:345
+msgid "severity"
+msgstr "obtiažnosť"
+
+#: models.py:162 models.py:318
+msgid "category"
+msgstr "kategória"
+
+#: models.py:164 models.py:247
+msgid "competition"
+msgstr "súťaž / seminár"
+
+#: models.py:178 models.py:227 models.py:258 models.py:285
+msgid "problems"
+msgstr "príklady"
+
+#: models.py:186
+msgid "problem set"
+msgstr "súbor príkladov"
+
+#: models.py:187
+msgid "position"
+msgstr "pozícia"
+
+#: models.py:214
+msgid "Usages"
+msgstr "Použitia"
+
+#: models.py:215
+msgid "Last used at"
+msgstr "Naposledy použitý"
+
+#: models.py:216
+msgid "Last five usages"
+msgstr "Posledných päť použití"
+
+#: models.py:217
+msgid "Times used"
+msgstr "Počet použití"
+
+#: models.py:218
+msgid "Category"
+msgstr "Kategória"
+
+#: models.py:219
+msgid "Severity"
+msgstr "Obtiažnosť"
+
+#: models.py:220
+msgid "Competition"
+msgstr "Súťaž"
+
+#: models.py:251
+msgid "leaflet"
+msgstr "časopis"
+
+#: models.py:255
+msgid "event"
+msgstr "súťaž"
+
+#: models.py:294
+msgid "average difficulty"
+msgstr "priemerná obtiažnosť"
+
+#: models.py:298
+msgid "set"
+msgstr "súbor"
+
+#: models.py:299
+msgid "sets"
+msgstr "súbory"
+
+#: models.py:308 models.py:337
+msgid "name"
+msgstr "názov"
+
+#: models.py:319
+msgid "categories"
+msgstr "kategória"
+
+#: models.py:338
+msgid "level"
+msgstr "level"
+
+#: models.py:346
+msgid "severities"
+msgstr "obtiažnosti"
+
+#: urls.py:13
+msgid "^submit/$"
+msgstr "^odovzdaj/$"
+
+#: urls.py:15
+msgid "^import-solutions/$"
+msgstr "^import-rieseni/$"

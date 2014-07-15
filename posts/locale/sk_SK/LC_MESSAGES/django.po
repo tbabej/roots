@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Roots\n"
+"POT-Creation-Date: 2014-07-15 19:56+0200\n"
+"Last-Translator: Tomas Babej\n"
+"Language-Team: tomasbabej@gmail.com \n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:17
+msgid "title"
+msgstr "titulok"
+
+#: models.py:21
+msgid "competition"
+msgstr "súťaž / seminár"
+
+#: models.py:22
+msgid "text"
+msgstr "zadanie"
+
+#: models.py:23
+msgid "slug"
+msgstr "skratka (pre url)"
+
+#: models.py:29
+msgid "post"
+msgstr "príspevok"
+
+#: models.py:30
+msgid "posts"
+msgstr "príspevky"
+
+#: urls.py:8
+msgid "^(?P<slug>[\\w-]+)/$"
+msgstr "^(?P<slug>[\\w-]+)/$"
+
+#: templates/posts/post_list.html:16
+msgid "Read the full article"
+msgstr "Zobraziť celý príspevok"

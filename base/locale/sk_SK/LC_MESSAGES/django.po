@@ -1,0 +1,123 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Roots\n"
+"POT-Creation-Date: 2014-07-15 19:56+0200\n"
+"Last-Translator: Tomas Babej\n"
+"Language-Team: tomasbabej@gmail.com \n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: util.py:27
+msgid "added at"
+msgstr "pridané"
+
+#: util.py:30
+msgid "modified at"
+msgstr "modifikované"
+
+#: util.py:52
+msgid "author"
+msgstr "autor"
+
+#: util.py:59
+msgid "last modified by"
+msgstr "naposledy modifikované"
+
+#. Translators: Site name
+#: templates/base/base.html:59
+msgid "Roots"
+msgstr "Korene"
+
+#: templates/base/base.html:68
+msgid "Home"
+msgstr "Domov"
+
+#: templates/base/base.html:70
+msgid "Administration"
+msgstr "Administrácia"
+
+#: templates/base/base.html:79
+msgid "Logged in as "
+msgstr "Prihlásený ako "
+
+#: templates/base/base.html:81
+msgid "You are not logged in."
+msgstr "Nie si prihlásený."
+
+#: templates/base/index.html:4 templates/base/index.html.py:7
+msgid "Welcome to Roots!"
+msgstr "Vitajte pri Koreňoch!"
+
+#: templates/base/index.html:9
+msgid "Log in"
+msgstr "Prihláste sa"
+
+#: templates/base/index.html:9
+msgid "here"
+msgstr "tu"
+
+#: templates/base/menu.html:7
+msgid "Look at"
+msgstr "Pozrite sa na"
+
+#: templates/base/menu.html:10
+msgid "Posts"
+msgstr "Príspevky"
+
+#: templates/base/menu.html:11
+msgid "Problems"
+msgstr "Príklady"
+
+#: templates/base/menu.html:12
+msgid "Results"
+msgstr "Výsledky"
+
+#: templates/base/menu.html:13
+msgid "Leaflets"
+msgstr "Časopisy"
+
+#: templates/base/menu.html:14
+msgid "Photos"
+msgstr "Fotografie"
+
+#: templates/base/menu.html:15
+msgid "Events"
+msgstr "Udalosti"
+
+#: templates/base/menu.html:16
+msgid "Register"
+msgstr "Registrácia"
+
+#: templates/base/menu.html:19
+msgid "Account stuff"
+msgstr "Správa účtu"
+
+#: templates/base/menu.html:23
+msgid "Update your profile"
+msgstr "Aktualizovať profil"
+
+#: templates/base/menu.html:24
+msgid "Change E-mail"
+msgstr "Zmeniť email"
+
+#: templates/base/menu.html:25
+msgid "Sign Out"
+msgstr "Odhlásiť sa"
+
+#: templates/base/menu.html:27
+msgid "Sign In"
+msgstr "Prihlásiť sa"
+
+#: templates/base/menu.html:28
+msgid "Sign Up"
+msgstr "Zaregistrovať sa"
+
+#: templates/base/menu.html:33
+msgid "Organizer stuff"
+msgstr "Vedúcovské veci"
+
+#: templates/base/menu.html:36
+msgid "Wiki"
+msgstr "Wiki"

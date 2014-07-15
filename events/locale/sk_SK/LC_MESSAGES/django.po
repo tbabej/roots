@@ -1,0 +1,200 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Roots\n"
+"POT-Creation-Date: 2014-07-15 19:56+0200\n"
+"Last-Translator: Tomas Babej\n"
+"Language-Team: tomasbabej@gmail.com \n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:23
+msgid "event name"
+msgstr "názov udalosti"
+
+#: models.py:27
+msgid "competition"
+msgstr "súťaž / seminár"
+
+#: models.py:29
+msgid "event location"
+msgstr "miesto udalosti"
+
+#: models.py:31
+msgid "description"
+msgstr "popis"
+
+#: models.py:32
+msgid "start time"
+msgstr "začiatok"
+
+#: models.py:33
+msgid "end time"
+msgstr "koniec"
+
+#: models.py:38
+msgid "registration end time"
+msgstr "koniec registrácie"
+
+#: models.py:43
+msgid "registered user"
+msgstr "registrovaný užívateľ"
+
+#: models.py:47
+msgid "registered organizer"
+msgstr "registrovaný vedúci"
+
+#: models.py:62
+msgid "users attending:"
+msgstr "prihlásení užívatelia:"
+
+#: models.py:66
+msgid "organizers attending:"
+msgstr "prihlásení vedúci:"
+
+#: models.py:85
+msgid ""
+"Cannot register  user {user} to event {event}: Registration ended at {end}"
+msgstr ""
+"Registrácia užívateľa {user} na udalosť {event} bola neúspešná: Registrácia skončila {end}"
+
+#: models.py:98 models.py:109 models.py:133
+msgid "event"
+msgstr "udalosť"
+
+#: models.py:99
+msgid "events"
+msgstr "udalosti"
+
+#: models.py:111 models.py:224
+msgid "user"
+msgstr "užívateľ"
+
+#: models.py:114
+msgid " attends "
+msgstr " sa zúčastní "
+
+#: models.py:120
+msgid "user registration"
+msgstr "registrácia užívateľa"
+
+#: models.py:121
+msgid "user registrations"
+msgstr "registrácie užívateľov"
+
+#: models.py:135
+msgid "organizer"
+msgstr "vedúci"
+
+#: models.py:138
+msgid " organizes "
+msgstr " organizuje "
+
+#: models.py:144
+msgid "organizer registration"
+msgstr "registrácia vedúceho"
+
+#: models.py:145
+msgid "organizer registrations"
+msgstr "registrácie vedúcich"
+
+#: models.py:162
+msgid "invited users"
+msgstr "pozvaní užívatelia"
+
+#: models.py:166
+msgid "invitation deadline"
+msgstr "termín pozvánky"
+
+#: models.py:169
+msgid "participant limit"
+msgstr "maximum účastníkov"
+
+#: models.py:173
+msgid "event for season"
+msgstr "udalosť pre semester"
+
+#: models.py:181
+msgid "Number of invited users"
+msgstr "Počet pozvaných užívateľov"
+
+#: models.py:190
+msgid "Number of users that signed"
+msgstr "Počet potvrdených užívateľov"
+
+#: models.py:199
+msgid "Number of users that were accepted"
+msgstr "Počet schválených používateľov"
+
+#: models.py:203 models.py:226
+msgid "camp"
+msgstr "sústredenie"
+
+#: models.py:204
+msgid "camps"
+msgstr "sústredenia"
+
+#: models.py:229
+msgid "invited as"
+msgstr "pozvaný ako"
+
+#: models.py:230
+msgid "order"
+msgstr "poradie"
+
+#: models.py:232
+msgid "accepted by user"
+msgstr "potvrdené užívateľom"
+
+#: models.py:234
+msgid "user accepted timestamp"
+msgstr "potvrdené užívateľom v"
+
+#: models.py:236
+msgid "accepted by organizers"
+msgstr "schválené vedúcimi"
+
+#: models.py:239
+msgid " was invited to "
+msgstr " bol pozvaný na "
+
+#: models.py:249
+msgid "camp invitation"
+msgstr "pozvánka na sústredenie"
+
+#: models.py:250
+msgid "camp invitations"
+msgstr "povánky na sústredenie"
+
+#: urls.py:13
+msgid "register/(?P<event_id>\\d+)/user/$"
+msgstr "registracia/(?P<event_id>\\d+)/uzivatel/$"
+
+#: urls.py:18
+msgid "register/(?P<event_id>\\d+)/organizer/$"
+msgstr "registracia/(?P<event_id>\\d+)/veduci/$"
+
+#: templates/events/event_list.html:14
+msgid "Register"
+msgstr "Registruj sa"
+
+#: templates/events/event_list.html:17
+msgid "Location"
+msgstr "Miesto"
+
+#: templates/events/event_list.html:18
+msgid "Start time"
+msgstr "Začiatok"
+
+#: templates/events/event_list.html:19
+msgid "End time"
+msgstr "Koniec"
+
+#: templates/events/event_list.html:20
+msgid "Users attending"
+msgstr "Počet užívateľov"
+
+#: templates/events/event_list.html:21
+msgid "Organizers attending"
+msgstr "Počet vedúcich"
