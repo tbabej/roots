@@ -1,4 +1,5 @@
 {% extends "base/base.html" %}
+{% load i18n %}
 {% load roots_tags %}
 
 {% block content %}
@@ -10,14 +11,14 @@
 
     {% define content %}
     <h4><i> {{ event.description }} </i></h4>
-    <a href="{% url 'events_event_user_registration' event_id=event.pk %}"> Register </a>
+    <a href="{% url 'events_event_user_registration' event_id=event.pk %}"> {% trans "Register" %} </a>
     <br/>
     <ul>
-        <li> Location: {{ event.location }} </li>
-        <li> Start time: {{ event.start_time }} </li>
-        <li> End time: {{ event.end_time }} </li>
-        <li> Users attending: {{ event.get_num_users }} </li>
-        <li> Organizers attending: {{ event.get_num_orgs }} </li>
+        <li> {% trans "Location" %}: {{ event.location }} </li>
+        <li> {% trans "Start time" %}: {{ event.start_time }} </li>
+        <li> {% trans "End time" %}: {{ event.end_time }} </li>
+        <li> {% trans "Users attending" %}: {{ event.get_num_users }} </li>
+        <li> {% trans "Organizers attending" %}: {{ event.get_num_orgs }} </li>
     </ul>
     {% enddefine %}
 
