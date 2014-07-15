@@ -1,0 +1,16 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load roots_tags %}
+
+{% define path %}lang-{{ lang }}.png{% enddefine %}
+
+{% language lang %}
+<div class="nav navbar-nav pull-right">
+  <form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input name="language" type="hidden" value="{{ lang }}" />
+    <input name="next" type="hidden" value="{% rereverse request %}" />
+    <input type="image" style="padding-top: 10px; padding-left: 10px;" src="{% static path %}" />
+  </form>
+</div>
+{% endlanguage %}

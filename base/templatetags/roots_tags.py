@@ -1,10 +1,16 @@
 from django import template
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, resolve
 from django.conf import settings
 from django.template.base import TemplateSyntaxError
 
 register = template.Library()
 
+
+@register.simple_tag
+def rereverse(request):
+    return reverse(request.resolver_match.view_name,
+                   args=request.resolver_match.args,
+                   kwargs=request.resolver_match.kwargs)
 
 @register.simple_tag
 def url_active(request, urls, *args, **kwargs):
