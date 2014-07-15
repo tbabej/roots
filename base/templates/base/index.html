@@ -1,11 +1,12 @@
 {% extends "base/base.html" %}
+{% load i18n %}
 
-{% block head_title %}Welcome to Roots!{% endblock %}
+{% block head_title %}{% trans "Welcome to Roots!" %}{% endblock %}
 
 {% block content %}
-<h1> Welcome to Roots! </h1>
+<h1> {% trans "Welcome to Roots!" %} </h1>
 
-<p> Log in <a href="{% url 'account_login' %}"> here </a> </p>
+<p> {% trans "Log in" %} <a href="{% url 'account_login' %}"> {% trans "here" %} </a> </p>
 
 {% endblock %}
 

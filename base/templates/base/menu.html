@@ -1,38 +1,39 @@
+{% load i18n %}
 {% load roots_tags %}
 
 <div class="list-group">
 
   <div class="list-group-item list-group-item-info">
-  <h4 class="list-group-item-heading">Actions</h4>
+  <h4 class="list-group-item-heading">{% trans "Look at" %}</h4>
   </div>
 
-  <a class="list-group-item {% url_active request 'posts_post_list' %}" href="{% url 'posts_post_list' %}">Look at the posts</a>
-  <a class="list-group-item {% url_active request 'competitions_season_detail' pk=1 %}" href="{% url 'competitions_season_detail' pk=1 %}">See the problems</a>
-  <a class="list-group-item {% url_active request 'competitions_season_results' pk=1 %}" href="{% url 'competitions_season_results' pk=1 %}">See the results</a>
-  <a class="list-group-item {% url_active request 'leaflets_leaflet_list' %}" href="{% url 'leaflets_leaflet_list' %}">Download present and past leaflets</a>
-  <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'pl-gallery-archive' %}">Browse through our galleries</a>
-  <a class="list-group-item {% url_active request 'events_event_list' %}" href="{% url 'events_event_list' %}">Look at upcoming events</a>
-  <a class="list-group-item {% url_active request 'competitions_competition_register' %}" href="{% url 'competitions_competition_register' %}">Register to one of our competitions</a>
+  <a class="list-group-item {% url_active request 'posts_post_list' %}" href="{% url 'posts_post_list' %}">{% trans "Posts" %}</a>
+  <a class="list-group-item {% url_active request 'competitions_season_detail' pk=1 %}" href="{% url 'competitions_season_detail' pk=1 %}">{% trans "Problems" %}</a>
+  <a class="list-group-item {% url_active request 'competitions_season_results' pk=1 %}" href="{% url 'competitions_season_results' pk=1 %}">{% trans "Results" %}</a>
+  <a class="list-group-item {% url_active request 'leaflets_leaflet_list' %}" href="{% url 'leaflets_leaflet_list' %}">{% trans "Leaflets" %}</a>
+  <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'pl-gallery-archive' %}">{% trans "Photos" %}</a>
+  <a class="list-group-item {% url_active request 'events_event_list' %}" href="{% url 'events_event_list' %}">{% trans "Events" %}</a>
+  <a class="list-group-item {% url_active request 'competitions_competition_register' %}" href="{% url 'competitions_competition_register' %}">{% trans "Register" %}</a>
 
   <div class="list-group-item list-group-item-info">
-  <h4 class="list-group-item-heading">Account stuff</h4>
+  <h4 class="list-group-item-heading">{% trans "Account stuff" %}</h4>
   </div>
 
   {% if user.is_authenticated %}
-  <a class="list-group-item {% url_active request 'profiles_userprofile_update' %}" href="{% url 'profiles_userprofile_update' %}">Update your profile</a>
-  <a class="list-group-item {% url_active request 'account_email' %}" href="{% url 'account_email' %}">Change E-mail</a>
-  <a class="list-group-item {% url_active request 'account_logout' %}" href="{% url 'account_logout' %}">Sign Out</a>
+  <a class="list-group-item {% url_active request 'profiles_userprofile_update' %}" href="{% url 'profiles_userprofile_update' %}">{% trans "Update your profile" %}</a>
+  <a class="list-group-item {% url_active request 'account_email' %}" href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a>
+  <a class="list-group-item {% url_active request 'account_logout' %}" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
   {% else %}
-  <a class="list-group-item {% url_active request 'account_login' %}" href="{% url 'account_login' %}">Sign In</a>
-  <a class="list-group-item {% url_active request 'account_signup' %}" href="{% url 'account_signup' %}">Sign Up</a>
+  <a class="list-group-item {% url_active request 'account_login' %}" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+  <a class="list-group-item {% url_active request 'account_signup' %}" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
   {% endif %}
 
   {% if user.is_staff %}
   <div class="list-group-item list-group-item-info">
-  <h4 class="list-group-item-heading">Organizer stuff</h4>
+  <h4 class="list-group-item-heading">{% trans "Organizer stuff" %}</h4>
   </div>
 
-  <a class="list-group-item {% url_active request 'wiki:root' %}" href="{% url 'wiki:root' %}">Wiki for organizers</a>
+  <a class="list-group-item {% url_active request 'wiki:root' %}" href="{% url 'wiki:root' %}">{% trans "Wiki" %}</a>
   {% else %}
   {% endif %}
 </div>
