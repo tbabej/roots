@@ -1,4 +1,5 @@
 {% extends "base/base.html" %}
+{% load i18n %}
 {% load roots_tags %}
 
 {% block content %}
@@ -12,7 +13,7 @@
     {% autoescape off %}
     {{ post.text | truncatewords_html:150 | remove_uncomplete_latex}}
     {% endautoescape %}
-    <a href="{% url 'posts_post_detail' post.slug %}">Read the full article</a>
+    <a href="{% url 'posts_post_detail' post.slug %}">{% trans "Read the full article" %}</a>
     {% enddefine %}
 
     {% define footer %}
