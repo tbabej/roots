@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import ugettext_lazy as _
 
 from base import util
 from base.models import MediaRemovalMixin
@@ -27,11 +28,13 @@ class Leaflet(MediaRemovalMixin, models.Model):
                        year=self.year,
                        issue=self.issue)
 
-    competition = models.ForeignKey('competitions.Competition')
-    year = models.IntegerField()
-    issue = models.IntegerField()
+    competition = models.ForeignKey('competitions.Competition',
+                                    verbose_name=_('competition'))
+    year = models.IntegerField(verbose_name=_('year'))
+    issue = models.IntegerField(verbose_name=_('issue'))
     leaflet = models.FileField(upload_to=get_leaflet_path,
-                               storage=OverwriteFileSystemStorage())
+                               storage=OverwriteFileSystemStorage(),
+                               verbose_name=_('leaflet'))
 
     # Fields added via foreign keys:
 
@@ -43,8 +46,8 @@ class Leaflet(MediaRemovalMixin, models.Model):
     class Meta:
         ordering = ['competition', '-year', 'issue']
         unique_together = ('competition', 'year', 'issue')
-        verbose_name = 'Leaflet'
-        verbose_name_plural = 'Leaflets'
+        verbose_name = _('leaflet')
+        verbose_name_plural = _('leaflets')
 
 
 @receiver(post_save, sender=Leaflet)
