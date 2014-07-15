@@ -74,6 +74,11 @@
           </ul>
 
           {% block navbar-right %}
+            {% for supported_lang in LANGUAGES %}
+              {% with supported_lang|first as lang_id %}
+                {% include "base/language_set_form.html" with lang=lang_id %}
+              {% endwith %}
+            {% endfor %}
           <div class="nav navbar-text pull-right">
             {% if user.is_authenticated %}
               {% trans "Logged in as " %}{% user_display user %}.
@@ -84,6 +89,7 @@
           </div><!--/.navbar-text pull-rigt -->
         </div><!--/ navbar-collapse -->
       </div><!-- container -->
+
     </div><!-- navbar -->
     {% endblock %}
 
