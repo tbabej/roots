@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 from django.core.exceptions import ValidationError
 from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
 
 from base.util import with_timestamp, with_author
 
@@ -18,24 +19,32 @@ class Event(models.Model):
     participate. This relation is represented using EventUserRegistration.
     """
 
-    name = models.CharField(max_length=100)
-    competition = models.ForeignKey('competitions.Competition', blank=True,
-                                    null=True)
-    location = models.CharField(max_length=100)
-    description = models.CharField(max_length=500)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    name = models.CharField(max_length=100,
+                            verbose_name=_('event name'))
+    competition = models.ForeignKey('competitions.Competition',
+                                    blank=True,
+                                    null=True,
+                                    verbose_name=_('competition'))
+    location = models.CharField(max_length=100,
+                                verbose_name=_('event location'))
+    description = models.CharField(max_length=500,
+                                   verbose_name=_('description'))
+    start_time = models.DateTimeField(verbose_name=_('start time'))
+    end_time = models.DateTimeField(verbose_name=_('end time'))
     registration_end_time = models.DateTimeField(
                                 blank=True,
                                 null=True,  # default is set in save() method
                                 validators=[MaxValueValidator(start_time)],
+                                verbose_name=_('registration end time')
                                 )
 
     registered_user = models.ManyToManyField('auth.User',
-                                             through='EventUserRegistration')
+                                             through='EventUserRegistration',
+                                             verbose_name=_('registered user'))
     registered_org = models.ManyToManyField('auth.User',
-                                            through='EventOrgRegistration',
-                                            related_name='organized_event_set')
+                         through='EventOrgRegistration',
+                         related_name='organized_event_set',
+                         verbose_name=_('registered organizer'))
 
     # Fields added via foreign keys:
 
@@ -50,11 +59,11 @@ class Event(models.Model):
 
     def get_num_users(self):
         return self.registered_user.count()
-    get_num_users.short_description = 'Users attending:'
+    get_num_users.short_description = _('users attending:')
 
     def get_num_orgs(self):
         return self.registered_org.count()
-    get_num_orgs.short_description = 'Organizers attending:'
+    get_num_orgs.short_description = _('organizers attending:')
 
     def started(self):
         return self.start_time < now()
@@ -73,8 +82,8 @@ class Event(models.Model):
             registration = EventUserRegistration(event=self, user=user)
             registration.save()
         else:
-            raise ValidationError("Cannot register  user {user} to event "
-                                  "{event}: Registration ended at {end}"
+            raise ValidationError(_("Cannot register  user {user} to event "
+                                    "{event}: Registration ended at {end}")
                                   .format(user=user, event=self,
                                           end=self.registration_end_time)
                                  )
@@ -86,8 +95,8 @@ class Event(models.Model):
 
     class Meta:
         ordering = ['-start_time', 'end_time']
-        verbose_name = 'Event'
-        verbose_name_plural = 'Events'
+        verbose_name = _('event')
+        verbose_name_plural = _('events')
 
 
 @with_timestamp
@@ -96,18 +105,20 @@ class EventUserRegistration(models.Model):
     Represents a user's registration to the event.
     """
 
-    event = models.ForeignKey('events.Event')
-    user = models.ForeignKey('auth.User')
+    event = models.ForeignKey('events.Event',
+                              verbose_name=_('event'))
+    user = models.ForeignKey('auth.User',
+                             verbose_name=_('user'))
 
     def __unicode__(self):
-        return (self.user.__unicode__() + u" goes to " +
+        return (self.user.__unicode__() + _(" attends ") +
                self.event.__unicode__())
 
     class Meta:
         order_with_respect_to = 'event'
         unique_together = ('event', 'user')
-        verbose_name = 'User registration'
-        verbose_name_plural = 'User registrations'
+        verbose_name = _('user registration')
+        verbose_name_plural = _('user registrations')
 
 
 @with_timestamp
@@ -118,18 +129,20 @@ class EventOrgRegistration(models.Model):
     is needed).
     """
 
-    event = models.ForeignKey('events.Event')
-    organizer = models.ForeignKey('auth.User')
+    event = models.ForeignKey('events.Event',
+                              verbose_name=_('event'))
+    organizer = models.ForeignKey('auth.User',
+                                  verbose_name=_('organizer'))
 
     def __unicode__(self):
-        return (self.user.__unicode__() + u" organizes " +
-               self.event.__unicode__())
+        return (self.user.__unicode__() + _(" organizes ") +
+                self.event.__unicode__())
 
     class Meta:
         order_with_respect_to = 'event'
         unique_together = ('event', 'organizer')
-        verbose_name = 'Organizer registration'
-        verbose_name_plural = 'Organizer registrations'
+        verbose_name = _('organizer registration')
+        verbose_name_plural = _('organizer registrations')
 
 
 class Camp(Event):
@@ -145,10 +158,19 @@ class Camp(Event):
     """
 
     invited = models.ManyToManyField('auth.User',
-                                     through='events.CampUserInvitation')
-    invitation_deadline = models.DateTimeField(blank=True, null=True)
-    limit = models.IntegerField(blank=True, null=True)
-    season = models.ForeignKey('competitions.Season', blank=True, null=True)
+                                     through='events.CampUserInvitation',
+                                     verbose_name=_('invited users'))
+    invitation_deadline = models.DateTimeField(
+                              blank=True,
+                              null=True,
+                              verbose_name=_('invitation deadline'))
+    limit = models.IntegerField(blank=True,
+                                null=True,
+                                verbose_name=_('participant limit'))
+    season = models.ForeignKey('competitions.Season',
+                               blank=True,
+                               null=True,
+                               verbose_name=_('event for season'))
 
     # Fields added via inheritance:
 
@@ -156,7 +178,7 @@ class Camp(Event):
 
     def get_num_users_invited(self):
         return self.invited.count()
-    get_num_users_invited.short_description = "Number of invited users"
+    get_num_users_invited.short_description = _("Number of invited users")
 
     def get_users_signed(self):
         return (self.invited
@@ -165,7 +187,7 @@ class Camp(Event):
 
     def get_num_users_signed(self):
         return self.get_users_signed().count()
-    get_num_users_signed.short_description = "Number of users that signed"
+    get_num_users_signed.short_description = _("Number of users that signed")
 
     def get_users_accepted(self):
         return (self.get_users_signed()
@@ -174,11 +196,12 @@ class Camp(Event):
 
     def get_num_users_accepted(self):
         return self.get_users_accepted().count()
-    get_num_users_accepted.short_description = "Number of users were accepted"
+    get_num_users_accepted.short_description = _("Number of users that were "
+                                                 "accepted")
 
     class Meta:
-        verbose_name = 'Camp'
-        verbose_name_plural = 'Camps'
+        verbose_name = _('camp')
+        verbose_name_plural = _('camps')
 
 
 @with_timestamp
@@ -197,16 +220,23 @@ class CampUserInvitation(models.Model):
 
     INVITATION_TYPES = (('REG', 'regular'), ('SUB', 'substitute'))
 
-    user = models.ForeignKey('auth.User')
-    camp = models.ForeignKey('events.Camp')
-    invited_as = models.CharField(max_length=3, choices=INVITATION_TYPES)
-    order = models.IntegerField()
-    user_accepted = models.BooleanField(default=False)
-    user_accepted_timestamp = models.DateTimeField()
-    org_accepted = models.BooleanField(default=False)
+    user = models.ForeignKey('auth.User',
+                             verbose_name=_('user'))
+    camp = models.ForeignKey('events.Camp',
+                             verbose_name=_('camp'))
+    invited_as = models.CharField(max_length=3,
+                                  choices=INVITATION_TYPES,
+                                  verbose_name=_('invited as'))
+    order = models.IntegerField(verbose_name=_('order'))
+    user_accepted = models.BooleanField(default=False,
+                                        verbose_name=_('accepted by user'))
+    user_accepted_timestamp = models.DateTimeField(
+                                  verbose_name=_('user accepted timestamp'))
+    org_accepted = models.BooleanField(default=False,
+                                       verbose_name=_('accepted by organizers'))
 
     def __unicode__(self):
-        return (self.user.__unicode__() + u' was invited to '
+        return (self.user.__unicode__() + _(' was invited to ')
                 + self.camp.__unicode())
 
     # TODO: invitation should hold requirements on user profile contents
@@ -216,5 +246,5 @@ class CampUserInvitation(models.Model):
     class Meta:
         order_with_respect_to = 'camp'
         unique_together = ('user', 'camp')
-        verbose_name = 'Camp invitation'
-        verbose_name_plural = 'Camp invitations'
+        verbose_name = _('camp invitation')
+        verbose_name_plural = _('camp invitations')
