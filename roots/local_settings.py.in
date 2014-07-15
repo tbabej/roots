@@ -49,7 +49,15 @@ TIME_ZONE = 'Europe/Bratislava'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
+
+from django.utils.translation import ugettext_lazy as _
+
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+    ('sk', _('Slovak')),
+    ('en', _('English')),
+)
+
 
 ADMINS = (
      ('Your Name', 'yourname@email.com'),
