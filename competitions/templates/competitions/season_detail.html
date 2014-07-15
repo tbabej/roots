@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load roots_tags %}
 {% load sekizai_tags %}
 
@@ -29,7 +30,7 @@
           <blockquote class="blockquote-info">
             <h4>
               <span class="glyphicon glyphicon-time"></span>
-              Series deadline:
+              {% trans "Series deadline:" %}
               <span class="text-{% if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
                 {{series.submission_deadline}}
               </span>
@@ -41,17 +42,17 @@
             {% if solution %}
               {% define button_level %}success{% enddefine %}
               {% define button_title %}{{solution.added_at}}{{solution.pk}}{% enddefine %}
-              {% define button_text %}Submitted{% enddefine %}
+              {% define button_text %}{% trans "Submitted" %}{% enddefine %}
               {% define button_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
             {% elif series.is_past_submission_deadline %}
               {% define button_level %}danger{% enddefine %}
-              {% define button_title %}Not submitted{% enddefine %}
-              {% define button_text%}Not submitted{% enddefine %}
+              {% define button_title %}{% trans "Not submitted" %}{% enddefine %}
+              {% define button_text%}{% trans "Not submitted" %}{% enddefine %}
               {% define button_modal %}{% enddefine %}
             {% else %}
               {% define button_level %}warning{% enddefine %}
-              {% define button_title %}Not yet submitted{% enddefine %}
-              {% define button_text%}Submit{% enddefine %}
+              {% define button_title %}{% trans "Not yet submitted" %}{% enddefine %}
+              {% define button_text%}{% trans "Submit" %}{% enddefine %}
               {% define button_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
             {% endif %}
 
@@ -83,7 +84,7 @@
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                   <h4 class="modal-title" id="myModalLabel">
-                    Problem submission: {{series.name}} - problem {{forloop.counter}}
+                    {% blocktrans %} Problem submission: {{series.name}} - problem {{forloop.counter}} {% endblocktrans %}
                   </h4>
                 </div>
 
@@ -98,18 +99,18 @@
                 <div class="well" style="background-color: rgb(232,232,232)">
 
                   {% if form.solution.value %}
-                  <p> Current solution:
+                  <p> {% trans "Current solution:" %}
                     <a href="{{MEDIA_URL}}{{form.solution.value}}">{{form.solution.value}} </a>
                   </p>
                   {% endif %}
 
-                  <b>Instructions</b>:
+                  <b>{% trans "Instructions" %}</b>:
                   <ul>
-                    <li>Preferable format is single PDF file.</li>
-                    <li>However, supported formats are: .doc, .jpg, .png, .gif, .tiff</li>
-                    <li>These formats will be converted to PDF.</li>
-                    <li>You can upload mutliple files, they will be merged into one PDF file.</li>
-                    <li>Maximum size of solution is: {{max_size|filesizeformat}}</li>
+                    <li>{% trans "Preferable format is single PDF file." %}</li>
+                    <li>{% trans "However, supported formats are: .doc, .jpg, .png, .gif, .tiff" %}</li>
+                    <li>{% trans "These formats will be converted to PDF." %}</li>
+                    <li>{% trans "You can upload mutliple files, they will be merged into one PDF file." %}</li>
+                    <li>{% trans "Maximum size of solution is" %}: {{max_size|filesizeformat}}</li>
                   </ul>
                   <form class="form" action="{% url 'problems_usersolution_submit' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -118,8 +119,8 @@
                 </div>
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                  <button type="submit" class="btn btn-primary">{% trans "Save changes" %}</button>
                   </form>
                 </div>
 

@@ -1,8 +1,9 @@
 {% extends "base/base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h1> Register to competition! </h1>
+<h1> {% trans "Register to competition!" %} </h1>
 
-Your registration to the {{ form.competition }} has been successful.
+{% blocktrans %}Your registration to the {{ form.competition }} has been successful. {% endblocktrans %}
 
 {% endblock %}

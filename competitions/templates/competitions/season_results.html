@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load roots_tags %}
 {% load sekizai_tags %}
 
@@ -29,7 +30,7 @@
           <blockquote class="blockquote-info">
             <h4>
               <span class="glyphicon glyphicon-time"></span>
-              Series deadline:
+              {% trans "Series deadline:" %}
               <span class="text-{% if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
                 {{series.submission_deadline}}
               </span>
@@ -41,9 +42,9 @@
     <tr>
     <th> Name </th>
     {% for problem in series.problemset.problems.all %}
-      <th> Problem {{forloop.counter}} </th>
+      <th> {% trans "Problem" %} {{forloop.counter}} </th>
     {% endfor %}
-    <th> Total </th>
+    <th> {% trans "Total" %} </th>
     </tr>
     </thead>
 
@@ -55,7 +56,7 @@
         <td>
           {% with results|access:series.pk|access:competitor.pk|access:problem.pk as solution %}
             {% if solution %}
-              {% define score %}{% if solution.score %}{{solution.score}}{% else %}not corrected{% endif %}{% enddefine %}
+              {% define score %}{% if solution.score %}{{solution.score}}{% else %}{% trans "not corrected" %}{% endif %}{% enddefine %}
             {% else %}
               {% define score %}-{% enddefine %}
             {% endif %}
