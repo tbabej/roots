@@ -1,0 +1,56 @@
+{% comment %}
+
+  The normal list, spiced up.
+  This is included via comments/list.html
+
+  The id="comments" is required for JavaScript,
+  the 'comments/comment.html template is also used by the Ajax view.
+
+{% endcomment %}
+
+{% load sekizai_tags %}
+{% load comments %}
+{% load fluent_comments_tags %}
+{% load i18n %}
+{% load roots_tags %}
+
+{% addtoblock "css" %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fluent_comments/css/ajaxcomments.css" />
+<link href="{{ STATIC_URL }}css/comments.css" rel="stylesheet" type="text/css" media="screen" />
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+<script type="text/javascript" src="{{ STATIC_URL }}fluent_comments/js/ajaxcomments.js"></script>
+{% endaddtoblock %}
+
+{% get_comment_form for object as form %}
+{% define disabled %}{% if not user.is_authenticated %}disabled="disabled"{% endif %}{% enddefine %}
+{% define areatext %}{% if not user.is_authenticated %}{% trans "To post comments, you need to log in first." %}{% else %}{% trans "Write your comment here." %}{% endif %}{% enddefine %}
+
+<div class="detailBox">
+    <div class="titleBox">
+      <label>{% trans "Comments" %}</label>
+      <span class="pull-right"> {% trans "Number of comments:" %} {{comment_list|length}} </span>
+    </div>
+    <div class="actionBox">
+        <form class="form-inline js-comments-form" enctype="multipart/form-data" action="{% comment_form_target %}" method="POST" data-ajax-action="{% url 'comments-post-comment-ajax' %}">
+            {% csrf_token %}
+            <div style="display: None">
+                 {{ form.honeypot }}
+            </div>
+            {{ form.content_type }}
+            {{ form.object_pk }}
+            {{ form.timestamp }}
+            {{ form.security_hash }}
+            <input type="hidden" name="next" value="{{ request.path }}" />
+            <textarea name="comment" class="" style="width:75%;" rows=3 placeholder="{{ areatext }}" {{ disabled }}/></textarea>
+            <button class="btn btn-primary" style="width:15%; vertical-align: bottom;" {{ disabled }}/>{% trans "Submit" %}</button>
+        </form>
+            {% ajax_comment_tags %}
+    </div>
+    <div class="commentBox">
+        <ul class="commentList" id="comments">
+          {% for comment in comment_list %}{% include "comments/comment.html" %}{% endfor %}
+        </ul>
+    </div>
+</div>
