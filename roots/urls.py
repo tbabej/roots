@@ -35,7 +35,7 @@ urlpatterns += i18n_patterns('',
     url(_(r'^accounts/profile/'), TemplateView.as_view(
                                template_name='profile.html')),
     url(_(r'^competitions/'), include('competitions.urls')),
-    url(_(r'^comments/'), include('django.contrib.comments.urls')),
+    url(_(r'^comments/'), include('fluent_comments.urls')),
     url(_(r'^events/'), include('events.urls')),
     url(_(r'^leaflets/'), include('leaflets.urls')),
     url(_(r'^problems/'), include('problems.urls')),

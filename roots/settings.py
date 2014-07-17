@@ -101,6 +101,8 @@ INSTALLED_APPS = (
     'schools',
     # Grapelli comes first
     'grappelli',
+    # Fluent comments come before contrib.comments
+    'fluent_comments',
     # Non-roots specific apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -162,6 +164,8 @@ INSTALLED_APPS = (
     'wiki.plugins.help',
     'wiki.plugins.macros',
 )
+
+COMMENTS_APP = 'fluent_comments'
 
 GRAPPELLI_ADMIN_HEADLINE = 'Roots administration'
 GRAPPELLI_ADMIN_TITLE = 'Roots'
