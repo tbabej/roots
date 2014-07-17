@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load i18n %}
 {% load roots_tags %}
+{% load comments %}
 
 {% block content %}
   {% for post in posts %}
@@ -16,6 +17,8 @@
     <a href="{% url 'posts_post_detail' post.slug %}">{% trans "Read the full article" %}</a>
     {% enddefine %}
 
+    {% get_comment_count for post as num_comments %}
+
     {% define footer %}
     <span class="glyphicon glyphicon-user"></span>
       {% if post.added_by.get_full_name %}
@@ -23,6 +26,15 @@
       {% else %}
         {{ post.added_by.get_username }}
       {% endif %}
+
+    <div class="pull-right">
+      {% comment %}Translators: Refering to the number of comments, with link to the discussion{% endcomment %}
+      <a class="btn btn-default" style="padding: 0px 12px; margin-left: 10px; background-color: #F5F5F5;" href={% url 'posts_post_detail' post.slug %}>
+        <i class="fa fa-comments-o"></i>
+        {% trans "Comments: " %}{{ num_comments }}
+      </a>
+    </div>
+
     <div class="pull-right">
       <span class="glyphicon glyphicon-time"></span>
       {{ post.added_at}}
