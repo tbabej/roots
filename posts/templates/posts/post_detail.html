@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load i18n %}
 {% load roots_tags %}
+{% load comments %}
 
 {% block content %}
   <div class="panel panel-success">
@@ -27,6 +28,7 @@
       </div>
     </div><!-- panel-footer -->
   </div><!-- panel -->
-  </br>
-{% endblock %}
 
+{% render_comment_list for post %}
+
+{% endblock %}
