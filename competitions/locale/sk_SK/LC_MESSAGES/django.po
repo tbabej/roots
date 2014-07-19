@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-15 15:28+0200\n"
+"POT-Creation-Date: 2014-07-19 20:14+0200\n"
 "Last-Translator: Tomas Babej\n"
 "Language-Team: tomasbabej@gmail.com \n"
 "Language: sk\n"
@@ -155,7 +155,8 @@ msgstr "Odovzdať"
 #: templates/competitions/season_detail.html:87
 #, python-format
 msgid " Problem submission: %(series.name)s - problem %(forloop.counter)s "
-msgstr " Odovzdávanie príkladov: %(series.name)s - príklad %(forloop.counter)s "
+msgstr ""
+" Odovzdávanie príkladov: %(series.name)s - príklad %(forloop.counter)s "
 
 #: templates/competitions/season_detail.html:102
 msgid "Current solution:"
