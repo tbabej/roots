@@ -131,6 +131,8 @@ INSTALLED_APPS = (
     'south',
     # Use django-ratings
     'djangoratings',
+    # Use django-avatar
+    'avatar',
     # Use django-author
     'author',
     # Use django-reversion

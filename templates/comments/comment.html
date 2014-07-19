@@ -17,9 +17,10 @@
   This should give you consistent dates across all views.
 {% endcomment %}
 {% load i18n %}
+{% load avatar_tags %}
             <li {% if preview %} id="comment-preview"{% else %} id="c{{ comment.id }}"{% endif %} class="comment-item">
                 <div class="commenterImage">
-                  <img src="http://lorempixel.com/50/50/people/9" />
+                  <img src="{% avatar_url request.user 30 %}"/>
                 </div>
                 <div class="commentText">
                     <div class="comment-text">{{ comment.comment|linebreaks }}</div> <span class="date sub-text">{{comment.user_name}}, {{ comment.submit_date }}</span>

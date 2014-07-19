@@ -32,6 +32,7 @@ urlpatterns += i18n_patterns('',
     url(_(r'^admin/'), include(admin.site.urls)),
     url(_(r'^grappelli/'), include('grappelli.urls')),
     url(_(r'^accounts/'), include('allauth.urls')),
+    url(_(r'^avatar/'), include('avatar.urls')),
     url(_(r'^accounts/profile/'), TemplateView.as_view(
                                template_name='profile.html'),
                                name='roots_profile'),

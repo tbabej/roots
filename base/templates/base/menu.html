@@ -21,6 +21,7 @@
 
   {% if user.is_authenticated %}
   <a class="list-group-item {% url_active request 'profiles_userprofile_update' %}" href="{% url 'profiles_userprofile_update' %}">{% trans "Update your profile" %}</a>
+  <a class="list-group-item {% url_active request 'avatar_change' %}" href="{% url 'avatar_change' %}">{% trans "Change your avatar" %}</a>
   <a class="list-group-item {% url_active request 'account_email' %}" href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a>
   <a class="list-group-item {% url_active request 'account_logout' %}" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
   {% else %}
