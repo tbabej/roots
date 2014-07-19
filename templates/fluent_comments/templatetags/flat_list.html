@@ -46,7 +46,7 @@
             <textarea name="comment" class="" style="width:75%;" rows=3 placeholder="{{ areatext }}" {{ disabled }}/></textarea>
             <button class="btn btn-primary" style="width:15%; vertical-align: bottom;" {{ disabled }}/>{% trans "Submit" %}</button>
         </form>
-            {% ajax_comment_tags %}
+            {% ajax_comment_tags for object %}
     </div>
     <div class="commentBox">
         <ul class="commentList" id="comments">
