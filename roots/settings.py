@@ -204,6 +204,10 @@ TEMPLATE_DIRS = (
     PROJECT_ROOT + 'templates/',
 )
 
+LOCALE_PATHS = (
+    PROJECT_ROOT + 'locale/',
+)
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = PROJECT_ROOT + 'media/'
