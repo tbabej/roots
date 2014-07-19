@@ -34,7 +34,7 @@
       <span class="pull-right"> {% trans "Number of comments:" %} {{comment_list|length}} </span>
     </div>
     <div class="actionBox">
-        <form class="form-inline js-comments-form" enctype="multipart/form-data" action="{% comment_form_target %}" method="POST" data-ajax-action="{% url 'comments-post-comment-ajax' %}">
+        <form class="form-inline js-comments-form" id="comment-form-{{ form.target_object.pk }}" data-object-id="{{ form.target_object.pk }}" action="{% comment_form_target %}" method="post" data-ajax-action="{% url 'comments-post-comment-ajax' %}">
             {% csrf_token %}
             <div style="display: None">
                  {{ form.honeypot }}
@@ -47,11 +47,11 @@
             <textarea name="comment" class="" style="width:75%;" rows=3 placeholder="{{ areatext }}" {{ disabled }}/></textarea>
             <button class="btn btn-primary" style="width:15%; vertical-align: bottom;" {{ disabled }}/>{% trans "Submit" %}</button>
         </form>
-            {% ajax_comment_tags for object %}
+        {% ajax_comment_tags for form.target_object %}
     </div>
     <div class="commentBox">
-        <ul class="commentList" id="comments">
-          {% for comment in comment_list %}{% include "comments/comment.html" %}{% endfor %}
-        </ul>
+      <ul class="commentList" id="comments-{{ target_object_id }}" data-object-id="{{ target_object_id }}">
+        {% for comment in comment_list %}{% include "comments/comment.html" %}{% endfor %}
+      </ul>
     </div>
 </div>
