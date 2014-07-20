@@ -1,12 +1,13 @@
 {% extends "base/base.html" %}
 {% load i18n %}
 {% load roots_tags %}
+{% load comments %}
 
 {% block content %}
     {% for event in events %}
 
     {% define content_heading %}
-    {{ event.name }}
+    <a href="{% url "events_event_detail" event.pk %}">{{ event.name }}</a>
     {% enddefine %}
 
     {% define content %}
@@ -22,9 +23,20 @@
     </ul>
     {% enddefine %}
 
+    {% get_comment_count for event as num_comments %}
+
     {% define content_footer %}
     <span class="glyphicon glyphicon-user"></span>
     {{ event.added_by.get_full_name }}
+
+    <div class="pull-right">
+      {% comment %}Translators: Refering to the number of comments, with link to the discussion{% endcomment %}
+      <a class="btn btn-default" style="padding: 0px 12px; margin-left: 10px; background-color: #F5F5F5;" href={% url 'events_event_detail' event.pk %}>
+        <i class="fa fa-comments-o"></i>
+        {% trans "Comments: " %}{{ num_comments }}
+      </a>
+    </div>
+
     <div class="pull-right">
       <span class="glyphicon glyphicon-time"></span>
       {{ event.added_at}}
