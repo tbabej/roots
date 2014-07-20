@@ -1,0 +1,34 @@
+{% extends "base/base_single.html" %}
+{% load i18n %}
+{% load roots_tags %}
+{% load comments %}
+
+{% block content_heading %}
+{{ event.name }}
+{% endblock %}
+
+{% block content %}
+<h4><i> {{ event.description }} </i></h4>
+<a href="{% url 'events_event_user_registration' event_id=event.pk %}"> {% trans "Register" %} </a>
+<br/>
+<ul>
+    <li> {% trans "Location" %}: {{ event.location }} </li>
+    <li> {% trans "Start time" %}: {{ event.start_time }} </li>
+    <li> {% trans "End time" %}: {{ event.end_time }} </li>
+    <li> {% trans "Users attending" %}: {{ event.get_num_users }} </li>
+    <li> {% trans "Organizers attending" %}: {{ event.get_num_orgs }} </li>
+</ul>
+{% endblock %}
+
+{% block content_footer %}
+<span class="glyphicon glyphicon-user"></span>
+{{ event.added_by.get_full_name }}
+<div class="pull-right">
+  <span class="glyphicon glyphicon-time"></span>
+  {{ event.added_at}}
+</div>
+{% endblock %}
+
+{% block extra_content %}
+{% render_comment_list for event %}
+{% endblock %}

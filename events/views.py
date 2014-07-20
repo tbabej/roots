@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 from base.util import class_view_decorator
 from base.views import RedirectBackView
@@ -12,6 +13,12 @@ class EventListView(ListView):
 
     model = Event
     context_object_name = 'events'
+
+
+class EventDetailView(DetailView):
+
+    model = Event
+    context_object_name = 'event'
 
 
 @class_view_decorator(login_required)
