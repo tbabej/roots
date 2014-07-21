@@ -1,8 +1,10 @@
 import os
 
 from django.conf import settings
+from django.contrib.comments.signals import comment_was_posted
 from django.forms import forms
 from django.db.models import FileField
+from django.dispatch import receiver
 from django.template.defaultfilters import filesizeformat
 
 
@@ -79,3 +81,11 @@ class ContentTypeRestrictedFileField(FileField):
             raise forms.ValidationError('Filetype not supported.')
 
         return data
+
+
+@receiver(comment_was_posted)
+def make_admin_comments_private(sender, comment, request, **kwargs):
+    if request.POST.get('private') == 'true':
+        comment.is_public = False
+        comment.save()
+
