@@ -2,8 +2,21 @@
 {% load i18n %}
 {% load roots_tags %}
 {% load sekizai_tags %}
+{% load comments %}
+{% load fluent_comments_tags %}
 
 {% block content %}
+
+{# CSS and Javascript for the comments  #}
+{% addtoblock "css" %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fluent_comments/css/ajaxcomments.css" />
+<link href="{{ STATIC_URL }}css/comments.css" rel="stylesheet" type="text/css" media="screen" />
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+<script type="text/javascript" src="{{ STATIC_URL }}fluent_comments/js/ajaxcomments.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/mathjax_watcher.js"></script>
+{% endaddtoblock %}
 
 {% define content_heading %}
 {{ season.competition }} - {{ season.name }}
@@ -44,16 +57,19 @@
               {% define button_title %}{{solution.added_at}}{{solution.pk}}{% enddefine %}
               {% define button_text %}{% trans "Submitted" %}{% enddefine %}
               {% define button_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
+              {% define discussion_modal %}data-toggle="modal" data-target="#problem-discussion-{{problem.pk}}"{% enddefine %}
             {% elif series.is_past_submission_deadline %}
               {% define button_level %}danger{% enddefine %}
               {% define button_title %}{% trans "Not submitted" %}{% enddefine %}
               {% define button_text%}{% trans "Not submitted" %}{% enddefine %}
               {% define button_modal %}{% enddefine %}
+              {% define discussion_modal %}data-toggle="modal" data-target="#problem-discussion-{{problem.pk}}"{% enddefine %}
             {% else %}
               {% define button_level %}warning{% enddefine %}
               {% define button_title %}{% trans "Not yet submitted" %}{% enddefine %}
               {% define button_text%}{% trans "Submit" %}{% enddefine %}
-              {% define button_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
+              {% define submission_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
+              {% define discussion_modal %}data-toggle="modal" data-target="#problem-discussion-{{problem.pk}}"{% enddefine %}
             {% endif %}
 
             <div class="row">
@@ -64,8 +80,15 @@
               </div>
 
               <div class="col-lg-3">
-                <button type="button" class="btn btn-{{button_level}} btn-default center-block" data-placement="bottom" title="{{button_title}}" {{button_modal}}>
+                <button type="button" class="btn btn-{{button_level}} btn-default center-block" data-placement="top" title="{{button_title}}" {{submission_modal}}>
                   {{button_text}}
+                </button>
+                <button class="btn btn-default center-block" style="padding: 0px 12px; margin-top: 8px;" data-placement="bottom" title="{% trans "You can ask questions related to the problem here!" %}" {{discussion_modal}}>
+                  <i class="fa fa-comments-o"></i>
+                  {% get_comment_count for problem as num_comments %}
+                  <span style="{% if num_comments > 0 %}font-weight: bold;{% endif %}">
+                    {% trans "Discussion: " %}{{ num_comments }}
+                  </span>
                 </button>
               </div>
             </div><!-- row -->
@@ -75,6 +98,9 @@
       </div><!-- tabe-pane -->
 
       {% for problem in series.problemset.problems.all %}
+
+      {# Problem submission modals #}
+
         {% if not series.is_past_submission_deadline %}
           <!-- Modal -->
           <div class="modal fade" id="problem-submit-{{problem.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -90,7 +116,7 @@
 
                 {% with forms|access:series.pk|access:problem.pk as form %}
                 <div class="modal-body">
-                <p> {{problem.text}} </p>
+                <p class="well"> {{problem.text}} </p>
 
                 {% define max_size %}
                 {% settings_value "ROOTS_MAX_SOLUTION_SIZE" %}
@@ -125,12 +151,66 @@
                 </div>
 
 
-                {% endwith %}
+              {% endwith %}
 
               </div> <!-- modal-content -->
             </div> <!-- modal-dialog -->
           </div> <!-- modal -->
       {% endif %}
+
+    {# Problem discussion modals  #}
+    {% get_comment_list for problem as comment_list %}
+    {% get_comment_form for problem as form %}
+    {% define disabled %}{% if not user.is_authenticated %}disabled="disabled"{% endif %}{% enddefine %}
+    {% define areatext %}{% if not user.is_authenticated %}{% trans "To post comments, you need to log in first." %}{% else %}{% trans "Write your comment here." %}{% endif %}{% enddefine %}
+
+     <!-- Modal -->
+     <div class="modal fade" id="problem-discussion-{{problem.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+       <div class="modal-dialog">
+         <div class="modal-content">
+
+           <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+             <h4 class="modal-title" id="myModalLabel">
+               {% blocktrans %} Problem discussion: {{series.name}} - problem {{forloop.counter}} {% endblocktrans %}
+             </h4>
+           </div>
+
+           <div class="modal-body">
+           <p class="well"> {{problem.text}} </p>
+
+             <div style="max-height: 300px; overflow: scroll;">
+               <ul class="commentList" id="comments-{{ problem.pk }}" data-object-id="{{ problem.pk }}">
+                 {% for comment in comment_list %}{% include "comments/comment.html" %}{% endfor %}
+               </ul>
+             </div>
+
+           </div>
+
+           <div class="modal-footer">
+
+             <form class="form-inline js-comments-form" id="comment-form-{{ form.target_object.pk }}" data-object-id="{{ form.target_object.pk }}" action="{% comment_form_target %}" method="post" data-ajax-action="{% url 'comments-post-comment-ajax' %}">
+               {% csrf_token %}
+               <div style="display: None">
+                 {{ form.honeypot }}
+               </div>
+               {{ form.content_type }}
+               {{ form.object_pk }}
+               {{ form.timestamp }}
+               {{ form.security_hash }}
+               <input type="hidden" name="next" value="{{ request.path }}" />
+               <textarea name="comment" class="" style="width:75%;" rows=3 placeholder="{{ areatext }}" {{ disabled }}/></textarea>
+               <button class="btn btn-primary" style="width:15%; vertical-align: bottom;" {{ disabled }}/>{% trans "Submit" %}</button>
+               <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+             </form>
+             {% ajax_comment_tags for form.target_object %}
+
+           </div>
+
+         </div> <!-- modal-content -->
+       </div> <!-- modal-dialog -->
+     </div> <!-- modal -->
+
     {% endfor %}
   {% endfor %}
   </div> <!-- tab-content -->
