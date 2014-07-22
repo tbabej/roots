@@ -154,6 +154,13 @@ class Problem(models.Model):
     text = models.TextField(verbose_name=_('problem text'),
                             help_text=_('The problem itself. Please insert it '
                                         'in a valid TeX formatting.'))
+    result = models.TextField(verbose_name=_('Result / short solution outline'),
+                              help_text=_('The result of the problem. For '
+                                          'problems that do not have simple '
+                                          'results, a hint or short outline of '
+                                          'the solution.'),
+                              blank=True,
+                              null=True)
     rating = RatingField(range=5,
                          verbose_name=_('rating'))
     severity = models.ForeignKey('problems.ProblemSeverity',
@@ -306,6 +313,13 @@ class ProblemCategory(models.Model):
 
     name = models.CharField(max_length=50,
                             verbose_name=_('name'))
+    competition = models.ForeignKey(
+        'competitions.Competition',
+        verbose_name=_('competition'),
+        help_text=_('The reference to the competition that uses this category. '
+                    'It makes sense to have categories specific to each '
+                    'competition, since problem types in competitions '
+                    'may differ significantly.'))
 
     # Fields added via foreign keys:
     #     problem_set
@@ -336,6 +350,13 @@ class ProblemSeverity(models.Model):
     name = models.CharField(max_length=50,
                             verbose_name=_('name'))
     level = models.IntegerField(verbose_name=_('level'))
+    competition = models.ForeignKey(
+        'competitions.Competition',
+        verbose_name=_('competition'),
+        help_text=_('The reference to the competition that uses this severity. '
+                    'It makes sense to have severities specific to each '
+                    'competition, since organizers might have different '
+                    'ways of sorting the problems regarding their severity.'))
 
     def __unicode__(self):
         return unicode(self.level) + ' - ' + self.name
