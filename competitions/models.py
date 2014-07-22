@@ -18,7 +18,8 @@ class Competition(models.Model):
     """
 
     name = models.CharField(max_length=100,
-                            verbose_name=_('competition name'))
+                            verbose_name=_('competition name'),
+                            unique=True)
     organizer_group = models.ForeignKey(Group,
                                         blank=True,
                                         null=True,
