@@ -172,14 +172,14 @@
            <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
              <h4 class="modal-title" id="myModalLabel">
-               {% blocktrans %} Problem discussion: {{series.name}} - problem {{forloop.counter}} {% endblocktrans %}
+               {% trans "Problem discussion:" %} {{series.name}} - {% trans "problem" %} {{forloop.counter}}
              </h4>
            </div>
 
            <div class="modal-body">
            <p class="well"> {{problem.text}} </p>
 
-             <div style="max-height: 300px; overflow: scroll; overflow-x: auto;">
+             <div id="comments-div-{{ problem.pk }}" style="max-height: 300px; overflow: auto;">
                <ul class="commentList" id="comments-{{ problem.pk }}" data-object-id="{{ problem.pk }}">
                  {% for comment in comment_list %}{% include "comments/comment.html" %}{% endfor %}
                </ul>
@@ -199,9 +199,17 @@
                {{ form.timestamp }}
                {{ form.security_hash }}
                <input type="hidden" name="next" value="{{ request.path }}" />
-               <textarea name="comment" class="" style="width:75%;" rows=3 placeholder="{{ areatext }}" {{ disabled }}/></textarea>
-               <button class="btn btn-primary" style="width:15%; vertical-align: bottom;" {{ disabled }}/>{% trans "Submit" %}</button>
-               <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+               <div class="row">
+                 <div class="col-lg-9">
+                   <textarea class="col-lg-12" name="comment" rows=3 placeholder="{{ areatext }}" style="margin-left:10px;" {{ disabled }}/></textarea>
+                 </div>
+                 <div class="col-lg-3">
+                   <div>
+                     <button class="btn btn-primary center-block" {{ disabled }}/>{% trans "Submit" %}</button>
+                     <button class="btn btn-default center-block" style="margin-top: 5px; margin-left:auto;" data-dismiss="modal">{% trans "Close" %}</button>
+                   </div>
+                 </div>
+               </div>
              </form>
              {% ajax_comment_tags for form.target_object %}
 
