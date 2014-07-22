@@ -1,16 +1,30 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
 
+import problems.models
+from models import Competition
+from django.contrib.auth.models import Group
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+from django.db import IntegrityError
+
+class CompetitionCreationTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.group = Group(name="TestOrganizers")
+        cls.group.save()
+
+    def test_create_simple_competition(self):
+        competition = Competition(name="TestCompetition")
+        competition.save()
+
+    def test_create_competition_with_organizer_group(self):
+        competition = Competition(name="TestCompetition",
+                                  organizer_group=self.group)
+        competition.save()
+
+    def test_create_duplicate_competitions(self):
+        competition1 = Competition(name="DuplicateCompetition")
+        competition2 = Competition(name="DuplicateCompetition")
+
+        with self.assertRaises(IntegrityError):
+            competition1.save()
+            competition2.save()
