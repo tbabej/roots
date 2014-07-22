@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-19 20:14+0200\n"
+"POT-Creation-Date: 2014-07-22 20:26+0200\n"
 "Last-Translator: Tomas Babej\n"
 "Language-Team: tomasbabej@gmail.com \n"
 "Language: sk\n"
@@ -170,34 +170,38 @@ msgstr "pozvánka na sústredenie"
 msgid "camp invitations"
 msgstr "povánky na sústredenie"
 
-#: urls.py:13
+#: urls.py:19
 msgid "register/(?P<event_id>\\d+)/user/$"
 msgstr "registracia/(?P<event_id>\\d+)/uzivatel/$"
 
-#: urls.py:18
+#: urls.py:24
 msgid "register/(?P<event_id>\\d+)/organizer/$"
 msgstr "registracia/(?P<event_id>\\d+)/veduci/$"
 
-#: templates/events/event_list.html:14
+#: templates/events/event_detail.html:12 templates/events/event_list.html:15
 msgid "Register"
 msgstr "Registruj sa"
 
-#: templates/events/event_list.html:17
+#: templates/events/event_detail.html:15 templates/events/event_list.html:18
 msgid "Location"
 msgstr "Miesto"
 
-#: templates/events/event_list.html:18
+#: templates/events/event_detail.html:16 templates/events/event_list.html:19
 msgid "Start time"
 msgstr "Začiatok"
 
-#: templates/events/event_list.html:19
+#: templates/events/event_detail.html:17 templates/events/event_list.html:20
 msgid "End time"
 msgstr "Koniec"
 
-#: templates/events/event_list.html:20
+#: templates/events/event_detail.html:18 templates/events/event_list.html:21
 msgid "Users attending"
 msgstr "Počet užívateľov"
 
-#: templates/events/event_list.html:21
+#: templates/events/event_detail.html:19 templates/events/event_list.html:22
 msgid "Organizers attending"
 msgstr "Počet vedúcich"
+
+#: templates/events/event_list.html:36
+msgid "Comments: "
+msgstr "Komentáre: "

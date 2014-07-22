@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-19 20:14+0200\n"
+"POT-Creation-Date: 2014-07-22 20:26+0200\n"
 "Last-Translator: Tomas Babej\n"
 "Language-Team: tomasbabej@gmail.com \n"
 "Language: sk\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "user"
 msgstr "užívateľ"
 
-#: models.py:60 models.py:99 models.py:177 models.py:184 models.py:226
+#: models.py:60 models.py:99 models.py:184 models.py:191 models.py:233
 msgid "problem"
 msgstr "príklad"
 
@@ -60,7 +60,7 @@ msgstr "vzorové riešenie"
 msgid "organizer solutions"
 msgstr "vzorové riešenia"
 
-#: models.py:124 models.py:213
+#: models.py:124 models.py:220
 msgid "Rating"
 msgstr "Rating"
 
@@ -72,95 +72,127 @@ msgstr "zadanie príkladu"
 msgid "The problem itself. Please insert it in a valid TeX formatting."
 msgstr "Text samotného zadania príkladu. Prosím vložte príklad v TeX formáte."
 
+#: models.py:157
+msgid "Result / short solution outline"
+msgstr "Výsledok / náčrt riešenia"
+
 #: models.py:158
+msgid ""
+"The result of the problem. For problems that do not have simple results, a "
+"hint or short outline of the solution."
+msgstr ""
+"Výsledok príkladu. Pre problémy vysvetľovacieho charakteru vložte krátku "
+"nápovedu alebo náčrt riešenia."
+
+#: models.py:165
 msgid "rating"
 msgstr "rating"
 
-#: models.py:160 models.py:345
+#: models.py:167 models.py:366
 msgid "severity"
 msgstr "obtiažnosť"
 
-#: models.py:162 models.py:318
+#: models.py:169 models.py:332
 msgid "category"
 msgstr "kategória"
 
-#: models.py:164 models.py:247
+#: models.py:171 models.py:254 models.py:318 models.py:355
 msgid "competition"
 msgstr "súťaž / seminár"
 
-#: models.py:178 models.py:227 models.py:258 models.py:285
+#: models.py:185 models.py:234 models.py:265 models.py:292
 msgid "problems"
 msgstr "príklady"
 
-#: models.py:186
+#: models.py:193
 msgid "problem set"
 msgstr "súbor príkladov"
 
-#: models.py:187
+#: models.py:194
 msgid "position"
 msgstr "pozícia"
 
-#: models.py:214
+#: models.py:221
 msgid "Usages"
 msgstr "Použitia"
 
-#: models.py:215
+#: models.py:222
 msgid "Last used at"
 msgstr "Naposledy použitý"
 
-#: models.py:216
+#: models.py:223
 msgid "Last five usages"
 msgstr "Posledných päť použití"
 
-#: models.py:217
+#: models.py:224
 msgid "Times used"
 msgstr "Počet použití"
 
-#: models.py:218
+#: models.py:225
 msgid "Category"
 msgstr "Kategória"
 
-#: models.py:219
+#: models.py:226
 msgid "Severity"
 msgstr "Obtiažnosť"
 
-#: models.py:220
+#: models.py:227
 msgid "Competition"
 msgstr "Súťaž"
 
-#: models.py:251
+#: models.py:258
 msgid "leaflet"
 msgstr "časopis"
 
-#: models.py:255
+#: models.py:262
 msgid "event"
 msgstr "súťaž"
 
-#: models.py:294
+#: models.py:301
 msgid "average difficulty"
 msgstr "priemerná obtiažnosť"
 
-#: models.py:298
+#: models.py:305
 msgid "set"
 msgstr "súbor"
 
-#: models.py:299
+#: models.py:306
 msgid "sets"
 msgstr "súbory"
 
-#: models.py:308 models.py:337
+#: models.py:315 models.py:351
 msgid "name"
 msgstr "názov"
 
 #: models.py:319
+msgid ""
+"The reference to the competition that uses this category. It makes sense to "
+"have categories specific to each competition, since problem types in "
+"competitions may differ significantly."
+msgstr ""
+"Súťaž / seminár ktorý používa túto kategóriu príkladov. Kategórie sú "
+"špecifické pre každý seminár, pretože typy príkladov sa môžu medzi "
+"seminármi podstatne líšiť."
+
+#: models.py:333
 msgid "categories"
 msgstr "kategória"
 
-#: models.py:338
+#: models.py:352
 msgid "level"
 msgstr "level"
 
-#: models.py:346
+#: models.py:356
+msgid ""
+"The reference to the competition that uses this severity. It makes sense to "
+"have severities specific to each competition, since organizers might have "
+"different ways of sorting the problems regarding their severity."
+msgstr ""
+"Súťaž / seminár ktorý používa túto obtiažnosť. Obtiažnosti pre jednotlivé "
+"semináre sú oddelené, pretože ich vedúci môžu používať rozličné stupnice "
+"hodnotenia obtiažnosti."
+
+#: models.py:367
 msgid "severities"
 msgstr "obtiažnosti"
 
