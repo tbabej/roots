@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
+from competitions.models import Competition
+
 
 # User-related models
 class UserProfile(models.Model):
@@ -111,9 +113,12 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return _("user profile: {user}").format(user=self.user.username)
 
-    def organizes_competitions(self):
-        return [registration.competition for registration in
-                self.competitionorgregistration_set.filter(approved=True)]
+    def organized_competitions(self):
+        organized_competitions = (self.competitionorgregistration_set
+                                  .filter(approved=True)
+                                  .values('competition'))
+
+        return Competition.objects.filter(id__in=organized_competitions)
 
     class Meta:
         verbose_name = _('user profile')
