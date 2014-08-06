@@ -92,7 +92,7 @@ class CompetitionOrgRegistration(models.Model):
     approved = models.BooleanField(verbose_name=_('registration approved'))
 
     def __unicode__(self):
-        return (self.organizer.__unicode__() + _(" organizes ") +
+        return (self.organizer.user.__unicode__() + unicode(_(" organizes ")) +
                self.competition.__unicode__())
 
     class Meta:
