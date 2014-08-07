@@ -1,0 +1,117 @@
+{% extends "base/base.html" %}
+{% load sekizai_tags %}
+{% load avatar_tags %}
+{% load comments %}
+{% load roots_tags %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="well profile">
+  <div class="col-sm-12">
+
+    <div class="col-xs-12 col-sm-8">
+      <h2>{{ profile.user.get_full_name }}</h2>
+      <p><strong>About: </strong> Some stuff </p>
+      <p><strong>Hobbies: </strong> Some other stuff </p>
+      <p><strong>Competitions participated in: </strong>
+      {% for competition in profile.participated_competitions %}
+        <span class="tags"> {{ competition.name }}</span>
+      {% endfor %}
+      </p>
+    </div>
+
+    <div class="col-xs-12 col-sm-4 text-center">
+      <img src="{% avatar_url profile.user 175 %}" class="img-circle img-responsive"/>
+    </div>
+
+    <div class="col-xs-12 divider text-center">
+      <div class="col-xs-12 col-sm-4 emphasis">
+      {% with best_rank=profile.best_ranking %}
+      {% with competition=best_rank.0 season=best_rank.1 rank=best_rank.2 %}
+        <h2>
+          <strong>
+            {% if rank.0 %}
+              {{ rank.0 }}. {% trans "place" %}
+            {% else %}
+              -
+            {% endif %}
+          </strong>
+        </h2>
+        <p><small> {% trans "Best ranking" %} </small></p>
+        <button class="btn btn-success btn-block">
+          <span class="fa fa-plus-circle"></span>
+          {% if season %}
+            {{ season.name }} - {{ season.year }}
+          {% else %}
+            {% trans "Never competed" %}
+          {% endif %}
+        </button>
+      {% endwith %}
+      {% endwith %}
+      </div>
+
+      <div class="col-xs-12 col-sm-4 emphasis">
+        <h2><strong>{{ profile.num_solved_problems }}</strong></h2>
+        <p><small>{% trans "Solved problems" %}</small></p>
+        <button class="btn btn-info btn-block">
+          <span class="fa fa-user"></span> View Profile
+        </button>
+      </div>
+
+      <div class="col-xs-12 col-sm-4 emphasis">
+        <h2><strong>{{ profile.num_attended_camps }}</strong></h2>
+        <p><small>{% trans "Attended camps" %}</small></p>
+        <button class="btn btn-info btn-block">
+          <span class="fa fa-user"></span> View Profile
+        </button>
+      </div>
+    </div>
+
+    <div class="col-xs-12 divider text-center">
+    <h2>Competition stats </h2>
+    </div>
+
+    <div class="col-xs-12 divider text-center">
+    <h2>Last comments </h2>
+    </div>
+
+  </div> <!--/ col-sm-12 -->
+</div>
+
+{% addtoblock "css" %}
+<style>
+.profile
+{
+    min-height: 355px;
+    display: inline-block;
+    margin-top: 10px;
+    }
+.divider
+{
+    margin-top:10px;
+    border-top:1px solid rgba(0,0,0,0.1);
+}
+span.tags
+{
+    background: #1abc9c;
+    border-radius: 2px;
+    color: #f5f5f5;
+    font-weight: bold;
+    padding: 2px 4px;
+    }
+.emphasis
+{
+    border-top: 4px solid transparent;
+    }
+.emphasis:hover
+{
+    border-top: 4px solid #1abc9c;
+    }
+.emphasis h2
+{
+    margin-bottom:0;
+    }
+</style>
+{% endaddtoblock %}
+{% endblock %}
