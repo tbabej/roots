@@ -111,7 +111,7 @@ class EventUserRegistration(models.Model):
                              verbose_name=_('user'))
 
     def __unicode__(self):
-        return (self.user.__unicode__() + _(" attends ") +
+        return (self.user.__unicode__() + unicode(_(" attends ")) +
                self.event.__unicode__())
 
     class Meta:
@@ -135,7 +135,7 @@ class EventOrgRegistration(models.Model):
                                   verbose_name=_('organizer'))
 
     def __unicode__(self):
-        return (self.user.__unicode__() + _(" organizes ") +
+        return (self.user.__unicode__() + unicode(_(" organizes ")) +
                 self.event.__unicode__())
 
     class Meta:
@@ -236,7 +236,7 @@ class CampUserInvitation(models.Model):
                                        verbose_name=_('accepted by organizers'))
 
     def __unicode__(self):
-        return (self.user.__unicode__() + _(' was invited to ')
+        return (self.user.__unicode__() + unicode(_(' was invited to '))
                 + self.camp.__unicode())
 
     # TODO: invitation should hold requirements on user profile contents

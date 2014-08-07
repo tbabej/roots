@@ -90,7 +90,7 @@ class CompetitionUserRegistration(models.Model):
                              verbose_name=_('user'))
 
     def __unicode__(self):
-        return (self.user.__unicode__() + u" competes in " +
+        return (self.user.__unicode__() + unicode(_(" competes in ")) +
                self.competition.__unicode__())
 
     class Meta:

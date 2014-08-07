@@ -71,9 +71,9 @@ class UserSolution(MediaRemovalMixin,
                        verbose_name=_('corrected by'))
 
     def __unicode__(self):
-        return (_("User solution: {user} - {problem_id}")
-                .format(user=unicode(self.user),
-                        problem_id=unicode(self.problem.pk))
+        return unicode(_("User solution: {user} - {problem_id}")
+                       .format(user=unicode(self.user),
+                               problem_id=unicode(self.problem.pk))
                )
 
     class Meta:
@@ -99,9 +99,9 @@ class OrgSolution(models.Model):
                                 verbose_name=_('problem'))
 
     def __unicode__(self):
-        return (_("Organizer solution: {user} - {problem_id}")
-                .format(user=unicode(self.organizer),
-                        problem_id=unicode(self.problem.pk))
+        return unicode(_("Organizer solution: {user} - {problem_id}")
+                         .format(user=unicode(self.organizer),
+                                 problem_id=unicode(self.problem.pk))
                )
 
     class Meta:

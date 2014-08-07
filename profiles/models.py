@@ -113,7 +113,8 @@ class UserProfile(models.Model):
     #  organizer
 
     def __unicode__(self):
-        return _("user profile: {user}").format(user=self.user.username)
+        return unicode(_("user profile: {user}")
+                       .format(user=self.user.username))
 
     def organized_competitions(self):
         organized_competitions = (self.competitionorgregistration_set
@@ -193,7 +194,8 @@ class OrganizerProfile(models.Model):
     #  user_ptr
 
     def __unicode__(self):
-        return _("organizer profile: {user}").format(user=self.user.username)
+        return unicode(_("organizer profile: {user}")
+                       .format(user=self.user.username))
 
     class Meta:
         verbose_name = _('organizer profile')
