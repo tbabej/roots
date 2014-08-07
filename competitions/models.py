@@ -138,6 +138,46 @@ class Season(models.Model):
 
         return competitors
 
+    def get_user_solutions(self, user):
+        """
+        Returns the list of lists of solutions of problems in this season
+        for a particular user, each series in a separate list.
+
+        If the problem was not submitted, None is used instead of a
+        UserSolution object.
+        """
+
+        return [series.get_user_solutions()
+                for series in self.series_set.all()]
+
+    def get_user_solutions_with_total(self, user):
+        """
+        Returns a list of lists of user solutions with total score computed.
+
+        Also gives a total score per season for this user. A total score may
+        be computed using settings.ROOTS_TOTAL_SEASON_SCORE_FUNC. Fallbacks
+        to a simple sum of series subtotals if not specified.
+        """
+
+        all_solutions = []
+        total = 0
+
+        for series in self.series_set.all():
+            solutions, subtotal = series.get_user_solutions_with_total(user)
+            all_solutions.append(solutions)
+            total += subtotal
+
+        custom_total_func = getattr(settings,
+                                    'ROOTS_TOTAL_SEASON_SCORE_FUNC',
+                                    None)
+
+        if custom_total_func is not None:
+            assert callable(custom_total_func)
+            return custom_total_func(user, solutions)
+        else:
+            # Fallback to simple sum
+            return all_solutions, total
+
     def get_series_nearest_deadline(self):
         """
         Returns the most relevant series for the deadline. That is usually the
