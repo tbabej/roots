@@ -49,6 +49,27 @@ class Competition(models.Model):
         else:
             return None
 
+    def get_best_user_ranking(self, user):
+        """
+        Returns the best ranking of this user and the season in which
+        it occured.
+
+        Returns (None, None) if no user ranking found (user would have to never
+        submit a solution).
+        """
+
+        best_rank = None
+        best_season = None
+
+        for season in self.season_set.all():
+            if season.get_competitors().filter(pk=user.pk).exists():
+                rank = season.get_user_ranking(user)
+                if best_rank < rank:
+                    best_rank = rank
+                    best_season = season
+
+        return best_rank, best_season
+
     class Meta:
         ordering = ['name']
         verbose_name = _('competition')
