@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import get_model
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
@@ -204,6 +206,74 @@ class Series(models.Model):
             competitors = competitors | problemset_competitors
 
         return competitors.distinct()
+
+    def get_user_solutions(self, user):
+        """
+        Returns the list of solutions of problems in this series for a
+        particular user. If the problem was not submitted, None is used
+        instead of a UserSolution object.
+        """
+
+        solutions = []
+        UserSolution = get_model('problems', 'UserSolution')
+
+        # TODO: See if this can be done with a simple JOIN without making
+        # multiple queries here. Not optimizing prematurely now though.
+
+        for problem in self.problemset.problems.all():
+            try:
+                solution = UserSolution.objects.get(user=user, problem=problem)
+                solutions.append(solution)
+            except UserSolution.DoesNotExist:
+                solutions.append(None)
+
+        return solutions
+
+    def get_user_solutions_with_total(self, user):
+        """
+        Returns a list of user solutions with total score computed.
+
+        The computation of the total score can follow any arbitrary rules,
+        it needs to be specified by the settings.ROOTS_SERIES_TOTAL_SCORE_FUNC.
+
+        This defaults to simple sum.
+        """
+
+        solutions = self.get_user_solutions(user)
+
+        custom_total_func = getattr(settings,
+                                    'ROOTS_SERIES_TOTAL_SCORE_FUNC',
+                                    None)
+
+        if custom_total_func is not None:
+            assert callable(custom_total_func)
+            return custom_total_func(user, solutions)
+        else:
+            # Fallback to simple sum
+            total_sum = sum([s.score or 0 for s in solutions if s is not None])
+            return solutions, total_sum
+
+    def get_results(self):
+        results = []
+
+        for competitor in self.get_competitors():
+            solutions, total = self.get_user_solutions_with_total(competitor)
+            results.append((competitor, solutions, total))
+
+        # Sort the results by total_score
+        results.sort(key=lambda x: x[2], reverse=True)
+
+        return results
+
+    def get_user_ranking(self, user):
+        results = self.get_results()
+
+        for i in range(0, len(results)):
+            competitor, solutions, total = results[i]
+            if user == competitor:
+                return i + 1
+
+        return None
 
     def is_past_submission_deadline(self):
         return now() > self.submission_deadline
