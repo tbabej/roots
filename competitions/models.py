@@ -103,9 +103,77 @@ class CompetitionOrgRegistration(models.Model):
         verbose_name_plural = _('organizer registration')
 
 
+class SeasonSeriesBaseMixin(object):
+
+    def get_results(self):
+        results = []
+
+        for competitor in self.get_competitors():
+            solutions, total = self.get_user_solutions_with_total(competitor)
+            results.append((competitor, solutions, total))
+
+        # Sort the results by total_score
+        results.sort(key=lambda x: x[2], reverse=True)
+
+        return results
+
+    def get_user_ranking(self, user):
+        """
+        Returns the user's ranking in the current series. Since user can be
+        ranked on multiple places, e.g. if 3 users achieved the perfect socre,
+        the ranking is represented by a tuple (which would be (1,3) in this
+        case). If only one user achiveed perfect score, the resulting ranking
+        would be (1,1).
+        """
+
+        results = self.get_results()
+        start = None
+
+        for i in range(0, len(results)):
+            competitor, solutions, total = results[i]
+            if user == competitor:
+                start = end = i + 1
+
+            # This depends on the fact that the results list is sorted
+            # decreasingly by the total score
+            elif total == start:
+                end = i + 1
+
+        return (start, end)
+
+    def get_user_by_ranking(self, rank):
+        """
+        Returns the set of users at the given rank (which can be empty).
+        """
+
+        results = self.get_results()
+
+        # Convert rank to list index
+        index = rank - 1
+
+        users_at_rank = set()
+        first_users_score = None
+
+        if index < len(results):
+            for competitor, solutions, total in results[index:]:
+
+                # Mark the first user's score
+                if first_users_score is None:
+                    first_users_score = total
+
+                # We add each user that has the same score until we reach
+                # a lower score, at which point we break
+                if total == first_users_score:
+                    users_at_rank.add(competitor)
+                else:
+                    break
+
+        return users_at_rank
+
+
 @with_author
 @with_timestamp
-class Season(models.Model):
+class Season(models.Model, SeasonSeriesBaseMixin):
     """
     Represents an one season of a competition. This is usually autumn or spring
     season. Using this model, however, we are not limited to 2 seasons per year.
@@ -213,7 +281,7 @@ class Season(models.Model):
 
 @with_author
 @with_timestamp
-class Series(models.Model):
+class Series(models.Model, SeasonSeriesBaseMixin):
     """
     Represents one series of problems in the season of the competetion.
     """
@@ -292,28 +360,6 @@ class Series(models.Model):
             # Fallback to simple sum
             total_sum = sum([s.score or 0 for s in solutions if s is not None])
             return solutions, total_sum
-
-    def get_results(self):
-        results = []
-
-        for competitor in self.get_competitors():
-            solutions, total = self.get_user_solutions_with_total(competitor)
-            results.append((competitor, solutions, total))
-
-        # Sort the results by total_score
-        results.sort(key=lambda x: x[2], reverse=True)
-
-        return results
-
-    def get_user_ranking(self, user):
-        results = self.get_results()
-
-        for i in range(0, len(results)):
-            competitor, solutions, total = results[i]
-            if user == competitor:
-                return i + 1
-
-        return None
 
     def is_past_submission_deadline(self):
         return now() > self.submission_deadline
