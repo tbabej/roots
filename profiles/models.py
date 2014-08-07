@@ -5,6 +5,8 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
 from competitions.models import Competition
+from problems.models import UserSolution
+from events.models import EventUserRegistration
 
 
 # User-related models
@@ -119,6 +121,38 @@ class UserProfile(models.Model):
                                   .values('competition'))
 
         return Competition.objects.filter(id__in=organized_competitions)
+
+    def participated_competitions(self):
+        participated_competitions = (self.competitionuserregistration_set
+                                     .values('competition'))
+
+        return Competition.objects.filter(id__in=participated_competitions)
+
+    def best_ranking(self):
+        """
+        Returns the competition, season and ranking when the user had the most
+        success ever.
+        """
+
+        best_competition = None
+        best_season = None
+        best_ranking = None
+
+        for competition in self.participated_competitions():
+            rank, season = competition.get_best_user_ranking(self.user)
+            if rank < best_ranking or best_ranking is None:
+                best_ranking = rank
+                best_season = season
+                best_competition = competition
+
+        return best_competition, best_season, best_ranking
+
+    def num_solved_problems(self):
+        return self.user.usersolution_set.count()
+
+    def num_attended_camps(self):
+        return (EventUserRegistration.objects.filter(user=self.user)
+                                             .exclude(event__camp=None)).count()
 
     class Meta:
         verbose_name = _('user profile')
