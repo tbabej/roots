@@ -49,6 +49,15 @@ class Competition(models.Model):
         else:
             return None
 
+    def get_all_user_seasons(self, user):
+        """
+        Yields the all the seasons the user competed in.
+        """
+
+        for season in self.season_set.all():
+            if season.get_competitors().filter(pk=user.pk).exists():
+                yield season
+
     def get_best_user_ranking(self, user):
         """
         Returns the best ranking of this user and the season in which
@@ -61,12 +70,11 @@ class Competition(models.Model):
         best_rank = None
         best_season = None
 
-        for season in self.season_set.all():
-            if season.get_competitors().filter(pk=user.pk).exists():
-                rank = season.get_user_ranking(user)
-                if best_rank < rank:
-                    best_rank = rank
-                    best_season = season
+        for season in self.get_all_user_seasons(user):
+            rank = season.get_user_ranking(user)
+            if best_rank < rank:
+                best_rank = rank
+                best_season = season
 
         return best_rank, best_season
 
