@@ -10,11 +10,11 @@
         {% enddefine %}
 
         {% define content %}
-        <ul class="list-inline">
+        <ul class="list-inline img-responsive">
         {% for leaflet in context_data_item.leaflets %}
-            <li>
+            <li class="col-sm-2">
             <a href="{{ MEDIA_URL }}{{ leaflet.get_leaflet_path }}" target="_blank">
-                <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" class="img-thumbnail" width=150pts />
+                <img src="{{ MEDIA_URL }}{{ leaflet.get_thumbnail_path }}" class="img-responsive img-thumbnail" />
                 <br>
                 <div align="center">{{leaflet.year}} - {{leaflet.issue}}</div>
             </a>
