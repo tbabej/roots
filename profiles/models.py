@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.contrib.comments.models import Comment
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -154,6 +155,12 @@ class UserProfile(models.Model):
     def num_attended_camps(self):
         return (EventUserRegistration.objects.filter(user=self.user)
                                              .exclude(event__camp=None)).count()
+
+    def num_posted_comments(self):
+        return self.user.comment_comments.count()
+
+    def get_last_comments(self, number=10):
+        return self.user.comment_comments.all()[:10]
 
     class Meta:
         verbose_name = _('user profile')
