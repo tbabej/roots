@@ -170,6 +170,17 @@ class SeasonSeriesBaseMixin(object):
 
         return (start, end)
 
+    def get_user_percentile(self, user):
+        """
+        Returns user percentile (percentage of competitors that achived
+        worse or equal ranking), as a float between 0 and 1.
+        """
+        all_competitors = len(self.get_competitors())
+        user_ranking = self.get_user_ranking(user)[0]
+
+        # Percentile can be expressed as 1 - (percentage of better ranked users)
+        return 1.0 - (user_ranking - 1) / all_competitors
+
     def get_user_by_ranking(self, rank):
         """
         Returns the set of users at the given rank (which can be empty).
