@@ -25,17 +25,19 @@ class LeafletListView(ListView):
     template_name = "leaflets/leaflet_list.html"
 
     def get_context_data(self, **kwargs):
-        """Return the last 2 published leaflets in each competition"""
+        """Return the last 6 published leaflets in each competition"""
         context = super(ListView, self).get_context_data(**kwargs)
         data = []
         competitions = Competition.objects.all()
+
         for competition in competitions:
             item = LeafletViewContextItem()
             item.competition = competition
             item.leaflets = Leaflet.objects.\
                                     filter(competition=competition).\
-                                    order_by('-year', '-issue')[:5]
+                                    order_by('-year', '-issue')[:6]
             data.append(item)
+
         context['data'] = data
         return context
 
