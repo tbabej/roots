@@ -169,6 +169,26 @@ class Problem(models.Model):
                                  verbose_name=_('category'))
     competition = models.ForeignKey('competitions.Competition',
                                     verbose_name=_('competition'))
+    source = models.CharField(max_length=500,
+                              blank=True,
+                              null=True,
+                              verbose_name=_('problem source'),
+                              help_text=_('Source where you found the problem'
+                                          '(if not original).'))
+    image = models.ImageField(storage=OverwriteFileSystemStorage(),
+                              blank=True,
+                              null=True,
+                              upload_to='problems/',
+                              verbose_name=_('image'),
+                              help_text=_('Image added to the problem text.'))
+    additional_files = models.FileField(
+                           blank=True,
+                           null=True,
+                           upload_to='problems/',
+                           storage=OverwriteFileSystemStorage(),
+                           verbose_name=_('additional files'),
+                           help_text=_('Additional files stored with the '
+                                       'problem (such as editable images).'))
 
     # Fields added via foreign keys:
 
