@@ -20,6 +20,12 @@ def url_active(request, urls, *args, **kwargs):
     else:
         return ""
 
+from django.contrib.sites.models import get_current_site
+
+@register.simple_tag
+def current_site(request):
+    return get_current_site(request).name
+
 
 @register.filter
 def remove_uncomplete_latex(text):
