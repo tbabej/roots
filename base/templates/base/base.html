@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load mathjax %}
 {% load sekizai_tags %}
+{% load roots_tags %}
 
 {% block sekizai %}
 {% endblock %}
@@ -56,8 +57,7 @@
           </button>
           <a class="navbar-brand" href="#">
             {% block navbar-brand %}
-            {% comment %}Translators: Site name{% endcomment %}
-            {% trans "Roots" %}
+            {% current_site request %}
             {% endblock %}
           </a>
         </div><!--/ navbar-header -->
