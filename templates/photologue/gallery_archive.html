@@ -10,7 +10,7 @@
 {% if extended_latest %}
   {% for gallery, all_photos, sample in extended_latest %}
     {% define gallery_heading %}
-    <a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a>
+    {{ gallery.title }}
     {% enddefine %}
 
     {% define gallery_content %}
