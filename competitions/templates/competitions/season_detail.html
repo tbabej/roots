@@ -28,7 +28,7 @@
   <ul class="nav nav-tabs">
   {% for series in season.series_set.all %}
         <li {% if series.is_nearest_deadline %}class="active"{% endif %}>
-          <a href="#series-{{forloop.counter}}" data-toggle="tab">{{series.name}}</a>
+          <a href="#series-{{series.pk}}" data-toggle="tab">{{series.name}}</a>
         </li>
   {% endfor %}
   </ul>
