@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import get_object_or_404
 from django.views.generic.edit import FormView
 from django.views.generic.detail import DetailView
 
@@ -7,7 +8,7 @@ from problems.models import UserSolution
 from problems.forms import UserSolutionForm
 
 from .forms import CompetitionRegistrationForm
-from .models import CompetitionUserRegistration, Season
+from .models import Competition, CompetitionUserRegistration, Season
 
 
 class CompetitionRegistrationView(FormView):
@@ -109,3 +110,9 @@ class SeasonDetailView(DetailView):
                 context['forms'][series.pk][problem.pk] = form
 
         return context
+
+
+class LatestSeasonDetailView(SeasonDetailView):
+    def get_object(self):
+        competition = get_object_or_404(Competition, pk=self.kwargs.get('competition_id'))
+        return competition.season_set.order_by('-end')[0]
