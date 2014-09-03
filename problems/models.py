@@ -345,7 +345,7 @@ class ProblemCategory(models.Model):
     #     problem_set
 
     def __unicode__(self):
-        return self.name
+        return u'%s (%s)' % (self.name, self.competition)
 
     class Meta:
         ordering = ['name']
