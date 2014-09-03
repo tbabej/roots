@@ -189,10 +189,27 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
 
     competition_field = 'problem__competition'
 
+
+@admin_commentable
+class ProblemCategoryAdmin(VersionAdmin):
+
+    list_display = ('name',
+                    'competition',
+                    )
+
+@admin_commentable
+class ProblemSeverityAdmin(VersionAdmin):
+
+    list_display = ('name',
+                    'level',
+                    'competition',
+                    )
+
+
 # Register to the admin site
 admin.site.register(Problem, ProblemAdmin)
 admin.site.register(ProblemSet, ProblemSetAdmin)
 admin.site.register(UserSolution, UserSolutionAdmin)
 admin.site.register(OrgSolution)
-admin.site.register(ProblemCategory)
-admin.site.register(ProblemSeverity)
+admin.site.register(ProblemCategory, ProblemCategoryAdmin)
+admin.site.register(ProblemSeverity, ProblemSeverityAdmin)
