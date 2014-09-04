@@ -23,9 +23,10 @@ class SecureBaseView(BaseView):
         return super(BaseView, self).dispatch(*args, **kwargs)
 
 
-class IndexView(TemplateView):
+class IndexView(RedirectView):
 
-    template_name = "base/index.html"
+    permanent = False
+    pattern_name = "posts_post_list"
 
 
 class RedirectBackView(RedirectView):
