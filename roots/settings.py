@@ -202,6 +202,7 @@ TEMPLATE_DIRS = (
     # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    PROJECT_ROOT + 'templates_custom/',
     PROJECT_ROOT + 'templates/',
 )
 
