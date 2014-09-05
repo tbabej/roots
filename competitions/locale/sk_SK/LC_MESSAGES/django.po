@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-22 20:26+0200\n"
+"POT-Creation-Date: 2014-09-05 10:07+0200\n"
 "Last-Translator: Tomas Babej\n"
 "Language-Team: tomasbabej@gmail.com \n"
 "Language: sk\n"
@@ -10,99 +10,103 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:21
+#: models.py:23
 msgid "competition name"
 msgstr "názov súťaže / seminára"
 
-#: models.py:26
+#: models.py:28
 msgid "organizer group"
 msgstr "skupina vedúcich pre súťaž / seminár"
 
-#: models.py:52 models.py:65 models.py:89 models.py:116
+#: models.py:83 models.py:96 models.py:120 models.py:226
 msgid "competition"
 msgstr "súťaž / seminár"
 
-#: models.py:53
+#: models.py:84
 msgid "competitions"
 msgstr "súťaže / semináre"
 
-#: models.py:67
+#: models.py:98
 msgid "user"
 msgstr "užívateľ"
 
-#: models.py:75
+#: models.py:101
+msgid " competes in "
+msgstr " súťaží v: "
+
+#: models.py:106
 msgid "user registration"
 msgstr "registrácia užívateľa"
 
-#: models.py:76
+#: models.py:107
 msgid "user registrations"
 msgstr "registrácie užívateľov"
 
-#: models.py:91
+#: models.py:122
 msgid "organizer"
 msgstr "vedúci"
 
-#: models.py:92
+#: models.py:123
 msgid "registration approved"
 msgstr "registrácie schválená"
 
-#: models.py:95
+#: models.py:126
 msgid " organizes "
 msgstr " organizuje "
 
-#: models.py:100 models.py:101
+#: models.py:131 models.py:132
 msgid "organizer registration"
 msgstr "registrácia vedúceho"
 
-#: models.py:117
+#: models.py:227
 msgid "year"
 msgstr "rok"
 
-#: models.py:118 models.py:183
+#: models.py:228 models.py:333
 msgid "number"
 msgstr "číslo"
 
-#: models.py:119 models.py:182
+#: models.py:229 models.py:332
 msgid "name"
 msgstr "názov"
 
-#: models.py:122
+#: models.py:232
 msgid "join deadline"
 msgstr "termín na prihĺasenie"
 
-#: models.py:123
+#: models.py:233
 msgid "season start"
 msgstr "začiatok semestra"
 
-#: models.py:124
+#: models.py:234
 msgid "season end"
 msgstr "koniec semestra"
 
-#: models.py:168
+#: models.py:318
 msgid "Season"
 msgstr "semester"
 
-#: models.py:169
+#: models.py:319
 msgid "Seasons"
 msgstr "semestre"
 
-#: models.py:180
+#: models.py:330
 msgid "season"
 msgstr "semester"
 
-#: models.py:187
+#: models.py:337
 msgid "problem set assigned"
 msgstr "priradený súbor príkladov"
 
-#: models.py:189
+#: models.py:339
 msgid "series submission deadline"
 msgstr "termín série"
 
-#: models.py:191
+#: models.py:341
 msgid "is series active"
 msgstr "je séria aktívna"
 
-#: models.py:237 models.py:238
+#: models.py:433 models.py:434
 msgid "Series"
 msgstr "Séria"
 
@@ -115,6 +119,10 @@ msgid "^season/(?P<pk>\\d+)$"
 msgstr "^semester/(?P<pk>\\d+)$"
 
 #: urls.py:16
+msgid "^season/latest/(?P<competition_id>\\d+)$"
+msgstr "^semester/poradie/(?P<competition_id>\\d+)$"
+
+#: urls.py:18
 msgid "^season/results/(?P<pk>\\d+)$"
 msgstr "^semester/poradie/(?P<pk>\\d+)$"
 

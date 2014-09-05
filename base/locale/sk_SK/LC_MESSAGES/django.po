@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 17:21+0200\n"
+"POT-Creation-Date: 2014-09-05 10:07+0200\n"
 "Last-Translator: Tomas Babej\n"
 "Language-Team: tomasbabej@gmail.com \n"
 "Language: sk\n"
@@ -26,19 +26,19 @@ msgstr "autor"
 msgid "last modified by"
 msgstr "naposledy modifikované"
 
-#: templates/base/base.html:69
+#: templates/base/base_base.html:69
 msgid "Home"
 msgstr "Domov"
 
-#: templates/base/base.html:71
+#: templates/base/base_base.html:71
 msgid "Administration"
 msgstr "Administrácia"
 
-#: templates/base/base.html:85
+#: templates/base/base_base.html:85
 msgid "Logged in as "
 msgstr "Prihlásený ako "
 
-#: templates/base/base.html:87
+#: templates/base/base_base.html:87
 msgid "You are not logged in."
 msgstr "Nie si prihlásený."
 

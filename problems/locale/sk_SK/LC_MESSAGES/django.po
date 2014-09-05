@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-22 20:26+0200\n"
+"POT-Creation-Date: 2014-09-05 10:07+0200\n"
 "Last-Translator: Tomas Babej\n"
 "Language-Team: tomasbabej@gmail.com \n"
 "Language: sk\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "user"
 msgstr "užívateľ"
 
-#: models.py:60 models.py:99 models.py:184 models.py:191 models.py:233
+#: models.py:60 models.py:99 models.py:204 models.py:211 models.py:253
 msgid "problem"
 msgstr "príklad"
 
@@ -60,7 +60,7 @@ msgstr "vzorové riešenie"
 msgid "organizer solutions"
 msgstr "vzorové riešenia"
 
-#: models.py:124 models.py:220
+#: models.py:124 models.py:240
 msgid "Rating"
 msgstr "Rating"
 
@@ -88,101 +88,126 @@ msgstr ""
 msgid "rating"
 msgstr "rating"
 
-#: models.py:167 models.py:366
+#: models.py:167 models.py:386
 msgid "severity"
 msgstr "obtiažnosť"
 
-#: models.py:169 models.py:332
+#: models.py:169 models.py:352
 msgid "category"
 msgstr "kategória"
 
-#: models.py:171 models.py:254 models.py:318 models.py:355
+#: models.py:171 models.py:274 models.py:338 models.py:375
 msgid "competition"
 msgstr "súťaž / seminár"
 
-#: models.py:185 models.py:234 models.py:265 models.py:292
+#: models.py:175
+#, fuzzy
+msgid "problem source"
+msgstr "zdroj"
+
+#: models.py:176
+msgid "Source where you found the problem(if not original)."
+msgstr "Zdroj z ktorého príklad pochádza (ak nie je originálny)"
+
+#: models.py:182
+msgid "image"
+msgstr "obrázok"
+
+#: models.py:183
+msgid "Image added to the problem text."
+msgstr "Obrázok doprevádzajúci zadanie."
+
+#: models.py:189
+msgid "additional files"
+msgstr "dodatočné súbory"
+
+#: models.py:190
+msgid "Additional files stored with the problem (such as editable images)."
+msgstr "Dodatočné súbory prislúchajúce k príkladu (ako napríklad upraviteľné verzie obrázkov)."
+
+#: models.py:205 models.py:254 models.py:285 models.py:312
 msgid "problems"
 msgstr "príklady"
 
-#: models.py:193
+#: models.py:213
 msgid "problem set"
 msgstr "súbor príkladov"
 
-#: models.py:194
+#: models.py:214
 msgid "position"
 msgstr "pozícia"
 
-#: models.py:221
+#: models.py:241
 msgid "Usages"
 msgstr "Použitia"
 
-#: models.py:222
+#: models.py:242
 msgid "Last used at"
 msgstr "Naposledy použitý"
 
-#: models.py:223
+#: models.py:243
 msgid "Last five usages"
 msgstr "Posledných päť použití"
 
-#: models.py:224
+#: models.py:244
 msgid "Times used"
 msgstr "Počet použití"
 
-#: models.py:225
+#: models.py:245
 msgid "Category"
 msgstr "Kategória"
 
-#: models.py:226
+#: models.py:246
 msgid "Severity"
 msgstr "Obtiažnosť"
 
-#: models.py:227
+#: models.py:247
 msgid "Competition"
 msgstr "Súťaž"
 
-#: models.py:258
+#: models.py:278
 msgid "leaflet"
 msgstr "časopis"
 
-#: models.py:262
+#: models.py:282
 msgid "event"
 msgstr "súťaž"
 
-#: models.py:301
+#: models.py:321
 msgid "average difficulty"
 msgstr "priemerná obtiažnosť"
 
-#: models.py:305
+#: models.py:325
 msgid "set"
 msgstr "súbor"
 
-#: models.py:306
+#: models.py:326
 msgid "sets"
 msgstr "súbory"
 
-#: models.py:315 models.py:351
+#: models.py:335 models.py:371
 msgid "name"
 msgstr "názov"
 
-#: models.py:319
+#: models.py:339
 msgid ""
 "The reference to the competition that uses this category. It makes sense to "
 "have categories specific to each competition, since problem types in "
 "competitions may differ significantly."
 msgstr ""
 "Súťaž / seminár ktorý používa túto kategóriu príkladov. Kategórie sú "
-"špecifické pre každý seminár, pretože typy príkladov sa môžu medzi "
-"seminármi podstatne líšiť."
+"špecifické pre každý seminár, pretože typy príkladov sa môžu medzi seminármi "
+"podstatne líšiť."
 
-#: models.py:333
+#: models.py:353
 msgid "categories"
 msgstr "kategória"
 
-#: models.py:352
+#: models.py:372
 msgid "level"
 msgstr "level"
 
-#: models.py:356
+#: models.py:376
 msgid ""
 "The reference to the competition that uses this severity. It makes sense to "
 "have severities specific to each competition, since organizers might have "
@@ -192,7 +217,7 @@ msgstr ""
 "semináre sú oddelené, pretože ich vedúci môžu používať rozličné stupnice "
 "hodnotenia obtiažnosti."
 
-#: models.py:367
+#: models.py:387
 msgid "severities"
 msgstr "obtiažnosti"
 
