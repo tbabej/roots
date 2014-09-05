@@ -11,7 +11,7 @@
   <a class="list-group-item {% url_active request 'competitions_season_detail' pk=1 %}" href="{% url 'competitions_season_detail_latest' competition_id=1 %}">{% trans "Problems" %}</a>
   <a class="list-group-item {% url_active request 'competitions_season_results' pk=1 %}" href="{% url 'competitions_season_results' pk=1 %}">{% trans "Results" %}</a>
   <a class="list-group-item {% url_active request 'leaflets_leaflet_list' %}" href="{% url 'leaflets_leaflet_list' %}">{% trans "Leaflets" %}</a>
-  <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'pl-gallery-archive' %}">{% trans "Photos" %}</a>
+  <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'photos_archive' %}">{% trans "Photos" %}</a>
   <a class="list-group-item {% url_active request 'events_event_list' %}" href="{% url 'events_event_list' %}">{% trans "Events" %}</a>
   <a class="list-group-item {% url_active request 'competitions_competition_register' %}" href="{% url 'competitions_competition_register' %}">{% trans "Register" %}</a>
 

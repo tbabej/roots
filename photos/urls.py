@@ -6,5 +6,5 @@ from .views import GallerySampleArchiveIndexView
 
 urlpatterns = patterns('',
     url(_(r'^gallery/$'), GallerySampleArchiveIndexView.as_view(),
-        name="pl-gallery-archive"),
+        name="photos_archive"),
 )
