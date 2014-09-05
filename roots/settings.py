@@ -268,3 +268,5 @@ ROOTS_MAX_SOLUTION_SIZE = 10485760  # 10MB
 
 # We manually install django-debug-toolbar
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+LOGIN_URL = '/login/'

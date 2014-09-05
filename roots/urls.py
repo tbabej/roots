@@ -3,7 +3,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
 from django.views.generic import TemplateView
-from base.views import IndexView
+from base.views import IndexView, LoginRedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -15,6 +15,7 @@ admin.autodiscover()
 # Add basic non-localized patterns
 urlpatterns = patterns('',
     url(r'^$', IndexView.as_view(), name='roots_index'),
+    url(r'^login/$', LoginRedirectView.as_view(), name='roots_login'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

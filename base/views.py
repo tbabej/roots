@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView, RedirectView
 
@@ -28,6 +28,12 @@ class IndexView(RedirectView):
     permanent = False
     pattern_name = "posts_post_list"
 
+class LoginRedirectView(RedirectView):
+
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('account_login')
 
 class RedirectBackView(RedirectView):
 
