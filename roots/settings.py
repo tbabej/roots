@@ -210,6 +210,8 @@ TEMPLATE_DIRS = (
 
 LOCALE_PATHS = (
     PROJECT_ROOT + 'locale/',
+    # Use this directory for localized string in your custom templates
+    PROJECT_ROOT + 'templates_custom/locale/'
 )
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
