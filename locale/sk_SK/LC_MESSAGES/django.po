@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-06 19:51+0200\n"
+"POT-Creation-Date: 2014-09-06 21:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -263,7 +263,7 @@ msgstr "^semester/(?P<pk>\\d+)$"
 
 #: competitions/urls.py:16
 msgid "^season/latest/(?P<competition_id>\\d+)$"
-msgstr "^semester/poradie/(?P<competition_id>\\d+)$"
+msgstr "^semester/posledny/(?P<competition_id>\\d+)$"
 
 #: competitions/urls.py:18
 msgid "^season/results/(?P<pk>\\d+)$"
