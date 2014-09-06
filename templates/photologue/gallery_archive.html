@@ -1,11 +1,11 @@
 {% extends "photologue/root.html" %}
 {% load url from future %}
 {% load roots_tags %}
-{% block title %}Latest Photo Galleries{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "Photo galleries" %}{% endblock %}
 
 {% block content %}
-
-<h1>Latest Photo Galleries</h1>
 
 {% if extended_latest %}
   {% for gallery, all_photos, sample in extended_latest %}
@@ -39,7 +39,7 @@
 
   {% endfor %}
 {% else %}
-    <p>No galleries were found.</p>
+    <p>{% trans "No galleries were found." %}</p>
 {% endif %}
-<p><a href="{% url 'pl-gallery-list' 1 %}">View all galleries.</a></p>
+
 {% endblock %}
