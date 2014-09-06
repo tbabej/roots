@@ -192,6 +192,8 @@ MESSAGE_TAGS = {
 
 # Require email address at sign up
 ACCOUNT_EMAIL_REQUIRED = True
+# Make email mandatory part of the registration
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 # Get the projet root
 path_parts = os.path.dirname(os.path.realpath(__file__)).split('/')[:-1]
