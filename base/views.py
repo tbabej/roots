@@ -31,9 +31,15 @@ class IndexView(RedirectView):
 class LoginRedirectView(RedirectView):
 
     permanent = False
+    query_string = True
 
     def get_redirect_url(self, *args, **kwargs):
-        return reverse('account_login')
+        # Set the url depending on the active locale
+        self.url = reverse('account_login')
+
+        # Original get_redirect_url will properly handle the query string
+        return super(LoginRedirectView,
+                     self).get_redirect_url(self, *args, **kwargs)
 
 class RedirectBackView(RedirectView):
 
