@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-05 11:43+0200\n"
+"POT-Creation-Date: 2014-09-06 19:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,11 +40,11 @@ msgstr "Domov"
 msgid "Administration"
 msgstr "Administrácia"
 
-#: base/templates/base/base_base.html:85
+#: base/templates/base/base_base.html:88
 msgid "Logged in as "
 msgstr "Prihlásený ako "
 
-#: base/templates/base/base_base.html:87
+#: base/templates/base/base_base.html:91
 msgid "You are not logged in."
 msgstr "Nie si prihlásený."
 
@@ -917,71 +917,71 @@ msgstr "Slovenčina"
 msgid "English"
 msgstr "Angličtina"
 
-#: roots/urls.py:31
+#: roots/urls.py:32
 msgid "^admin/doc/"
 msgstr "^admin/doc/"
 
-#: roots/urls.py:32
+#: roots/urls.py:33
 msgid "^admin/"
 msgstr "^admin/"
 
-#: roots/urls.py:33
+#: roots/urls.py:34
 msgid "^grappelli/"
 msgstr "^grappelli/"
 
-#: roots/urls.py:34
+#: roots/urls.py:35
 msgid "^accounts/"
 msgstr "^ucty/"
 
-#: roots/urls.py:35
+#: roots/urls.py:36
 msgid "^avatar/"
 msgstr "^profilovky/"
 
-#: roots/urls.py:36
+#: roots/urls.py:37
 msgid "^accounts/profile/"
 msgstr "^ucty/profil/"
 
-#: roots/urls.py:39
+#: roots/urls.py:40
 msgid "^competitions/"
 msgstr "^sutaze/"
 
-#: roots/urls.py:40
+#: roots/urls.py:41
 msgid "^comments/"
 msgstr "^komentare/"
 
-#: roots/urls.py:41
+#: roots/urls.py:42
 msgid "^events/"
 msgstr "^udalosti/"
 
-#: roots/urls.py:42
+#: roots/urls.py:43
 msgid "^leaflets/"
 msgstr "^casopisy/"
 
-#: roots/urls.py:43
+#: roots/urls.py:44
 msgid "^problems/"
 msgstr "^priklady/"
 
-#: roots/urls.py:44
+#: roots/urls.py:45
 msgid "^posts/"
 msgstr "^prispevky/"
 
-#: roots/urls.py:45 roots/urls.py:46
+#: roots/urls.py:46 roots/urls.py:47
 msgid "^photos/"
 msgstr "^fotky/"
 
-#: roots/urls.py:47
+#: roots/urls.py:48
 msgid "^profiles/"
 msgstr "^profily/"
 
-#: roots/urls.py:48
+#: roots/urls.py:49
 msgid "^media/protected/"
 msgstr "^media/chranene/"
 
-#: roots/urls.py:53
+#: roots/urls.py:54
 msgid "^wiki/notify/"
 msgstr "^wiki/notify/"
 
-#: roots/urls.py:54
+#: roots/urls.py:55
 msgid "^wiki/"
 msgstr "^wiki/"
 
@@ -1153,6 +1153,14 @@ msgstr "Komentáre"
 #: templates/fluent_comments/templatetags/flat_list.html:34
 msgid "Number of comments:"
 msgstr "Počet komentárov:"
+
+#: templates/photologue/gallery_archive.html:6
+msgid "Photo galleries"
+msgstr "Galérie fotografií"
+
+#: templates/photologue/gallery_archive.html:42
+msgid "No galleries were found."
+msgstr "Žiadna galéria nebola nájdená."
 
 #: templates/wiki/base_site.html:32
 msgid "Search..."
