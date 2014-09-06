@@ -80,14 +80,20 @@
                 {% include "base/language_set_form.html" with lang=lang_id %}
               {% endwith %}
             {% endfor %}
-          <div class="nav navbar-text pull-right">
+
+          <ul class="nav navbar-nav pull-right">
+            <li>
             {% if user.is_authenticated %}
-              {% trans "Logged in as " %}{% user_display user %}.
+              <a href="{% url 'account_logout' %}">
+                {% trans "Logged in as " %}{% user_display user %}.
+              </a>
             {% else %}
-              {% trans "You are not logged in." %}
+              <a href={% url 'account_login' %}>{% trans "You are not logged in." %}</a>
             {% endif %}
+            </li>
+          </ul><!--/.navbar-nav pull-right -->
+
           {% endblock %}
-          </div><!--/.navbar-text pull-rigt -->
         </div><!--/ navbar-collapse -->
       </div><!-- container -->
 
