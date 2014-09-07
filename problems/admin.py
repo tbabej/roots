@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.shortcuts import redirect
+from django.utils.translation import ugettext_lazy as _
+
 from reversion import VersionAdmin
 
 from base.admin import (PrettyFilterMixin, MediaRemovalAdminMixin,
@@ -36,7 +38,13 @@ class ProblemAdmin(RestrictedCompetitionAdminMixin,
 
     fieldsets = (
         (None, {
-            'fields': ('text', 'severity', 'category', 'competition')
+            'fields': ('text', 'result', 'source')
+        }),
+        (_('Problem files'), {
+            'fields': ('image', 'additional_files')
+        }),
+        (_('Problem parameters'), {
+            'fields': ('severity', 'category', 'competition')
         }),
     )
 
@@ -169,7 +177,7 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
                     'score',
                     )
 
-    list_filter = ('user', CurrentSeasonFilter)
+    list_filter = ('user', CurrentSeasonFilter, 'problem')
     list_editable = ('score',)
     search_fields = ['user']
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
