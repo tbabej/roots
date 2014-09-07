@@ -26,8 +26,7 @@
     {% get_comment_count for event as num_comments %}
 
     {% define content_footer %}
-    <span class="glyphicon glyphicon-user"></span>
-    {{ event.added_by.get_full_name }}
+    {% include "base/author.html" with user=event.added_by %}
 
     <div class="pull-right">
       {% comment %}Translators: Refering to the number of comments, with link to the discussion{% endcomment %}

@@ -20,12 +20,7 @@
     {% get_comment_count for post as num_comments %}
 
     {% define footer %}
-    <span class="glyphicon glyphicon-user"></span>
-      {% if post.added_by.get_full_name %}
-        {{ post.added_by.get_username }} ({{post.added_by.get_full_name}})
-      {% else %}
-        {{ post.added_by.get_username }}
-      {% endif %}
+    {% include "base/author.html" with user=post.added_by %}
 
     <div class="pull-right">
       {% comment %}Translators: Refering to the number of comments, with link to the discussion{% endcomment %}

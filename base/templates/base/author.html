@@ -1,0 +1,14 @@
+{% load avatar_tags %}
+<a href="{% url 'profiles_userprofile_detail' username=user.username %}" style="text-decoration: none !important;">
+  {% if user|has_avatar %}
+    <img src="{% avatar_url user 30 %}" class="img-circle" style="margin-bottom: -5px; margin-top:-5px;"/>
+  {% else %}
+    <span class="glyphicon glyphicon-user"></span>
+  {% endif %}
+</a>
+
+{% if user.get_full_name %}
+  {{ user.get_username }} ({{user.get_full_name}})
+{% else %}
+  {{ user.get_username }}
+{% endif %}
