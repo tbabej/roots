@@ -15,7 +15,7 @@ class UserProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):
                     'classlevel'
                     )
 
-    list_filter = ('competes', 'sex', 'school', 'date_of_birth',
+    list_filter = ('sex', 'school', 'date_of_birth',
                    'classlevel')
 
 

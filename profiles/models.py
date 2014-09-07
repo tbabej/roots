@@ -54,11 +54,6 @@ class UserProfile(models.Model):
                                        null=True,
                                        verbose_name=_('ID number'))
 
-    competes = models.ManyToManyField('competitions.Competition',
-                    through='competitions.CompetitionUserRegistration',
-                    blank=True,
-                    verbose_name=_('competes in'))
-
     # address information
     phone_number = models.CharField(max_length=30,
                                     blank=True,
@@ -118,14 +113,14 @@ class UserProfile(models.Model):
                        .format(user=self.user.username))
 
     def organized_competitions(self):
-        organized_competitions = (self.competitionorgregistration_set
+        organized_competitions = (self.user.competitionorgregistration_set
                                   .filter(approved=True)
                                   .values('competition'))
 
         return Competition.objects.filter(id__in=organized_competitions)
 
     def participated_competitions(self):
-        participated_competitions = (self.competitionuserregistration_set
+        participated_competitions = (self.user.competitionuserregistration_set
                                      .values('competition'))
 
         return Competition.objects.filter(id__in=participated_competitions)

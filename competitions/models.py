@@ -94,7 +94,7 @@ class CompetitionUserRegistration(models.Model):
 
     competition = models.ForeignKey('competitions.Competition',
                                     verbose_name=_('competition'))
-    user = models.ForeignKey('profiles.UserProfile',
+    user = models.ForeignKey('auth.User',
                              verbose_name=_('user'))
 
     def __unicode__(self):
@@ -118,7 +118,7 @@ class CompetitionOrgRegistration(models.Model):
 
     competition = models.ForeignKey('competitions.Competition',
                                     verbose_name=_('competition'))
-    organizer = models.ForeignKey('profiles.UserProfile',
+    organizer = models.ForeignKey('auth.User',
                                   verbose_name=_('organizer'))
     approved = models.BooleanField(verbose_name=_('registration approved'))
 
