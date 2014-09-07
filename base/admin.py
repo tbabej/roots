@@ -41,7 +41,7 @@ class RestrictedCompetitionAdminMixin(object):
         #       associated with the competitions user does not organize
 
         competitions = [c.id for c
-                        in request.user.userprofile.organizes_competitions()]
+                        in request.user.userprofile.organized_competitions()]
         not_organized_competitions = Competition.objects.exclude(
                                                            id__in=competitions)
         kwargs = {self.competition_field + '__in': not_organized_competitions}
