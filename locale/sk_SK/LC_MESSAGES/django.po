@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-06 21:19+0200\n"
+"POT-Creation-Date: 2014-09-11 18:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,7 +168,7 @@ msgid "competitions"
 msgstr "súťaže / semináre"
 
 #: competitions/models.py:98 events/models.py:111 events/models.py:224
-#: problems/models.py:58 profiles/models.py:36 profiles/models.py:178
+#: problems/models.py:58 profiles/models.py:23 profiles/models.py:152
 msgid "user"
 msgstr "užívateľ"
 
@@ -557,8 +557,8 @@ msgstr "Počet užívateľov"
 msgid "Organizers attending"
 msgstr "Počet vedúcich"
 
-#: events/templates/events/event_list.html:36
-#: posts/templates/posts/post_list.html:34
+#: events/templates/events/event_list.html:35
+#: posts/templates/posts/post_list.html:29
 msgid "Comments: "
 msgstr "Komentáre: "
 
@@ -613,6 +613,14 @@ msgstr "^(?P<slug>[\\w-]+)/$"
 #: posts/templates/posts/post_list.html:17
 msgid "Read the full article"
 msgstr "Zobraziť celý príspevok"
+
+#: problems/admin.py:43
+msgid "Problem files"
+msgstr "Súbory k príkladu"
+
+#: problems/admin.py:46
+msgid "Problem parameters"
+msgstr "Parametre príkladu"
 
 #: problems/models.py:65
 msgid "solution"
@@ -760,12 +768,12 @@ msgid "average difficulty"
 msgstr "priemerná obtiažnosť"
 
 #: problems/models.py:325
-msgid "set"
-msgstr "súbor"
+msgid "Problem set"
+msgstr "Sada príkladov"
 
 #: problems/models.py:326
-msgid "sets"
-msgstr "súbory"
+msgid "Problem sets"
+msgstr "Sady príkladov"
 
 #: problems/models.py:339
 msgid ""
@@ -807,77 +815,65 @@ msgstr "^odovzdaj/$"
 msgid "^import-solutions/$"
 msgstr "^import-rieseni/$"
 
-#: profiles/models.py:41
+#: profiles/models.py:28
 msgid "date of birth"
 msgstr "dátum narodenia"
 
-#: profiles/models.py:46
+#: profiles/models.py:34
 msgid "sex"
 msgstr "pohlavie"
 
-#: profiles/models.py:51
-msgid "social security number"
-msgstr "rodné číslo"
-
-#: profiles/models.py:55
-msgid "ID number"
-msgstr "číslo občianskeho preukazu / pasu"
-
-#: profiles/models.py:60
-msgid "competes in"
-msgstr "súťaží v"
-
-#: profiles/models.py:66
+#: profiles/models.py:40
 msgid "phone number"
 msgstr "telefónne číslo"
 
-#: profiles/models.py:71
+#: profiles/models.py:45
 msgid "parent phone number"
 msgstr "telefónne číslo na rodičov"
 
-#: profiles/models.py:75 schools/models.py:43
+#: profiles/models.py:49 schools/models.py:43
 msgid "address"
 msgstr "adresa"
 
-#: profiles/models.py:81
+#: profiles/models.py:55
 msgid "school"
 msgstr "škola"
 
-#: profiles/models.py:85
+#: profiles/models.py:59
 msgid "school class"
 msgstr "trieda"
 
-#: profiles/models.py:89
+#: profiles/models.py:63
 msgid "class level"
 msgstr "ročník"
 
-#: profiles/models.py:117
+#: profiles/models.py:91
 #, python-brace-format
 msgid "user profile: {user}"
 msgstr "užívateľský profil: {user}"
 
-#: profiles/models.py:166
+#: profiles/models.py:140
 msgid "user profile"
 msgstr "užívateľský profil"
 
-#: profiles/models.py:167
+#: profiles/models.py:141
 msgid "user profiles"
 msgstr "užívateľské profily"
 
-#: profiles/models.py:182
+#: profiles/models.py:156
 msgid "motto"
 msgstr "motto"
 
-#: profiles/models.py:204
+#: profiles/models.py:178
 #, python-brace-format
 msgid "organizer profile: {user}"
 msgstr "vedúcovský profil: {user}"
 
-#: profiles/models.py:208
+#: profiles/models.py:182
 msgid "organizer profile"
 msgstr "vedúcovský profil"
 
-#: profiles/models.py:209
+#: profiles/models.py:183
 msgid "organizer profiles"
 msgstr "vedúcovské profily"
 
@@ -1189,3 +1185,18 @@ msgstr "Táto revízia bola odstránená."
 #: templates/wiki/preview_inline.html:32
 msgid "Restoring to this revision will mark the article as deleted."
 msgstr "Obnovenie k tejto revízii označí článok ako odstránený."
+
+#~ msgid "set"
+#~ msgstr "súbor"
+
+#~ msgid "sets"
+#~ msgstr "súbory"
+
+#~ msgid "social security number"
+#~ msgstr "rodné číslo"
+
+#~ msgid "ID number"
+#~ msgstr "číslo občianskeho preukazu / pasu"
+
+#~ msgid "competes in"
+#~ msgstr "súťaží v"

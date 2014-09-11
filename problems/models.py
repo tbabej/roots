@@ -322,8 +322,8 @@ class ProblemSet(models.Model):
                                                               "difficulty")
 
     class Meta:
-        verbose_name = _('set')
-        verbose_name_plural = _('sets')
+        verbose_name = _('Problem set')
+        verbose_name_plural = _('Problem sets')
 
 
 class ProblemCategory(models.Model):
