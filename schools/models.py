@@ -37,7 +37,8 @@ class School(models.Model):
     """
 
     name = models.CharField(max_length=150,
-                            verbose_name=_('name'))
+                            verbose_name=_('name'),
+                            unique=True)
     address = models.ForeignKey('schools.Address',
                                 blank=True,
                                 verbose_name=_('address'))
