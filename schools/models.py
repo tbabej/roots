@@ -29,6 +29,10 @@ class Address(models.Model):
                                region=self.region
                                )
 
+    class Meta:
+        verbose_name = _('address')
+        verbose_name_plural = _('addresses')
+
 
 class School(models.Model):
     """
@@ -45,6 +49,10 @@ class School(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _('school')
+        verbose_name_plural = _('schools')
 
 
 # Register to the admin site
