@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-12 18:46+0200\n"
+"POT-Creation-Date: 2014-09-12 20:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,7 +209,7 @@ msgid "number"
 msgstr "číslo"
 
 #: competitions/models.py:229 competitions/models.py:332
-#: problems/models.py:335 problems/models.py:371 schools/models.py:40
+#: problems/models.py:335 problems/models.py:371 schools/models.py:44
 msgid "name"
 msgstr "názov"
 
@@ -818,8 +818,7 @@ msgstr "^import-rieseni/$"
 #: profiles/forms.py:37
 msgid ""
 "Pick the school from the list. If your school is not available, please, "
-msgstr ""
-"Vyberte školu zo zoznamu. Ak sa tam Vaša škola nenachádza, prosím, "
+msgstr "Vyberte školu zo zoznamu. Ak sa tam Vaša škola nenachádza, prosím, "
 
 #: profiles/forms.py:41
 msgid "\">add it.</a>"
@@ -836,8 +835,7 @@ msgstr "Názov vašej triedy v škole, napr. \"4.A\"."
 #: profiles/forms.py:47
 msgid ""
 "Mobile phone number of the parent, or of any other lawful representative."
-msgstr ""
-"Telefónne číslo (mobil) rodiča, alebo zákonného zástupcu."
+msgstr "Telefónne číslo (mobil) rodiča, alebo zákonného zástupcu."
 
 #: profiles/models.py:28
 msgid "date of birth"
@@ -863,11 +861,11 @@ msgstr "telefónne číslo"
 msgid "parent phone number"
 msgstr "telefónne číslo na rodičov"
 
-#: profiles/models.py:49 schools/models.py:43
+#: profiles/models.py:49 schools/models.py:33 schools/models.py:48
 msgid "address"
 msgstr "adresa"
 
-#: profiles/models.py:55
+#: profiles/models.py:55 schools/models.py:54
 msgid "school"
 msgstr "škola"
 
@@ -1048,6 +1046,14 @@ msgstr "poštové smerovacie číslo"
 #: schools/models.py:22
 msgid "region"
 msgstr "kraj"
+
+#: schools/models.py:34
+msgid "addresses"
+msgstr "adresy"
+
+#: schools/models.py:55
+msgid "schools"
+msgstr "školy"
 
 #: schools/urls.py:8
 msgid "create$"
