@@ -1,0 +1,21 @@
+{% extends 'base/base_single.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content_heading %}
+{% trans "Add new school" %}
+{% endblock %}
+
+{% block content %}
+<form method="post">
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+    {% crispy school_form %}
+    {% crispy address_form %}
+    <input value="Submit" class="btn btn-primary center-block" type="submit" style="padding-left:50px; padding-right:50px;">
+    </div>
+</div>
+</form>
+
+
+{% endblock %}
