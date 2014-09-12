@@ -1,5 +1,6 @@
 {% extends 'base/base_single.html' %}
 {% load crispy_forms_tags %}
+{% load sekizai_tags %}
 {% load i18n %}
 
 {% block content_heading %}
@@ -7,5 +8,34 @@
 {% endblock %}
 
 {% block content %}
-{% crispy form %}
+<form method="post">
+<div class="row">
+    <div class="col-md-6" id="competition-data-div">
+        <p class="text-center" style="font-weight: bold;">
+            {% trans "Data needed for participating in the competition" %}
+        </p>
+
+        <div style="border-style: dashed; border-width: 1px; border-color:#333; padding: 15px;" id="competition-data">
+            {% crispy name_form %}
+            {% crispy basic_profile_form %}
+        </div>
+    </div>
+
+    <div class="col-md-6" id="camp-data-div">
+        <p class="text-center" style="font-weight: bold;">
+                {% trans "Data needed if invited to attend a camp" %}
+        </p>
+        <div style="border-style: dashed; border-width: 1px; border-color:#333; padding: 15px; padding-bottom: 11px;" id="camp-data">
+            {% crispy event_profile_form %}
+            {% crispy address_form %}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+    <input value="Submit" class="btn btn-primary center-block" type="submit" style="padding-left:50px; padding-right:50px; margin-top: 20px;">
+    </div>
+</div>
+</form>
+
 {% endblock %}
