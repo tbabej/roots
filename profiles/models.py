@@ -19,40 +19,19 @@ class UserProfile(models.Model):
     Any user can have both UserProfile and OrganizerProfile set.
     '''
 
-    # Fields accessible from AuthUser:
-
-    # username
-    # first_name
-    # last_name
-    # email
-    # password
-    # is_staff
-    # is_active
-    # is_superuser
-    # last_login
-    # date_joined
-
     user = models.OneToOneField('auth.User',
                                 verbose_name=_('user'))
 
     # personal info
-    date_of_birth = models.DateTimeField(blank=True,
-                                         null=True,
-                                         verbose_name=_('date of birth'))
+    date_of_birth = models.DateField(blank=True,
+                                     null=True,
+                                     verbose_name=_('date of birth'))
+
     sex = models.CharField(max_length=1,
                            blank=True,
                            null=True,
-                           choices=(('M', 'male'), ('F', 'female')),
+                           choices=(('M', _('male')), ('F', _('female'))),
                            verbose_name=_('sex'))
-    social_security_number = models.CharField(
-                                 max_length=11,
-                                 blank=True,
-                                 null=True,
-                                 verbose_name=_('social security number'))
-    state_id_number = models.CharField(max_length=8,
-                                       blank=True,
-                                       null=True,
-                                       verbose_name=_('ID number'))
 
     # address information
     phone_number = models.CharField(max_length=30,
