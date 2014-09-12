@@ -21,6 +21,12 @@ class Post(models.Model):
                                     verbose_name=_('competition'))
     text = models.TextField(verbose_name=_('text'))
     slug = models.SlugField(verbose_name=_('slug'))
+    gallery = models.ForeignKey('photologue.Gallery',
+                                blank=True,
+                                null=True,
+                                verbose_name=_('associated gallery'),
+                                help_text=_('gallery to be previewed with the'
+                                            'post'))
 
     def __unicode__(self):
         return self.title

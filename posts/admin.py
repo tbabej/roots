@@ -27,7 +27,7 @@ class PostAdmin(RestrictedCompetitionAdminMixin,
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'competition', 'slug', 'text')
+            'fields': ('title', 'competition', 'slug', 'text', 'gallery')
         }),
     )
 
