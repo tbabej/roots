@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 18:34+0200\n"
+"POT-Creation-Date: 2014-09-12 18:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,7 +114,7 @@ msgid "Display your profile"
 msgstr "Zobraziť profil"
 
 #: base/templates/base/menu.html:24
-#: profiles/templates/profiles/userprofile_form.html:6
+#: profiles/templates/profiles/userprofile_form.html:7
 msgid "Update your profile"
 msgstr "Aktualizovať profil"
 
@@ -815,9 +815,41 @@ msgstr "^odovzdaj/$"
 msgid "^import-solutions/$"
 msgstr "^import-rieseni/$"
 
+#: profiles/forms.py:37
+msgid ""
+"Pick the school from the list. If your school is not available, please, "
+msgstr ""
+"Vyberte školu zo zoznamu. Ak sa tam Vaša škola nenachádza, prosím, "
+
+#: profiles/forms.py:41
+msgid "\">add it.</a>"
+msgstr "\">pridajte ju.</a>"
+
+#: profiles/forms.py:43
+msgid "Needed to contact you in case you qualified to attend a camp."
+msgstr "Potrebné pre kontaktovanie v prípade pozývania na sústrednie."
+
+#: profiles/forms.py:45
+msgid "Name of your class in the school, such as \"4.A\"."
+msgstr "Názov vašej triedy v škole, napr. \"4.A\"."
+
+#: profiles/forms.py:47
+msgid ""
+"Mobile phone number of the parent, or of any other lawful representative."
+msgstr ""
+"Telefónne číslo (mobil) rodiča, alebo zákonného zástupcu."
+
 #: profiles/models.py:28
 msgid "date of birth"
 msgstr "dátum narodenia"
+
+#: profiles/models.py:33
+msgid "male"
+msgstr "muž"
+
+#: profiles/models.py:33
+msgid "female"
+msgstr "žena"
 
 #: profiles/models.py:34
 msgid "sex"
@@ -885,6 +917,14 @@ msgstr "aktualizuj$"
 msgid "^show/(?P<username>[\\w.@+-]+)/$"
 msgstr "^zobrazit/(?P<username>[\\w.@+-]+)/$"
 
+#: profiles/views.py:92
+msgid "Profile successfully updated."
+msgstr "Profil úspešne aktualizovaný."
+
+#: profiles/views.py:94
+msgid "Nothing has changed."
+msgstr "Nič sa nezmenilo."
+
 #: profiles/templates/profiles/userprofile_detail.html:35
 msgid "place"
 msgstr "miesto"
@@ -904,6 +944,14 @@ msgstr "Vyriešené problémy"
 #: profiles/templates/profiles/userprofile_detail.html:64
 msgid "Attended camps"
 msgstr "Zúčastnené sústredenia"
+
+#: profiles/templates/profiles/userprofile_form.html:15
+msgid "Data needed for participating in the competition"
+msgstr "Údaje potrebné pre účasť v korešpondenčnej časti"
+
+#: profiles/templates/profiles/userprofile_form.html:26
+msgid "Data needed if invited to attend a camp"
+msgstr "Údaje potrebné pre účasť na sústredení"
 
 #: roots/local_settings.py:56
 msgid "Slovak"
@@ -970,14 +1018,18 @@ msgid "^profiles/"
 msgstr "^profily/"
 
 #: roots/urls.py:49
+msgid "^schools/"
+msgstr "^skoly/"
+
+#: roots/urls.py:50
 msgid "^media/protected/"
 msgstr "^media/chranene/"
 
-#: roots/urls.py:54
+#: roots/urls.py:55
 msgid "^wiki/notify/"
 msgstr "^wiki/notify/"
 
-#: roots/urls.py:55
+#: roots/urls.py:56
 msgid "^wiki/"
 msgstr "^wiki/"
 
@@ -996,6 +1048,18 @@ msgstr "poštové smerovacie číslo"
 #: schools/models.py:22
 msgid "region"
 msgstr "kraj"
+
+#: schools/urls.py:8
+msgid "create$"
+msgstr "vytvorit$"
+
+#: schools/views.py:61
+msgid "School successfully added."
+msgstr "Škola úspešne pridaná."
+
+#: schools/templates/schools/school_create_form.html:6
+msgid "Add new school"
+msgstr "Pridaj novú školu"
 
 #: templates/account/email.html:7
 msgid "Account"
