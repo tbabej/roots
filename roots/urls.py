@@ -46,6 +46,7 @@ urlpatterns += i18n_patterns('',
     url(_(r'^photos/'), include('photos.urls')),
     url(_(r'^photos/'), include('photologue.urls')),
     url(_(r'^profiles/'), include('profiles.urls')),
+    url(_(r'^schools/'), include('schools.urls')),
     url(_(r'^media/protected/'), include('downloads.urls'))
 )
 
