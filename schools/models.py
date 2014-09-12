@@ -22,7 +22,7 @@ class Address(models.Model):
                               verbose_name=_('region'))
 
     def __unicode__(self):
-        template = "{street}, {city}, {postal}, {region}"
+        template = u"{street}, {city}, {postal}, {region}"
         return template.format(street=self.street,
                                city=self.city,
                                postal=self.postal_number,
