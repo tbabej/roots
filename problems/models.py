@@ -52,20 +52,38 @@ class UserSolution(MediaRemovalMixin,
                 problem=self.problem.pk,
             )
 
+    def get_corrected_solution_path(self, *args, **kwargs):
+        return 'protected/corrected_solutions/{user}-{problem}.pdf'.format(
+                user=unicode(self.user),
+                problem=self.problem.pk,
+            )
+
     # Keep an explicit reference to an User, since somebody else might
     # be entering the solution on the user's behalf
     user = models.ForeignKey('auth.User',
                              verbose_name=_('user'))
+
     problem = models.ForeignKey('problems.Problem',
                                 verbose_name=_('problem'))
+
     solution = ContentTypeRestrictedFileField(
                                 upload_to=get_solution_path,
                                 storage=OverwriteFileSystemStorage(),
                                 max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
                                 verbose_name=_('solution'))
+
+    corrected_solution = ContentTypeRestrictedFileField(
+                                blank=True,
+                                null=True,
+                                upload_to=get_corrected_solution_path,
+                                storage=OverwriteFileSystemStorage(),
+                                max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
+                                verbose_name=_('corrected solution'))
+
     score = models.IntegerField(blank=True,
                                 null=True,
                                 verbose_name=_('score'))
+
     corrected_by = models.ManyToManyField('auth.User',
                        related_name='usersolutions_corrected_set',
                        verbose_name=_('corrected by'))
