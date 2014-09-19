@@ -5,13 +5,6 @@ from base.permissions import wiki_can_read
 
 # Django settings for roots project.
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
-
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not

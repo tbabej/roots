@@ -1,6 +1,14 @@
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
 
+# Debug settings
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = []
+
 # Setup database details
 # For developmnet purposes, you can use sqlite3
 # Specify the path to the database file
