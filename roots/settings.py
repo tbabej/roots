@@ -48,13 +48,20 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 # List of callables that know how to import templates from various sources.
 
-# Enable template caching by default
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
+if not DEBUG:
+    # Enable template caching by default if not debug mode
+    TEMPLATE_LOADERS = (
+        ('django.template.loaders.cached.Loader', (
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+        )),
+    )
+else:
+    TEMPLATE_LOADERS = (
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
-    )),
-)
+    )
+
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
