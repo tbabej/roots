@@ -19,7 +19,6 @@
   <a class="list-group-item {% url_active request 'events_event_list' %}" href="{% url 'events_event_list' %}"><i class="fa fa-calendar"></i> {% trans "Events" %}</a>
   <a class="list-group-item {% url_active request 'competitions_competition_discussion' competition_id=1 %}" href="{% url 'competitions_competition_discussion' competition_id=1 %}"><i class="fa fa-comment-o"></i>
 {% trans "Discussion" %}</a>
-  <a class="list-group-item {% url_active request 'competitions_competition_register' %}" href="{% url 'competitions_competition_register' %}">{% trans "Register" %}</a>
 
   <div class="list-group-item list-group-item-info">
   <h4 class="list-group-item-heading">{% trans "Account stuff" %}</h4>
