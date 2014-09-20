@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+{% load comments %}
+{% load i18n %}
+{% load roots_tags %}
+
+{% block content_heading %}
+{% trans "Discussion" %}
+{% endblock %}
+
+{% block content %}
+{% define comments_areatext %}{% if request.user.is_authenticated %}{% trans "You can discuss whatever here!" %}{% else %}{% trans "To enter the discussion, please, log in first." %}{% endif %}{% enddefine %}
+{% define comments_headline %}{% trans "Discussion"%}{% enddefine %}
+{% define comments_number_desc %}{% trans "Number of discussion posts:" %}{% enddefine %}
+{% render_comment_list for competition %}
+{% endblock %}

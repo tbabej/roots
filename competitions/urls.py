@@ -2,8 +2,8 @@ from django.conf.urls import patterns, url
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
-from .views import (CompetitionRegistrationView, SeasonDetailView,
-                    SeasonResultsView, LatestSeasonDetailView)
+from .views import (CompetitionDiscussionView, CompetitionRegistrationView,
+                    SeasonDetailView, SeasonResultsView, LatestSeasonDetailView)
 
 urlpatterns = patterns('',
     url(r'^$', CompetitionRegistrationView.as_view(),
@@ -13,8 +13,12 @@ urlpatterns = patterns('',
         name='competitions_competition_register_success'),
     url(_(r'^season/(?P<pk>\d+)$'), SeasonDetailView.as_view(),
         name='competitions_season_detail'),
-    url(_(r'^season/latest/(?P<competition_id>\d+)$'), LatestSeasonDetailView.as_view(),
+    url(_(r'^season/latest/(?P<competition_id>\d+)$'),
+        LatestSeasonDetailView.as_view(),
         name='competitions_season_detail_latest'),
     url(_(r'^season/results/(?P<pk>\d+)$'), SeasonResultsView.as_view(),
         name='competitions_season_results'),
+    url(_(r'^discussion/(?P<competition_id>\d+)/'),
+        CompetitionDiscussionView.as_view(),
+        name='competitions_competition_discussion'),
 )

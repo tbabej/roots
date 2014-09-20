@@ -29,6 +29,20 @@ class CompetitionRegistrationView(FormView):
         return super(CompetitionRegistrationView, self).dispatch(*arg, **kwarg)
 
 
+class CompetitionDiscussionView(DetailView):
+    model = Competition
+    context_object_name = 'competition'
+    template_name = 'competitions/competition_discussion.html'
+
+    def get_object(self):
+        competition = get_object_or_404(
+            Competition,
+            pk=self.kwargs.get('competition_id')
+        )
+
+        return competition
+
+
 class SeasonResultsView(DetailView):
     model = Season
     context_object_name = 'season'

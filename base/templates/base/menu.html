@@ -13,6 +13,7 @@
   <a class="list-group-item {% url_active request 'leaflets_leaflet_list' %}" href="{% url 'leaflets_leaflet_list' %}">{% trans "Leaflets" %}</a>
   <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'photos_archive' %}">{% trans "Photos" %}</a>
   <a class="list-group-item {% url_active request 'events_event_list' %}" href="{% url 'events_event_list' %}">{% trans "Events" %}</a>
+  <a class="list-group-item {% url_active request 'competitions_competition_discussion' competition_id=1 %}" href="{% url 'competitions_competition_discussion' competition_id=1 %}">{% trans "Discussion" %}</a>
   <a class="list-group-item {% url_active request 'competitions_competition_register' %}" href="{% url 'competitions_competition_register' %}">{% trans "Register" %}</a>
 
   <div class="list-group-item list-group-item-info">

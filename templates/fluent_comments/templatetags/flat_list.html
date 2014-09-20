@@ -50,7 +50,7 @@
         {% ajax_comment_tags for form.target_object %}
     </div>
     <div class="commentBox">
-      <ul class="commentList" id="comments-{{ target_object_id }}" data-object-id="{{ target_object_id }}">
+      <ul class="commentList" id="comments-{{ form.target_object.pk }}" data-object-id="{{ form.target_object.pk }}">
         {% for comment in comment_list %}{% include "comments/comment.html" %}{% endfor %}
       </ul>
     </div>
