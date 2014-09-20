@@ -363,7 +363,7 @@ msgstr "Pri pridanie komentára sa musíte prihĺásiť."
 #: competitions/templates/competitions/season_detail.html:165
 #: templates/fluent_comments/templatetags/flat_list.html:29
 msgid "Write your comment here."
-msgstr "Vaše pripomienky či otázky k zadaniu "
+msgstr "Tu napíšte svoj komentár. "
 
 #: competitions/templates/competitions/season_detail.html:175
 msgid "Problem discussion:"
