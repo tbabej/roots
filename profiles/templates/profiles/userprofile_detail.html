@@ -4,13 +4,15 @@
 {% load comments %}
 {% load roots_tags %}
 {% load i18n %}
+{% load static %}
 
 {% block content %}
 
-<div class="well profile">
-  <div class="col-sm-12">
+<div class="col-md-12 well profile">
+  <div class="col-md-12">
+  <div class="row">
 
-    <div class="col-xs-12 col-sm-8">
+    <div class="col-md-8">
       <h2>{{ profile.user.get_full_name }}</h2>
       <p><strong>About: </strong> Some stuff </p>
       <p><strong>Hobbies: </strong> Some other stuff </p>
@@ -26,68 +28,86 @@
     </div>
   </div>
 
-    <div class="col-xs-12 divider text-center">
-      <div class="col-xs-12 col-sm-4 emphasis">
-      {% with best_rank=profile.best_ranking %}
-      {% with competition=best_rank.0 season=best_rank.1 rank=best_rank.2 %}
-        <h2>
-          <strong>
-            {% if rank.0 %}
-              {{ rank.0 }}. {% trans "place" %}
-            {% else %}
-              -
-            {% endif %}
-          </strong>
-        </h2>
-        <p><small> {% trans "Best ranking" %} </small></p>
-        <button class="btn btn-success btn-block">
-          <span class="fa fa-plus-circle"></span>
-          {% if season %}
-            {{ season.name }} - {{ season.year }}
+  <div class="row divider text-center">
+    <div class="col-md-4 emphasis">
+    {% with best_rank=profile.best_ranking %}
+    {% with competition=best_rank.0 season=best_rank.1 rank=best_rank.2 %}
+      <h2>
+      <strong>
+        {% if rank.0 %}
+          {{ rank.0 }}. {% trans "place" %}
           {% else %}
-            {% trans "Never competed" %}
+            -
           {% endif %}
-        </button>
-      {% endwith %}
-      {% endwith %}
-      </div>
-
-      <div class="col-xs-12 col-sm-4 emphasis">
-        <h2><strong>{{ profile.num_solved_problems }}</strong></h2>
-        <p><small>{% trans "Solved problems" %}</small></p>
-        <button class="btn btn-info btn-block">
-          <span class="fa fa-user"></span> View Profile
-        </button>
-      </div>
-
-      <div class="col-xs-12 col-sm-4 emphasis">
-        <h2><strong>{{ profile.num_attended_camps }}</strong></h2>
-        <p><small>{% trans "Attended camps" %}</small></p>
-        <button class="btn btn-info btn-block">
-          <span class="fa fa-user"></span> View Profile
-        </button>
-      </div>
+        </strong>
+      </h2>
+      <p><small> {% trans "Best ranking" %} </small></p>
+      <button class="btn btn-success btn-block">
+        <span class="fa fa-plus-circle"></span>
+        {% if season %}
+          {{ season.name }} - {{ season.year }}
+        {% else %}
+          {% trans "Never competed" %}
+        {% endif %}
+      </button>
+    {% endwith %}
+    {% endwith %}
     </div>
 
-    <div class="col-xs-12 divider text-center">
-    <h2>Competition stats </h2>
+    <div class="col-md-4 emphasis">
+      <h2><strong>{{ profile.num_solved_problems }}</strong></h2>
+      <p><small>{% trans "Solved problems" %}</small></p>
+      <button class="btn btn-info btn-block">
+        <span class="fa fa-user"></span> View Profile
+      </button>
     </div>
 
-    <div class="col-xs-12 divider text-center">
-    <h2>Last comments </h2>
+    <div class="col-md-4 emphasis">
+      <h2><strong>{{ profile.num_attended_camps }}</strong></h2>
+      <p><small>{% trans "Attended camps" %}</small></p>
+      <button class="btn btn-info btn-block">
+        <span class="fa fa-user"></span> View Profile
+      </button>
     </div>
 
-  </div> <!--/ col-sm-12 -->
+  </div><!-- row -->
+
+  <div class="row divider" style="display:table">
+    <div class="col-md-8">
+      <canvas class="col-md-12" min-height="150" max-height="250" id="rankingsbyseason"></canvas>
+    </div>
+    <div class="col-md-4" style="float:none; display:table-cell; vertical-align:middle">
+      <h2>{% trans "Ranking by season" %}</h2>
+    </div>
+  </div>
+
+  <div class="row divider text-center">
+    <div class="commentBox col-md-6">
+      <ul class="commentList">
+      {% for comment in profile.get_last_comments %}
+        {% include "comments/comment.html" %}
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
 </div>
 
 {% addtoblock "css" %}
+<link href="{{ STATIC_URL }}css/comments.css" rel="stylesheet" type="text/css" media="screen" />
+
 <style>
 .profile
 {
-    min-height: 355px;
     display: inline-block;
+    padding: 19px;
     margin-top: 10px;
-    }
+}
+.profile .row
+{
+    margin-left: 0px;
+    margin-right: 0px;
+}
 .divider
 {
     margin-top:10px;
@@ -114,5 +134,45 @@ span.tags
     margin-bottom:0;
     }
 </style>
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+<script src="{% static "js/Chart.min.js" %}"></script>
+
+<script>
+var data = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [65, 59, 80, 81, 56, 55, 40]
+        },
+        {
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [28, 48, 40, 19, 86, 27, 90]
+        }
+    ]
+};
+
+// Set the responsiveness
+Chart.defaults.global.responsive = true;
+
+// Get the context of the canvas element we want to select
+var ctx = document.getElementById("rankingsbyseason").getContext("2d");
+var myLineChart = new Chart(ctx).Line(data, {});
+
+</script>
 {% endaddtoblock %}
 {% endblock %}
