@@ -25,13 +25,24 @@
 {% endaddtoblock %}
 
 {% get_comment_form for object as form %}
-{% define disabled %}{% if not user.is_authenticated %}disabled="disabled"{% endif %}{% enddefine %}
-{% define areatext %}{% if not user.is_authenticated %}{% trans "To post comments, you need to log in first." %}{% else %}{% trans "Write your comment here." %}{% endif %}{% enddefine %}
+{% define comments_disabled %}{% if not user.is_authenticated %}disabled="disabled"{% endif %}{% enddefine %}
+
+{% if not comments_areatext %}
+{% define comments_areatext %}{% if not user.is_authenticated %}{% trans "To post comments, you need to log in first." %}{% else %}{% trans "Write your comment here." %}{% endif %}{% enddefine %}
+{% endif %}
+
+{% if not comments_headline %}
+{% define comments_headline %}{% trans "Comments"%}{% enddefine %}
+{% endif %}
+
+{% if not comments_number_desc %}
+{% define comments_number_desc %}{% trans "Number of comments:" %}{% enddefine %}
+{% endif %}
 
 <div class="detailBox">
     <div class="titleBox">
-      <label>{% trans "Comments" %}</label>
-      <span class="pull-right"> {% trans "Number of comments:" %} {{comment_list|length}} </span>
+      <label>{{ comments_headline }}</label>
+      <span class="pull-right"> {{ comments_number_desc }} {{comment_list|length}} </span>
     </div>
     <div class="actionBox">
         <form class="form-inline js-comments-form" id="comment-form-{{ form.target_object.pk }}" data-object-id="{{ form.target_object.pk }}" action="{% comment_form_target %}" method="post" data-ajax-action="{% url 'comments-post-comment-ajax' %}">
@@ -44,7 +55,7 @@
             {{ form.timestamp }}
             {{ form.security_hash }}
             <input type="hidden" name="next" value="{{ request.path }}" />
-            <textarea name="comment" class="" style="width:75%;" rows=3 placeholder="{{ areatext }}" {{ disabled }}/></textarea>
+            <textarea name="comment" class="" style="width:75%;" rows=3 placeholder="{{ comments_areatext }}" {{ comments_disabled }}/></textarea>
             <button class="btn btn-primary" style="width:15%; vertical-align: bottom;" {{ disabled }}/>{% trans "Submit" %}</button>
         </form>
         {% ajax_comment_tags for form.target_object %}
