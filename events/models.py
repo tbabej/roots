@@ -34,7 +34,6 @@ class Event(models.Model):
     registration_end_time = models.DateTimeField(
                                 blank=True,
                                 null=True,  # default is set in save() method
-                                validators=[MaxValueValidator(start_time)],
                                 verbose_name=_('registration end time')
                                 )
 
