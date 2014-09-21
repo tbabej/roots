@@ -9,7 +9,7 @@
 
 <div class="grp-module grp-collapse grp-closed">
     <h2 class="grp-collapse-handler">Comments ({{ comment_count }})</h2>
-    {% for comment in comment_list %}
+    {% for comment in comment_list reversed %}
     <div class="grp-row">
         <p>
             {{comment.user_name}} ({{comment.submit_date}}): {{ comment.comment }}

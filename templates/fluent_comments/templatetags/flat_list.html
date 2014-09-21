@@ -62,7 +62,7 @@
     </div>
     <div class="commentBox">
       <ul class="commentList" id="comments-{{ form.target_object.pk }}" data-object-id="{{ form.target_object.pk }}">
-        {% for comment in comment_list %}{% include "comments/comment.html" %}{% endfor %}
+        {% for comment in comment_list reversed %}{% include "comments/comment.html" %}{% endfor %}
       </ul>
     </div>
 </div>

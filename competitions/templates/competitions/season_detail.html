@@ -181,7 +181,7 @@
 
              <div id="comments-div-{{ problem.pk }}" style="max-height: 300px; overflow: auto;">
                <ul class="commentList" id="comments-{{ problem.pk }}" data-object-id="{{ problem.pk }}">
-                 {% for comment in comment_list %}{% include "comments/comment.html" %}{% endfor %}
+                 {% for comment in comment_list reversed %}{% include "comments/comment.html" %}{% endfor %}
                </ul>
              </div>
 
