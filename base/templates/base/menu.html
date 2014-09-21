@@ -7,17 +7,17 @@
   <h4 class="list-group-item-heading">{% trans "Look at" %}</h4>
   </div>
 
-  <a class="list-group-item {% url_active request 'posts_post_list' %}" href="{% url 'posts_post_list' %}"><i class="fa fa-envelope-o"></i>
-{% trans "Posts" %}</a>
-  <a class="list-group-item {% url_active request 'competitions_season_detail_latest' competition_id=1 %}" href="{% url 'competitions_season_detail_latest' competition_id=1 %}"><i class="fa fa-cube"></i>
+  <a class="list-group-item {% url_active request 'posts_post_list' %}" href="{% url 'posts_post_list' %}"><i class="fa fa-envelope-o" style="margin-right: 7px;"></i>
+{% trans "Posts" %}</span></a>
+  <a class="list-group-item {% url_active request 'competitions_season_detail_latest' competition_id=1 %}" href="{% url 'competitions_season_detail_latest' competition_id=1 %}"><i class="fa fa-cube" style="margin-right: 7px;"></i>
 {% trans "Problems" %}</a>
-  <a class="list-group-item {% url_active request 'competitions_season_results' pk=1 %}" href="{% url 'competitions_season_results' pk=1 %}"><i class="fa fa-bar-chart"></i>
+  <a class="list-group-item {% url_active request 'competitions_season_results' pk=1 %}" href="{% url 'competitions_season_results' pk=1 %}"><i class="fa fa-bar-chart" style="margin-right: 5px;"></i>
 {% trans "Results" %}</a>
-  <a class="list-group-item {% url_active request 'leaflets_leaflet_list' %}" href="{% url 'leaflets_leaflet_list' %}"><i class="fa fa-newspaper-o"></i> {% trans "Leaflets" %}</a>
-  <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'photos_archive' %}"><i class="fa fa-camera-retro"></i>
+  <a class="list-group-item {% url_active request 'leaflets_leaflet_list' %}" href="{% url 'leaflets_leaflet_list' %}"><i class="fa fa-newspaper-o" style="margin-right: 5px;"></i> {% trans "Leaflets" %}</a>
+  <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'photos_archive' %}"><i class="fa fa-camera-retro" style="margin-right: 7px;"></i>
 {% trans "Photos" %}</a>
-  <a class="list-group-item {% url_active request 'events_event_list' %}" href="{% url 'events_event_list' %}"><i class="fa fa-calendar"></i> {% trans "Events" %}</a>
-  <a class="list-group-item {% url_active request 'competitions_competition_discussion' competition_id=1 %}" href="{% url 'competitions_competition_discussion' competition_id=1 %}"><i class="fa fa-comment-o"></i>
+  <a class="list-group-item {% url_active request 'events_event_list' %}" href="{% url 'events_event_list' %}"><i class="fa fa-calendar" style="margin-right: 7px;"></i> {% trans "Events" %}</a>
+  <a class="list-group-item {% url_active request 'competitions_competition_discussion' competition_id=1 %}" href="{% url 'competitions_competition_discussion' competition_id=1 %}"><i class="fa fa-comment-o" style="margin-right: 7px;"></i>
 {% trans "Discussion" %}</a>
 
   <div class="list-group-item list-group-item-info">
