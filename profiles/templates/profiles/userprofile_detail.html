@@ -72,12 +72,16 @@
 
   </div><!-- row -->
 
-  <div class="row divider" style="display:table">
-    <div class="col-md-8">
-      <canvas class="col-md-12" min-height="150" max-height="250" id="rankingsbyseason"></canvas>
-    </div>
-    <div class="col-md-4" style="float:none; display:table-cell; vertical-align:middle">
-      <h2>{% trans "Ranking by season" %}</h2>
+  <div class="row divider">
+    <div class="col-md-offset-1 col-md-10 text-center">
+      <canvas id="rankingsbyseason" style="margin:20px; margin-left:0px;"></canvas>
+      <h4>{% trans "Percentile by season" %}</h4>
+      <p>
+          {% trans "The performance of the competitor shown as percentile in the respective season. " %}
+          {% trans "Your percentile is the percentage of the competitors that scored less points than you, " %}
+          {% trans "e.g. if you have 75th percentile, you achieved better score than three quarters of your fellow competitors. " %}
+          {% trans "If you attended multiple competitions, they will be shown in the graph separately." %}
+      </p>
     </div>
   </div>
 
@@ -140,29 +144,40 @@ span.tags
 <script src="{% static "js/Chart.min.js" %}"></script>
 
 <script>
-var data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
+var data_styling = [
         {
-            label: "My First dataset",
             fillColor: "rgba(220,220,220,0.2)",
             strokeColor: "rgba(220,220,220,1)",
             pointColor: "rgba(220,220,220,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
         },
         {
-            label: "My Second dataset",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86, 27, 90]
         }
+    ]
+
+var data = {
+    labels: [{% for s in all_season_segments %}"{{ s }}", {% endfor %}],
+    {% for competition in profile.participated_competitions %}
+    datasets: [
+        {
+            label: "{{ competition.name }}",
+            data: [{% for v in competition_stats|access:competition.pk %}{{ v }}, {% endfor %}],
+            fillColor: data_styling[{{forloop.counter0}}].fillColor,
+            strokeColor: data_styling[{{forloop.counter0}}].strokeColor,
+            pointColor: data_styling[{{forloop.counter0}}].pointColor,
+            pointStrokeColor: data_styling[{{forloop.counter0}}].pointStrokeColor,
+            pointHighlightFill: data_styling[{{forloop.counter0}}].pointHighlightFill,
+            pointHighlightStroke: data_styling[{{forloop.counter0}}].pointHighlightStroke,
+        },
+    {% endfor %}
     ]
 };
 
@@ -171,7 +186,15 @@ Chart.defaults.global.responsive = true;
 
 // Get the context of the canvas element we want to select
 var ctx = document.getElementById("rankingsbyseason").getContext("2d");
-var myLineChart = new Chart(ctx).Line(data, {});
+var myLineChart = new Chart(ctx).Line(data, {
+        scaleOverride: true,
+        scaleSteps: 5,
+        scaleStepWidth: 20,
+        scaleStartValue: 0,
+        bezierCurve : true,
+        bezierCurveTension : 0.8,
+        tooltipTemplate: "<\%if (label){\%><\%=label\%>: <\%}\%><\%= value \%>. {% trans "percentile" %}",
+    });
 
 </script>
 {% endaddtoblock %}

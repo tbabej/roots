@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 
 
-from base.util import class_view_decorator
+from base.util import class_view_decorator, YearSegment
 
 from schools.forms import AddressForm
 from .forms import UserProfileBasicForm, UserProfileEventForm, UsernameForm
@@ -100,6 +100,49 @@ class UserProfileDetail(DetailView):
 
     model = UserProfile
     context_object_name = 'profile'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DetailView, self).get_context_data(*args, **kwargs)
+
+        # Now, let's generate the data for the statistics
+        profile = context['profile']
+        season_segments = {season.pk: season.get_year_segment()
+                           for season in profile.participated_seasons()}
+
+        if not season_segments:
+            return context
+
+        # Compute the beggining and the end of the competitor's "career"
+
+        # We go back one segment to ensure timespan is at least two segments,
+        # otherwise this may cause problems with graphs
+        career_start = min(season_segments.values()).back()
+        career_end = max(season_segments.values())
+
+        career_timespan = list(YearSegment.between_segments(career_start,
+                                                            career_end))
+
+        data = dict()
+
+        for competition in profile.participated_competitions():
+            # Mark all the segments when the user competed in this competition
+            # and his percentile
+
+            competed_segments = {
+                s.get_year_segment(): s.get_user_percentile(profile.user) * 100
+                for s in profile.participated_seasons().filter(
+                    competition=competition
+                    )
+                }
+            data[100 + competition.pk] = competed_segments
+
+            data[competition.pk] = [competed_segments.get(segment, 0.0)
+                                    for segment in career_timespan]
+
+        context['competition_stats'] = data
+        context['all_season_segments'] = career_timespan
+
+        return context
 
     def get_object(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
