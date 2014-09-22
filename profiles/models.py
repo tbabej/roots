@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
-from competitions.models import Competition
+from competitions.models import Competition, Season
 from problems.models import UserSolution
 from events.models import EventUserRegistration
 
@@ -99,10 +99,14 @@ class UserProfile(models.Model):
         return Competition.objects.filter(id__in=organized_competitions)
 
     def participated_competitions(self):
-        participated_competitions = (self.user.competitionuserregistration_set
-                                     .values('competition'))
+        season_competition = self.participated_seasons().values('competition')
+        return Competition.objects.filter(id__in=season_competition)
 
-        return Competition.objects.filter(id__in=participated_competitions)
+    def participated_seasons(self):
+        participated_seasons = self.user.usersolution_set.values(
+                               'problem__problemset__series__season')
+
+        return Season.objects.filter(id__in=participated_seasons)
 
     def best_ranking(self):
         """
