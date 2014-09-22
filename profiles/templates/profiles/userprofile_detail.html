@@ -4,6 +4,7 @@
 {% load comments %}
 {% load roots_tags %}
 {% load i18n %}
+{% load l10n %}
 {% load static %}
 
 {% block content %}
@@ -169,7 +170,7 @@ var data = {
     datasets: [
         {
             label: "{{ competition.name }}",
-            data: [{% for v in competition_stats|access:competition.pk %}{{ v }}, {% endfor %}],
+            data: [{% for v in competition_stats|access:competition.pk %}{{ v|unlocalize }}, {% endfor %}],
             fillColor: data_styling[{{forloop.counter0}}].fillColor,
             strokeColor: data_styling[{{forloop.counter0}}].strokeColor,
             pointColor: data_styling[{{forloop.counter0}}].pointColor,
