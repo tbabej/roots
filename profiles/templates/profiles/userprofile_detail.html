@@ -75,8 +75,17 @@
 
   <div class="row divider">
     <div class="col-md-offset-1 col-md-10 text-center">
-      <canvas id="rankingsbyseason" style="margin:20px; margin-left:0px;"></canvas>
-      <h4>{% trans "Percentile by season" %}</h4>
+    {% if competition_stats %}
+      <canvas id="rankingsbyseason" style="margin:20px; margin-left:0px; padding: 10px; border-style: solid; border-width: 1px; border-color: rgba(0, 0, 0, 0.2);"></canvas>
+    {% else %}
+      <div style="border-style: solid; border-width: 1px; margin: 20px; border-color: rgba(0, 0, 0, 0.2);">
+        <i class="fa fa-frown-o fa-4x" style="margin:20px;"></i>
+        <p>
+          {% trans "No problem solved. Ever." %}
+        </p>
+      </div>
+    {% endif %}
+      <h4><i class="fa fa-area-chart"></i> {% trans "Percentile by season" %}</h4>
       <p>
           {% trans "The performance of the competitor shown as percentile in the respective season. " %}
           {% trans "Your percentile is the percentage of the competitors that scored less points than you, " %}
@@ -86,8 +95,11 @@
     </div>
   </div>
 
-  <div class="row divider text-center">
-    <div class="commentBox col-md-6">
+  <div class="row divider">
+    <div class="commentBox col-md-12">
+      <span class="text-center">
+        <h4><i class="fa fa-comments"></i> {% trans "Last comments" %}</h4>
+      </span>
       <ul class="commentList">
       {% for comment in profile.get_last_comments %}
         {% include "comments/comment.html" %}
@@ -102,6 +114,12 @@
 <link href="{{ STATIC_URL }}css/comments.css" rel="stylesheet" type="text/css" media="screen" />
 
 <style>
+.comment-item
+{
+    display: table;
+    margin-right: auto;
+    margin-left: auto;
+}
 .profile
 {
     display: inline-block;
@@ -147,6 +165,14 @@ span.tags
 <script>
 var data_styling = [
         {
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+        },
+        {
             fillColor: "rgba(220,220,220,0.2)",
             strokeColor: "rgba(220,220,220,1)",
             pointColor: "rgba(220,220,220,1)",
@@ -154,14 +180,6 @@ var data_styling = [
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
         },
-        {
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-        }
     ]
 
 var data = {
