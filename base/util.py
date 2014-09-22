@@ -1,3 +1,4 @@
+import datetime
 import os
 import unicodedata
 import subprocess
@@ -270,3 +271,128 @@ def convert_files_to_single_pdf(output_path, files):
             os.unlink(path)
 
     return merged_file_path
+
+
+class YearSegment(object):
+    """
+    Represents a segment of a year.
+    """
+
+    def __init__(self, year, order, num_segments):
+        self.order = order
+        self.num_segments = num_segments
+
+        year_start = datetime.date(year, 1, 1)
+        year_end = datetime.date(year, 12, 31)
+
+        segment = (year_end - year_start) / num_segments
+
+        if order > num_segments:
+            raise ValueError(_("Order cannot be higher tha number of year "
+                               "segments."))
+
+        self.start = year_start + (order - 1) * segment
+        self.end = year_start + order * segment
+
+    def next(self):
+        """
+        Returns next segment.
+        """
+        order = (self.order % self.num_segments) + 1
+
+        # Increment the year if we went over to the next one
+        year = self.start.year if order > self.order else self.start.year + 1
+
+        return self.__class__(year, order, self.num_segments)
+
+    def back(self):
+        order = ((self.order - 2) % self.num_segments) + 1
+
+        # Decrement the year if we went back
+        year = (self.start.year
+                if order <= self.order else
+                self.start.year - 1)
+
+        return self.__class__(year, order, self.num_segments)
+
+    def __contains__(self, date):
+        """
+        Returns True if given date is in interval <segment_start, segment_end).
+        """
+
+        return self.start <= date and self.end > date
+
+    def __eq__(self, other):
+        return self.start == other.start and self.end == other.end
+
+    def __gt__(self, other):
+        return self.start > other.start
+
+    def __ge__(self, other):
+        return self.start >= other.start
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __lt__(self, other):
+        return not self.__ge__(other)
+
+    def __le__(self, other):
+        return not self.__gt__(other)
+
+    def __repr__(self):
+        return self.__unicode__()
+
+    def __hash__(self):
+        return hash(unicode(self))
+
+    def __unicode__(self):
+        # This needs to contain all the information that makes a YearSegment
+        # unique, since it is used to make a hash
+
+        return u"%s - %s/%s" % (self.start.year,
+                                self.order,
+                                self.num_segments)
+
+    @classmethod
+    def by_date(cls, date, num_segments):
+        """
+        Returns the year segment that contains this date.
+        """
+
+        for segment in cls.by_year(date.year, num_segments):
+            if date in segment:
+                return segment
+
+    @classmethod
+    def by_year(cls, year, num_segments):
+        """
+        Yields all the year segments in the given year. The number of segments
+        in the given year is specified by the num_segments argument.
+        """
+
+        for i in range(num_segments):
+            yield cls(year, i + 1, num_segments)
+
+    @classmethod
+    def between_dates(cls, date_start, date_finish, num_segments):
+        """
+        Yields all the year segments that occured (even partially) between two
+        given dates.
+        """
+
+        for year in range(date_start.year, date_finish.year + 1):
+            for segment in cls.by_year(year, num_segments):
+                if segment.end > date_start and segment.start <= date_finish:
+                    yield segment
+
+    @classmethod
+    def between_segments(cls, start, finish):
+        """
+        Returns all segments between given two segments, inclusive.
+        """
+
+        for segment in cls.between_dates(start.start,
+                                         finish.start,
+                                         start.num_segments):
+            yield segment
