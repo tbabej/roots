@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-22 23:51+0200\n"
+"POT-Creation-Date: 2014-09-23 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -995,17 +995,21 @@ msgstr "Vyriešené problémy"
 msgid "Attended camps"
 msgstr "Zúčastnené sústredenia"
 
-#: profiles/templates/profiles/userprofile_detail.html:79
+#: profiles/templates/profiles/userprofile_detail.html:84
+msgid "No problem solved. Ever."
+msgstr "Žiaden príklad nebol ešte odovzdaný. Ani jeden."
+
+#: profiles/templates/profiles/userprofile_detail.html:88
 msgid "Percentile by season"
 msgstr "Percentil pre jednotlivé semestre"
 
-#: profiles/templates/profiles/userprofile_detail.html:81
+#: profiles/templates/profiles/userprofile_detail.html:90
 msgid ""
 "The performance of the competitor shown as percentile in the respective "
 "season. "
 msgstr "Výkon súťažiaceho v danom semestri je reprezentovaný percentilom."
 
-#: profiles/templates/profiles/userprofile_detail.html:82
+#: profiles/templates/profiles/userprofile_detail.html:91
 msgid ""
 "Your percentile is the percentage of the competitors that scored less points "
 "than you, "
@@ -1013,7 +1017,7 @@ msgstr ""
 "Percentil je precentuálny podiel súťažiacich, ktorí dosiahli horší počet "
 "bodov ako ty, "
 
-#: profiles/templates/profiles/userprofile_detail.html:83
+#: profiles/templates/profiles/userprofile_detail.html:92
 msgid ""
 "e.g. if you have 75th percentile, you achieved better score than three "
 "quarters of your fellow competitors. "
@@ -1021,13 +1025,13 @@ msgstr ""
 "t.j. ak si dosiahol 75. percentil, tvoje skóre je lepšie než troch štvrtín "
 "tvojich spolusúťažiach."
 
-#: profiles/templates/profiles/userprofile_detail.html:84
+#: profiles/templates/profiles/userprofile_detail.html:93
 msgid ""
 "If you attended multiple competitions, they will be shown in the graph "
 "separately."
 msgstr "Ak si súťažil vo viacerých seminároch, zobrazia sa v grafe osobitne."
 
-#: profiles/templates/profiles/userprofile_detail.html:197
+#: profiles/templates/profiles/userprofile_detail.html:206
 msgid "percentile"
 msgstr "percentil"
 
