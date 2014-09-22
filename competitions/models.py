@@ -179,7 +179,7 @@ class SeasonSeriesBaseMixin(object):
         user_ranking = self.get_user_ranking(user)[0]
 
         # Percentile can be expressed as 1 - (percentage of better ranked users)
-        return 1.0 - (user_ranking - 1) / all_competitors
+        return 1.0 - (user_ranking - 1) / float(all_competitors)
 
     def get_user_by_ranking(self, rank):
         """
