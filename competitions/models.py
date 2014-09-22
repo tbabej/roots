@@ -6,7 +6,8 @@ from django.db.models import get_model
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
-from base.util import with_timestamp, with_author, remove_accents
+from base.util import (with_timestamp, with_author, remove_accents,
+                       YearSegment)
 
 
 # Competition-related models
@@ -232,6 +233,15 @@ class Season(models.Model, SeasonSeriesBaseMixin):
                                          verbose_name=_('join deadline'))
     start = models.DateTimeField(verbose_name=_('season start'))
     end = models.DateTimeField(verbose_name=_('season end'))
+
+    def get_year_segment(self, num_segments=2):
+        """
+        Returns the year segment this season belongs to.
+        """
+
+        season_midpoint = (self.start + (self.end - self.start) / 2).date()
+
+        return YearSegment.by_date(season_midpoint, num_segments)
 
     def get_competitors(self):
         """
