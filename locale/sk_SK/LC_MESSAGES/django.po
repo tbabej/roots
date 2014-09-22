@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-20 18:15+0200\n"
+"POT-Creation-Date: 2014-09-22 23:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,21 +16,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: base/util.py:27
+#: base/util.py:28
 msgid "added at"
 msgstr "pridané"
 
-#: base/util.py:30
+#: base/util.py:31
 msgid "modified at"
 msgstr "modifikované"
 
-#: base/util.py:52
+#: base/util.py:53
 msgid "author"
 msgstr "autor"
 
-#: base/util.py:59
+#: base/util.py:60
 msgid "last modified by"
 msgstr "naposledy modifikované"
+
+#: base/util.py:291
+msgid "Order cannot be higher tha number of year segments."
+msgstr "Poradie segmentu nemôže by vyššie ako počet segmentov v roku."
 
 #: base/templates/base/base_base.html:69 templates/admin/base.html:118
 msgid "Home"
@@ -148,108 +152,108 @@ msgstr "Vedúcovské veci"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: competitions/models.py:23
+#: competitions/models.py:24
 msgid "competition name"
 msgstr "názov súťaže / seminára"
 
-#: competitions/models.py:28
+#: competitions/models.py:29
 msgid "organizer group"
 msgstr "skupina vedúcich pre súťaž / seminár"
 
-#: competitions/models.py:83 competitions/models.py:96
-#: competitions/models.py:120 competitions/models.py:226 events/models.py:27
+#: competitions/models.py:84 competitions/models.py:97
+#: competitions/models.py:121 competitions/models.py:227 events/models.py:27
 #: leaflets/models.py:32 posts/models.py:21 problems/models.py:189
 #: problems/models.py:292 problems/models.py:356 problems/models.py:393
 msgid "competition"
 msgstr "súťaž / seminár"
 
-#: competitions/models.py:84
+#: competitions/models.py:85
 msgid "competitions"
 msgstr "súťaže / semináre"
 
-#: competitions/models.py:98 events/models.py:111 events/models.py:224
-#: problems/models.py:64 profiles/models.py:23 profiles/models.py:152
+#: competitions/models.py:99 events/models.py:110 events/models.py:223
+#: problems/models.py:64 profiles/models.py:23 profiles/models.py:156
 msgid "user"
 msgstr "užívateľ"
 
-#: competitions/models.py:101
+#: competitions/models.py:102
 msgid " competes in "
 msgstr " súťaží v: "
 
-#: competitions/models.py:106 events/models.py:120
+#: competitions/models.py:107 events/models.py:119
 msgid "user registration"
 msgstr "registrácia užívateľa"
 
-#: competitions/models.py:107 events/models.py:121
+#: competitions/models.py:108 events/models.py:120
 msgid "user registrations"
 msgstr "registrácie užívateľov"
 
-#: competitions/models.py:122 events/models.py:135 problems/models.py:115
+#: competitions/models.py:123 events/models.py:134 problems/models.py:115
 msgid "organizer"
 msgstr "vedúci"
 
-#: competitions/models.py:123
+#: competitions/models.py:124
 msgid "registration approved"
 msgstr "registrácie schválená"
 
-#: competitions/models.py:126 events/models.py:138
+#: competitions/models.py:127 events/models.py:137
 msgid " organizes "
 msgstr " organizuje "
 
-#: competitions/models.py:131 competitions/models.py:132 events/models.py:144
+#: competitions/models.py:132 competitions/models.py:133 events/models.py:143
 msgid "organizer registration"
 msgstr "registrácia vedúceho"
 
-#: competitions/models.py:227 leaflets/models.py:33
+#: competitions/models.py:228 leaflets/models.py:33
 msgid "year"
 msgstr "rok"
 
-#: competitions/models.py:228 competitions/models.py:333
+#: competitions/models.py:229 competitions/models.py:343
 msgid "number"
 msgstr "číslo"
 
-#: competitions/models.py:229 competitions/models.py:332
+#: competitions/models.py:230 competitions/models.py:342
 #: problems/models.py:353 problems/models.py:389 schools/models.py:44
 msgid "name"
 msgstr "názov"
 
-#: competitions/models.py:232
+#: competitions/models.py:233
 msgid "join deadline"
 msgstr "termín na prihĺasenie"
 
-#: competitions/models.py:233
+#: competitions/models.py:234
 msgid "season start"
 msgstr "začiatok semestra"
 
-#: competitions/models.py:234
+#: competitions/models.py:235
 msgid "season end"
 msgstr "koniec semestra"
 
-#: competitions/models.py:318
+#: competitions/models.py:328
 msgid "Season"
 msgstr "semester"
 
-#: competitions/models.py:319
+#: competitions/models.py:329
 msgid "Seasons"
 msgstr "semestre"
 
-#: competitions/models.py:330
+#: competitions/models.py:340
 msgid "season"
 msgstr "semester"
 
-#: competitions/models.py:337
+#: competitions/models.py:347
 msgid "problem set assigned"
 msgstr "priradený súbor príkladov"
 
-#: competitions/models.py:339
+#: competitions/models.py:349
 msgid "series submission deadline"
 msgstr "termín série"
 
-#: competitions/models.py:341
+#: competitions/models.py:351
 msgid "is series active"
 msgstr "je séria aktívna"
 
-#: competitions/models.py:433 competitions/models.py:434
+#: competitions/models.py:443 competitions/models.py:444
 msgid "Series"
 msgstr "Séria"
 
@@ -427,27 +431,27 @@ msgstr "začiatok"
 msgid "end time"
 msgstr "koniec"
 
-#: events/models.py:38
+#: events/models.py:37
 msgid "registration end time"
 msgstr "koniec registrácie"
 
-#: events/models.py:43
+#: events/models.py:42
 msgid "registered user"
 msgstr "registrovaný užívateľ"
 
-#: events/models.py:47
+#: events/models.py:46
 msgid "registered organizer"
 msgstr "registrovaný vedúci"
 
-#: events/models.py:62
+#: events/models.py:61
 msgid "users attending:"
 msgstr "prihlásení užívatelia:"
 
-#: events/models.py:66
+#: events/models.py:65
 msgid "organizers attending:"
 msgstr "prihlásení vedúci:"
 
-#: events/models.py:85
+#: events/models.py:84
 #, python-brace-format
 msgid ""
 "Cannot register  user {user} to event {event}: Registration ended at {end}"
@@ -455,88 +459,88 @@ msgstr ""
 "Registrácia užívateľa {user} na udalosť {event} bola neúspešná: Registrácia "
 "skončila {end}"
 
-#: events/models.py:98 events/models.py:109 events/models.py:133
+#: events/models.py:97 events/models.py:108 events/models.py:132
 #: problems/models.py:300
 msgid "event"
 msgstr "udalosť"
 
-#: events/models.py:99
+#: events/models.py:98
 msgid "events"
 msgstr "udalosti"
 
-#: events/models.py:114
+#: events/models.py:113
 msgid " attends "
 msgstr " sa zúčastní "
 
-#: events/models.py:145
+#: events/models.py:144
 msgid "organizer registrations"
 msgstr "registrácie vedúcich"
 
-#: events/models.py:162
+#: events/models.py:161
 msgid "invited users"
 msgstr "pozvaní užívatelia"
 
-#: events/models.py:166
+#: events/models.py:165
 msgid "invitation deadline"
 msgstr "termín pozvánky"
 
-#: events/models.py:169
+#: events/models.py:168
 msgid "participant limit"
 msgstr "maximum účastníkov"
 
-#: events/models.py:173
+#: events/models.py:172
 msgid "event for season"
 msgstr "udalosť pre semester"
 
-#: events/models.py:181
+#: events/models.py:180
 msgid "Number of invited users"
 msgstr "Počet pozvaných užívateľov"
 
-#: events/models.py:190
+#: events/models.py:189
 msgid "Number of users that signed"
 msgstr "Počet potvrdených užívateľov"
 
-#: events/models.py:199
+#: events/models.py:198
 msgid "Number of users that were accepted"
 msgstr "Počet schválených používateľov"
 
-#: events/models.py:203 events/models.py:226
+#: events/models.py:202 events/models.py:225
 msgid "camp"
 msgstr "sústredenie"
 
-#: events/models.py:204
+#: events/models.py:203
 msgid "camps"
 msgstr "sústredenia"
 
-#: events/models.py:229
+#: events/models.py:228
 msgid "invited as"
 msgstr "pozvaný ako"
 
-#: events/models.py:230
+#: events/models.py:229
 msgid "order"
 msgstr "poradie"
 
-#: events/models.py:232
+#: events/models.py:231
 msgid "accepted by user"
 msgstr "potvrdené užívateľom"
 
-#: events/models.py:234
+#: events/models.py:233
 msgid "user accepted timestamp"
 msgstr "potvrdené užívateľom v"
 
-#: events/models.py:236
+#: events/models.py:235
 msgid "accepted by organizers"
 msgstr "schválené vedúcimi"
 
-#: events/models.py:239
+#: events/models.py:238
 msgid " was invited to "
 msgstr " bol pozvaný na "
 
-#: events/models.py:249
+#: events/models.py:248
 msgid "camp invitation"
 msgstr "pozvánka na sústredenie"
 
-#: events/models.py:250
+#: events/models.py:249
 msgid "camp invitations"
 msgstr "povánky na sústredenie"
 
@@ -547,6 +551,21 @@ msgstr "registracia/(?P<event_id>\\d+)/uzivatel/$"
 #: events/urls.py:24
 msgid "register/(?P<event_id>\\d+)/organizer/$"
 msgstr "registracia/(?P<event_id>\\d+)/veduci/$"
+
+#: events/views.py:39
+#, python-format
+msgid "You are already registered to the %s"
+msgstr "Už ste sa zaregistrovali na %s"
+
+#: events/views.py:49
+#, python-format
+msgid "Successfully registered to the %s"
+msgstr "Úspešne ste sa zaregistrovali na %s"
+
+#: events/views.py:52
+#, python-format
+msgid "Registration to the %s is not open."
+msgstr "Registrácia na %s nie je otvorená."
 
 #: events/templates/events/event_detail.html:12
 #: events/templates/events/event_list.html:15
@@ -915,28 +934,28 @@ msgstr "ročník"
 msgid "user profile: {user}"
 msgstr "užívateľský profil: {user}"
 
-#: profiles/models.py:140
+#: profiles/models.py:144
 msgid "user profile"
 msgstr "užívateľský profil"
 
-#: profiles/models.py:141
+#: profiles/models.py:145
 msgid "user profiles"
 msgstr "užívateľské profily"
 
-#: profiles/models.py:156
+#: profiles/models.py:160
 msgid "motto"
 msgstr "motto"
 
-#: profiles/models.py:178
+#: profiles/models.py:182
 #, python-brace-format
 msgid "organizer profile: {user}"
 msgstr "vedúcovský profil: {user}"
 
-#: profiles/models.py:182
+#: profiles/models.py:186
 msgid "organizer profile"
 msgstr "vedúcovský profil"
 
-#: profiles/models.py:183
+#: profiles/models.py:187
 msgid "organizer profiles"
 msgstr "vedúcovské profily"
 
@@ -956,29 +975,61 @@ msgstr "Profil úspešne aktualizovaný."
 msgid "Nothing has changed."
 msgstr "Nič sa nezmenilo."
 
-#: profiles/templates/profiles/userprofile_detail.html:38
+#: profiles/templates/profiles/userprofile_detail.html:39
 msgid "place"
 msgstr "miesto"
 
-#: profiles/templates/profiles/userprofile_detail.html:44
+#: profiles/templates/profiles/userprofile_detail.html:45
 msgid "Best ranking"
 msgstr "Najlepšie umiestnenie"
 
-#: profiles/templates/profiles/userprofile_detail.html:50
+#: profiles/templates/profiles/userprofile_detail.html:51
 msgid "Never competed"
 msgstr "Nikdy nesúťažil"
 
-#: profiles/templates/profiles/userprofile_detail.html:59
+#: profiles/templates/profiles/userprofile_detail.html:60
 msgid "Solved problems"
 msgstr "Vyriešené problémy"
 
-#: profiles/templates/profiles/userprofile_detail.html:67
+#: profiles/templates/profiles/userprofile_detail.html:68
 msgid "Attended camps"
 msgstr "Zúčastnené sústredenia"
 
-#: profiles/templates/profiles/userprofile_detail.html:80
-msgid "Ranking by season"
-msgstr "Hodnotenie podľa sezóny"
+#: profiles/templates/profiles/userprofile_detail.html:79
+msgid "Percentile by season"
+msgstr "Percentil pre jednotlivé semestre"
+
+#: profiles/templates/profiles/userprofile_detail.html:81
+msgid ""
+"The performance of the competitor shown as percentile in the respective "
+"season. "
+msgstr "Výkon súťažiaceho v danom semestri je reprezentovaný percentilom."
+
+#: profiles/templates/profiles/userprofile_detail.html:82
+msgid ""
+"Your percentile is the percentage of the competitors that scored less points "
+"than you, "
+msgstr ""
+"Percentil je precentuálny podiel súťažiacich, ktorí dosiahli horší počet "
+"bodov ako ty, "
+
+#: profiles/templates/profiles/userprofile_detail.html:83
+msgid ""
+"e.g. if you have 75th percentile, you achieved better score than three "
+"quarters of your fellow competitors. "
+msgstr ""
+"t.j. ak si dosiahol 75. percentil, tvoje skóre je lepšie než troch štvrtín "
+"tvojich spolusúťažiach."
+
+#: profiles/templates/profiles/userprofile_detail.html:84
+msgid ""
+"If you attended multiple competitions, they will be shown in the graph "
+"separately."
+msgstr "Ak si súťažil vo viacerých seminároch, zobrazia sa v grafe osobitne."
+
+#: profiles/templates/profiles/userprofile_detail.html:197
+msgid "percentile"
+msgstr "percentil"
 
 #: profiles/templates/profiles/userprofile_form.html:15
 msgid "Data needed for participating in the competition"
@@ -1292,6 +1343,9 @@ msgstr "Táto revízia bola odstránená."
 #: templates/wiki/preview_inline.html:32
 msgid "Restoring to this revision will mark the article as deleted."
 msgstr "Obnovenie k tejto revízii označí článok ako odstránený."
+
+#~ msgid "Ranking by season"
+#~ msgstr "Hodnotenie podľa sezóny"
 
 #~ msgid "set"
 #~ msgstr "súbor"
