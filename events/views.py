@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
@@ -29,14 +30,26 @@ class EventUserRegisterView(RedirectBackView):
     def dispatch(self, request, *args, **kwargs):
         event = Event.objects.get(pk=kwargs['event_id'])
 
+        # Check if user is not already registered
+        registrations = EventUserRegistration.objects.filter(
+            user=request.user,
+            event=event).count()
+
+        if registrations:
+            message = _('You are already registered to the %s') % event
+            messages.add_message(request, messages.ERROR, message)
+            return super(EventUserRegisterView, self).dispatch(request,
+                                                               *args,
+                                                               **kwargs)
+
         if event.registration_open():
             registration = EventUserRegistration(user=request.user, event=event)
             registration.save()
 
-            message = 'Successfully registered to the %s' % event
+            message = _('Successfully registered to the %s') % event
             messages.add_message(request, messages.INFO, message)
         else:
-            message = 'Registration to the %s is not open.' % event
+            message = _('Registration to the %s is not open.') % event
             messages.add_message(request, messages.ERROR, message)
 
         return super(EventUserRegisterView, self).dispatch(request,
