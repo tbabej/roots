@@ -84,6 +84,34 @@ class UserSolution(MediaRemovalMixin,
                                 null=True,
                                 verbose_name=_('score'))
 
+    classlevel = models.CharField(max_length=2,
+                                  blank=True,
+                                  null=True,
+                                  verbose_name=_('class level at the time '
+                                                 'of submission'),
+                                  choices=(('Z2', 'Z2'),
+                                           ('Z3', 'Z3'),
+                                           ('Z4', 'Z4'),
+                                           ('Z5', 'Z5'),
+                                           ('Z6', 'Z6'),
+                                           ('Z7', 'Z7'),
+                                           ('Z8', 'Z8'),
+                                           ('Z9', 'Z9'),
+                                           ('S1', 'S1'),
+                                           ('S2', 'S2'),
+                                           ('S3', 'S3'),
+                                           ('S4', 'S4')))
+
+    school = models.ForeignKey('schools.School',
+                               blank=True,
+                               null=True,
+                               verbose_name=_('school'))
+
+    school_class = models.CharField(max_length=20,
+                                    blank=True,
+                                    null=True,
+                                    verbose_name=_('school class'))
+
     corrected_by = models.ManyToManyField('auth.User',
                        related_name='usersolutions_corrected_set',
                        verbose_name=_('corrected by'))
@@ -93,6 +121,13 @@ class UserSolution(MediaRemovalMixin,
                        .format(user=unicode(self.user),
                                problem_id=unicode(self.problem.pk))
                )
+
+    def save(self, *args, **kwargs):
+        self.school = self.user.userprofile.school
+        self.school_class = self.user.userprofile.school_class
+        self.classlevel = self.user.userprofile.classlevel
+
+        super(UserSolution, self).save(*args, **kwargs)
 
     class Meta:
         order_with_respect_to = 'problem'
