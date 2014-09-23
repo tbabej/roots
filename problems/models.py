@@ -67,6 +67,7 @@ class UserSolution(MediaRemovalMixin,
                                 verbose_name=_('problem'))
 
     solution = ContentTypeRestrictedFileField(
+                                null=True,
                                 upload_to=get_solution_path,
                                 storage=OverwriteFileSystemStorage(),
                                 max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
