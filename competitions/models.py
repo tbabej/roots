@@ -431,7 +431,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                 raise ValidationError("Series that is past its submission "
                                       "deadline cannot be made active")
 
-        super(Series, self).save(*args, **kwargs)
+        super(Series, self).clean(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
