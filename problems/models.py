@@ -5,6 +5,7 @@ from django.template.defaultfilters import truncatewords
 from django.utils.translation import ugettext_lazy as _
 
 from djangoratings.fields import RatingField
+from sortedm2m.fields import SortedManyToManyField
 
 from base.models import MediaRemovalMixin, ContentTypeRestrictedFileField
 from base.storage import OverwriteFileSystemStorage
@@ -269,6 +270,9 @@ class ProblemInSet(models.Model):
                                    verbose_name=_('problem set'))
     position = models.PositiveSmallIntegerField(verbose_name=_('position'))
 
+    # This is here as a reference for the SortedManyToManyField
+    _sort_field_name = 'position'
+
     def get_rating(self):
         return self.problem.get_rating()
 
@@ -336,9 +340,11 @@ class ProblemSet(models.Model):
                               blank=True,
                               null=True,
                               verbose_name=_('event'))
-    problems = models.ManyToManyField(Problem,
-                                      through='problems.ProblemInSet',
-                                      verbose_name=_('problems'))
+
+    problems = SortedManyToManyField(Problem,
+                                     through='problems.ProblemInSet',
+                                     verbose_name=_('problems'),
+                                     sort_value_field_name='position')
 
     def average_severity(self):
         problemset = self.problems.filter(competition=self.competition)

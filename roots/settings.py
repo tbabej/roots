@@ -157,6 +157,8 @@ INSTALLED_APPS = (
     'jquery_lightbox',
     # Use django-sendfile
     'sendfile',
+    # Use django-sortedm2m
+    'sortedm2m',
     # Use django-wiki and its requirements
     'django.contrib.humanize',
     'django_notify',
