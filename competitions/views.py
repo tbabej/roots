@@ -58,7 +58,7 @@ class SeasonResultsView(DetailView):
         for series in self.object.series_set.all():
             context['results'][series.pk] = dict()
 
-            for competitor in self.object.get_competitors():
+            for competitor in self.object.competitors:
                 context['results'][series.pk][competitor.pk] = dict()
                 competitor_sum = 0
 

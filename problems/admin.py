@@ -108,10 +108,10 @@ class CurrentSeasonFilter(admin.SimpleListFilter):
     def lookups(self, request, model_admin):
         for competition in Competition.objects.all():
             # If the competition does not have active season, skip it
-            if competition.get_active_season() is None:
+            if competition.active_season is None:
                 continue
 
-            for series in competition.get_active_season().series_set.all():
+            for series in competition.active_season.series_set.all():
                 for problem in series.problemset.problems.all():
                     yield (problem.pk,
                            "%s, %s: %s" % (competition, series, problem))

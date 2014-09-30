@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
+from django.utils.functional import cached_property
 
 from competitions.models import Competition, Season
 from problems.models import UserSolution
@@ -91,6 +92,7 @@ class UserProfile(models.Model):
         return unicode(_("user profile: {user}")
                        .format(user=self.user.username))
 
+    @cached_property
     def organized_competitions(self):
         organized_competitions = (self.user.competitionorgregistration_set
                                   .filter(approved=True)
@@ -98,15 +100,18 @@ class UserProfile(models.Model):
 
         return Competition.objects.filter(id__in=organized_competitions)
 
+    @cached_property
     def participated_competitions(self):
-        season_competition = self.participated_seasons().values('competition')
+        season_competition = [s.competition.id
+                              for s in self.participated_seasons]
         return Competition.objects.filter(id__in=season_competition)
 
+    @cached_property
     def participated_seasons(self):
         participated_seasons = self.user.usersolution_set.values(
                                'problem__problemset__series__season')
 
-        return Season.objects.filter(id__in=participated_seasons)
+        return list(Season.objects.filter(id__in=participated_seasons))
 
     def best_ranking(self):
         """
@@ -118,12 +123,12 @@ class UserProfile(models.Model):
         best_season = None
         best_ranking = None
 
-        for competition in self.participated_competitions():
-            rank, season = competition.get_best_user_ranking(self.user)
+        for season in self.participated_seasons:
+            rank, _ = season.get_user_ranking(self.user)
             if rank < best_ranking or best_ranking is None:
                 best_ranking = rank
                 best_season = season
-                best_competition = competition
+                best_competition = season.competition
 
         return best_competition, best_season, best_ranking
 

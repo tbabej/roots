@@ -107,7 +107,7 @@ class UserProfileDetail(DetailView):
         # Now, let's generate the data for the statistics
         profile = context['profile']
         season_segments = {season.pk: season.get_year_segment()
-                           for season in profile.participated_seasons()}
+                           for season in profile.participated_seasons}
 
         if not season_segments:
             return context
@@ -124,15 +124,14 @@ class UserProfileDetail(DetailView):
 
         data = dict()
 
-        for competition in profile.participated_competitions():
+        for competition in profile.participated_competitions:
             # Mark all the segments when the user competed in this competition
             # and his percentile
 
             competed_segments = {
                 s.get_year_segment(): s.get_user_percentile(profile.user) * 100
-                for s in profile.participated_seasons().filter(
-                    competition=competition
-                    )
+                for s in filter(lambda c: c.competition == competition,
+                                profile.participated_seasons)
                 }
             data[100 + competition.pk] = competed_segments
 

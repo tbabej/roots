@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import get_model
+from django.utils.functional import cached_property
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
@@ -42,7 +43,8 @@ class Competition(models.Model):
     def __unicode__(self):
         return self.name
 
-    def get_active_season(self):
+    @cached_property
+    def active_season(self):
         season_candidates = self.season_set.filter(start__lt=now(),
                                                    end__gt=now())
         if season_candidates.exists():
@@ -56,7 +58,7 @@ class Competition(models.Model):
         """
 
         for season in self.season_set.all():
-            if season.get_competitors().filter(pk=user.pk).exists():
+            if season.competitors.filter(pk=user.pk).exists():
                 yield season
 
     def get_best_user_ranking(self, user):
@@ -135,7 +137,8 @@ class CompetitionOrgRegistration(models.Model):
 
 class SeasonSeriesBaseMixin(object):
 
-    def get_results(self):
+    @cached_property
+    def results(self):
         results = []
 
         for competitor in self.get_competitors():
@@ -156,7 +159,7 @@ class SeasonSeriesBaseMixin(object):
         would be (1,1).
         """
 
-        results = self.get_results()
+        results = self.results
         start = None
 
         for i in range(0, len(results)):
@@ -176,7 +179,7 @@ class SeasonSeriesBaseMixin(object):
         Returns user percentile (percentage of competitors that achived
         worse or equal ranking), as a float between 0 and 1.
         """
-        all_competitors = len(self.get_competitors())
+        all_competitors = len(self.competitors)
         user_ranking = self.get_user_ranking(user)[0]
 
         # Percentile can be expressed as 1 - (percentage of better ranked users)
@@ -187,7 +190,7 @@ class SeasonSeriesBaseMixin(object):
         Returns the set of users at the given rank (which can be empty).
         """
 
-        results = self.get_results()
+        results = self.results
 
         # Convert rank to list index
         index = rank - 1
@@ -243,7 +246,8 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
         return YearSegment.by_date(season_midpoint, num_segments)
 
-    def get_competitors(self):
+    @cached_property
+    def competitors(self):
         """
         Returns the list of the competitors in the given season as everybody
         who submitted at least one problem solution in that season.
@@ -252,7 +256,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         competitors = User.objects.none()
 
         for series in self.series_set.all():
-            competitors = competitors | series.get_competitors()
+            competitors = competitors | series.competitors
 
         return competitors
 
@@ -350,7 +354,8 @@ class Series(models.Model, SeasonSeriesBaseMixin):
     is_active = models.BooleanField(default=False,
                                     verbose_name=_('is series active'))
 
-    def get_competitors(self):
+    @cached_property
+    def competitors(self):
         """
         Returns the list of the competitors in the given series as everybody
         who submitted at least one problem solution.
