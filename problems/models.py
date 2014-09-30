@@ -127,9 +127,10 @@ class UserSolution(MediaRemovalMixin,
                )
 
     def save(self, *args, **kwargs):
-        self.school = self.user.userprofile.school
-        self.school_class = self.user.userprofile.school_class
-        self.classlevel = self.user.userprofile.classlevel
+        self.school = self.school or self.user.userprofile.school
+        self.school_class = (self.school_class or
+                             self.user.userprofile.school_class)
+        self.classlevel = self.classlevel or self.user.userprofile.classlevel
 
         super(UserSolution, self).save(*args, **kwargs)
 
