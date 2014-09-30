@@ -153,7 +153,7 @@ class SeasonSeriesBaseMixin(object):
     def get_user_ranking(self, user):
         """
         Returns the user's ranking in the current series. Since user can be
-        ranked on multiple places, e.g. if 3 users achieved the perfect socre,
+        ranked on multiple places, e.g. if 3 users achieved the perfect score,
         the ranking is represented by a tuple (which would be (1,3) in this
         case). If only one user achiveed perfect score, the resulting ranking
         would be (1,1).
