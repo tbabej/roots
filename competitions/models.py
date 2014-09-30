@@ -161,18 +161,26 @@ class SeasonSeriesBaseMixin(object):
 
         results = self.results
         start = None
+        end = 0
+        user_total = None
 
         for i in range(0, len(results)):
             competitor, solutions, total = results[i]
             if user == competitor:
                 start = end = i + 1
+                user_total = total
 
             # This depends on the fact that the results list is sorted
             # decreasingly by the total score
-            elif total == start:
+            elif total == user_total:
                 end = i + 1
 
-        return (start, end)
+            # If the start of the user interval is set, and we
+            # don't have the same score, we stop searching
+            elif start is not None:
+                break
+
+        return (start or 0, end)
 
     def get_user_percentile(self, user):
         """
