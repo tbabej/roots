@@ -56,7 +56,7 @@
         <td>
           {% with results|access:series.pk|access:competitor.pk|access:problem.pk as solution %}
             {% if solution %}
-              {% define score %}{% if solution.score %}{{solution.score}}{% else %}{% trans "not corrected" %}{% endif %}{% enddefine %}
+              {% define score %}{% if solution.score != Null %}{{solution.score}}{% else %}{% trans "not corrected" %}{% endif %}{% enddefine %}
             {% else %}
               {% define score %}-{% enddefine %}
             {% endif %}
