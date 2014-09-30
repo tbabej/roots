@@ -369,14 +369,12 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         who submitted at least one problem solution.
         """
 
-        competitors = User.objects.none()
+        competitors = User.objects.filter(
+                usersolution__problem__in=
+                    self.problemset.problems.values_list('pk', flat=True)
+            ).distinct()
 
-        for problem in self.problemset.problems.all():
-            problemset_competitors = User.objects.filter(
-                usersolution__pk__in=problem.usersolution_set.all())
-            competitors = competitors | problemset_competitors
-
-        return competitors.distinct()
+        return competitors
 
     def get_user_solutions(self, user):
         """
