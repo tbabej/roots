@@ -1,3 +1,4 @@
+.idea
 /allauth
 /email-messages/*
 !email-messages/README
