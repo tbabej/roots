@@ -1,6 +1,8 @@
 Roots
 =====
 
+![Roots project](https://raw.githubusercontent.com/tbabej/roots/master/base/static/logo.png  "Roots project")
+
 Roots is a community-based site framework for seminar communities.
 
 Motivation
@@ -112,3 +114,9 @@ Useful tips
   The following command should provide you with nice diagram:
 
   > python manage.py graph_models -age -o models.png
+
+
+Attribution
+-----------
+
+Roots project logo based on the green engineering icon (http://thenounproject.com/term/green-engineering/12323/), which was relesed under public domain.
