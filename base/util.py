@@ -273,6 +273,21 @@ def convert_files_to_single_pdf(output_path, files):
     return merged_file_path
 
 
+def simple_solution_sum(solutions, *args, **kwargs):
+    """
+    Returns a simple sum of scores of the given solutions, neglecting the given user.
+    """
+    return sum([s.score or 0 for s in solutions if s is not None])
+
+
+def simple_series_solution_sum(series_subtotals, *args, **kwargs):
+    """
+    Simply adds up the totals from the series themselves.
+    """
+
+    return sum(subtotal[-1] for subtotal in series_subtotals)
+
+
 class YearSegment(object):
     """
     Represents a segment of a year.

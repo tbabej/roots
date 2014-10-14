@@ -8,7 +8,7 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from base.util import (with_timestamp, with_author, remove_accents,
-                       YearSegment)
+                       YearSegment, simple_solution_sum, simple_series_solution_sum)
 
 
 # Competition-related models
@@ -412,15 +412,9 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
         custom_total_func = getattr(settings,
                                     'ROOTS_SERIES_TOTAL_SCORE_FUNC',
-                                    None)
+                                    simple_solution_sum)
 
-        if custom_total_func is not None:
-            assert callable(custom_total_func)
-            return custom_total_func(user, solutions)
-        else:
-            # Fallback to simple sum
-            total_sum = sum([s.score or 0 for s in solutions if s is not None])
-            return solutions, total_sum
+        return solutions, custom_total_func(user, solutions)
 
     def is_past_submission_deadline(self):
         return now() > self.submission_deadline
