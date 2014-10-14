@@ -42,6 +42,10 @@ SERVER_EMAIL = 'root@roots.com'
 # Configure email prefix
 EMAIL_SUBJECT_PREFIX = '[Roots] '
 
+# Setup HTTPS settings, set to True if you use HTTPS (recommended)
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
 # == Django-debug-toolbar configuration ==
 INTERNAL_IPS = ('127.0.0.1',)
 
