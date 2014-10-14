@@ -320,7 +320,7 @@ class YearSegment(object):
         Returns True if given date is in interval <segment_start, segment_end).
         """
 
-        return self.start <= date and self.end > date
+        return self.start <= date < self.end
 
     def __eq__(self, other):
         return self.start == other.start and self.end == other.end

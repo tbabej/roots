@@ -102,7 +102,7 @@ class CompetitionUserRegistration(models.Model):
 
     def __unicode__(self):
         return (self.user.__unicode__() + unicode(_(" competes in ")) +
-               self.competition.__unicode__())
+                self.competition.__unicode__())
 
     class Meta:
         ordering = ['added_at']
@@ -114,7 +114,7 @@ class CompetitionUserRegistration(models.Model):
 @with_timestamp
 class CompetitionOrgRegistration(models.Model):
     """
-    Represents a relation between organizer and comeptition. Organizer can
+    Represents a relation between organizer and competition. Organizer can
     help organize multiple competitions. Organizer registrations have to
     be approved.
     """
@@ -127,7 +127,7 @@ class CompetitionOrgRegistration(models.Model):
 
     def __unicode__(self):
         return (self.organizer.user.__unicode__() + unicode(_(" organizes ")) +
-               self.competition.__unicode__())
+                self.competition.__unicode__())
 
     class Meta:
         ordering = ['added_at']
@@ -155,7 +155,7 @@ class SeasonSeriesBaseMixin(object):
         Returns the user's ranking in the current series. Since user can be
         ranked on multiple places, e.g. if 3 users achieved the perfect score,
         the ranking is represented by a tuple (which would be (1,3) in this
-        case). If only one user achiveed perfect score, the resulting ranking
+        case). If only one user achieved perfect score, the resulting ranking
         would be (1,1).
         """
 
@@ -184,7 +184,7 @@ class SeasonSeriesBaseMixin(object):
 
     def get_user_percentile(self, user):
         """
-        Returns user percentile (percentage of competitors that achived
+        Returns user percentile (percentage of competitors that achieved
         worse or equal ranking), as a float between 0 and 1.
         """
         all_competitors = len(self.competitors)
@@ -345,7 +345,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 @with_timestamp
 class Series(models.Model, SeasonSeriesBaseMixin):
     """
-    Represents one series of problems in the season of the competetion.
+    Represents one series of problems in the season of the competition.
     """
 
     season = models.ForeignKey('competitions.Season',
