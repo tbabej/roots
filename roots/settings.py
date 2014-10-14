@@ -271,8 +271,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Django-sendfile related settings
 SENDFILE_DIR = 'protected/'
-SENDFILE_ROOT = os.path.join(MEDIA_ROOT, SENDFILE_DIR)
-SENDFILE_URL = MEDIA_URL + SENDFILE_DIR
+SENDFILE_ROOT = os.path.join(PROJECT_ROOT, SENDFILE_DIR)
+SENDFILE_URL = '/' + SENDFILE_DIR
 
 # Roots-related settings
 ROOTS_MAX_SOLUTION_SIZE = 10485760  # 10MB

@@ -27,6 +27,8 @@ class UserSolution(MediaRemovalMixin,
     Represents a user submitted solution of a given problem.
     '''
 
+    media_root = settings.SENDFILE_ROOT
+
     @classmethod
     def get_by_filepath(cls, path):
         try:
@@ -48,13 +50,13 @@ class UserSolution(MediaRemovalMixin,
         return [self.get_solution_path()]
 
     def get_solution_path(self, *args, **kwargs):
-        return 'protected/solutions/{user}-{problem}.pdf'.format(
+        return 'solutions/{user}-{problem}.pdf'.format(
                 user=unicode(self.user),
                 problem=self.problem.pk,
             )
 
     def get_corrected_solution_path(self, *args, **kwargs):
-        return 'protected/corrected_solutions/{user}-{problem}.pdf'.format(
+        return 'corrected_solutions/{user}-{problem}.pdf'.format(
                 user=unicode(self.user),
                 problem=self.problem.pk,
             )
@@ -70,7 +72,8 @@ class UserSolution(MediaRemovalMixin,
     solution = ContentTypeRestrictedFileField(
                                 null=True,
                                 upload_to=get_solution_path,
-                                storage=OverwriteFileSystemStorage(),
+                                storage=OverwriteFileSystemStorage(location=settings.SENDFILE_ROOT,
+                                                                   base_url=settings.SENDFILE_URL),
                                 max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
                                 verbose_name=_('solution'))
 
@@ -78,7 +81,8 @@ class UserSolution(MediaRemovalMixin,
                                 blank=True,
                                 null=True,
                                 upload_to=get_corrected_solution_path,
-                                storage=OverwriteFileSystemStorage(),
+                                storage=OverwriteFileSystemStorage(location=settings.SENDFILE_ROOT,
+                                                                   base_url=settings.SENDFILE_URL),
                                 max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
                                 verbose_name=_('corrected solution'))
 

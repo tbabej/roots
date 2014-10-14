@@ -47,7 +47,7 @@ urlpatterns += i18n_patterns('',
     url(_(r'^photos/'), include('photologue.urls')),
     url(_(r'^profiles/'), include('profiles.urls')),
     url(_(r'^schools/'), include('schools.urls')),
-    url(_(r'^media/protected/'), include('downloads.urls'))
+    url(_(r'^protected/'), include('downloads.urls'))
 )
 
 # Add django-wiki related patterns

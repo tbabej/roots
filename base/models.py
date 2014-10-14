@@ -14,6 +14,8 @@ class MediaRemovalMixin(object):
     get_media_files() method.
     """
 
+    media_root = settings.MEDIA_ROOT
+
     # Models that use this mixin need to override this method
     def get_media_files(self):
         raise NotImplemented("Models using MediaRemovalMixin needs to override "
@@ -21,7 +23,7 @@ class MediaRemovalMixin(object):
 
     def delete(self, *args, **kwargs):
         for media_file in self.get_media_files():
-            path = settings.MEDIA_ROOT + media_file
+            path = os.path.join(self.media_root, media_file)
 
             if os.path.exists(path):
                 os.remove(path)
@@ -37,8 +39,8 @@ class MediaRemovalMixin(object):
 
             # Move each associated file to its new location
             for (old_path, new_path) in path_pairs:
-                full_old_path = settings.MEDIA_ROOT + old_path
-                full_new_path = settings.MEDIA_ROOT + new_path
+                full_old_path = os.path.join(self.media_root, old_path)
+                full_new_path = os.paht.join(self.media_root, new_path)
 
                 if old_path != new_path and os.path.exists(full_old_path):
                     os.rename(full_old_path, full_new_path)
