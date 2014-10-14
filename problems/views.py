@@ -14,6 +14,7 @@ from base.util import convert_files_to_single_pdf, get_uploaded_filepath
 
 from problems.models import Problem, UserSolution
 from problems.forms import UserSolutionForm, ImportCorrectedSolutionsForm
+from roots import settings
 
 
 class ProblemListView(ListView):
@@ -49,6 +50,7 @@ class UserSolutionSubmissionView(View):
             try:
                 filelist = request.FILES.getlist('solution')
                 submission.solution = convert_files_to_single_pdf(
+                                          settings.SENDFILE_ROOT,
                                           submission.get_solution_path(),
                                           filelist)
                 submission.save()

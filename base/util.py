@@ -199,7 +199,7 @@ def convert_to_pdf_convert(filepath):
     return pdf_path
 
 
-def merge_pdf_files(output_path, filepaths):
+def merge_pdf_files(path_root, output_path, filepaths):
     if not filepaths:
         raise ValidationError(u"No PDF files to merge.")
     elif not output_path:
@@ -207,7 +207,7 @@ def merge_pdf_files(output_path, filepaths):
 
     out, err, rc = run(['pdftk'] +
                        filepaths +
-                       ['cat', 'output', settings.MEDIA_ROOT + output_path])
+                       ['cat', 'output', os.path.join(path_root, output_path)])
 
     if rc != 0:
         raise ValidationError(u"Failed to merge PDF files.")
@@ -215,7 +215,7 @@ def merge_pdf_files(output_path, filepaths):
     return output_path
 
 
-def convert_files_to_single_pdf(output_path, files):
+def convert_files_to_single_pdf(path_root, output_path, files):
     CONTENT_TYPES = {
         'noconvert': ['application/pdf'],
         'soffice': ['application/msword',
@@ -263,7 +263,7 @@ def convert_files_to_single_pdf(output_path, files):
             new_paths.append(new_path)
             to_remove_paths.append(new_path)
 
-    merged_file_path = merge_pdf_files(output_path, new_paths)
+    merged_file_path = merge_pdf_files(path_root, output_path, new_paths)
 
     # Remove all temporary files
     for path in to_remove_paths:
