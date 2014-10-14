@@ -137,19 +137,6 @@ class CompetitionOrgRegistration(models.Model):
 
 class SeasonSeriesBaseMixin(object):
 
-    @cached_property
-    def results(self):
-        results = []
-
-        for competitor in self.get_competitors():
-            solutions, total = self.get_user_solutions_with_total(competitor)
-            results.append((competitor, solutions, total))
-
-        # Sort the results by total_score
-        results.sort(key=lambda x: x[2], reverse=True)
-
-        return results
-
     def get_user_ranking(self, user):
         """
         Returns the user's ranking in the current series. Since user can be
@@ -255,6 +242,29 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         return YearSegment.by_date(season_midpoint, num_segments)
 
     @cached_property
+    def results(self):
+        results = []
+
+        series_results = [series.results for series in self.series_set.all()]
+
+        custom_total_func = getattr(settings,
+                                    'ROOTS_SEASON_TOTAL_SCORE_FUNC',
+                                    simple_series_solution_sum)
+
+        season_results = []
+
+        for competitor in self.competitors:
+            user_results = [result_line[1:] for series_result in series_results for result_line in series_result
+                            if result_line[0] == competitor]
+            total = custom_total_func(user_results)
+
+            season_results.append((competitor, user_results, total))
+
+        season_results.sort(key=lambda x: x[2], reverse=True)
+        return season_results
+
+
+    @cached_property
     def competitors(self):
         """
         Returns the list of the competitors in the given season as everybody
@@ -277,7 +287,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         UserSolution object.
         """
 
-        return [series.get_user_solutions()
+        return [series.get_user_solutions(user)
                 for series in self.series_set.all()]
 
     def get_user_solutions_with_total(self, user):
@@ -303,7 +313,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
         if custom_total_func is not None:
             assert callable(custom_total_func)
-            return custom_total_func(user, solutions)
+            return custom_total_func(user, all_solutions)
         else:
             # Fallback to simple sum
             return all_solutions, total
@@ -357,10 +367,67 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                                       blank=True,
                                       null=True,
                                       verbose_name=_('problem set assigned'))
-    submission_deadline = models.DateTimeField(
-                              verbose_name=_('series submission deadline'))
+    submission_deadline = models.DateTimeField(verbose_name=_('series submission deadline'))
     is_active = models.BooleanField(default=False,
                                     verbose_name=_('is series active'))
+
+    def sort_solutions(self, solutions):
+        """
+        Sorts the solutions passed as argument according to the order of the problems in the problemset.
+        """
+
+        sorted_solutions = [None] * self.problemset.problems.count()
+        problem_ids = list(self.problemset.problems.values_list('id', flat=True))
+
+        for solution in solutions:
+            try:
+                sorted_solutions[problem_ids.index(solution.problem.pk)] = solution
+            except ValueError:
+                raise ValueError("Given solution %s is not for any problem in the problemset %s" %
+                                 (solution, self.problemset))
+
+        return sorted_solutions
+
+    @cached_property
+    def results(self):
+        results = []
+
+        # Fetch the UserSolution model manually, since importing causes cyclical imports
+        UserSolution = get_model('problems', 'UserSolution')
+
+        custom_total_func = getattr(settings,
+                                    'ROOTS_SERIES_TOTAL_SCORE_FUNC',
+                                    simple_solution_sum)
+
+        series_problem_ids = self.problemset.problems.values_list('id', flat=True)
+
+        solutions = (UserSolution.objects.only('problem', 'user', 'score')
+                                         .filter(problem__in=series_problem_ids)
+                                         .order_by('user', 'problem')
+                                         .select_related('user'))
+
+        current_user = None
+
+        # Solutions are sorted by the user ids first, then by the problem ids
+        for solution in solutions:
+            if current_user != solution.user:
+                # User has changed, compute the previous line if we are not processing the first solution
+                if current_user is not None:
+                    # Process the previous line
+                    total = custom_total_func(user=current_user,
+                                              solutions=self.sort_solutions(solutions))
+                    results.append((current_user, solutions, total))
+
+                # Prepare the new result line
+                current_user_id = solution.user_id
+                user_solutions = []
+            else:
+                user_solutions.append(solution)
+
+        # Sort the results by total_score
+        results.sort(key=lambda x: x[2], reverse=True)
+        return results
+
 
     @cached_property
     def competitors(self):
@@ -376,6 +443,12 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
         return competitors
 
+    @cached_property
+    def solutions(self):
+        UserSolution = get_model('problems', 'UserSolution')
+        series_problem_ids = self.problemset.problems.values_list('id', flat=True)
+        return UserSolution.objects.filter(problem__in=series_problem_ids)
+
     def get_user_solutions(self, user):
         """
         Returns the list of solutions of problems in this series for a
@@ -383,20 +456,8 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         instead of a UserSolution object.
         """
 
-        solutions = []
-        UserSolution = get_model('problems', 'UserSolution')
-
-        # TODO: See if this can be done with a simple JOIN without making
-        # multiple queries here. Not optimizing prematurely now though.
-
-        for problem in self.problemset.problems.all():
-            try:
-                solution = UserSolution.objects.get(user=user, problem=problem)
-                solutions.append(solution)
-            except UserSolution.DoesNotExist:
-                solutions.append(None)
-
-        return solutions
+        solutions = self.solutions.filter(user=user)
+        return self.sort_solutions(solutions)
 
     def get_user_solutions_with_total(self, user):
         """
