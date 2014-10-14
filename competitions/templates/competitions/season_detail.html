@@ -66,11 +66,13 @@
               {% define discussion_modal %}data-toggle="modal" data-target="#problem-discussion-{{problem.pk}}"{% enddefine %}
             {% else %}
               {% define button_level %}warning{% enddefine %}
-              {% define button_title %}{% trans "Not yet submitted" %}{% enddefine %}
+              {% define button_title %}{% if not user.is_authenticated %}{% trans "To submit you need to login first" %}{% else %}{% trans "Not yet submitted" %}{% endif %}{% enddefine %}
               {% define button_text%}{% trans "Submit" %}{% enddefine %}
               {% define submission_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
               {% define discussion_modal %}data-toggle="modal" data-target="#problem-discussion-{{problem.pk}}"{% enddefine %}
             {% endif %}
+
+            {% define disabled %}{% if not user.is_authenticated %}disabled="disabled"{% endif %}{% enddefine %}
 
             <div class="row">
               <div class="col-lg-9">
@@ -80,7 +82,7 @@
               </div>
 
               <div class="col-lg-3">
-                <button type="button" class="btn btn-{{button_level}} btn-default center-block" data-placement="top" title="{{button_title}}" {{submission_modal}}>
+                <button type="button" class="btn btn-{{button_level}} btn-default center-block" {{disabled}} data-placement="top" title="{{button_title}}" {{submission_modal}}>
                   {{button_text}}
                 </button>
                 <button class="btn btn-default center-block" style="padding: 0px 12px; margin-top: 8px;" data-placement="bottom" title="{% trans "You can ask questions related to the problem here!" %}" {{discussion_modal}}>
