@@ -128,7 +128,8 @@
 
                   {% if form.solution.value %}
                   <p> {% trans "Current solution:" %}
-                    <a href="{{MEDIA_URL}}{{form.solution.value}}">{{form.solution.value}} </a>
+                    {% define solution_path %}{{ form.solution.value|cut:"solutions/" }}{% enddefine %}
+                    <a href="{% url 'download_solution' path=solution_path %}">{{form.solution.value}} </a>
                   </p>
                   {% endif %}
 
