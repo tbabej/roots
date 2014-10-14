@@ -56,7 +56,7 @@
               {% define button_level %}success{% enddefine %}
               {% define button_title %}{{solution.added_at}}{{solution.pk}}{% enddefine %}
               {% define button_text %}{% trans "Submitted" %}{% enddefine %}
-              {% define button_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
+              {% define submission_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
               {% define discussion_modal %}data-toggle="modal" data-target="#problem-discussion-{{problem.pk}}"{% enddefine %}
             {% elif series.is_past_submission_deadline %}
               {% define button_level %}danger{% enddefine %}
