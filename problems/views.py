@@ -33,7 +33,7 @@ class UserSolutionSubmissionView(View):
     form_class = UserSolutionForm
 
     def get(self, request, *args, **kwargs):
-        return redirect('competitions_season_detail', pk=1)
+        return redirect('competitions_season_detail_latest')
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
@@ -60,7 +60,7 @@ class UserSolutionSubmissionView(View):
                                     error=', '.join(errors))
                               )
 
-        return redirect('competitions_season_detail', pk=1)
+        return redirect('competitions_season_detail_latest')
 
 
 # TODO: make this view protected so that only staff members can use it
