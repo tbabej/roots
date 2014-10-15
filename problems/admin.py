@@ -184,14 +184,14 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
 
     fieldsets = (
         (None, {
-            'fields': ('user', 'problem', 'solution')
+            'fields': ('user', 'problem', 'solution', 'corrected_solution', 'classlevel', 'school', 'school_class')
         }),
     )
 
     editonly_fieldsets = (
         ('Details', {
             'classes': ('grp-collapse', 'grp-closed'),
-            'fields': ('added_by', 'modified_by', 'added_at', 'modified_at')
+            'fields': ('added_by', 'modified_by', 'added_at', 'modified_at', 'corrected_by', 'note')
         }),
     )
 
