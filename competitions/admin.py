@@ -109,6 +109,7 @@ class SeasonAdmin(PrettyFilterMixin, VersionAdmin):
                        'start',
                        'end',
                        'join_deadline',
+                       'sum_method',
                        )
         }),
     )
@@ -138,7 +139,7 @@ class SeriesAdmin(PrettyFilterMixin, VersionAdmin):
     fieldsets = (
         (None, {
             'fields': ('season', 'name', 'number', 'problemset',
-                       'submission_deadline', 'is_active')
+                       'submission_deadline', 'is_active', 'sum_method')
         }),
     )
 

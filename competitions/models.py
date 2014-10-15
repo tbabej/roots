@@ -231,6 +231,11 @@ class Season(models.Model, SeasonSeriesBaseMixin):
                                          verbose_name=_('join deadline'))
     start = models.DateTimeField(verbose_name=_('season start'))
     end = models.DateTimeField(verbose_name=_('season end'))
+    sum_method = models.CharField(max_length=50,
+                                  blank=True,
+                                  null=True,
+                                  help_text=_('Method that is used to compute the sum of the season'),
+                                  choices=settings.ROOTS_SEASON_TOTAL_SUM_METHOD_CHOICES)
 
     def get_year_segment(self, num_segments=2):
         """
@@ -259,7 +264,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         series_results = [series.results for series in self.series]
 
         custom_total_func = getattr(settings,
-                                    'ROOTS_SEASON_TOTAL_SCORE_FUNC',
+                                    self.sum_method or '',
                                     simple_series_solution_sum)
 
         season_results = []
@@ -306,7 +311,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         Returns a list of lists of user solutions with total score computed.
 
         Also gives a total score per season for this user. A total score may
-        be computed using settings.ROOTS_TOTAL_SEASON_SCORE_FUNC. Fallbacks
+        be computed using settings.<self.sum_method>. Fallbacks
         to a simple sum of series subtotals if not specified.
         """
 
@@ -319,7 +324,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
             total += subtotal
 
         custom_total_func = getattr(settings,
-                                    'ROOTS_TOTAL_SEASON_SCORE_FUNC',
+                                    self.sum_method or '',
                                     None)
 
         if custom_total_func is not None:
@@ -381,6 +386,14 @@ class Series(models.Model, SeasonSeriesBaseMixin):
     submission_deadline = models.DateTimeField(verbose_name=_('series submission deadline'))
     is_active = models.BooleanField(default=False,
                                     verbose_name=_('is series active'))
+    sum_method = models.CharField(max_length=50,
+                                  blank=True,
+                                  null=True,
+                                  verbose_name=_('total method'),
+                                  help_text=_('Method that is used to compute the sum of the series'),
+                                  choices=settings.ROOTS_SERIES_TOTAL_SUM_METHOD_CHOICES)
+
+
 
     @cached_property
     def num_problems(self):
@@ -411,7 +424,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         UserSolution = get_model('problems', 'UserSolution')
 
         custom_total_func = getattr(settings,
-                                    'ROOTS_SERIES_TOTAL_SCORE_FUNC',
+                                    (self.sum_method or ''),
                                     simple_solution_sum)
 
         series_problem_ids = self.problemset.problems.values_list('id', flat=True)
@@ -480,7 +493,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         Returns a list of user solutions with total score computed.
 
         The computation of the total score can follow any arbitrary rules,
-        it needs to be specified by the settings.ROOTS_SERIES_TOTAL_SCORE_FUNC.
+        it needs to be specified by the settings.<self.sum_method>.
 
         This defaults to simple sum.
         """
@@ -488,7 +501,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         solutions = self.get_user_solutions(user)
 
         custom_total_func = getattr(settings,
-                                    'ROOTS_SERIES_TOTAL_SCORE_FUNC',
+                                    self.sum_method or '',
                                     simple_solution_sum)
 
         return solutions, custom_total_func(user, solutions)
