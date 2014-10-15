@@ -13,17 +13,20 @@
 
   <!-- navigation-tabs -->
   <ul class="nav nav-tabs">
-  {% for series in season.series_set.all %}
+  {% for series in season.series %}
         <li {% if series.is_nearest_deadline %}class="active"{% endif %}>
-          <a href="#series-{{forloop.counter}}" data-toggle="tab">{{series.name}}</a>
+          <a href="#series-{{series.pk}}" data-toggle="tab">{{series.name}}</a>
         </li>
   {% endfor %}
+        <li>
+          <a href="#complete_results" data-toggle="tab">{% trans "Complete results" %}</a>
+        </li>
   </ul>
   <!-- end navigation-tabs -->
 
   <!-- tab-content -->
   <div class="tab-content">
-  {% for series in season.series_set.all %}
+  {% for series in season.series %}
       <div class="tab-pane fade {% if series.is_nearest_deadline %}in active{% endif %}" id="series-{{series.pk}}">
 
           </br>
@@ -49,28 +52,72 @@
     </thead>
 
     <tbody>
-    {% for competitor in series.get_competitors %}
+    {% for result_row in series.results %}
       <tr>
-      <td> {{competitor.get_full_name|default:competitor.username}} </td>
-        {% for problem in series.problemset.problems.all %}
+      <td> {{result_row.0.get_full_name|default:result_row.0.username}} </td>
+        {% for solution in result_row.1 %}
         <td>
-          {% with results|access:series.pk|access:competitor.pk|access:problem.pk as solution %}
-            {% if solution %}
-              {% define score %}{% if solution.score != Null %}{{solution.score}}{% else %}{% trans "not corrected" %}{% endif %}{% enddefine %}
-            {% else %}
-              {% define score %}-{% enddefine %}
-            {% endif %}
-            {{score}}
-          {% endwith %}
+          {% if solution == None %}
+            --
+          {% else %}
+            {{ solution.score }}
+          {% endif %}
         </td>
         {% endfor %}
-        <td>{{ results|access:series.pk|access:competitor.pk|access:"sum"  }}</td>
+        <td>{{ result_row.2  }}</td>
         </tr>
     {% endfor %}
     </tbody>
     </table>
-    </div><!-- tabe-pane -->
+    </div><!-- tabe-panel -->
   {% endfor %}
+
+    <div class="tab-pane fade {% if series.is_nearest_deadline %}in active{% endif %}" id="complete_results">
+
+    <table class="table table-condensed table-striped">
+    <thead>
+    <tr>
+    <th> Name </th>
+    <th>
+    <table class="table table-condensed">
+    {% for problem in season.series.0.problemset.problems.all %}
+        <th> {% trans "Problem " %}{{forloop.counter}}. </th>
+    {% endfor %}
+    </table>
+    </th>
+    <th> {% trans "Subtotal" %} </th>
+    <th> {% trans "Total" %} </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for result_row in season.results %}
+      <tr>
+      <td> {{result_row.0.get_full_name|default:result_row.0.username}} </td>
+      <td>
+        <table class="table table-condensed">
+        {% for series_result in result_row.1 %}
+            <tr>
+            {% for solution in series_result.0 %}
+            <td>
+              {% if solution == None %}
+                --
+              {% else %}
+                {{ solution.score }}
+              {% endif %}
+            </td>
+            {% endfor %}
+            <td> {{ series_result.1 }} </td>
+            </tr>
+        {% endfor %}
+        </table>
+      </td>
+      <td>{{ result_row.2  }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div><!-- tabe-panel -->
 
   </div> <!-- tab-content -->
 

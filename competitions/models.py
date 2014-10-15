@@ -242,10 +242,21 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         return YearSegment.by_date(season_midpoint, num_segments)
 
     @cached_property
+    def num_problems(self):
+        return sum(s.num_problems for s in self.series)
+
+    @cached_property
+    def series(self):
+        """
+        Provides a cached entry for all series.
+        """
+        return self.series_set.all()
+
+    @cached_property
     def results(self):
         results = []
 
-        series_results = [series.results for series in self.series_set.all()]
+        series_results = [series.results for series in self.series]
 
         custom_total_func = getattr(settings,
                                     'ROOTS_SEASON_TOTAL_SCORE_FUNC',
@@ -371,12 +382,16 @@ class Series(models.Model, SeasonSeriesBaseMixin):
     is_active = models.BooleanField(default=False,
                                     verbose_name=_('is series active'))
 
+    @cached_property
+    def num_problems(self):
+        return self.problemset.problems.count()
+
     def sort_solutions(self, solutions):
         """
         Sorts the solutions passed as argument according to the order of the problems in the problemset.
         """
 
-        sorted_solutions = [None] * self.problemset.problems.count()
+        sorted_solutions = [None] * self.num_problems
         problem_ids = list(self.problemset.problems.values_list('id', flat=True))
 
         for solution in solutions:
@@ -401,10 +416,10 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
         series_problem_ids = self.problemset.problems.values_list('id', flat=True)
 
-        solutions = (UserSolution.objects.only('problem', 'user', 'score')
+        solutions = (UserSolution.objects.only('problem', 'user', 'score', 'classlevel')
                                          .filter(problem__in=series_problem_ids)
                                          .order_by('user', 'problem')
-                                         .select_related('user'))
+                                         .select_related('user', 'problem'))
 
         current_user = None
 
@@ -414,13 +429,14 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                 # User has changed, compute the previous line if we are not processing the first solution
                 if current_user is not None:
                     # Process the previous line
+                    user_solutions = self.sort_solutions(user_solutions)
                     total = custom_total_func(user=current_user,
-                                              solutions=self.sort_solutions(solutions))
-                    results.append((current_user, solutions, total))
+                                              solutions=user_solutions)
+                    results.append((current_user, user_solutions, total))
 
                 # Prepare the new result line
-                current_user_id = solution.user_id
-                user_solutions = []
+                current_user = solution.user
+                user_solutions = [solution]
             else:
                 user_solutions.append(solution)
 
