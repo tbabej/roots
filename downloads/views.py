@@ -12,7 +12,7 @@ def download_protected_file(request, model_class, path_prefix, path):
 
     # filepath is the absolute path, mediapath is relative to media folder
     filepath = settings.SENDFILE_ROOT + path_prefix + path
-    filepath_mediapath = settings.SENDFILE_DIR + path_prefix + path
+    filepath_mediapath = path_prefix + path
 
     if request.user.is_authenticated():
         # Superusers can access all files
