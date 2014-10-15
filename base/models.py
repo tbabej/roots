@@ -40,7 +40,7 @@ class MediaRemovalMixin(object):
             # Move each associated file to its new location
             for (old_path, new_path) in path_pairs:
                 full_old_path = os.path.join(self.media_root, old_path)
-                full_new_path = os.paht.join(self.media_root, new_path)
+                full_new_path = os.path.join(self.media_root, new_path)
 
                 if old_path != new_path and os.path.exists(full_old_path):
                     os.rename(full_old_path, full_new_path)
