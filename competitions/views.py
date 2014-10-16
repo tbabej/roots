@@ -99,3 +99,9 @@ class LatestSeasonDetailView(SeasonDetailView):
     def get_object(self):
         competition = get_object_or_404(Competition, pk=self.kwargs.get('competition_id'))
         return competition.season_set.order_by('-end')[0]
+
+
+class LatestSeasonResultsView(SeasonResultsView):
+    def get_object(self):
+        competition = get_object_or_404(Competition, pk=self.kwargs.get('competition_id'))
+        return competition.season_set.order_by('-end')[0]

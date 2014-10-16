@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
 from .views import (CompetitionDiscussionView, CompetitionRegistrationView,
-                    SeasonDetailView, SeasonResultsView, LatestSeasonDetailView)
+                    SeasonDetailView, SeasonResultsView, LatestSeasonDetailView, LatestSeasonResultsView)
 
 urlpatterns = patterns('',
     url(r'^$', CompetitionRegistrationView.as_view(),
@@ -16,6 +16,9 @@ urlpatterns = patterns('',
     url(_(r'^season/latest/(?P<competition_id>\d+)$'),
         LatestSeasonDetailView.as_view(),
         name='competitions_season_detail_latest'),
+    url(_(r'^season/results/latest/(?P<competition_id>\d+)$'),
+        LatestSeasonResultsView.as_view(),
+        name='competitions_season_results_latest'),
     url(_(r'^season/results/(?P<pk>\d+)$'), SeasonResultsView.as_view(),
         name='competitions_season_results'),
     url(_(r'^discussion/(?P<competition_id>\d+)/'),

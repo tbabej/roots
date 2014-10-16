@@ -8,10 +8,10 @@
   </div>
 
   <a class="list-group-item {% url_active request 'posts_post_list' %}" href="{% url 'posts_post_list' %}"><i class="fa fa-envelope-o" style="margin-right: 7px;"></i>
-{% trans "Posts" %}</span></a>
+{% trans "Posts" %}</a>
   <a class="list-group-item {% url_active request 'competitions_season_detail_latest' competition_id=1 %}" href="{% url 'competitions_season_detail_latest' competition_id=1 %}"><i class="fa fa-cube" style="margin-right: 7px;"></i>
 {% trans "Problems" %}</a>
-  <a class="list-group-item {% url_active request 'competitions_season_results' pk=1 %}" href="{% url 'competitions_season_results' pk=1 %}"><i class="fa fa-bar-chart" style="margin-right: 5px;"></i>
+  <a class="list-group-item {% url_active request 'competitions_season_results_latest' competition_id=1 %}" href="{% url 'competitions_season_results_latest' competition_id=1 %}"><i class="fa fa-bar-chart" style="margin-right: 5px;"></i>
 {% trans "Results" %}</a>
   <a class="list-group-item {% url_active request 'leaflets_leaflet_list' %}" href="{% url 'leaflets_leaflet_list' %}"><i class="fa fa-newspaper-o" style="margin-right: 5px;"></i> {% trans "Leaflets" %}</a>
   <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'photos_archive' %}"><i class="fa fa-camera-retro" style="margin-right: 7px;"></i>
