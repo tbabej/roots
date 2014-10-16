@@ -35,11 +35,11 @@
     {% with competition=best_rank.0 season=best_rank.1 rank=best_rank.2 %}
       <h2>
       <strong>
-        {% if rank.0 %}
-          {{ rank.0 }}. {% trans "place" %}
-          {% else %}
+        {% if rank %}
+          {{ rank }}. {% trans "place" %}
+        {% else %}
             -
-          {% endif %}
+        {% endif %}
         </strong>
       </h2>
       <p><small> {% trans "Best ranking" %} </small></p>
