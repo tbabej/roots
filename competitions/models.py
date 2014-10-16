@@ -64,7 +64,7 @@ class Competition(models.Model):
     def get_best_user_ranking(self, user):
         """
         Returns the best ranking of this user and the season in which
-        it occured.
+        it occurred.
 
         Returns (None, None) if no user ranking found (user would have to never
         submit a solution).
@@ -74,8 +74,8 @@ class Competition(models.Model):
         best_season = None
 
         for season in self.get_all_user_seasons(user):
-            rank = season.get_user_ranking(user)
-            if best_rank < rank:
+            rank, _ = season.get_user_ranking(user)
+            if rank < best_rank:
                 best_rank = rank
                 best_season = season
 
