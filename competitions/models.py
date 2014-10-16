@@ -147,27 +147,28 @@ class SeasonSeriesBaseMixin(object):
         """
 
         results = self.results
-        start = None
-        end = 0
-        user_total = None
+        current_total = None
+        user_in_this_interval = False
 
         for i in range(0, len(results)):
             competitor, solutions, total = results[i]
-            if user == competitor:
-                start = end = i + 1
-                user_total = total
 
-            # This depends on the fact that the results list is sorted
-            # decreasingly by the total score
-            elif total == user_total:
+            # Compute the start and end of the interval of users with the same score
+            if total != current_total:
+                if user_in_this_interval:
+                    return (start, end)
+                else:
+                    start = end = i + 1
+                    current_total = total
+            else:
                 end = i + 1
 
-            # If the start of the user interval is set, and we
-            # don't have the same score, we stop searching
-            elif start is not None:
-                break
+            # Make a note if user was found in this interval
+            if competitor == user:
+                user_in_this_interval = True
 
-        return (start or 0, end)
+        # We get here only if the queried user belongs to the last tier
+        return (start, end) if user_in_this_interval else (None, None)
 
     def get_user_percentile(self, user):
         """
