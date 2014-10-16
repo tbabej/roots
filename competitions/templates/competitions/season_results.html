@@ -60,7 +60,7 @@
           {% if solution == None %}
             --
           {% else %}
-            {{ solution.score }}
+            {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
           {% endif %}
         </td>
         {% endfor %}
@@ -103,7 +103,7 @@
               {% if solution == None %}
                 --
               {% else %}
-                {{ solution.score }}
+                {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
               {% endif %}
             </td>
             {% endfor %}
