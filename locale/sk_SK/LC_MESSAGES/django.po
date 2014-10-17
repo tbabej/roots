@@ -454,7 +454,7 @@ msgstr ""
 
 #: competitions/templates/competitions/season_results.html:28
 msgid "Complete results"
-msgstr ""
+msgstr "Celkové poradie"
 
 #: competitions/templates/competitions/season_results.html:64
 msgid "Problem"
