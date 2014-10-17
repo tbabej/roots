@@ -6,8 +6,31 @@
 {% block content %}
 
 {% define content_heading %}
-{{ season.competition }} - {{ season.name }}
+    {% blocktrans with season_competition=season.competition season_year=season.year season_name=season.name %}
+        Results of {{ season_competition }}, {{ season_year }}. rocnika - {{ season_name }}
+    {% endblocktrans %}
 {% enddefine%}
+
+{% define season_dropdown_button %}
+
+    <div class="btn-group pull-right" style="margin-top:15px;">
+      <button type="button" class="btn btn-default">{% trans "Change season" %}</button>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        {% for competition_season in competition_seasons %}
+            <li>
+                <a href="{% url 'competitions_season_results' pk=competition_season.pk %}">
+                    {{ season.competition }}, {{ competition_season.year }}. {% trans "rocnik" %} - {{ competition_season.name }}
+                </a>
+            </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+{% enddefine %}
 
 {% define content %}
 
@@ -26,23 +49,33 @@
 
   <!-- tab-content -->
   <div class="tab-content">
+
   {% for series in season.series %}
       <div class="tab-pane fade {% if series.is_nearest_deadline %}in active{% endif %}" id="series-{{series.pk}}">
 
-          </br>
-          <blockquote class="blockquote-info">
-            <h4>
-              <span class="glyphicon glyphicon-time"></span>
-              {% trans "Series deadline:" %}
-              <span class="text-{% if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
-                {{series.submission_deadline}}
-              </span>
-              </h4>
-          </blockquote>
+      <br/>
+      <div class="row">
+          <div class="col-md-8">
+              <blockquote class="blockquote-info">
+                <h4>
+                  <span class="glyphicon glyphicon-time"></span>
+                  {% trans "Series deadline:" %}
+                  <span class="text-{% if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
+                    {{series.submission_deadline}}
+                  </span>
+                  </h4>
+              </blockquote>
+          </div>
+          <div class="col-md-4">
+              {{ season_dropdown_button }}
+          </div>
+      </div>
 
-    <table class="table table-condensed table-striped">
-    <thead>
-    <tr>
+      <div class="row">
+
+  <table class="table table-condensed table-striped">
+  <thead>
+  <tr>
     <th> Name </th>
     {% for problem in series.problemset.problems.all %}
       <th> {% trans "Problem" %} {{forloop.counter}} </th>
@@ -70,6 +103,7 @@
     </tbody>
     </table>
     </div><!-- tabe-panel -->
+  </div>
   {% endfor %}
 
     <div class="tab-pane fade {% if series.is_nearest_deadline %}in active{% endif %}" id="complete_results">
@@ -117,6 +151,8 @@
     {% endfor %}
     </tbody>
     </table>
+    </div>
+
     </div><!-- tabe-panel -->
 
   </div> <!-- tab-content -->

@@ -3,6 +3,7 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import FormView
 from django.views.generic.detail import DetailView
+from django.views.generic import ListView
 
 from problems.models import UserSolution
 from problems.forms import UserSolutionForm
@@ -48,6 +49,15 @@ class SeasonResultsView(DetailView):
     context_object_name = 'season'
     template_name = 'competitions/season_results.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(SeasonResultsView, self).get_context_data(**kwargs)
+
+        # Generate a list of seasons for this competition
+        competition = self.object.competition
+        seasons = Season.objects.filter(competition=competition).order_by('-start')
+        context['competition_seasons'] = seasons
+
+        return context
 
 class SeasonDetailView(DetailView):
     model = Season
@@ -56,6 +66,10 @@ class SeasonDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(SeasonDetailView, self).get_context_data(*args,
                                                                  **kwargs)
+        # Generate a list of seasons for this competition
+        competition = self.object.competition
+        seasons = Season.objects.filter(competition=competition)
+        context['competition_seasons'] = seasons
 
         # Find UserSolution objects for the problems
         context['solutions'] = dict()
