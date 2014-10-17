@@ -1,0 +1,18 @@
+{% load i18n %}
+
+    <div class="btn-group pull-right" style="margin-top:15px;">
+      <button type="button" class="btn btn-default">{% trans "Change season" %}</button>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        {% for competition_season in competition_seasons %}
+            <li>
+                <a href="{% url view_name pk=competition_season.pk %}">
+                    {{ season.competition }}, {{ competition_season.year }}. {% trans "rocnik" %} - {{ competition_season.name }}
+                </a>
+            </li>
+        {% endfor %}
+      </ul>
+    </div>

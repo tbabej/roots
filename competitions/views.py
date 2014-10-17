@@ -68,7 +68,7 @@ class SeasonDetailView(DetailView):
                                                                  **kwargs)
         # Generate a list of seasons for this competition
         competition = self.object.competition
-        seasons = Season.objects.filter(competition=competition)
+        seasons = Season.objects.filter(competition=competition).order_by('-start')
         context['competition_seasons'] = seasons
 
         # Find UserSolution objects for the problems
