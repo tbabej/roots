@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load roots_tags %}
 {% load sekizai_tags %}
+{% load avatar_tags %}
 
 {% block content %}
 
@@ -68,7 +69,18 @@
     <tbody>
     {% for result_row in series.results %}
       <tr>
-      <td> {{result_row.0.get_full_name|default:result_row.0.username}} </td>
+      <td>
+        {% with result_row.0 as row_user %}
+          <a href="{% url 'profiles_userprofile_detail' username=row_user.username %}" style="text-decoration: none !important;">
+            {% if row_user|has_avatar %}
+              <img src="{% avatar_url row_user 17 %}" class="img-circle" style="margin-top: -4px;"/>
+            {% else %}
+              <span class="glyphicon glyphicon-user" style="padding-right: 2px; padding-left: 2px;"></span>
+            {% endif %}
+          </a>
+          {{row_user.get_full_name|default:row_user.username}}
+        {% endwith %}
+      </td>
         {% for solution in result_row.1 %}
         <td>
           {% if solution == None %}
