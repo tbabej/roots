@@ -47,18 +47,41 @@
 
       <br/>
       <div class="row">
-          <div class="col-md-8">
-              <blockquote class="blockquote-info">
-                <h4>
+          <div class="col-md-9">
+            <blockquote class="blockquote-info">
+              <div class="center-block">
+                <h5>
                   <span class="glyphicon glyphicon-time"></span>
                   {% trans "Series deadline:" %}
                   <span class="text-{% if series.is_past_submission_deadline%}danger{% else %}success{% endif %}">
                     {{series.submission_deadline}}
                   </span>
-                  </h4>
-              </blockquote>
+                </h5>
+              </div>
+
+              {% if not series.is_past_submission_deadline and series.get_elapsed_time_percentage > 33 %}
+                  {% with bar_value_string=series.get_elapsed_time_percentage|floatformat:0 bar_value=series.get_elapsed_time_percentage %}
+                  {% define bar_style %}{% if bar_value < 50 %}success{% elif bar_value < 75 %}warning{% else %}danger{% endif %}{% enddefine %}
+
+                  <div class="progress" style="overflow: visible;">
+                    <div class="progress-bar progress-bar-striped progress-bar-{{ bar_style }}" role="progressbar" aria-valuenow="{{ bar_value_string }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bar_value_string }}%; overflow: visible;">
+                      {% if bar_value < 50 %}
+                          {{ series.time_to_deadline|timedelta_to_string:'days' }} {% trans "remaining" %}
+                      {% elif bar_value < 75 %}
+                          {{ series.time_to_deadline|timedelta_to_string:'days_hours' }} {% trans "remaining" %}
+                      {% elif bar_value < 97 %}
+                          {{ series.time_to_deadline|timedelta_to_string:'days_hours_minutes' }} {% trans "remaining" %}
+                      {% else %}
+                          {{ series.time_to_deadline|timedelta_to_string }} {% trans "remaining" %}
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% endwith %}
+              {% endif %}
+
+            </blockquote>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
               {{ season_dropdown_button }}
           </div>
       </div>

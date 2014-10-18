@@ -2,6 +2,7 @@ from django import template
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.template.base import TemplateSyntaxError
+from django.utils.text import ugettext_lazy as _
 
 register = template.Library()
 
@@ -140,3 +141,24 @@ def get_comment_count_private(parser, token):
 @register.tag
 def get_comment_list_private(parser, token):
     return PrivateCommentListNode.handle_token(parser, token)
+
+@register.filter
+def timedelta_to_string(delta, form='days_hours_minutes_seconds'):
+    days = delta.days
+    hours = (delta.seconds // 3600)
+    minutes = (delta.seconds // 60) % 60
+    seconds = delta.seconds % 60
+
+
+    if form == 'days_hours_minutes_seconds':
+        template_string = _("{days} days, {hours} hours, {minutes} minutes and {seconds} seconds")
+    elif form == 'days_hours_minutes':
+        template_string = _("{days} days, {hours} hours and {minutes} minutes")
+    elif form == 'days_hours':
+        template_string = _("{days} days and {hours} hours")
+    elif form == 'days':
+        template_string = _("{days} days")
+    else:
+        return ""
+
+    return template_string.format(days=days, hours=hours, minutes=minutes, seconds=seconds)

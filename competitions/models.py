@@ -1,3 +1,4 @@
+import datetime
 from django.conf import settings
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
@@ -399,6 +400,33 @@ class Series(models.Model, SeasonSeriesBaseMixin):
     @cached_property
     def num_problems(self):
         return self.problemset.problems.count()
+
+    @property
+    def time_to_deadline(self):
+        """
+        Returns the remaining time to the submission deadline as a datetime.timedelta object. If the deadline is over,
+        returns datetime.timedelta(0).
+        """
+        remaining_time = self.submission_deadline - now()
+
+        if remaining_time.total_seconds() < 0:
+            return datetime.timedelta(0)
+        else:
+            return remaining_time
+
+    def get_elapsed_time_percentage(self, base_timespan=datetime.timedelta(30)):
+        """
+        Returns the remaining time percentage for the given series. The base_timespan parameter defines the time when
+        the countdown starts (by default 30 days before the submission deadline).
+        """
+
+        remaining_time = self.time_to_deadline
+
+        # If the remaining time is more than base_timespan, return 0 percent to prevent negative values
+        if remaining_time > base_timespan:
+            return 0
+        else:
+            return (1.0 - (remaining_time.total_seconds() / base_timespan.total_seconds())) * 100
 
     def sort_solutions(self, solutions):
         """
