@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 18:58+0200\n"
+"POT-Creation-Date: 2014-10-18 21:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,123 +152,143 @@ msgstr "Vedúcovské veci"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: competitions/models.py:25
+#: base/templatetags/roots_tags.py:154
+#, python-brace-format
+msgid "{days} days, {hours} hours, {minutes} minutes and {seconds} seconds"
+msgstr "{days} dní, {hours} hodín, {minutes} minút a {seconds} sekúnd"
+
+#: base/templatetags/roots_tags.py:156
+#, python-brace-format
+msgid "{days} days, {hours} hours and {minutes} minutes"
+msgstr "{days} dní, {hours} hodín a {minutes} minút"
+
+#: base/templatetags/roots_tags.py:158
+#, python-brace-format
+msgid "{days} days and {hours} hours"
+msgstr "{days} dní a {hours} hodín"
+
+#: base/templatetags/roots_tags.py:160
+#, python-brace-format
+msgid "{days} days"
+msgstr "{days} dní"
+
+#: competitions/models.py:26
 msgid "competition name"
 msgstr "názov súťaže / seminára"
 
-#: competitions/models.py:30
+#: competitions/models.py:31
 msgid "organizer group"
 msgstr "skupina vedúcich pre súťaž / seminár"
 
-#: competitions/models.py:86 competitions/models.py:99
-#: competitions/models.py:123 competitions/models.py:226 events/models.py:27
+#: competitions/models.py:87 competitions/models.py:100
+#: competitions/models.py:124 competitions/models.py:227 events/models.py:27
 #: leaflets/models.py:32 posts/models.py:21 problems/models.py:233
 #: problems/models.py:339 problems/models.py:405 problems/models.py:442
 msgid "competition"
 msgstr "súťaž / seminár"
 
-#: competitions/models.py:87
+#: competitions/models.py:88
 msgid "competitions"
 msgstr "súťaže / semináre"
 
-#: competitions/models.py:101 events/models.py:110 events/models.py:223
+#: competitions/models.py:102 events/models.py:110 events/models.py:223
 #: problems/models.py:67 profiles/models.py:24 profiles/models.py:161
 msgid "user"
 msgstr "užívateľ"
 
-#: competitions/models.py:104
+#: competitions/models.py:105
 msgid " competes in "
 msgstr " súťaží v: "
 
-#: competitions/models.py:109 events/models.py:119
+#: competitions/models.py:110 events/models.py:119
 msgid "user registration"
 msgstr "registrácia užívateľa"
 
-#: competitions/models.py:110 events/models.py:120
+#: competitions/models.py:111 events/models.py:120
 msgid "user registrations"
 msgstr "registrácie užívateľov"
 
-#: competitions/models.py:125 events/models.py:134 problems/models.py:159
+#: competitions/models.py:126 events/models.py:134 problems/models.py:159
 msgid "organizer"
 msgstr "vedúci"
 
-#: competitions/models.py:126
+#: competitions/models.py:127
 msgid "registration approved"
 msgstr "registrácie schválená"
 
-#: competitions/models.py:129 events/models.py:137
+#: competitions/models.py:130 events/models.py:137
 msgid " organizes "
 msgstr " organizuje "
 
-#: competitions/models.py:134 competitions/models.py:135 events/models.py:143
+#: competitions/models.py:135 competitions/models.py:136 events/models.py:143
 msgid "organizer registration"
 msgstr "registrácia vedúceho"
 
-#: competitions/models.py:227 leaflets/models.py:33
+#: competitions/models.py:228 leaflets/models.py:33
 msgid "year"
 msgstr "rok"
 
-#: competitions/models.py:228 competitions/models.py:382
+#: competitions/models.py:229 competitions/models.py:383
 msgid "number"
 msgstr "číslo"
 
-#: competitions/models.py:229 competitions/models.py:381
+#: competitions/models.py:230 competitions/models.py:382
 #: problems/models.py:402 problems/models.py:438 schools/models.py:44
 msgid "name"
 msgstr "názov"
 
-#: competitions/models.py:232
+#: competitions/models.py:233
 msgid "join deadline"
 msgstr "termín na prihĺasenie"
 
-#: competitions/models.py:233
+#: competitions/models.py:234
 msgid "season start"
 msgstr "začiatok semestra"
 
-#: competitions/models.py:234
+#: competitions/models.py:235
 msgid "season end"
 msgstr "koniec semestra"
 
-#: competitions/models.py:238
+#: competitions/models.py:239
 msgid "Method that is used to compute the sum of the season"
 msgstr ""
 "Metóda, ktorá je použitá na výpočet celkového súčtu bodov riešiteľa v "
 "semestri"
 
-#: competitions/models.py:367
+#: competitions/models.py:368
 msgid "Season"
 msgstr "semester"
 
-#: competitions/models.py:368
+#: competitions/models.py:369
 msgid "Seasons"
 msgstr "semestre"
 
-#: competitions/models.py:379
+#: competitions/models.py:380
 msgid "season"
 msgstr "semester"
 
-#: competitions/models.py:386
+#: competitions/models.py:387
 msgid "problem set assigned"
 msgstr "priradený súbor príkladov"
 
-#: competitions/models.py:387
+#: competitions/models.py:388
 msgid "series submission deadline"
 msgstr "termín série"
 
-#: competitions/models.py:389
+#: competitions/models.py:390
 msgid "is series active"
 msgstr "je séria aktívna"
 
-#: competitions/models.py:393
+#: competitions/models.py:394
 msgid "total method"
 msgstr "Metóda na výpočet súčtu bodov"
 
-#: competitions/models.py:394
+#: competitions/models.py:395
 msgid "Method that is used to compute the sum of the series"
 msgstr ""
 "Metóda, ktorá je použitá na výpočet celkového súčtu bodov riešiteľa v sérii"
 
-#: competitions/models.py:539 competitions/models.py:540
+#: competitions/models.py:567 competitions/models.py:568
 msgid "Series"
 msgstr "Séria"
 
@@ -332,100 +352,107 @@ msgstr ""
 "%(season_name)s\n"
 "    "
 
-#: competitions/templates/competitions/season_detail.html:54
-#: competitions/templates/competitions/season_results.html:45
+#: competitions/templates/competitions/season_detail.html:55
+#: competitions/templates/competitions/season_results.html:46
 msgid "Series deadline:"
 msgstr "Termín série:"
 
-#: competitions/templates/competitions/season_detail.html:72
+#: competitions/templates/competitions/season_detail.html:69
+#: competitions/templates/competitions/season_detail.html:71
+#: competitions/templates/competitions/season_detail.html:73
+#: competitions/templates/competitions/season_detail.html:75
+msgid "remaining"
+msgstr "do termínu"
+
+#: competitions/templates/competitions/season_detail.html:95
 msgid "Submitted"
 msgstr "Odovzdané"
 
-#: competitions/templates/competitions/season_detail.html:77
-#: competitions/templates/competitions/season_detail.html:78
+#: competitions/templates/competitions/season_detail.html:100
+#: competitions/templates/competitions/season_detail.html:101
 msgid "Not submitted"
 msgstr "Neodovzdané"
 
-#: competitions/templates/competitions/season_detail.html:83
+#: competitions/templates/competitions/season_detail.html:106
 msgid "To submit you need to login first"
 msgstr "Pri odovzdanie riešenia sa musíte prihĺásiť."
 
-#: competitions/templates/competitions/season_detail.html:83
+#: competitions/templates/competitions/season_detail.html:106
 msgid "Not yet submitted"
 msgstr "Ešte neodovzdané"
 
-#: competitions/templates/competitions/season_detail.html:84
-#: competitions/templates/competitions/season_detail.html:224
+#: competitions/templates/competitions/season_detail.html:107
+#: competitions/templates/competitions/season_detail.html:247
 #: templates/fluent_comments/templatetags/flat_list.html:59
 msgid "Submit"
 msgstr "Odovzdať"
 
-#: competitions/templates/competitions/season_detail.html:102
+#: competitions/templates/competitions/season_detail.html:125
 msgid "You can ask questions related to the problem here!"
 msgstr "Svoje otázky k zadaniu položte tu!"
 
-#: competitions/templates/competitions/season_detail.html:106
+#: competitions/templates/competitions/season_detail.html:129
 msgid "Discussion: "
 msgstr "Diskusia: "
 
-#: competitions/templates/competitions/season_detail.html:128
+#: competitions/templates/competitions/season_detail.html:151
 #, python-format
 msgid " Problem submission: %(series.name)s - problem %(forloop.counter)s "
 msgstr ""
 " Odovzdávanie príkladov: %(series.name)s - príklad %(forloop.counter)s "
 
-#: competitions/templates/competitions/season_detail.html:143
+#: competitions/templates/competitions/season_detail.html:166
 msgid "Current solution:"
 msgstr "Súčasné riešenie:"
 
-#: competitions/templates/competitions/season_detail.html:149
+#: competitions/templates/competitions/season_detail.html:172
 msgid "Instructions"
 msgstr "Inštrukcie"
 
-#: competitions/templates/competitions/season_detail.html:151
+#: competitions/templates/competitions/season_detail.html:174
 msgid "Preferable format is single PDF file."
 msgstr "Preferovaný formát je jeden PDF súbor."
 
-#: competitions/templates/competitions/season_detail.html:152
+#: competitions/templates/competitions/season_detail.html:175
 msgid "However, supported formats are: .doc, .jpg, .png, .gif, .tiff"
 msgstr "Každopádne, podporované formáty sú: .doc, .jpg, .png, .gif, .tiff"
 
-#: competitions/templates/competitions/season_detail.html:153
+#: competitions/templates/competitions/season_detail.html:176
 msgid "These formats will be converted to PDF."
 msgstr "Tieto formáty budú skonvertované na PDF."
 
-#: competitions/templates/competitions/season_detail.html:154
+#: competitions/templates/competitions/season_detail.html:177
 msgid "You can upload mutliple files, they will be merged into one PDF file."
 msgstr "Môžete odovzdať viacero súborov, budú zlúčené do jedného PDF súboru."
 
-#: competitions/templates/competitions/season_detail.html:155
+#: competitions/templates/competitions/season_detail.html:178
 msgid "Maximum size of solution is"
 msgstr "Maximálna veľkosť riešenia je"
 
-#: competitions/templates/competitions/season_detail.html:164
-#: competitions/templates/competitions/season_detail.html:225
+#: competitions/templates/competitions/season_detail.html:187
+#: competitions/templates/competitions/season_detail.html:248
 msgid "Close"
 msgstr "Zatvoriť"
 
-#: competitions/templates/competitions/season_detail.html:165
+#: competitions/templates/competitions/season_detail.html:188
 msgid "Save changes"
 msgstr "Uložiť zmeny"
 
-#: competitions/templates/competitions/season_detail.html:181
+#: competitions/templates/competitions/season_detail.html:204
 #: templates/fluent_comments/templatetags/flat_list.html:31
 msgid "To post comments, you need to log in first."
 msgstr "Pri pridanie komentára sa musíte prihĺásiť."
 
-#: competitions/templates/competitions/season_detail.html:181
+#: competitions/templates/competitions/season_detail.html:204
 #: templates/fluent_comments/templatetags/flat_list.html:31
 msgid "Write your comment here."
 msgstr "Tu napíšte svoj komentár. "
 
-#: competitions/templates/competitions/season_detail.html:191
+#: competitions/templates/competitions/season_detail.html:214
 msgid "Problem discussion:"
 msgstr "Diskusia k zadaniu"
 
-#: competitions/templates/competitions/season_detail.html:191
+#: competitions/templates/competitions/season_detail.html:214
 #: problems/models.py:70 problems/models.py:161 problems/models.py:266
 #: problems/models.py:273 problems/models.py:318
 msgid "problem"
@@ -435,11 +462,11 @@ msgstr "príklad"
 msgid "Change season"
 msgstr "Zmeniť semester"
 
-#: competitions/templates/competitions/season_dropdown_button.html:13
+#: competitions/templates/competitions/season_dropdown_button.html:11
 msgid "rocnik"
 msgstr "ročník"
 
-#: competitions/templates/competitions/season_results.html:9
+#: competitions/templates/competitions/season_results.html:10
 #, python-format
 msgid ""
 "\n"
@@ -452,25 +479,25 @@ msgstr ""
 "%(season_name)s\n"
 "    "
 
-#: competitions/templates/competitions/season_results.html:28
+#: competitions/templates/competitions/season_results.html:29
 msgid "Complete results"
 msgstr "Celkové poradie"
 
-#: competitions/templates/competitions/season_results.html:64
+#: competitions/templates/competitions/season_results.html:63
 msgid "Problem"
 msgstr "Príklad"
 
-#: competitions/templates/competitions/season_results.html:66
-#: competitions/templates/competitions/season_results.html:106
+#: competitions/templates/competitions/season_results.html:65
+#: competitions/templates/competitions/season_results.html:115
 msgid "Total"
 msgstr "Celkovo"
 
-#: competitions/templates/competitions/season_results.html:101
+#: competitions/templates/competitions/season_results.html:110
 #, fuzzy
 msgid "Problem "
 msgstr "Príklad "
 
-#: competitions/templates/competitions/season_results.html:105
+#: competitions/templates/competitions/season_results.html:114
 #, fuzzy
 msgid "Subtotal"
 msgstr "Celkovo"
