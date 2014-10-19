@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-18 21:21+0200\n"
+"POT-Creation-Date: 2014-10-19 12:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,22 +152,22 @@ msgstr "Vedúcovské veci"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: base/templatetags/roots_tags.py:154
+#: base/templatetags/roots_tags.py:155
 #, python-brace-format
 msgid "{days} days, {hours} hours, {minutes} minutes and {seconds} seconds"
 msgstr "{days} dní, {hours} hodín, {minutes} minút a {seconds} sekúnd"
 
-#: base/templatetags/roots_tags.py:156
+#: base/templatetags/roots_tags.py:157
 #, python-brace-format
 msgid "{days} days, {hours} hours and {minutes} minutes"
 msgstr "{days} dní, {hours} hodín a {minutes} minút"
 
-#: base/templatetags/roots_tags.py:158
+#: base/templatetags/roots_tags.py:159
 #, python-brace-format
 msgid "{days} days and {hours} hours"
 msgstr "{days} dní a {hours} hodín"
 
-#: base/templatetags/roots_tags.py:160
+#: base/templatetags/roots_tags.py:161
 #, python-brace-format
 msgid "{days} days"
 msgstr "{days} dní"
@@ -182,8 +182,9 @@ msgstr "skupina vedúcich pre súťaž / seminár"
 
 #: competitions/models.py:87 competitions/models.py:100
 #: competitions/models.py:124 competitions/models.py:227 events/models.py:27
-#: leaflets/models.py:32 posts/models.py:21 problems/models.py:233
-#: problems/models.py:339 problems/models.py:405 problems/models.py:442
+#: leaflets/models.py:32 news/models.py:13 posts/models.py:21
+#: problems/models.py:233 problems/models.py:339 problems/models.py:405
+#: problems/models.py:442
 msgid "competition"
 msgstr "súťaž / seminár"
 
@@ -498,9 +499,8 @@ msgid "Problem "
 msgstr "Príklad "
 
 #: competitions/templates/competitions/season_results.html:114
-#, fuzzy
 msgid "Subtotal"
-msgstr "Celkovo"
+msgstr "Súčet série"
 
 #: downloads/urls.py:9
 msgid "solutions/(?P<path>.*)$"
@@ -717,6 +717,18 @@ msgstr "^sutaze/(?P<competition_id>\\d+)/$"
 msgid "show all leaflets for"
 msgstr "zobraziť všetky časopisy pre"
 
+#: news/models.py:15
+msgid "heading"
+msgstr "nadpis"
+
+#: news/models.py:17 posts/models.py:22
+msgid "text"
+msgstr "text"
+
+#: news/models.py:25 news/models.py:26
+msgid "News"
+msgstr "Aktuality"
+
 #: photos/urls.py:8
 msgid "^gallery/$"
 msgstr "^galeria/$"
@@ -724,10 +736,6 @@ msgstr "^galeria/$"
 #: posts/models.py:17
 msgid "title"
 msgstr "titulok"
-
-#: posts/models.py:22
-msgid "text"
-msgstr "zadanie"
 
 #: posts/models.py:23
 msgid "slug"
