@@ -98,6 +98,7 @@ INSTALLED_APPS = (
     'downloads',
     'events',
     'leaflets',
+    'news',
     'photos',
     'posts',
     'problems',
