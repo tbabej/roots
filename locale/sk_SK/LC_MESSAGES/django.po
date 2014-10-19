@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-19 13:32+0200\n"
+"POT-Creation-Date: 2014-10-19 13:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,10 @@ msgstr "Prihlásený ako "
 #: base/templates/base/base_base.html:91
 msgid "You are not logged in."
 msgstr "Nie si prihlásený."
+
+#: base/templates/base/base_base.html:146 news/models.py:25 news/models.py:26
+msgid "News"
+msgstr "Aktuality"
 
 #: base/templates/base/index.html:5
 msgid "Welcome!"
@@ -731,10 +735,6 @@ msgstr "nadpis"
 #: news/models.py:17 posts/models.py:22
 msgid "text"
 msgstr "text"
-
-#: news/models.py:25 news/models.py:26
-msgid "News"
-msgstr "Aktuality"
 
 #: photos/urls.py:8
 msgid "^gallery/$"
