@@ -211,6 +211,17 @@ class SeasonSeriesBaseMixin(object):
 
         return users_at_rank
 
+    @cached_property
+    def results_with_ranking(self):
+        results = self.results
+
+        new_results = []
+        for row in results:
+            rank = self.get_user_ranking(row[0])
+            new_results.append(row + (rank,))
+
+        return new_results
+
 
 @with_author
 @with_timestamp
@@ -280,7 +291,6 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
         season_results.sort(key=lambda x: x[2], reverse=True)
         return season_results
-
 
     @cached_property
     def competitors(self):
