@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-19 12:37+0200\n"
+"POT-Creation-Date: 2014-10-19 13:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,7 +181,7 @@ msgid "organizer group"
 msgstr "skupina vedúcich pre súťaž / seminár"
 
 #: competitions/models.py:87 competitions/models.py:100
-#: competitions/models.py:124 competitions/models.py:227 events/models.py:27
+#: competitions/models.py:124 competitions/models.py:238 events/models.py:27
 #: leaflets/models.py:32 news/models.py:13 posts/models.py:21
 #: problems/models.py:233 problems/models.py:339 problems/models.py:405
 #: problems/models.py:442
@@ -225,71 +225,71 @@ msgstr " organizuje "
 msgid "organizer registration"
 msgstr "registrácia vedúceho"
 
-#: competitions/models.py:228 leaflets/models.py:33
+#: competitions/models.py:239 leaflets/models.py:33
 msgid "year"
 msgstr "rok"
 
-#: competitions/models.py:229 competitions/models.py:383
+#: competitions/models.py:240 competitions/models.py:393
 msgid "number"
 msgstr "číslo"
 
-#: competitions/models.py:230 competitions/models.py:382
+#: competitions/models.py:241 competitions/models.py:392
 #: problems/models.py:402 problems/models.py:438 schools/models.py:44
 msgid "name"
 msgstr "názov"
 
-#: competitions/models.py:233
+#: competitions/models.py:244
 msgid "join deadline"
 msgstr "termín na prihĺasenie"
 
-#: competitions/models.py:234
+#: competitions/models.py:245
 msgid "season start"
 msgstr "začiatok semestra"
 
-#: competitions/models.py:235
+#: competitions/models.py:246
 msgid "season end"
 msgstr "koniec semestra"
 
-#: competitions/models.py:239
+#: competitions/models.py:250
 msgid "Method that is used to compute the sum of the season"
 msgstr ""
 "Metóda, ktorá je použitá na výpočet celkového súčtu bodov riešiteľa v "
 "semestri"
 
-#: competitions/models.py:368
+#: competitions/models.py:378
 msgid "Season"
 msgstr "semester"
 
-#: competitions/models.py:369
+#: competitions/models.py:379
 msgid "Seasons"
 msgstr "semestre"
 
-#: competitions/models.py:380
+#: competitions/models.py:390
 msgid "season"
 msgstr "semester"
 
-#: competitions/models.py:387
+#: competitions/models.py:397
 msgid "problem set assigned"
 msgstr "priradený súbor príkladov"
 
-#: competitions/models.py:388
+#: competitions/models.py:398
 msgid "series submission deadline"
 msgstr "termín série"
 
-#: competitions/models.py:390
+#: competitions/models.py:400
 msgid "is series active"
 msgstr "je séria aktívna"
 
-#: competitions/models.py:394
+#: competitions/models.py:404
 msgid "total method"
 msgstr "Metóda na výpočet súčtu bodov"
 
-#: competitions/models.py:395
+#: competitions/models.py:405
 msgid "Method that is used to compute the sum of the series"
 msgstr ""
 "Metóda, ktorá je použitá na výpočet celkového súčtu bodov riešiteľa v sérii"
 
-#: competitions/models.py:567 competitions/models.py:568
+#: competitions/models.py:577 competitions/models.py:578
 msgid "Series"
 msgstr "Séria"
 
@@ -484,21 +484,28 @@ msgstr ""
 msgid "Complete results"
 msgstr "Celkové poradie"
 
-#: competitions/templates/competitions/season_results.html:63
+#: competitions/templates/competitions/season_results.html:61
+msgid "Rank"
+msgstr "Poradie"
+
+#: competitions/templates/competitions/season_results.html:62
+msgid "Name"
+msgstr "Meno"
+
+#: competitions/templates/competitions/season_results.html:64
 msgid "Problem"
 msgstr "Príklad"
 
-#: competitions/templates/competitions/season_results.html:65
-#: competitions/templates/competitions/season_results.html:115
+#: competitions/templates/competitions/season_results.html:66
+#: competitions/templates/competitions/season_results.html:125
 msgid "Total"
 msgstr "Celkovo"
 
-#: competitions/templates/competitions/season_results.html:110
-#, fuzzy
+#: competitions/templates/competitions/season_results.html:120
 msgid "Problem "
 msgstr "Príklad "
 
-#: competitions/templates/competitions/season_results.html:114
+#: competitions/templates/competitions/season_results.html:124
 msgid "Subtotal"
 msgstr "Súčet série"
 
