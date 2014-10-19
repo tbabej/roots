@@ -116,7 +116,8 @@ class UserProfileDetail(DetailView):
 
         # We go back one segment to ensure timespan is at least two segments,
         # otherwise this may cause problems with graphs
-        career_start = min(season_segments.values()).back()
+        career_start = (min(season_segments.values()) if len(season_segments.values()) > 1
+                        else min(season_segments.values()).back())
         career_end = max(season_segments.values())
 
         career_timespan = list(YearSegment.between_segments(career_start,
