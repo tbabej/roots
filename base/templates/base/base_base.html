@@ -9,7 +9,7 @@
 {% endblock %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8">
     <title>{% block head_title %}{% endblock head_title %}</title>
@@ -140,6 +140,27 @@
             {% endblock %}
 
             {% block right_panel %}
+                <div class="col-sm-2 col-md-2">
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                      <h1 class="panel-title"><b>News</b></h1>
+                    </div><!-- panel-heading -->
+
+                    <div class="panel-body">
+                      {% get_last_news as news %}
+                      {% for news_line in news %}
+                          <small>
+                          <b>{{ news_line.heading }}</b></br>
+                          <i>({{ news_line.added_at|date:"d. F Y" }})</i><br/>
+                          {{ news_line.text }}
+                          </small>
+                      {% endfor %}
+                    </div><!-- panel-body -->
+                  </div><!-- panel -->
+
+                  {% block right_panel_extra %}
+                  {% endblock %}
+                </div>
             {% endblock %}
         </div><!--/row-->
     </div> <!-- /container -->
