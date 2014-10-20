@@ -1,6 +1,8 @@
+import os
 from zipfile import ZipFile
 
 from django.core.exceptions import ValidationError
+from django.core.files.move import file_move_safe
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -10,7 +12,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import View
 
-from base.util import convert_files_to_single_pdf, get_uploaded_filepath
+from base.util import convert_files_to_single_pdf, get_uploaded_filepath, remove_accents
 
 from problems.models import Problem, UserSolution
 from problems.forms import UserSolutionForm, ImportCorrectedSolutionsForm
@@ -109,7 +111,8 @@ class ImportCorrectedSolutionsView(View):
                     except (IndexError, ValueError, AssertionError):
                         messages.error(request,
                                        '"%s" is not of the correct form '
-                                       '<score>-<username>-<problem_pk>.pdf')
+                                       '<score>-<username>-<problem_pk>.pdf'
+                                       % remove_accents(filename))
                         continue
 
                     # Find the UserSolution and modify it
@@ -127,7 +130,12 @@ class ImportCorrectedSolutionsView(View):
                                        % (username, problem_pk))
                         continue
 
+                    extracted_path = solutions_zip.extract(filename, path='/tmp')
+                    new_path = os.path.join(settings.SENDFILE_ROOT, solution.get_corrected_solution_path())
+                    file_move_safe(extracted_path, new_path, allow_overwrite=True)
+
                     solution.score = score
+                    solution.corrected_solution = solution.get_corrected_solution_path()
                     solution.save()
 
             except Exception, e:
