@@ -1,4 +1,5 @@
 import datetime
+from operator import or_
 from django.conf import settings
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
@@ -292,6 +293,22 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         season_results.sort(key=lambda x: x[2], reverse=True)
         return season_results
 
+    @property
+    def solutions(self):
+        # Fetch the UserSolution model manually, since importing causes cyclical imports
+        UserSolution = get_model('problems', 'UserSolution')
+        return reduce(or_, [series.solutions for series in self.series], UserSolution.objects.none())
+
+    @property
+    def not_corrected_solutions(self):
+        # Fetch the UserSolution model manually, since importing causes cyclical imports
+        UserSolution = get_model('problems', 'UserSolution')
+        return reduce(or_, [series.not_corrected_solutions for series in self.series], UserSolution.objects.none())
+
+    @property
+    def is_over(self):
+        return self.not_corrected_solutions.count() == 0
+
     @cached_property
     def competitors(self):
         """
@@ -364,6 +381,26 @@ class Season(models.Model, SeasonSeriesBaseMixin):
                 return self.series_set.order_by('-submission_deadline')[0]
             else:
                 return None
+
+    def get_first_series_after_deadline(self):
+        """
+        Returns the most relevant series after the deadline. That is usually the
+        series which just finished.
+
+        If no series are past their deadline, returns the first series.
+        If there are no series in this season, returns None.
+        """
+
+        active_series = self.series_set.filter(submission_deadline__lt=now())
+
+        if active_series.exists():
+            return active_series[0]
+        else:
+            if self.series_set.exists():
+                return self.series_set.order_by('submission_deadline')[0]
+            else:
+                return None
+
 
     def __unicode__(self):
         template = "{name} ({competition} {year}-{number})"
@@ -517,6 +554,10 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         series_problem_ids = self.problemset.problems.values_list('id', flat=True)
         return UserSolution.objects.filter(problem__in=series_problem_ids)
 
+    @property
+    def not_corrected_solutions(self):
+        return self.solutions.filter(score=None)
+
     def get_user_solutions(self, user):
         """
         Returns the list of solutions of problems in this series for a
@@ -551,6 +592,9 @@ class Series(models.Model, SeasonSeriesBaseMixin):
     def is_nearest_deadline(self):
         # Series are returned sorted by the submission deadline
         return self == self.season.get_series_nearest_deadline()
+
+    def is_first_past_deadline(self):
+        return self == self.season.get_first_series_after_deadline()
 
     def clean(self, *args, **kwargs):
         if self.is_active:
