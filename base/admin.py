@@ -41,7 +41,7 @@ class RestrictedCompetitionAdminMixin(object):
         #       associated with the competitions user does not organize
 
         competitions = [c.id for c
-                        in request.user.userprofile.organized_competitions()]
+                        in request.user.userprofile.organized_competitions]
         not_organized_competitions = Competition.objects.exclude(
                                                            id__in=competitions)
         kwargs = {self.competition_field + '__in': not_organized_competitions}
@@ -52,7 +52,7 @@ class RestrictedCompetitionAdminMixin(object):
         if not request.user.is_superuser:
             if db_field.name == self.competition_field:
                 profile = request.user.userprofile
-                kwargs["queryset"] = profile.organized_competitions()
+                kwargs["queryset"] = profile.organized_competitions
 
         return super(RestrictedCompetitionAdminMixin,
                      self).formfield_for_foreignkey(db_field, request, **kwargs)
