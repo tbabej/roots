@@ -128,7 +128,6 @@ class UserSolution(MediaRemovalMixin,
 
     user_modified_at = models.DateTimeField(verbose_name=_('last user modification'),
                                             auto_now=True,
-                                            null=True,
                                             editable=False)
 
     def __unicode__(self):
