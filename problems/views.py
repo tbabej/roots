@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 
 from django.shortcuts import redirect, render
+from django.utils.timezone import now
 
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -55,6 +56,7 @@ class UserSolutionSubmissionView(View):
                                           settings.SENDFILE_ROOT,
                                           submission.get_solution_path(),
                                           filelist)
+                submission.user_modified_at = now()
                 submission.save()
             except ValidationError, e:
                 messages.error(request, str(e))

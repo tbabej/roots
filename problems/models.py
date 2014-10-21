@@ -126,6 +126,11 @@ class UserSolution(MediaRemovalMixin,
                        related_name='usersolutions_corrected_set',
                        verbose_name=_('corrected by'))
 
+    user_modified_at = models.DateTimeField(verbose_name=_('last user modification'),
+                                            auto_now=True,
+                                            null=True,
+                                            editable=False)
+
     def __unicode__(self):
         return unicode(_("User solution: {user} - {problem_id}")
                        .format(user=unicode(self.user),
