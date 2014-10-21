@@ -1,5 +1,6 @@
 import os
 
+from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.comments.signals import comment_was_posted
 from django.forms import forms
@@ -7,6 +8,9 @@ from django.db.models import FileField
 from django.dispatch import receiver
 from django.template.defaultfilters import filesizeformat
 
+# Monkey-patch __unicode__ of the User
+User.__unicode__ = (lambda x: "%s (%s)" % (x.get_full_name(), x.username)
+                              if x.get_full_name() else x.username)
 
 class MediaRemovalMixin(object):
     """
