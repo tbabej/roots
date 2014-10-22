@@ -179,7 +179,7 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
 
     list_filter = ('user', CurrentSeasonFilter, 'problem')
     list_editable = ('score',)
-    search_fields = ['user']
+    search_fields = ['user__first_name', 'user__last_name', 'user__username']
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
     fieldsets = (
