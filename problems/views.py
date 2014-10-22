@@ -8,12 +8,14 @@ from django.contrib.auth.models import User
 
 from django.shortcuts import redirect, render
 from django.utils.timezone import now
+from django.utils.translation import ugettext as _
 
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import View
 
 from base.util import convert_files_to_single_pdf, get_uploaded_filepath, remove_accents
+from competitions.models import Series
 
 from problems.models import Problem, UserSolution
 from problems.forms import UserSolutionForm, ImportCorrectedSolutionsForm
@@ -47,6 +49,19 @@ class UserSolutionSubmissionView(View):
                 user=request.user,
                 problem=Problem.objects.get(pk=form.cleaned_data['problem'])
             )
+
+            # Since series is a part of the POST request, check that problem belongs to this series and that
+            # this series is not past its deadline
+
+            series = Series.objects.get(pk=form.cleaned_data['series'])
+
+            if series.is_past_submission_deadline():
+                messages.error(request, _("Series is past its submission deadline"))
+                return redirect('competitions_season_detail_latest', competition_id=1)
+
+            if not series.problemset.problems.filter(pk=form.cleaned_data['problem']).exists():
+                messages.error(request, _("Problem does not belong to the series"))
+                return redirect('competitions_season_detail_latest', competition_id=1)
 
             submission, created = UserSolution.objects.get_or_create(**data)
 

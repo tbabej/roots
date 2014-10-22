@@ -9,6 +9,7 @@ class UserSolutionForm(forms.Form):
                               max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
                               max_total_size=settings.ROOTS_MAX_SOLUTION_SIZE)
     problem = forms.IntegerField(widget=forms.HiddenInput)
+    series = forms.IntegerField(widget=forms.HiddenInput)
 
 
 class ImportCorrectedSolutionsForm(forms.Form):

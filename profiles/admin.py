@@ -12,12 +12,12 @@ class UserProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):
                     'sex',
                     'date_of_birth',
                     'school',
-                    'classlevel'
+                    'classlevel',
                     )
 
-    list_filter = ('sex', 'school', 'date_of_birth',
-                   'classlevel')
+    list_filter = ('sex', 'school', 'date_of_birth', 'classlevel')
 
+    search_fields = ('user', 'school', 'classlevel')
 
 class OrganizerProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):
 
