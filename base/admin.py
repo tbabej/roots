@@ -117,7 +117,7 @@ class DownloadMediaFilesMixin(object):
 
         for obj in queryset.all():
             for filepath in obj.get_media_files():
-                filepath = os.path.join(settings.MEDIA_ROOT, filepath) if not os.path.isabs(filepath) else filepath
+                filepath = os.path.join(obj.media_root, filepath)
 
                 if os.path.exists(filepath):
                     fdir, fname = os.path.split(filepath)

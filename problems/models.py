@@ -1,5 +1,3 @@
-import os
-
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -49,7 +47,7 @@ class UserSolution(MediaRemovalMixin,
             return user.groups.filter(id=organizer_group.pk).exists()
 
     def get_media_files(self):
-        return [os.path.join(settings.SENDFILE_ROOT, self.get_solution_path())]
+        return [self.get_solution_path()]
 
     def get_solution_path(self, *args, **kwargs):
         return 'solutions/{user}-{problem}.pdf'.format(
