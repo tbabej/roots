@@ -14,3 +14,7 @@
 roots.log
 *.mo
 /templates_custom
+/protected/solutions/*
+/protected/corrected_solutions/*
+!/protected/solutions/README
+!/protected/corrected_solutions/README
