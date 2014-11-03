@@ -34,7 +34,10 @@ class UserSolution(MediaRemovalMixin,
         try:
             return cls.objects.get(solution=path)
         except ObjectDoesNotExist:
-            return None
+            try:
+                return cls.objects.get(corrected_solution=path)
+            except ObjectDoesNotExist:
+                return None
 
     def can_access_files(self, user):
         if self.user == user:
