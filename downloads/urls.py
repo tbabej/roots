@@ -9,4 +9,7 @@ urlpatterns = patterns('',
     url(_(r'solutions/(?P<path>.*)$'), download_protected_file,
         dict(path_prefix='solutions/', model_class=UserSolution),
         name='download_solution'),
+    url(_(r'corrected_solutions/(?P<path>.*)$'), download_protected_file,
+        dict(path_prefix='corrected_solutions/', model_class=UserSolution),
+        name='download_corrected_solution'),
 )
