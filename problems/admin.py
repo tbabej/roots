@@ -123,6 +123,26 @@ class CurrentSeasonProblemFilter(admin.SimpleListFilter):
         else:
             return queryset
 
+class CurrentSeasonUserFilter(admin.SimpleListFilter):
+
+    title = 'users competing in current season'
+    parameter_name = 'current_season_user'
+
+    def lookups(self, request, model_admin):
+        for competition in Competition.objects.all():
+            # If the competition does not have active season, skip it
+            if competition.active_season is None:
+                continue
+
+            for user in competition.active_season.competitors:
+                yield (user.pk, "%s: %s" % (competition, user))
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(user__pk=self.value())
+        else:
+            return queryset
+
 
 @admin_commentable
 @editonly_fieldsets
