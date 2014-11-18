@@ -99,8 +99,7 @@ class AverageSeverityAboveListFilter(admin.SimpleListFilter):
 
         return queryset
 
-
-class CurrentSeasonFilter(admin.SimpleListFilter):
+class CurrentSeasonProblemFilter(admin.SimpleListFilter):
 
     title = 'problem in current season'
     parameter_name = 'current_season_problem'
@@ -112,9 +111,11 @@ class CurrentSeasonFilter(admin.SimpleListFilter):
                 continue
 
             for series in competition.active_season.series_set.all():
-                for problem in series.problemset.problems.all():
+                problems = series.problemset.problems.all()
+
+                for order, problem in enumerate(problems):
                     yield (problem.pk,
-                           "%s, %s: %s" % (competition, series, problem))
+                           "%s, %s: %d" % (competition, series, order + 1))
 
     def queryset(self, request, queryset):
         if self.value():
@@ -177,7 +178,13 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
                     'score',
                     )
 
-    list_filter = ('user', CurrentSeasonFilter, 'problem')
+    list_filter = (
+        CurrentSeasonUserFilter,
+        'user',
+        CurrentSeasonProblemFilter,
+        'problem'
+    )
+
     list_editable = ('score',)
     search_fields = ['user__first_name', 'user__last_name', 'user__username']
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
