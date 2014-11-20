@@ -6,7 +6,7 @@ from base.util import with_author, with_timestamp
 @with_timestamp
 class News(models.Model):
     """
-    Represents one series of problems in the season of the competition.
+    Represents a short information message.
     """
 
     competition = models.ForeignKey('competitions.Competition',
