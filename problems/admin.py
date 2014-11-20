@@ -21,20 +21,35 @@ from .models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
 class ProblemAdmin(RestrictedCompetitionAdminMixin,
                    PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('text',
-                    'get_rating',
-                    'severity',
-                    'category',
-                    'competition',
-                    'added_by',
-                    'last_used_at',
-                    'times_used',
-                    )
+    list_display = (
+        'text',
+        'get_rating',
+        'severity',
+        'category',
+        'competition',
+        'added_by',
+        'last_used_at',
+        'times_used',
+    )
 
-    list_filter = ('competition', 'severity', 'category')
-    search_fields = ['text']
-    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at',
-                       'last_five_usages', 'times_used')
+    list_filter = (
+        'competition',
+        'severity',
+        'category'
+    )
+    search_fields = (
+        'text',
+        'added_by'
+    )
+
+    readonly_fields = (
+        'added_by',
+        'modified_by',
+        'added_at',
+        'modified_at',
+        'last_five_usages',
+        'times_used'
+    )
 
     fieldsets = (
         (None, {
@@ -63,15 +78,29 @@ class ProblemAdmin(RestrictedCompetitionAdminMixin,
 class ProblemInSetInline(RestrictedCompetitionAdminMixin, admin.StackedInline):
 
     model = ProblemInSet
-    fields = ('position', 'problem',
-              'get_competition', 'get_category', 'get_severity', 'times_used',
-              'last_used_at')
-    readonly_fields = ('get_competition', 'get_category', 'get_severity',
-                       'times_used', 'last_used_at')
+    fields = (
+        'position',
+        'problem',
+        'get_competition',
+        'get_category',
+        'get_severity',
+        'times_used',
+        'last_used_at'
+    )
+
+    readonly_fields = (
+        'get_competition',
+        'get_category',
+        'get_severity',
+         'times_used',
+         'last_used_at'
+    )
+
     raw_id_fields = ('problem', )
     verbose_name = 'Problem'
     verbose_name_plural = 'Problems'
     sortable_field_name = "position"
+
     extra = 0
     competition_field = 'problem__competition'
 
@@ -149,20 +178,35 @@ class CurrentSeasonUserFilter(admin.SimpleListFilter):
 class ProblemSetAdmin(RestrictedCompetitionAdminMixin,
                       PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('name',
-                    'competition',
-                    'event',
-                    'get_problem_count',
-                    'get_average_severity_by_competition',
-                    )
+    list_display = (
+        'name',
+        'competition',
+        'event',
+        'get_problem_count',
+        'get_average_severity_by_competition',
+    )
 
-    list_filter = ('competition', 'event', AverageSeverityAboveListFilter)
-    search_fields = ['name', 'event']
-    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at',
-                       'get_average_severity_by_competition')
+    list_filter = (
+        'competition',
+        'event',
+        AverageSeverityAboveListFilter
+    )
+
+    search_fields = (
+        'name',
+        'event__name'
+    )
+
+    readonly_fields = (
+        'added_by',
+        'modified_by',
+        'added_at',
+        'modified_at',
+        'get_average_severity_by_competition'
+    )
 
     ordering = ('modified_at', )
-    inlines = [ProblemInSetInline, ]
+    inlines = (ProblemInSetInline, )
 
     fieldsets = (
         (None, {
@@ -192,11 +236,12 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
 
     actions = ['import_from_zip']
 
-    list_display = ('user',
-                    'problem',
-                    'solution',
-                    'score',
-                    )
+    list_display = (
+        'user',
+        'problem',
+        'solution',
+        'score',
+    )
 
     list_filter = (
         CurrentSeasonUserFilter,
@@ -205,20 +250,35 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
         'problem'
     )
 
-    list_editable = ('score',)
-    search_fields = ['user__first_name', 'user__last_name', 'user__username']
-    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
+    list_editable = (
+        'score',
+    )
+
+    search_fields = (
+        'user__first_name',
+        'user__last_name',
+        'user__username'
+    )
+
+    readonly_fields = (
+        'added_by',
+        'modified_by',
+        'added_at',
+        'modified_at'
+    )
 
     fieldsets = (
         (None, {
-            'fields': ('user', 'problem', 'solution', 'corrected_solution', 'classlevel', 'school', 'school_class')
+            'fields': ('user', 'problem', 'solution', 'corrected_solution',
+                       'classlevel', 'school', 'school_class')
         }),
     )
 
     editonly_fieldsets = (
         ('Details', {
             'classes': ('grp-collapse', 'grp-closed'),
-            'fields': ('added_by', 'modified_by', 'added_at', 'modified_at', 'corrected_by', 'note')
+            'fields': ('added_by', 'modified_by', 'added_at', 'modified_at',
+                       'corrected_by', 'note')
         }),
     )
 
@@ -228,17 +288,19 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
 @admin_commentable
 class ProblemCategoryAdmin(VersionAdmin):
 
-    list_display = ('name',
-                    'competition',
-                    )
+    list_display = (
+        'name',
+        'competition',
+    )
 
 @admin_commentable
 class ProblemSeverityAdmin(VersionAdmin):
 
-    list_display = ('name',
-                    'level',
-                    'competition',
-                    )
+    list_display = (
+        'name',
+        'level',
+        'competition',
+    )
 
 
 # Register to the admin site

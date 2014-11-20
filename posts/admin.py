@@ -13,15 +13,30 @@ from .models import Post
 class PostAdmin(RestrictedCompetitionAdminMixin,
                 PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('title',
-                    'competition',
-                    'added_by',
-                    'added_at',
-                    )
+    list_display = (
+        'title',
+        'competition',
+        'added_by',
+        'added_at',
+    )
 
-    list_filter = ('competition', 'added_at', 'added_by')
-    search_fields = ['text', 'title']
-    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
+    list_filter = (
+        'competition',
+        'added_at',
+        'added_by'
+    )
+
+    search_fields = (
+        'text',
+        'title'
+    )
+
+    readonly_fields = (
+        'added_by',
+        'modified_by',
+        'added_at',
+        'modified_at'
+    )
 
     prepopulated_fields = {"slug": ("title",)}
 

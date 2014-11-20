@@ -8,15 +8,29 @@ from news.models import News
 @editonly_fieldsets
 class NewsAdmin(PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('competition',
-                    'heading',
-                    'added_at',
-                    'added_by',
-                    )
+    list_display = (
+        'competition',
+        'heading',
+        'added_at',
+        'added_by',
+    )
 
-    list_filter = ('competition',)
-    search_fields = ['heading', 'text']
-    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
+    list_filter = (
+        'competition',
+        'added_at'
+    )
+
+    search_fields = (
+        'heading',
+        'text'
+    )
+
+    readonly_fields = (
+        'added_by',
+        'modified_by',
+        'added_at',
+        'modified_at'
+    )
 
     fieldsets = (
         (None, {

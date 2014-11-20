@@ -14,7 +14,11 @@ from .models import (Competition, Season, Series,
 @editonly_fieldsets
 class CompetitionAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'organizer_group', 'added_at')
+    list_display = (
+        'name',
+        'organizer_group',
+        'added_at'
+    )
 
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
@@ -35,13 +39,20 @@ class CompetitionAdmin(admin.ModelAdmin):
 @editonly_fieldsets
 class CompetitionUserRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('user',
-                    'competition',
-                    'added_at',
-                    )
+    list_display = (
+        'user',
+        'competition',
+        'added_at',
+    )
 
     list_filter = ('competition',)
-    search_fields = ['user']
+    search_fields = (
+        'user__username',
+        'user__first_name',
+        'user__last_name',
+        'competition__name'
+    )
+
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
     fieldsets = (
@@ -61,13 +72,21 @@ class CompetitionUserRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
 @editonly_fieldsets
 class CompetitionOrgRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('organizer',
-                    'competition',
-                    'added_at',
-                    )
+    list_display = (
+        'organizer',
+        'competition',
+        'added_at',
+        'approved',
+    )
 
     list_filter = ('competition',)
-    search_fields = ['user']
+
+    search_fields = (
+        'organizer__username',
+        'organizer__first_name',
+        'organizer__last_name'
+    )
+
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
     fieldsets = (
@@ -87,17 +106,27 @@ class CompetitionOrgRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
 @editonly_fieldsets
 class SeasonAdmin(PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('competition',
-                    'year',
-                    'name',
-                    'number',
-                    'start',
-                    'end',
-                    'join_deadline'
-                    )
+    list_display = (
+        'competition',
+        'year',
+        'name',
+        'number',
+        'start',
+        'end',
+        'join_deadline'
+    )
 
-    list_filter = ('competition', 'year', 'join_deadline')
-    search_fields = ['name', 'competition']
+    list_filter = (
+        'competition',
+        'year',
+        'join_deadline'
+    )
+
+    search_fields = (
+        'name',
+        'competition__name'
+    )
+
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
     fieldsets = (
@@ -125,15 +154,20 @@ class SeasonAdmin(PrettyFilterMixin, VersionAdmin):
 @editonly_fieldsets
 class SeriesAdmin(PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('season',
-                    'name',
-                    'number',
-                    'submission_deadline',
-                    'is_active'
-                    )
+    list_display = (
+        'season',
+        'name',
+        'number',
+        'submission_deadline',
+        'is_active'
+    )
 
     list_filter = ('season', 'submission_deadline', 'is_active')
-    search_fields = ['name', 'season']
+    search_fields = (
+        'name',
+        'season__name'
+    )
+
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
     fieldsets = (

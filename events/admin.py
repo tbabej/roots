@@ -13,20 +13,36 @@ from .models import (Event, EventOrgRegistration, EventUserRegistration,
 class EventAdmin(RestrictedCompetitionAdminMixin,
                  PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('name',
-                    'location',
-                    'start_time',
-                    'end_time',
-                    'registration_end_time',
-                    'get_num_users',
-                    'get_num_orgs',
-                    'started',
-                    )
+    list_display = (
+        'name',
+        'location',
+        'start_time',
+        'end_time',
+        'registration_end_time',
+        'get_num_users',
+        'get_num_orgs',
+        'started',
+    )
 
-    list_filter = ('start_time', 'added_at', 'added_by')
-    search_fields = ['name', 'location']
-    readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at',
-                       'get_num_users', 'get_num_orgs')
+    list_filter = (
+        'start_time',
+        'added_at',
+        'added_by'
+    )
+
+    search_fields = (
+        'name',
+        'location'
+    )
+
+    readonly_fields = (
+        'added_by',
+        'modified_by',
+        'added_at',
+        'modified_at',
+        'get_num_users',
+        'get_num_orgs'
+    )
 
     fieldsets = (
         (None, {
@@ -51,14 +67,27 @@ class EventAdmin(RestrictedCompetitionAdminMixin,
 @editonly_fieldsets
 class EventUserRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
 
-    list_display = ('event',
-                    'user',
-                    'added_at'
-                    )
+    list_display = (
+        'event',
+        'user',
+        'added_at'
+    )
 
-    list_filter = ('event', 'user')
-    search_fields = ['event', 'user']
-    readonly_fields = ('event', 'user')
+    list_filter = (
+        'event',
+    )
+
+    search_fields = (
+        'event',
+        'user__name',
+        'user__first_name',
+        'user__last_name'
+    )
+
+    readonly_fields = (
+        'event',
+        'user'
+    )
 
     fieldsets = (
         (None, {
