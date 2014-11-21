@@ -9,7 +9,7 @@ from problems.models import UserSolution
 from problems.forms import UserSolutionForm
 
 from .forms import CompetitionRegistrationForm
-from .models import Competition, CompetitionUserRegistration, Season
+from .models import Competition, CompetitionUserRegistration, Season, Series
 
 
 class CompetitionRegistrationView(FormView):
@@ -58,6 +58,12 @@ class SeasonResultsView(DetailView):
         context['competition_seasons'] = seasons
 
         return context
+
+class SeriesResultExportTeXView(DetailView):
+    model = Series
+    context_object_name = 'series'
+    template_name = 'competitions/series_result.tex'
+
 
 class SeasonDetailView(DetailView):
     model = Season

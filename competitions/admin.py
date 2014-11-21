@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from reversion import VersionAdmin
 
 from django.contrib import admin
@@ -184,7 +185,7 @@ class SeriesAdmin(PrettyFilterMixin, VersionAdmin):
         }),
     )
 
-    actions = ['make_active']
+    actions = ['make_active', 'results_to_tex']
 
     def make_active(self, request, queryset):
         for series in queryset:
@@ -199,6 +200,10 @@ class SeriesAdmin(PrettyFilterMixin, VersionAdmin):
                                       level=messages.ERROR)
     make_active.short_description = "Make active"
 
+    def results_to_tex(self, request, queryset):
+        return redirect('competitions_series_results_tex', queryset[0].pk)
+
+    results_to_tex.short_description = 'Export results to TeX'
 
 # Register to the admin site
 admin.site.register(Competition, CompetitionAdmin)

@@ -1,0 +1,13 @@
+{% load i18n %}
+{% load roots_tags %}
+{% load sekizai_tags %}
+
+ahoj
+
+{{ request.user }}
+{{ series }}
+{{ series.season }}
+
+{% for row in series.results_with_ranking %}
+  {{forloop.counter}} - {{ row.0 }}, {{row.1}}, {{row.2}}, {{row.3}}
+{% endfor %}
