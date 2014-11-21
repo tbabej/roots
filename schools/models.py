@@ -47,14 +47,14 @@ class School(models.Model):
                                 blank=True,
                                 verbose_name=_('address'))
 
+
+    def get_num_competitors(self):
+        return self.userprofile_set.all().count()
+    get_num_competitors.short_description = _("Number of competitors")
+
     def __unicode__(self):
         return self.name
 
     class Meta:
         verbose_name = _('school')
         verbose_name_plural = _('schools')
-
-
-# Register to the admin site
-admin.site.register(Address)
-admin.site.register(School)
