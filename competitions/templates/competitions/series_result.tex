@@ -2,12 +2,39 @@
 {% load roots_tags %}
 {% load sekizai_tags %}
 
-ahoj
+Results - TeX table
 
-{{ request.user }}
-{{ series }}
-{{ series.season }}
-
+{% spaceless %}
 {% for row in series.results_with_ranking %}
-  {{forloop.counter}} - {{ row.0 }}, {{row.1}}, {{row.2}}, {{row.3}}
+    {% ifchanged %}
+        {% if row.3.0 != row.3.1 %}
+            {{ row.3.0 }}. - {{ row.3.1 }}.
+        {% else %}
+            {{ row.3.0 }}.
+        {% endif %}
+    {% endifchanged %}
+    &
+    {{ row.0.get_full_name }}
+    &
+    {{ row.0.userprofile.school_class }}
+    &
+    {{ row.0.userprofile.classlevel }}
+    &
+    {% for solution in row.1 %}
+          {% if solution == None %}
+            -
+          {% else %}
+            {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
+          {% endif %}
+          &
+    {% endfor %}
+    0&
+    {{ row.2 }}
+    \cr
+    </br>
 {% endfor %}
+{% endspaceless %}
+
+Results - histograms
+
+{%  %}
