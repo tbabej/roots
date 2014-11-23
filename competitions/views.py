@@ -75,7 +75,7 @@ class SeriesResultExportTeXView(DetailView):
 
         for problem_pk in problems:
             # Construct a histogram for each user
-            histograms[problem_pk] = {}
+            histograms[problem_pk] = []
 
             # Count the total number of solutions of the problem
             solutions = UserSolution.objects.filter(problem=problem_pk)
@@ -84,7 +84,7 @@ class SeriesResultExportTeXView(DetailView):
             for score in range(10):
                 # Filter out solutions that have this score
                 solutions_with_score = solutions.filter(score=score).count()
-                histograms[problem_pk][score] = solutions_with_score
+                histograms[problem_pk].append(solutions_with_score)
 
 
         context['problems'] = problems

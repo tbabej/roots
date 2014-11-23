@@ -2,8 +2,7 @@
 {% load roots_tags %}
 {% load sekizai_tags %}
 
-Results - TeX table
-</br>
+<b>Results - TeX table </b>
 </br>
 {% spaceless %}
 {% for row in series.results_with_ranking %}
@@ -31,24 +30,25 @@ Results - TeX table
     {% endfor %}
     0&
     {{ row.2 }}
-    \cr
+    \\
     </br>
 {% endfor %}
 {% endspaceless %}
 
 </br>
-Results - total counts
+<b> Results - total counts </b>
+</br>
 {% for problem in problems %}
-    Problem {{ forloop.counter1 }}: {{ problem_count|access:problem }} </br>
+    Problem {{ forloop.counter }}: {{ problems_count|access:problem }} </br>
 {% endfor %}
 
 </br>
+<b> Results - histograms </b>
 </br>
-Results - histograms
 {% for problem in problems %}
-    Problem {{ forloop.counter1 }}: {
-    {% for i in "xxxxxxxxxx" %}
-        (forloop.counter0, {{ problem_histograms|access:problem|access:forloop.counter0 }}),
-    {% endfor %}
-    }
+    Problem {{ forloop.counter }}: {
+    {% with problems_histogram|access:problem as histogram %}
+        {% for count in histogram %}({{ forloop.counter0 }}, {{ count }}){% endfor %}
+    {% endwith %}
+    } </br>
 {% endfor %}
