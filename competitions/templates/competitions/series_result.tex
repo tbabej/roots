@@ -37,4 +37,18 @@ Results - TeX table
 {% endspaceless %}
 
 </br>
+Results - total counts
+{% for problem in problems %}
+    Problem {{ forloop.counter1 }}: {{ problem_count|access:problem }} </br>
+{% endfor %}
+
+</br>
+</br>
 Results - histograms
+{% for problem in problems %}
+    Problem {{ forloop.counter1 }}: {
+    {% for i in "xxxxxxxxxx" %}
+        (forloop.counter0, {{ problem_histograms|access:problem|access:forloop.counter0 }}),
+    {% endfor %}
+    }
+{% endfor %}

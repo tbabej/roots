@@ -64,6 +64,34 @@ class SeriesResultExportTeXView(DetailView):
     context_object_name = 'series'
     template_name = 'competitions/series_result.tex'
 
+    def get_context_data(self, **kwargs):
+        context = super(SeriesResultExportTeXView,
+                        self).get_context_data(**kwargs)
+
+        # Generate a list of problems in this series
+        problems = self.object.problemset.problems.values_list('pk', flat=True)
+        counts = {}
+        histograms = {}
+
+        for problem_pk in problems:
+            # Construct a histogram for each user
+            histograms[problem_pk] = {}
+
+            # Count the total number of solutions of the problem
+            solutions = UserSolution.objects.filter(problem=problem_pk)
+            counts[problem_pk] = solutions.count()
+
+            for score in range(10):
+                # Filter out solutions that have this score
+                solutions_with_score = solutions.filter(score=score).count()
+                histograms[problem_pk][score] = solutions_with_score
+
+
+        context['problems'] = problems
+        context['problems_count'] = counts
+        context['problems_histogram'] = histograms
+
+        return context
 
 class SeasonDetailView(DetailView):
     model = Season
