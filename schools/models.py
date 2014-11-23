@@ -46,6 +46,8 @@ class School(models.Model):
     address = models.ForeignKey('schools.Address',
                                 blank=True,
                                 verbose_name=_('address'))
+    abbreviation = models.CharField(max_length=20,
+                                    verbose_name=_('abbreviation'))
 
 
     def get_num_competitors(self):
