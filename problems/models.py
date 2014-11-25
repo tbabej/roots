@@ -53,13 +53,13 @@ class UserSolution(MediaRemovalMixin,
         return [self.get_solution_path()]
 
     def get_solution_path(self, *args, **kwargs):
-        return 'solutions/{user}-{problem}.pdf'.format(
-                user=self.user.username,
-                problem=self.problem.pk,
-            )
+        return 'solutions/' + self.get_id_string()
 
     def get_corrected_solution_path(self, *args, **kwargs):
-        return 'corrected_solutions/{user}-{problem}.pdf'.format(
+        return 'corrected_solutions/' + self.get_id_string()
+
+    def get_id_string(self):
+        return '{user}-{problem}.pdf'.format(
                 user=self.user.username,
                 problem=self.problem.pk,
             )
