@@ -122,13 +122,23 @@
                 <button type="button" class="btn btn-{{button_level}} btn-default center-block" {{disabled}} data-placement="top" title="{{button_title}}" {{submission_modal}}>
                   {{button_text}}
                 </button>
-                <button class="btn btn-default center-block" style="padding: 0px 12px; margin-top: 8px;" data-placement="bottom" title="{% trans "You can ask questions related to the problem here!" %}" {{discussion_modal}}>
+                <button class="btn btn-default center-block" style="padding: 0px 8px; margin-top: 4px;" data-placement="right" title="{% trans "You can ask questions related to the problem here!" %}" {{discussion_modal}}>
                   <i class="fa fa-comments-o"></i>
                   {% get_comment_count for problem as num_comments %}
                   <span style="{% if num_comments > 0 %}font-weight: bold;{% endif %}">
                     {% trans "Discussion: " %}{{ num_comments }}
                   </span>
                 </button>
+                {% if solution.corrected_solution %}
+                <a href="{% url 'download_corrected_solution' solution.get_id_string %}">
+                  <button class="btn btn-default center-block" style="padding: 0px 8px; margin-top: 4px;" data-placement="left" title="{% trans "Click to download the corrected solution" %}">
+                    <i class="fa fa-download"></i>
+                      <span>
+                        {% trans "Download" %}
+                      </span>
+                  </button>
+                </a>
+                {% endif %}
               </div>
             </div><!-- row -->
           {% endwith %}
