@@ -92,7 +92,7 @@
             {% if solution %}
               {% define button_level %}success{% enddefine %}
               {% define button_title %}{{solution.user_modified_at}}{% enddefine %}
-              {% define button_text %}{% trans "Submitted" %}{% enddefine %}
+              {% define button_text %}{% trans "Submitted" %}{% if solution.score != None %} ({% trans "score: " %} {{ solution.score }}){% endif %}{% enddefine %}
               {% define submission_modal %}data-toggle="modal" data-target="#problem-submit-{{problem.pk}}"{% enddefine %}
               {% define discussion_modal %}data-toggle="modal" data-target="#problem-discussion-{{problem.pk}}"{% enddefine %}
             {% elif series.is_past_submission_deadline %}
