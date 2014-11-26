@@ -16,12 +16,12 @@ urlpatterns = patterns('',
         name="events_event_detail"
     ),
     url(
-        _(r'register/(?P<event_id>\d+)/user/$'),
+        _(r'^register/(?P<event_id>\d+)/user/$'),
         EventUserRegisterView.as_view(),
         name="events_event_user_registration"
     ),
     url(
-        _(r'register/(?P<event_id>\d+)/organizer/$'),
+        _(r'^register/(?P<event_id>\d+)/organizer/$'),
         EventUserRegisterView.as_view(),
         name="events_event_org_registration"
     ),

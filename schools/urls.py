@@ -5,6 +5,6 @@ from .views import SchoolCreateView
 
 
 urlpatterns = patterns('',
-    url(_(r'create$'), SchoolCreateView.as_view(),
+    url(_(r'^create$'), SchoolCreateView.as_view(),
         name='schools_school_create'),
 )
