@@ -10,6 +10,11 @@ register = template.Library()
 
 @register.simple_tag
 def rereverse(request):
+    # The resolver_match may be None if redirected by some middleware, i.e.
+    # FlatpageFallbackMiddleware
+    if request.resolver_match is None:
+        return ""
+
     return reverse(request.resolver_match.view_name,
                    args=request.resolver_match.args,
                    kwargs=request.resolver_match.kwargs)
