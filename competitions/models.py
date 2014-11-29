@@ -287,6 +287,23 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         return self.series_set.all()
 
     @cached_property
+    def active_series(self):
+        """
+        Returns all the series that are active (before their submussion
+        deadline).
+        """
+
+        return self.series_set.filter(submission_deadline__gt=now())
+
+    @cached_property
+    def finished_series(self):
+        """
+        Returns all the series that are after their submission deadline
+        """
+
+        return self.series_set.filter(submission_deadline__lt=now())
+
+    @cached_property
     def results(self):
         results = []
 
@@ -387,9 +404,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         If there are no series in this season, returns None.
         """
 
-        active_series = self.series_set.filter(submission_deadline__gt=now())
-
-        if active_series.exists():
+        if self.active_series.exists():
             return active_series[0]
         else:
             if self.series_set.exists():
@@ -406,9 +421,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         If there are no series in this season, returns None.
         """
 
-        active_series = self.series_set.filter(submission_deadline__lt=now())
-
-        if active_series.exists():
+        if self.active_series.exists():
             return active_series[0]
         else:
             if self.series_set.exists():
