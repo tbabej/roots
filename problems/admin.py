@@ -9,7 +9,7 @@ from base.admin import (PrettyFilterMixin, MediaRemovalAdminMixin,
                         RestrictedCompetitionAdminMixin)
 from base.util import admin_commentable, editonly_fieldsets
 
-from competitions.models import Competition
+from competitions.models import Competition, Season, Series
 
 from .models import (Problem, ProblemSet, ProblemSeverity, ProblemCategory,
                      UserSolution, OrgSolution, ProblemInSet)
@@ -172,6 +172,59 @@ class CurrentSeasonUserFilter(admin.SimpleListFilter):
         else:
             return queryset
 
+class LimitToCurrentSeasonProblemFilter(admin.SimpleListFilter):
+
+    title = _('limit to following current season/series')
+    parameter_name = 'current_season_series'
+
+    def lookups(self, request, model_admin):
+        for competition in Competition.objects.all():
+            # If the competition does not have active season, skip it
+            if competition.active_season is None:
+                continue
+
+            # First yield the whole season
+            yield (
+                "season-%d" % competition.active_season.pk,
+                "%s: %s" % (competition, competition.active_season)
+            )
+
+            # Yield all the finished series
+            for series in competition.active_season.finished_series:
+                yield (
+                    "series-%d" % series.pk,
+                    "%s: %s" % (competition, series)
+                )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        # Check that any value was passed, if not, return unmodified queryset
+        if not value:
+            return queryset
+
+        # If a season was selected, allow all problems in that season
+        if value.startswith("season"):
+            # Fetch the list of the problems in this season
+            season_pk = value.split("-")[1]
+            season = Season.objects.get(pk=season_pk)
+            season_problems = season.problems.values_list('pk', flat=True)
+
+            return queryset.filter(problem__pk__in=season_problems)
+
+        elif value.startswith("series"):
+            # Fetch the list of the problems in this series
+            series_pk = value.split("-")[1]
+            series = Series.objects.get(pk=series_pk)
+            series_problems = series.problems.values_list('pk', flat=True)
+
+            return queryset.filter(problem__pk__in=series_problems)
+
+        else:
+            # Any other value is invalid, return unmodified queryset
+            return queryset
+
+
 
 @admin_commentable
 @editonly_fieldsets
@@ -247,6 +300,7 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
         CurrentSeasonUserFilter,
         'user',
         CurrentSeasonProblemFilter,
+        LimitToCurrentSeasonProblemFilter,
         'problem'
     )
 
