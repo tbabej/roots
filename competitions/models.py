@@ -265,6 +265,21 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         return sum(s.num_problems for s in self.series)
 
     @cached_property
+    def problems(self):
+        # Fetch the problem model, since we cannot import due circular
+        # dependencies
+        Problem = get_model('problems', 'Problem')
+
+        # Find all problems for all series in this season
+        all_problems = [
+            series.problemset.problems.all()
+            for series in self.series_set.all()
+        ]
+
+        # Return union of those problemsets
+        return reduce(or_, all_problems, Problem.objects.none())
+
+    @cached_property
     def series(self):
         """
         Provides a cached entry for all series.
