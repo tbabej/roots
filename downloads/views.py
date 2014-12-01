@@ -1,8 +1,10 @@
 from sendfile import sendfile
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def download_protected_file(request, model_class, path_prefix, path):
     """
     This view allows download of the file at the specified path, if the user
