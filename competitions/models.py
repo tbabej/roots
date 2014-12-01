@@ -405,8 +405,11 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         """
 
         if self.active_series.exists():
-            return active_series[0]
+            # Series are sorted by the submission deadline, so return
+            # the first that is not over yet
+            return self.active_series[0]
         else:
+            # If all the series are over, just return the last one
             if self.series_set.exists():
                 return self.series_set.order_by('-submission_deadline')[0]
             else:
@@ -421,11 +424,14 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         If there are no series in this season, returns None.
         """
 
-        if self.active_series.exists():
-            return active_series[0]
+        if self.finished_series.exists():
+            # Series are ordered by their submission deadline, so we need
+            # to reverse the ordering
+            return self.finished_series.order_by('-submission_deadline')[0]
         else:
+            # If no series finished yet, simply return the first series
             if self.series_set.exists():
-                return self.series_set.order_by('submission_deadline')[0]
+                return self.series_set.all()[0]
             else:
                 return None
 
