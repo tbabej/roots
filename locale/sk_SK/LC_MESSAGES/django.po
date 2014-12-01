@@ -144,7 +144,7 @@ msgstr "Zmeniť email"
 
 #: base/templates/base/menu.html:32
 msgid "Connect external account"
-msgstr ""
+msgstr "Pripojiť externý účet"
 
 #: base/templates/base/menu.html:33 templates/account/logout.html:6
 #: templates/account/logout.html.py:7 templates/account/logout.html:18
@@ -815,7 +815,7 @@ msgstr "Parametre príkladu"
 
 #: problems/admin.py:177
 msgid "limit to following current season/series"
-msgstr ""
+msgstr "obmedziť na súčastný semester/sériu"
 
 #: problems/models.py:81 uploads/models.py:35
 msgid "solution"
@@ -1037,7 +1037,7 @@ msgstr "Séria je po termíne"
 
 #: problems/views.py:63
 msgid "Problem does not belong to the series"
-msgstr ""
+msgstr "Príklad nepatrí do série"
 
 #: profiles/forms.py:37
 msgid ""
@@ -1305,7 +1305,7 @@ msgstr "adresy"
 
 #: schools/models.py:50
 msgid "abbreviation"
-msgstr ""
+msgstr "skratka"
 
 #: schools/models.py:55
 msgid "Number of competitors"
