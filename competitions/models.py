@@ -477,6 +477,10 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         return self.problemset.problems.count()
 
     @property
+    def problems(self):
+        return self.problemset.problems.all()
+
+    @property
     def time_to_deadline(self):
         """
         Returns the remaining time to the submission deadline as a datetime.timedelta object. If the deadline is over,
