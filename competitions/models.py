@@ -476,8 +476,6 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                                   help_text=_('Method that is used to compute the sum of the series'),
                                   choices=settings.ROOTS_SERIES_TOTAL_SUM_METHOD_CHOICES)
 
-
-
     @cached_property
     def num_problems(self):
         return self.problemset.problems.count()
@@ -501,25 +499,34 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
     def get_elapsed_time_percentage(self, base_timespan=datetime.timedelta(30)):
         """
-        Returns the remaining time percentage for the given series. The base_timespan parameter defines the time when
-        the countdown starts (by default 30 days before the submission deadline).
+        Returns the remaining time percentage for the given series. The
+        base_timespan parameter defines the time when the countdown starts
+        (by default 30 days before the submission deadline).
         """
 
         remaining_time = self.time_to_deadline
 
-        # If the remaining time is more than base_timespan, return 0 percent to prevent negative values
+        # If the remaining time is more than base_timespan, return 0 percent
+        # to prevent negative values
         if remaining_time > base_timespan:
             return 0
         else:
-            return (1.0 - (remaining_time.total_seconds() / base_timespan.total_seconds())) * 100
+            elapsed = (
+                remaining_time.total_seconds() / base_timespan.total_seconds()
+            )
+
+            return (1.0 - elapsed) * 100
 
     def sort_solutions(self, solutions):
         """
-        Sorts the solutions passed as argument according to the order of the problems in the problemset.
+        Sorts the solutions passed as argument according to the order of the
+        problems in the problemset.
         """
 
         sorted_solutions = [None] * self.num_problems
-        problem_ids = list(self.problemset.problems.values_list('id', flat=True))
+        problem_ids = list(
+            self.problemset.problems.values_list('id', flat=True)
+        )
 
         for solution in solutions:
             try:
