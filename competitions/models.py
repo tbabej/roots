@@ -575,7 +575,11 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                 user_solutions.append(solution)
 
         # Process the last user
-        results.append((current_user, user_solutions, total))
+        if current_user is not None:
+            user_solutions = self.sort_solutions(user_solutions)
+            total = custom_total_func(user=current_user,
+                                      solutions=user_solutions)
+            results.append((current_user, user_solutions, total))
 
         # Sort the results by total_score
         results.sort(key=lambda x: x[2], reverse=True)
