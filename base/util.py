@@ -285,7 +285,7 @@ def simple_series_solution_sum(series_subtotals, *args, **kwargs):
     Simply adds up the totals from the series themselves.
     """
 
-    return sum(subtotal[-1] for subtotal in series_subtotals)
+    return sum(subtotal[-1] or 0 for subtotal in series_subtotals)
 
 
 class YearSegment(object):
