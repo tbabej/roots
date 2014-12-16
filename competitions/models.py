@@ -305,10 +305,6 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
     @cached_property
     def results(self):
-        results = []
-
-        series_results = [series.results for series in self.series]
-
         custom_total_func = getattr(settings,
                                     self.sum_method or '',
                                     simple_series_solution_sum)
@@ -316,10 +312,22 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         season_results = []
 
         for competitor in self.competitors:
-            user_results = [result_line[1:] for series_result in series_results for result_line in series_result
-                            if result_line[0] == competitor]
-            total = custom_total_func(user_results)
+            user_results = []
+            for series in self.series:
+                # Find the user's line in the results table
+                matching_lines = [line[1:] for line in series.results
+                                  if line[0] == competitor]
 
+                # There should be at most one line matching the user's name
+                # in the results table. If there is none, make a empty line.
+                if matching_lines:
+                    user_result = matching_lines[0]
+                else:
+                    user_result = ([None] * series.num_problems, 0)
+
+                user_results.append(user_result)
+
+            total = custom_total_func(user_results)
             season_results.append((competitor, user_results, total))
 
         season_results.sort(key=lambda x: x[2], reverse=True)
