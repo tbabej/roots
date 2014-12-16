@@ -155,6 +155,11 @@ class ImportCorrectedSolutionsView(View):
                     solution.corrected_solution = solution.get_corrected_solution_path()
                     solution.save()
 
+                    messages.success(
+                        request,
+                        _("%s assigned %d points") % (solution, score)
+                    )
+
             except Exception, e:
                 # If any exceptions happened, errors should be in messages
                 messages.error(request, 'exception happened: %s' % e)
