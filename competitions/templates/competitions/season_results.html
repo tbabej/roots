@@ -124,42 +124,51 @@
     <table class="table table-condensed table-striped">
     <thead>
     <tr>
-    <th> Name </th>
-    <th>
-    <table class="table table-condensed">
-    {% for problem in season.series.0.problemset.problems.all %}
-        <th> {% trans "Problem " %}{{forloop.counter}}. </th>
+    <th> {% trans "Rank" %} </th>
+    <th> {% trans "Name" %} </th>
+    {% for season_series in season.series %}
+        {% for problem in season_series.problemset.problems.all %}
+          <th> {{forloop.counter}}. </th>
+        {% endfor %}
     {% endfor %}
-    </table>
-    </th>
-    <th> {% trans "Subtotal" %} </th>
     <th> {% trans "Total" %} </th>
     </tr>
     </thead>
 
     <tbody>
-    {% for result_row in season.results %}
+    {% for result_row in season.results_with_ranking %}
       <tr>
-      <td> {{result_row.0.get_full_name|default:result_row.0.username}} </td>
       <td>
-        <table class="table table-condensed">
-        {% for series_result in result_row.1 %}
-            <tr>
-            {% for solution in series_result.0 %}
-            <td>
-              {% if solution == None %}
-                --
-              {% else %}
-                {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
-              {% endif %}
-            </td>
-            {% endfor %}
-            <td> {{ series_result.1 }} </td>
-            </tr>
-        {% endfor %}
-        </table>
+        {% ifchanged %}
+            {% if result_row.3.0 != result_row.3.1 %}
+              {{ result_row.3.0 }}. - {{ result_row.3.1 }}.
+            {% else %}
+              {{ result_row.3.0 }}.
+            {% endif %}
+        {% endifchanged %}
       </td>
-      <td>{{ result_row.2  }}</td>
+      <td>
+        <a href="{% url 'profiles_userprofile_detail' username=row_user.username %}" style="text-decoration: none !important;">
+          {% if row_user|has_avatar %}
+            <img src="{% avatar_url row_user 17 %}" class="img-circle" style="margin-top: -4px;"/>
+          {% else %}
+            <span class="glyphicon glyphicon-user" style="padding-right: 2px; padding-left: 2px;"></span>
+          {% endif %}
+        </a>
+        {{result_row.0.get_full_name|default:result_row.0.username}}
+      </td>
+      {% for series_result in result_row.1 %}
+        {% for solution in series_result.0 %}
+          <td>
+            {% if solution == None %}
+              --
+            {% else %}
+              {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
+            {% endif %}
+          </td>
+        {% endfor %}
+      {% endfor %}
+      <td>{{ result_row.2 }}</td>
       </tr>
     {% endfor %}
     </tbody>
