@@ -76,8 +76,14 @@ def admin_commentable(cls):
     """
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['model_object'] = self.model.objects.get(pk=object_id)
+        try:
+            extra_context = extra_context or {}
+            extra_context['model_object'] = self.model.objects.get(pk=object_id)
+        except self.model.DoesNotExist:
+            # If we are not able to get the solution, just do not fail here,
+            # change view will deal with it just fine
+            pass
+
         return super(cls, self).change_view(request,
             object_id, form_url, extra_context=extra_context)
 
