@@ -1,0 +1,40 @@
+{% load i18n %}
+{% load roots_tags %}
+{% load sekizai_tags %}
+
+<b>Results of the season {{ season }} - TeX table </b>
+</br>
+{% spaceless %}
+{% for row in season.results_with_ranking %}
+    {% ifchanged %}
+        {% if row.3.0 != row.3.1 %}
+            {{ row.3.0 }}. - {{ row.3.1 }}.
+        {% else %}
+            {{ row.3.0 }}.
+        {% endif %}
+    {% endifchanged %}
+    &
+    {{ row.0.get_full_name }}
+    &
+    {{ row.0.userprofile.school_class }}
+    &
+    {{ row.0.userprofile.classlevel }}
+    &
+    {% for series_result in row.1 %}
+      {% for solution in series_result.0 %}
+        {% if solution == None %}
+          -
+        {% else %}
+          {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
+        {% endif %}
+        &
+      {% endfor %}
+      {{ series_result.1 }}
+      &
+    {% endfor %}
+    0&
+    {{ row.2 }}
+    \\
+    </br>
+{% endfor %}
+{% endspaceless %}

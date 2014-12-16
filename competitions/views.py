@@ -93,6 +93,12 @@ class SeriesResultExportTeXView(DetailView):
 
         return context
 
+class SeasonResultExportTeXView(DetailView):
+    model = Season
+    context_object_name = 'season'
+    template_name = 'competitions/season_result.tex'
+
+
 class SeasonDetailView(DetailView):
     model = Season
     context_object_name = 'season'

@@ -4,7 +4,8 @@ from django.views.generic import TemplateView
 
 from .views import (CompetitionDiscussionView, CompetitionRegistrationView,
                     SeasonDetailView, SeasonResultsView, LatestSeasonDetailView,
-                    LatestSeasonResultsView, SeriesResultExportTeXView)
+                    LatestSeasonResultsView, SeriesResultExportTeXView,
+                    SeasonResultExportTeXView)
 
 urlpatterns = patterns('',
     url(r'^$', CompetitionRegistrationView.as_view(),
@@ -25,6 +26,9 @@ urlpatterns = patterns('',
     url(_(r'^series/results/tex/(?P<pk>\d+)$'),
         SeriesResultExportTeXView.as_view(),
         name='competitions_series_results_tex'),
+    url(_(r'^season/results/tex/(?P<pk>\d+)$'),
+        SeasonResultExportTeXView.as_view(),
+        name='competitions_season_results_tex'),
     url(_(r'^discussion/(?P<competition_id>\d+)/'),
         CompetitionDiscussionView.as_view(),
         name='competitions_competition_discussion'),
