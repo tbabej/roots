@@ -7,10 +7,12 @@ from django.forms import forms
 from django.db.models import FileField
 from django.dispatch import receiver
 from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy as _
 
 # Monkey-patch __unicode__ of the User
 User.__unicode__ = (lambda x: "%s (%s)" % (x.get_full_name(), x.username)
                               if x.get_full_name() else x.username)
+
 
 class MediaRemovalMixin(object):
     """
@@ -55,6 +57,7 @@ class MediaRemovalMixin(object):
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^base\.models\.ContentTypeRestrictedFileField"])
 
+
 class ContentTypeRestrictedFileField(FileField):
     """
     Same as FileField, but you can specify:
@@ -75,16 +78,24 @@ class ContentTypeRestrictedFileField(FileField):
                      self).clean(*args, **kwargs)
 
         file_obj = data.file
-        content_type = file_obj.content_type
 
+        # Get the content type
+        content_type = getattr(file_obj, 'content_type', None)
+
+        # If it is not there (this is true for File objects, i.e. already saved
+        # files), just return
+        if not content_type:
+            return data
+
+        # Otherwise check the content_type and size
         if self.content_types is None or content_type in self.content_types:
             if self.max_size is None or file_obj._size > int(self.max_size):
                 raise forms.ValidationError(
-                    'Please keep filesize under %s. Current filesize %s' %
+                    _('Please keep filesize under %s. Current filesize %s') %
                     (filesizeformat(self.max_size),
                      filesizeformat(file_obj._size)))
         else:
-            raise forms.ValidationError('Filetype not supported.')
+            raise forms.ValidationError(_('Filetype not supported.'))
 
         return data
 
