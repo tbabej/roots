@@ -128,6 +128,7 @@ class AverageSeverityAboveListFilter(admin.SimpleListFilter):
 
         return queryset
 
+
 class CurrentSeasonProblemFilter(admin.SimpleListFilter):
 
     title = 'problem in current season'
@@ -152,6 +153,7 @@ class CurrentSeasonProblemFilter(admin.SimpleListFilter):
         else:
             return queryset
 
+
 class CurrentSeasonUserFilter(admin.SimpleListFilter):
 
     title = 'users competing in current season'
@@ -171,6 +173,7 @@ class CurrentSeasonUserFilter(admin.SimpleListFilter):
             return queryset.filter(user__pk=self.value())
         else:
             return queryset
+
 
 class LimitToCurrentSeasonProblemFilter(admin.SimpleListFilter):
 
@@ -224,6 +227,33 @@ class LimitToCurrentSeasonProblemFilter(admin.SimpleListFilter):
             # Any other value is invalid, return unmodified queryset
             return queryset
 
+
+class LimitToSeasonFilter(admin.SimpleListFilter):
+
+    title = _('limit to season')
+    parameter_name = 'season'
+
+    def lookups(self, request, model_admin):
+        for competition in Competition.objects.all():
+            for season in competition.season_set.all():
+                # First yield the whole season
+                yield (
+                    season.pk,
+                    "%s" % season
+                )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        # Check that any value was passed, if not, return unmodified queryset
+        if not value:
+            return queryset
+
+        # Fetch the list of the problems in this season
+        season = Season.objects.get(pk=value)
+        season_problems = season.problems.values_list('pk', flat=True)
+
+        return queryset.filter(problem__pk__in=season_problems)
 
 
 @admin_commentable
