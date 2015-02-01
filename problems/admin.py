@@ -6,7 +6,9 @@ from reversion import VersionAdmin
 
 from base.admin import (PrettyFilterMixin, MediaRemovalAdminMixin,
                         DownloadMediaFilesMixin,
-                        RestrictedCompetitionAdminMixin)
+                        RestrictedCompetitionAdminMixin,
+                        ImprovedFilteringVersionAdminMixin,
+                        foreign_field_filter_factory)
 from base.util import admin_commentable, editonly_fieldsets
 
 from competitions.models import Competition, Season, Series
@@ -311,6 +313,7 @@ class ProblemSetAdmin(RestrictedCompetitionAdminMixin,
 class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
                         MediaRemovalAdminMixin,
                         DownloadMediaFilesMixin,
+                        ImprovedFilteringVersionAdminMixin,
                         VersionAdmin):
 
     def import_from_zip(self, request, queryset):
@@ -327,11 +330,12 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
     )
 
     list_filter = (
+        foreign_field_filter_factory('user'),
+        foreign_field_filter_factory('problem'),
         CurrentSeasonUserFilter,
-        'user',
         CurrentSeasonProblemFilter,
         LimitToCurrentSeasonProblemFilter,
-        'problem'
+        LimitToSeasonFilter,
     )
 
     list_editable = (
