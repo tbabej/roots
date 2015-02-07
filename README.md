@@ -2,6 +2,8 @@ Roots
 =====
 
 [![Travis build status](https://travis-ci.org/tbabej/roots.svg?branch=master)](https://travis-ci.org/tbabej/roots)
+[![Coverage Status](https://coveralls.io/repos/tbabej/roots/badge.svg?branch=master)](https://coveralls.io/r/tbabej/roots?branch=master)
+[![Code Health](https://landscape.io/github/tbabej/roots/master/landscape.svg?style=flat)](https://landscape.io/github/tbabej/roots/master)
 
 ![Roots project](https://raw.githubusercontent.com/tbabej/roots/master/base/static/logo.png  "Roots project")
 
