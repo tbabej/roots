@@ -1,6 +1,8 @@
 Roots
 =====
 
+[![Travis build status](https://travis-ci.org/tbabej/roots.svg?branch=master)](https://travis-ci.org/tbabej/roots)
+
 ![Roots project](https://raw.githubusercontent.com/tbabej/roots/master/base/static/logo.png  "Roots project")
 
 Roots is a community-based site framework for seminar communities.
