@@ -1,0 +1,7 @@
+uses:
+    - django
+autodetect: yes
+requirements:
+    - requirements.txt
+ignore-patterns:
+    - test_.*\.py
