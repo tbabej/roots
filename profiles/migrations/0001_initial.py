@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime
+from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
@@ -12,10 +12,8 @@ class Migration(SchemaMigration):
         db.create_table(u'profiles_userprofile', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('date_of_birth', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('date_of_birth', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
             ('sex', self.gf('django.db.models.fields.CharField')(max_length=1, null=True, blank=True)),
-            ('social_security_number', self.gf('django.db.models.fields.CharField')(max_length=11, null=True, blank=True)),
-            ('state_id_number', self.gf('django.db.models.fields.CharField')(max_length=8, null=True, blank=True)),
             ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=30, null=True, blank=True)),
             ('parent_phone_number', self.gf('django.db.models.fields.CharField')(max_length=30, null=True, blank=True)),
             ('address', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['schools.Address'], null=True, blank=True)),
@@ -61,7 +59,7 @@ class Migration(SchemaMigration):
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -69,20 +67,8 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        u'competitions.competition': {
-            'Meta': {'ordering': "['name']", 'object_name': 'Competition'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'competitions.competitionuserregistration': {
-            'Meta': {'object_name': 'CompetitionUserRegistration'},
-            'competition': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['competitions.Competition']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['profiles.UserProfile']"})
         },
         u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -101,16 +87,13 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'UserProfile'},
             'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['schools.Address']", 'null': 'True', 'blank': 'True'}),
             'classlevel': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
-            'competes': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['competitions.Competition']", 'symmetrical': 'False', 'through': u"orm['competitions.CompetitionUserRegistration']", 'blank': 'True'}),
-            'date_of_birth': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'date_of_birth': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'parent_phone_number': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
             'phone_number': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
             'school': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['schools.School']", 'null': 'True', 'blank': 'True'}),
             'school_class': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'sex': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True', 'blank': 'True'}),
-            'social_security_number': ('django.db.models.fields.CharField', [], {'max_length': '11', 'null': 'True', 'blank': 'True'}),
-            'state_id_number': ('django.db.models.fields.CharField', [], {'max_length': '8', 'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         },
         u'schools.address': {
@@ -123,9 +106,10 @@ class Migration(SchemaMigration):
         },
         u'schools.school': {
             'Meta': {'object_name': 'School'},
+            'abbreviation': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['schools.Address']", 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '150'})
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '150'})
         }
     }
 

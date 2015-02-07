@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime
+from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
@@ -12,6 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'events_event', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('competition', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['competitions.Competition'], null=True, blank=True)),
             ('location', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('description', self.gf('django.db.models.fields.CharField')(max_length=500)),
             ('start_time', self.gf('django.db.models.fields.DateTimeField')()),
@@ -19,8 +20,8 @@ class Migration(SchemaMigration):
             ('registration_end_time', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
             ('added_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('added_by', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='events_created', null=True, to=orm['auth.User'])),
-            ('modified_by', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='events_modified', null=True, to=orm['auth.User'])),
+            ('added_by', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name=u'Event_created', null=True, to=orm['auth.User'])),
+            ('modified_by', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name=u'Event_modified', null=True, to=orm['auth.User'])),
         ))
         db.send_create_signal(u'events', ['Event'])
 
@@ -77,8 +78,14 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'events', ['CampUserInvitation'])
 
+        # Adding unique constraint on 'CampUserInvitation', fields ['user', 'camp']
+        db.create_unique(u'events_campuserinvitation', ['user_id', 'camp_id'])
+
 
     def backwards(self, orm):
+        # Removing unique constraint on 'CampUserInvitation', fields ['user', 'camp']
+        db.delete_unique(u'events_campuserinvitation', ['user_id', 'camp_id'])
+
         # Removing unique constraint on 'EventOrgRegistration', fields ['event', 'organizer']
         db.delete_unique(u'events_eventorgregistration', ['event_id', 'organizer_id'])
 
@@ -120,7 +127,7 @@ class Migration(SchemaMigration):
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -128,20 +135,33 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
         u'competitions.competition': {
             'Meta': {'ordering': "['name']", 'object_name': 'Competition'},
+            'added_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'added_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "u'Competition_created'", 'null': 'True', 'to': u"orm['auth.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+            'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'modified_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "u'Competition_modified'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'}),
+            'organizer_group': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.Group']", 'null': 'True', 'blank': 'True'})
         },
         u'competitions.season': {
             'Meta': {'ordering': "['competition', 'year', 'number']", 'object_name': 'Season'},
+            'added_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'added_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "u'Season_created'", 'null': 'True', 'to': u"orm['auth.User']"}),
             'competition': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['competitions.Competition']"}),
+            'end': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'join_deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'modified_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "u'Season_modified'", 'null': 'True', 'to': u"orm['auth.User']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'number': ('django.db.models.fields.IntegerField', [], {}),
+            'start': ('django.db.models.fields.DateTimeField', [], {}),
+            'sum_method': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'year': ('django.db.models.fields.IntegerField', [], {})
         },
         u'contenttypes.contenttype': {
@@ -160,7 +180,7 @@ class Migration(SchemaMigration):
             'season': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['competitions.Season']", 'null': 'True', 'blank': 'True'})
         },
         u'events.campuserinvitation': {
-            'Meta': {'ordering': "(u'_order',)", 'object_name': 'CampUserInvitation'},
+            'Meta': {'ordering': "(u'_order',)", 'unique_together': "(('user', 'camp'),)", 'object_name': 'CampUserInvitation'},
             '_order': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'added_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'camp': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['events.Camp']"}),
@@ -176,13 +196,14 @@ class Migration(SchemaMigration):
         u'events.event': {
             'Meta': {'ordering': "['-start_time', 'end_time']", 'object_name': 'Event'},
             'added_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'added_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'events_created'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'added_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "u'Event_created'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'competition': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['competitions.Competition']", 'null': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'end_time': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'modified_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'events_modified'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'modified_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "u'Event_modified'", 'null': 'True', 'to': u"orm['auth.User']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'registered_org': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'organized_event_set'", 'symmetrical': 'False', 'through': u"orm['events.EventOrgRegistration']", 'to': u"orm['auth.User']"}),
             'registered_user': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.User']", 'through': u"orm['events.EventUserRegistration']", 'symmetrical': 'False'}),
