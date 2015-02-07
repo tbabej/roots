@@ -1,5 +1,5 @@
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = ''
+SECRET_KEY = 'totally-secret-key'
 
 # Debug settings
 DEBUG = False
@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 # Setup database details
 # For developmnet purposes, you can use sqlite3
@@ -62,22 +62,16 @@ TIME_ZONE = 'Europe/Bratislava'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 
-from django.utils.translation import ugettext_lazy as _
-
 LANGUAGE_CODE = 'en-us'
 LANGUAGES = (
-    ('sk', _('Slovak')),
-    ('en', _('English')),
+    ('en', 'English'),
 )
-
 
 ADMINS = (
      ('Your Name', 'yourname@email.com'),
 )
 
 MANAGERS = ADMINS
-
-TIME_ZONE = 'Europe/Prague'
 
 # Django-sendfile related settings
 SENDFILE_BACKEND = 'sendfile.backends.simple'
@@ -96,7 +90,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/path/to/your/logs/roots.log',
+            'filename': 'roots.log',
         },
     },
     'loggers': {
@@ -124,4 +118,12 @@ DEBUG_TOOLBAR_PANELS = (
     # 'debug_toolbar.panels.profiling.ProfilingPanel',
     'debug_toolbar_line_profiler.panel.ProfilingPanel',
     'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+)
+
+ROOTS_SEASON_TOTAL_SUM_METHOD_CHOICES = (
+    (None, "Simple sum"),
+)
+
+ROOTS_SERIES_TOTAL_SUM_METHOD_CHOICES = (
+    (None, "Simple sum"),
 )
