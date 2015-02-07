@@ -1,0 +1,8 @@
+language: python
+python:
+  - "2.7"
+install:
+  - "pip install -r requirements.txt"
+  - "cp roots/local_settings.py.in roots/local_settings.py"
+  - "export PYTHONPATH=`pwd`"
+script: PYTHONPATH=`pwd` python manage.py test --settings=roots.settings --pythonpath='.'
