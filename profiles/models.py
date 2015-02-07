@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.functional import cached_property
 
 from competitions.models import Competition, Season
-from problems.models import UserSolution
 from events.models import EventUserRegistration
 
 
