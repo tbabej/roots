@@ -2,12 +2,12 @@
 SECRET_KEY = 'totally-secret-key'
 
 # Debug settings
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver', '.', '']
 
 # Setup database details
 # For developmnet purposes, you can use sqlite3
@@ -16,7 +16,7 @@ ALLOWED_HOSTS = ["localhost"]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/path/to/roots/database/file.db',
+        'NAME': 'roots.db',
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
@@ -65,6 +65,10 @@ TIME_ZONE = 'Europe/Bratislava'
 LANGUAGE_CODE = 'en-us'
 LANGUAGES = (
     ('en', 'English'),
+)
+
+LOCALE_PATHS = (
+    'locale',
 )
 
 ADMINS = (
