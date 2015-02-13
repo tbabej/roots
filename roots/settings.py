@@ -206,8 +206,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 # Get the projet root
-path_parts = os.path.dirname(os.path.realpath(__file__)).split('/')[:-1]
-PROJECT_ROOT = '/'.join(path_parts) + '/'
+settings_dir = os.path.dirname(os.path.realpath(__file__))
+PROJECT_ROOT = os.path.dirname(settings_dir) + '/'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or
