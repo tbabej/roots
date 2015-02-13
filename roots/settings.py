@@ -146,10 +146,10 @@ INSTALLED_APPS = (
     'reversion',
     # Use django-photologue
     'photologue',
-    # Use django-debug-toolbar
-    'debug_toolbar',
-    'debug_toolbar_line_profiler',
-    'template_timings_panel',
+    # Use django-debug-toolbar, but do not require it
+#    'debug_toolbar',
+#    'debug_toolbar_line_profiler',
+#    'template_timings_panel',
     # Use django-mathjax
     'django_mathjax',
     # Use crispy-forms
