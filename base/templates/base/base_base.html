@@ -148,13 +148,16 @@
 
                     <div class="panel-body">
                       {% get_last_news as news %}
+                      <small>
                       {% for news_line in news %}
-                          <small>
-                          <b>{{ news_line.heading }}</b></br>
+                          <b>{{ news_line.heading }}</b><br/>
                           {{ news_line.text|safe }}<br>
                           <i>({{ news_line.added_at|date:"d. F Y" }})</i><br/>
-                          </small>
+                          {% if not forloop.last %}
+                            <hr style="margin-top:6px; margin-bottom:6px">
+                          {% endif %}
                       {% endfor %}
+                      </small>
                     </div><!-- panel-body -->
                   </div><!-- panel -->
 
