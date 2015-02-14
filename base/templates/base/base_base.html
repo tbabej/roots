@@ -151,8 +151,8 @@
                       {% for news_line in news %}
                           <small>
                           <b>{{ news_line.heading }}</b></br>
+                          {{ news_line.text|safe }}<br>
                           <i>({{ news_line.added_at|date:"d. F Y" }})</i><br/>
-                          {{ news_line.text|safe }}
                           </small>
                       {% endfor %}
                     </div><!-- panel-body -->
