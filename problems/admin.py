@@ -39,9 +39,12 @@ class ProblemAdmin(RestrictedCompetitionAdminMixin,
         'severity',
         'category'
     )
+
     search_fields = (
         'text',
-        'added_by'
+        'added_by__username',
+        'added_by__first_name',
+        'added_by__last_name',
     )
 
     readonly_fields = (
