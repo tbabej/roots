@@ -83,6 +83,8 @@ This is extended version of grappelli's base.html template.
                         <ul id="grp-user-tools">
                             <!-- Userlinks -->
                             {% block userlinks %}
+                                <li><a href="{% url 'roots_index' %}">{% trans 'Return to the main site' %}</a></li>
+                                <li><a href="{% url 'filebrowser:fb_browse' %}">{% trans 'File browser and uploader' %}</a></li>
                                 <!-- Username -->
                                 <li class="grp-user-options-container grp-collapse grp-closed {% if request.session.original_user %}grp-switch-user-is-target{% endif %}">
                                     <a href="javascript://" class="user-options-handler grp-collapse-handler {% if request.session.original_user %}grp-switch-user-is-target{% else %}grp-switch-user-is-original{% endif %}">{% firstof user.get_short_name user.get_username %}</a>
