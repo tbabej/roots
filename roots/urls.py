@@ -9,6 +9,7 @@ from django.conf.urls.static import static
 
 from wiki.urls import get_pattern as get_wiki_pattern
 from django_notify.urls import get_pattern as get_notify_pattern
+from filebrowser.sites import site
 
 admin.autodiscover()
 
@@ -29,6 +30,7 @@ urlpatterns += i18n_patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^$', IndexView.as_view(), name='roots_index'),
+    url(_(r'^admin/filebrowser/'), include(site.urls)),
     url(_(r'^admin/doc/'), include('django.contrib.admindocs.urls')),
     url(_(r'^admin/'), include(admin.site.urls)),
     url(_(r'^grappelli/'), include('grappelli.urls')),

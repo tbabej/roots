@@ -107,6 +107,7 @@ INSTALLED_APPS = (
     'schools',
     # Grapelli comes first
     'grappelli',
+    'filebrowser',
     # Fluent comments come before contrib.comments
     'fluent_comments',
     # Non-roots specific apps
@@ -285,3 +286,5 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
+
+FILEBROWSER_DIRECTORY = ''
