@@ -28,6 +28,11 @@ class Post(models.Model):
                                 help_text=_('gallery to be previewed with the'
                                             'post'))
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("title__icontains", "competition__name__icontains")
+
     def __unicode__(self):
         return self.title
 

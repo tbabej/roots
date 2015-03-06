@@ -21,6 +21,14 @@ class Address(models.Model):
                               blank=True,
                               verbose_name=_('region'))
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            "street_icontains",
+            "city__icontains",
+            )
+
     def __unicode__(self):
         template = u"{street}, {city}, {postal}, {region}"
         return template.format(street=self.street,
@@ -53,6 +61,16 @@ class School(models.Model):
     def get_num_competitors(self):
         return self.userprofile_set.all().count()
     get_num_competitors.short_description = _("Number of competitors")
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            "name__incontains",
+            "abbreviation__incontains",
+            "address__street_icontains",
+            "address__city__icontains",
+            )
 
     def __unicode__(self):
         return self.name

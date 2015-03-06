@@ -22,6 +22,15 @@ class Leaflet(MediaRemovalMixin, models.Model):
     def get_media_files(self):
         return [self.get_leaflet_path(), self.get_thumbnail_path()]
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            "competition__name__icontains",
+            "year__iexact",
+            "issue__iexact",
+            )
+
     def __unicode__(self):
         return "{competition}-{year}-{issue}"\
                .format(competition=self.competition,

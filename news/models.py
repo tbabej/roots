@@ -18,6 +18,10 @@ class News(models.Model):
                             null=True,
                             blank=True)
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("competition__name__icontains", "heading__icontains")
+
     def __unicode__(self):
         return self.heading
 

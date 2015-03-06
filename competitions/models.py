@@ -42,6 +42,11 @@ class Competition(models.Model):
     #  season_set
     #  user_set
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains",)
+
     def __unicode__(self):
         return self.name
 
@@ -102,6 +107,11 @@ class CompetitionUserRegistration(models.Model):
     user = models.ForeignKey('auth.User',
                              verbose_name=_('user'))
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("user__name__icontains", "competition__name__icontains")
+
     def __unicode__(self):
         return (self.user.__unicode__() + unicode(_(" competes in ")) +
                 self.competition.__unicode__())
@@ -126,6 +136,11 @@ class CompetitionOrgRegistration(models.Model):
     organizer = models.ForeignKey('auth.User',
                                   verbose_name=_('organizer'))
     approved = models.BooleanField(verbose_name=_('registration approved'))
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("organizer__name__icontains", "competition__name__icontains")
 
     def __unicode__(self):
         return (self.organizer.user.__unicode__() + unicode(_(" organizes ")) +
@@ -443,6 +458,11 @@ class Season(models.Model, SeasonSeriesBaseMixin):
             else:
                 return None
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains", "competition__name__icontains",
+                "year__iexact", "number__iexact")
 
     def __unicode__(self):
         template = "{name} ({competition} {year}-{number})"
@@ -670,6 +690,11 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                                       "deadline cannot be made active")
 
         super(Series, self).clean(*args, **kwargs)
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains",)
 
     def __unicode__(self):
         return self.name

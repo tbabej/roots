@@ -165,10 +165,17 @@ class CampAdmin(PrettyFilterMixin, VersionAdmin):
                        'get_num_users_invited', 'get_num_users_signed',
                        'get_num_users_accepted', 'get_num_orgs')
 
+    raw_id_fields = ('season',)
+
+    # define the autocomplete_lookup_fields
+    autocomplete_lookup_fields = {
+        'fk': ['season'],
+    }
+
     fieldsets = (
         (None, {
             'fields': ('name', 'location', 'description',
-                       'start_time', 'end_time', 'limit',
+                       'start_time', 'end_time', 'limit', 'season',
                        'invitation_deadline')
         }),
     )

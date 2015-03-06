@@ -131,6 +131,16 @@ class UserSolution(MediaRemovalMixin,
                                             auto_now=True,
                                             editable=False)
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            'user__username__icontains',
+            'user__first_name__icontains',
+            'user__last_name__icontains',
+            'problem__id__iexact',
+        )
+
     def __unicode__(self):
         return unicode(_("User solution: {user} - {problem_id}")
                        .format(user=unicode(self.user),
@@ -167,8 +177,18 @@ class OrgSolution(models.Model):
     problem = models.ForeignKey('problems.Problem',
                                 verbose_name=_('problem'))
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            'organizer__username__icontains',
+            'organizer__first_name__icontains',
+            'organizer__last_name__icontains',
+            'problem__id__iexact',
+        )
+
     def __unicode__(self):
-        return unicode(_("Organizer solution: {user} - {problem_id}")
+        return unicode(_("organizer solution: {user} - {problem_id}")
                          .format(user=unicode(self.organizer),
                                  problem_id=unicode(self.problem.pk))
                )
@@ -265,6 +285,11 @@ class Problem(models.Model):
     #  problemset_set
     #  user_set
     #  usersolution_set
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("competition__name__icontains","text__icontains")
 
     def __unicode__(self):
         return remove_uncomplete_latex(truncatewords(self.text, 10))
@@ -378,6 +403,11 @@ class ProblemSet(models.Model):
 
         return averages
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains", "competition__name__icontains")
+
     def __unicode__(self):
         return self.name
 
@@ -418,6 +448,12 @@ class ProblemCategory(models.Model):
     # Fields added via foreign keys:
     #     problem_set
 
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains", "competition__name__icontains")
+
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.competition)
 
@@ -451,6 +487,12 @@ class ProblemSeverity(models.Model):
                     'It makes sense to have severities specific to each '
                     'competition, since organizers might have different '
                     'ways of sorting the problems regarding their severity.'))
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains", "level__iexact",
+                "competition__name__icontains")
 
     def __unicode__(self):
         return unicode(self.level) + ' - ' + self.name

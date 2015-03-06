@@ -53,6 +53,12 @@ class Event(models.Model):
 
     #  camp
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains", "competiton__name__icontains",
+                "location__icontains", "description__icontains")
+
     def __unicode__(self):
         return self.name
 
@@ -109,6 +115,16 @@ class EventUserRegistration(models.Model):
     user = models.ForeignKey('auth.User',
                              verbose_name=_('user'))
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            "user__username__icontains",
+            "user__first_name__icontains",
+            "user__last_name__icontains",
+            "event__name__icontains",
+            )
+
     def __unicode__(self):
         return (self.user.__unicode__() + unicode(_(" attends ")) +
                self.event.__unicode__())
@@ -132,6 +148,17 @@ class EventOrgRegistration(models.Model):
                               verbose_name=_('event'))
     organizer = models.ForeignKey('auth.User',
                                   verbose_name=_('organizer'))
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            "competition__name__icontains",
+            "organizer__username__icontains",
+            "organizer__first_name__icontains",
+            "organizer__last_name__icontains",
+            "event__name__icontains",
+            )
 
     def __unicode__(self):
         return (self.user.__unicode__() + unicode(_(" organizes ")) +
@@ -233,6 +260,16 @@ class CampUserInvitation(models.Model):
                                   verbose_name=_('user accepted timestamp'))
     org_accepted = models.BooleanField(default=False,
                                        verbose_name=_('accepted by organizers'))
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            "user__username__icontains",
+            "user__first_name__icontains",
+            "user__last_name__icontains",
+            "camp__name__icontains",
+            )
 
     def __unicode__(self):
         return (self.user.__unicode__() + unicode(_(' was invited to '))

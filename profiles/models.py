@@ -87,6 +87,15 @@ class UserProfile(models.Model):
 
     #  organizer
 
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            'user__username__icontains',
+            'user__first_name__icontains',
+            'user__last_name__icontains',
+        )
+
     def __unicode__(self):
         return unicode(_("user profile: {user}")
                        .format(user=self.user.username))
@@ -181,6 +190,15 @@ class OrganizerProfile(models.Model):
     # Fields added via inheritance:
 
     #  user_ptr
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            'organizer__username__icontains',
+            'organizer__first_name__icontains',
+            'organizer__last_name__icontains',
+        )
 
     def __unicode__(self):
         return unicode(_("organizer profile: {user}")
