@@ -84,6 +84,12 @@ class EventUserRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
         'user__last_name'
     )
 
+    raw_id_fields = ('user',)
+
+    autocomplete_lookup_fields = {
+        'fk': ['user'],
+    }
+
     readonly_fields = (
         'event',
         'user'
@@ -115,6 +121,12 @@ class EventOrgRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
     list_filter = ('organizer', 'event')
     search_fields = ['organizer', 'event']
     readonly_fields = ('organizer', 'event')
+
+    raw_id_fields = ('organizer',)
+
+    autocomplete_lookup_fields = {
+        'fk': ['organizer'],
+    }
 
     fieldsets = (
         (None, {

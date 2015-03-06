@@ -12,6 +12,12 @@ from django.utils.translation import ugettext_lazy as _
 # Monkey-patch __unicode__ of the User
 User.__unicode__ = (lambda x: "%s (%s)" % (x.get_full_name(), x.username)
                               if x.get_full_name() else x.username)
+User.autocomplete_search_fields = staticmethod(
+    lambda: (
+        'username__icontains',
+        'first_name__icontains',
+        'last_name__icontains',
+    ))
 
 
 class MediaRemovalMixin(object):

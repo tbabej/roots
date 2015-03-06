@@ -341,6 +341,12 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
         LimitToSeasonFilter,
     )
 
+    raw_id_fields = ('user',)
+
+    autocomplete_lookup_fields = {
+        'fk': ['user'],
+    }
+
     list_editable = (
         'score',
     )

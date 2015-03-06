@@ -54,6 +54,12 @@ class CompetitionUserRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
         'competition__name'
     )
 
+    raw_id_fields = ('user',)
+
+    autocomplete_lookup_fields = {
+        'fk': ['user'],
+    }
+
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
     fieldsets = (
@@ -87,6 +93,12 @@ class CompetitionOrgRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
         'organizer__first_name',
         'organizer__last_name'
     )
+
+    raw_id_fields = ('organizer',)
+
+    autocomplete_lookup_fields = {
+        'fk': ['organizer'],
+    }
 
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 

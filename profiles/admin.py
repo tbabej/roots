@@ -30,6 +30,11 @@ class UserProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):
         'classlevel'
     )
 
+    raw_id_fields = ('user',)
+
+    autocomplete_lookup_fields = {
+        'fk': ['user'],
+    }
 
 class OrganizerProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):
 
@@ -37,6 +42,12 @@ class OrganizerProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):
         'user',
         'motto',
     )
+
+    raw_id_fields = ('user',)
+
+    autocomplete_lookup_fields = {
+        'fk': ['user'],
+    }
 
 # Register to the admin site
 admin.site.register(UserProfile, UserProfileAdmin)
