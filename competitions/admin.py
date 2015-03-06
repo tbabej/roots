@@ -142,6 +142,12 @@ class SeasonAdmin(PrettyFilterMixin, VersionAdmin):
 
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
 
+    raw_id_fields = ('competition',)
+
+    autocomplete_lookup_fields = {
+        'fk': ['competition'],
+    }
+
     fieldsets = (
         (None, {
             'fields': ('competition',
@@ -182,6 +188,12 @@ class SeriesAdmin(PrettyFilterMixin, VersionAdmin):
     )
 
     readonly_fields = ('added_by', 'modified_by', 'added_at', 'modified_at')
+
+    raw_id_fields = ('season', 'problemset')
+
+    autocomplete_lookup_fields = {
+        'fk': ['season' , 'problemset'],
+    }
 
     fieldsets = (
         (None, {

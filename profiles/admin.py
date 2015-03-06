@@ -30,10 +30,10 @@ class UserProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):
         'classlevel'
     )
 
-    raw_id_fields = ('user',)
+    raw_id_fields = ('user', 'school')
 
     autocomplete_lookup_fields = {
-        'fk': ['user'],
+        'fk': ['user', 'school'],
     }
 
 class OrganizerProfileAdmin(PrettyFilterMixin, reversion.VersionAdmin):

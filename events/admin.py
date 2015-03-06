@@ -15,6 +15,7 @@ class EventAdmin(RestrictedCompetitionAdminMixin,
 
     list_display = (
         'name',
+        'competition',
         'location',
         'start_time',
         'end_time',
@@ -44,9 +45,20 @@ class EventAdmin(RestrictedCompetitionAdminMixin,
         'get_num_orgs'
     )
 
+    raw_id_fields = (
+        'competition',
+        'registered_user',
+        'registered_org',
+    )
+
+    # define the autocomplete_lookup_fields
+    autocomplete_lookup_fields = {
+        'fk': ['competition'],
+    }
+
     fieldsets = (
         (None, {
-            'fields': ('name', 'location', 'description',
+            'fields': ('name', 'location', 'description', 'competition',
                        'start_time', 'end_time', 'registration_end_time')
         }),
     )

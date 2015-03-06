@@ -44,6 +44,13 @@ class SchoolAdmin(PrettyFilterMixin, reversion.VersionAdmin):
         'address__street',
     )
 
+    raw_id_fields = ('address',)
+
+    # define the autocomplete_lookup_fields
+    autocomplete_lookup_fields = {
+        'fk': ['address'],
+    }
+
 
 
 # Register to the admin site

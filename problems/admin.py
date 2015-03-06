@@ -364,6 +364,13 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
         'modified_at'
     )
 
+    raw_id_fields = ('user', 'problem')
+
+    # define the autocomplete_lookup_fields
+    autocomplete_lookup_fields = {
+        'fk': ['user', 'problem'],
+    }
+
     fieldsets = (
         (None, {
             'fields': ('user', 'problem', 'solution', 'corrected_solution',
@@ -390,6 +397,13 @@ class ProblemCategoryAdmin(VersionAdmin):
         'competition',
     )
 
+    raw_id_fields = ('competition',)
+
+    # define the autocomplete_lookup_fields
+    autocomplete_lookup_fields = {
+        'fk': ['competition'],
+    }
+
 @admin_commentable
 class ProblemSeverityAdmin(VersionAdmin):
 
@@ -399,6 +413,12 @@ class ProblemSeverityAdmin(VersionAdmin):
         'competition',
     )
 
+    raw_id_fields = ('competition',)
+
+    # define the autocomplete_lookup_fields
+    autocomplete_lookup_fields = {
+        'fk': ['competition'],
+    }
 
 # Register to the admin site
 admin.site.register(Problem, ProblemAdmin)

@@ -32,6 +32,14 @@ class NewsAdmin(PrettyFilterMixin, VersionAdmin):
         'modified_at'
     )
 
+    raw_id_fields = ('competition',)
+
+    # define the autocomplete_lookup_fields
+    autocomplete_lookup_fields = {
+        'fk': ['competition'],
+    }
+
+
     fieldsets = (
         (None, {
             'fields': ('competition', 'heading', 'text')
