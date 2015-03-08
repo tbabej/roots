@@ -288,4 +288,4 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 FILEBROWSER_DIRECTORY = 'uploads/'
-VERSIONS_BASEDIR = 'uploads_tmp/'
+FILEBROWSER_VERSIONS_BASEDIR = 'uploads_tmp/'
