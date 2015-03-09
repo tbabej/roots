@@ -1,0 +1,46 @@
+{% extends "photologue/root.html" %}
+{% load url from future %}
+{% load roots_tags %}
+{% load sekizai_tags %}
+{% load i18n %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+
+{% addtoblock "js" %}
+<script src="https://pierrecle.github.io/brickwall/src/brickwall.js"></script>
+<script type="text/javascript">
+	$(function() {
+            $('.photo-gallery').brickwall({resizeLast:false});
+	});
+</script>
+{% endaddtoblock %}
+
+{% define gallery_heading %}
+  <a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a>
+{% enddefine %}
+
+{% define gallery_content %}
+<div class="photo-gallery">
+  {% for photo in object.public %}
+  {% with photo.get_thumbnail_size as size %}
+  <a href="{{ photo.get_display_url }}" data-lightbox="{{ gallery.title  }}" title="{{ photo.caption }}">
+      <img src="{{ photo.get_thumbnail_url }}" width="{{ size.0 }}" height="{{ size.1 }}" alt="{{ photo.title }}"/>
+  </a>
+  {% endwith %}
+  {% endfor %}
+</div>
+{% enddefine %}
+
+{% define gallery_footer %}
+&nbsp;
+<div class="pull-right">
+  <span class="glyphicon glyphicon-time"></span>
+  {{ gallery.date_added }}
+</div>
+{% enddefine %}
+
+{% include "base/panel.html" with content_heading=gallery_heading content=gallery_content content_footer=gallery_footer %}
+
+{% endblock %}
