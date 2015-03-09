@@ -42,6 +42,17 @@
   </head>
 
   <body>
+
+  <script src="{% static "js/jquery.js" %}"></script>
+  <script src="{% static "js/jquery.cookie.min.js" %}"></script>
+  <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+  <script src="{% static "js/lightbox.js" %}"></script>
+  <script src="{% static "js/csrf_ajax.js" %}"></script>
+  <script src="{% static "js/eldarion-ajax/eldarion-ajax.min.js" %}"></script>
+  {% render_block "js" %}
+  {% block roots_js %}
+  {% endblock %}
+
   {% block body %}
     {% block navbar %}
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -167,16 +178,6 @@
             {% endblock %}
         </div><!--/row-->
     </div> <!-- /container -->
-  {% endblock %}
-
-  <script src="{% static "js/jquery.js" %}"></script>
-  <script src="{% static "js/jquery.cookie.min.js" %}"></script>
-  <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
-  <script src="{% static "js/lightbox.js" %}"></script>
-  <script src="{% static "js/csrf_ajax.js" %}"></script>
-  <script src="{% static "js/eldarion-ajax/eldarion-ajax.min.js" %}"></script>
-  {% render_block "js" %}
-  {% block roots_js %}
   {% endblock %}
 
   </body>
