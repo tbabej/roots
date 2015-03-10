@@ -10,7 +10,11 @@
 {% if extended_latest %}
   {% for gallery, all_photos, sample in extended_latest %}
     {% define gallery_heading %}
-      <a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a>
+    {{ gallery.title }}
+    <a class="pull-right btn btn-default" style="padding: 0px 12px; margin-left: 10px; background-color: #DFF0D8;" href="{{gallery.get_absolute_url}}">
+      <i class="fa fa-photo"></i>
+      {% trans "Display whole gallery" %}
+    </a>
     {% enddefine %}
 
     {% define gallery_content %}
