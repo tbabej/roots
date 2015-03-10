@@ -23,7 +23,7 @@
 
 {% define gallery_content %}
 <div class="photo-gallery">
-  {% for photo in object.public %}
+  {% for photo in object.public reversed %}
   {% with photo.get_thumbnail_size as size %}
   <a href="{{ photo.get_display_url }}" data-lightbox="{{ gallery.title  }}" title="{{ photo.caption }}">
       <img src="{{ photo.get_thumbnail_url }}" width="{{ size.0 }}" height="{{ size.1 }}" alt="{{ photo.title }}"/>
