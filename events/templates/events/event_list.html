@@ -3,6 +3,8 @@
 {% load roots_tags %}
 {% load comments %}
 
+{% block head_title %}{% trans "Events" %}{% endblock %}
+
 {% block content %}
     {% for event in events %}
 
