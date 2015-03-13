@@ -2,6 +2,8 @@
 {% load i18n %}
 {% load roots_tags %}
 
+{% block head_title %}{{ competition.name }}{% endblock %}
+
 {% block content %}
     {% for item in data %}
 

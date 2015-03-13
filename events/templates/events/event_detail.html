@@ -3,6 +3,8 @@
 {% load roots_tags %}
 {% load comments %}
 
+{% block head_title %}{{ event.name }}{% endblock %}
+
 {% block content_heading %}
 {{ event.name }}
 {% endblock %}

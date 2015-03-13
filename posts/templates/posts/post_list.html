@@ -3,6 +3,8 @@
 {% load roots_tags %}
 {% load comments %}
 
+{% block head_title %}{% trans "Posts" %}{% endblock %}
+
 {% block content %}
   {% for post in posts %}
 
