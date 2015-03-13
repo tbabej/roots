@@ -21,7 +21,7 @@
 {% trans "Events" %}</a>
   <a class="list-group-item {% url_active request 'competitions_competition_discussion' competition_id=1 %}" href="{% url 'competitions_competition_discussion' competition_id=1 %}"><i class="fa fa-comment-o" style="margin-right: 7px;"></i>
 {% trans "Discussion" %}</a>
-  <a class="list-group-item {% if request.path == "https://seminar.strom.sk/sk/zdruzenie/onas/" %}active{% else %}{% endif %}" href="https://seminar.strom.sk/sk/zdruzenie/onas/"><i class="fa fa-info" style="margin-right: 16px;"></i>
+  <a class="list-group-item {% if request.path == "/sk/zdruzenie/onas/" %}active{% else %}{% endif %}" href="https://seminar.strom.sk/sk/zdruzenie/onas/"><i class="fa fa-info" style="margin-right: 16px;"></i>
 {% trans "About us" %}</a>
 
   <div class="list-group-item list-group-item-info">
