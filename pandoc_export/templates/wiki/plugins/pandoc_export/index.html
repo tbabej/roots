@@ -1,0 +1,14 @@
+{% extends "wiki/article.html" %}
+{% load wiki_tags i18n %}
+{% load url from future %}
+
+{% block wiki_pagetitle %}{% trans "Export" %}: {{ article.current_revision.title }}{% endblock %}
+
+{% block wiki_contents_tab %}
+<div class="row">
+  <div class="col-lg-8">
+    <p class="lead">{% trans "This wiki page can be exported to the following formats: " %}</p>
+  </div>
+</div>
+{% endblock %}
+
