@@ -26,3 +26,4 @@ django-sendfile==0.3.4
 django-sortedm2m==0.8.1
 django-tagging==0.3.2
 wiki==0.0.23
+pypandoc==0.9.6
