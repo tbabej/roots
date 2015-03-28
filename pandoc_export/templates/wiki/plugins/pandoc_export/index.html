@@ -8,6 +8,9 @@
 <div class="row">
   <div class="col-lg-8">
     <p class="lead">{% trans "This wiki page can be exported to the following formats: " %}</p>
+    {% for format in allowed_formats %}
+      <a href={% url 'wiki:pandoc_export' path=urlpath.path article_id=article.id format=format %}>{{ format }}</a></br>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

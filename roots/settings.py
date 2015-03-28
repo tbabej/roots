@@ -170,6 +170,7 @@ INSTALLED_APPS = (
     'sekizai',
     'sorl.thumbnail',
     'wiki',
+    'pandoc_export',
     'wiki.plugins.attachments',
     'wiki.plugins.notifications',
     'wiki.plugins.images',

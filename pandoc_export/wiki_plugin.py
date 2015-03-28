@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 from wiki.core.plugins import registry
 from wiki.core.plugins.base import BasePlugin
 
-from wiki_pandoc import views
+from pandoc_export import views
 
 class PandocExportPlugin(BasePlugin):
 
@@ -16,7 +16,7 @@ class PandocExportPlugin(BasePlugin):
 
     urlpatterns = {
         'article': patterns('',
-            url('', include('wiki_pandoc.urls')),
+            url('', include('pandoc_export.urls')),
          )
     }
 
