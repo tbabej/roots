@@ -163,7 +163,9 @@ span.tags
 
 {% addtoblock "js" %}
 <script src="{% static "js/Chart.min.js" %}"></script>
+{% endaddtoblock %}
 
+{% addtoblock "late_js" %}
 <script>
 var data_styling = [
         {
