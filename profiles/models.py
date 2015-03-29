@@ -151,7 +151,7 @@ class UserProfile(models.Model):
         return self.user.comment_comments.count()
 
     def get_last_comments(self, number=10):
-        return self.user.comment_comments.all()[:10]
+        return self.user.comment_comments.all()[:number]
 
     class Meta:
         verbose_name = _('user profile')
