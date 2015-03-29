@@ -237,6 +237,16 @@ class Problem(models.Model):
         else:
             return ''
 
+    def currently_used_in_season(self):
+        # Get the problemsets in decreasing order of their series'
+        # submission deadlines. Skip over those not related to any
+        # series.
+        sets = self.problemset_set.order_by('-series__submission_deadline')
+        sets = sets.filter(series__isnull=False)
+
+        if sets:
+            return sets[0].series.season
+
     def times_used(self):
         return len(self.get_usages())
 
@@ -382,6 +392,8 @@ class ProblemSet(models.Model):
                                      through='problems.ProblemInSet',
                                      verbose_name=_('problems'),
                                      sort_value_field_name='position')
+
+    # One to one fields: Series
 
     def average_severity(self):
         problemset = self.problems.filter(competition=self.competition)
