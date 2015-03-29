@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from django.utils.functional import cached_property
 
+from base.util import with_author, with_timestamp
 from competitions.models import Competition, Season
 from events.models import EventUserRegistration
 from problems.models import UserSolution
@@ -216,6 +217,8 @@ def assign_user_profile(sender, instance, created, **kwargs):
         profile.save()
 
 
+@with_author
+@with_timestamp
 class UserSeasonRegistration(models.Model):
     '''
     Represents a set of data in the profile that changes during
