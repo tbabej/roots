@@ -84,7 +84,7 @@
           </td>
           <td>
           <a href="{% url 'profiles_userprofile_detail' username=row_user.username %}" style="text-decoration: none !important;">
-            {% if row_user|has_avatar %}
+            {% if row_user.pk in user_avatars_list %}
               <img src="{% avatar_url row_user 17 %}" class="img-circle" style="margin-top: -4px;"/>
             {% else %}
               <span class="glyphicon glyphicon-user" style="padding-right: 2px; padding-left: 2px;"></span>
@@ -151,7 +151,7 @@
       </td>
       <td>
         <a href="{% url 'profiles_userprofile_detail' username=result_row.0.username %}" style="text-decoration: none !important;">
-          {% if result_row.0|has_avatar %}
+          {% if result_row.0.pk in user_avatars_list %}
             <img src="{% avatar_url result_row.0 17 %}" class="img-circle" style="margin-top: -4px;"/>
           {% else %}
             <span class="glyphicon glyphicon-user" style="padding-right: 2px; padding-left: 2px;"></span>

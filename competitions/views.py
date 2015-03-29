@@ -11,6 +11,7 @@ from problems.forms import UserSolutionForm
 from .forms import CompetitionRegistrationForm
 from .models import Competition, CompetitionUserRegistration, Season, Series
 
+from avatar.models import Avatar
 
 class CompetitionRegistrationView(FormView):
 
@@ -56,6 +57,11 @@ class SeasonResultsView(DetailView):
         competition = self.object.competition
         seasons = Season.objects.filter(competition=competition).order_by('-start')
         context['competition_seasons'] = seasons
+
+        competitors_ids = list(self.object.competitors.values_list('pk', flat=True))
+        context['user_avatars_list'] = list(Avatar.objects.filter(
+            user__pk__in=competitors_ids,
+            primary=True).values_list('user__pk', flat=True))
 
         return context
 
