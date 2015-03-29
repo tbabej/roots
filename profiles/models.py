@@ -7,6 +7,7 @@ from django.utils.functional import cached_property
 
 from competitions.models import Competition, Season
 from events.models import EventUserRegistration
+from problems.models import UserSolution
 
 
 # User-related models
@@ -213,3 +214,63 @@ def assign_user_profile(sender, instance, created, **kwargs):
     if created:
         profile = UserProfile(user=instance)
         profile.save()
+
+
+class UserSeasonRegistration(models.Model):
+    '''
+    Represents a set of data in the profile that changes during
+    the years and needs to be perserved in order to compute the
+    results properly.
+    '''
+
+    user = models.ForeignKey('auth.User',
+                             verbose_name=_('user'))
+
+    season = models.ForeignKey('competitions.Season',
+                               verbose_name=_('season'))
+
+    school = models.ForeignKey('schools.School',
+                               blank=True,
+                               null=True,
+                               verbose_name=_('school'))
+
+    school_class = models.CharField(max_length=20,
+                                    blank=True,
+                                    null=True,
+                                    verbose_name=_('school class'))
+
+    classlevel = models.CharField(max_length=2,
+                                  blank=True,
+                                  null=True,
+                                  verbose_name=_('class level'),
+                                  choices=(('Z2', 'Z2'),
+                                           ('Z3', 'Z3'),
+                                           ('Z4', 'Z4'),
+                                           ('Z5', 'Z5'),
+                                           ('Z6', 'Z6'),
+                                           ('Z7', 'Z7'),
+                                           ('Z8', 'Z8'),
+                                           ('Z9', 'Z9'),
+                                           ('S1', 'S1'),
+                                           ('S2', 'S2'),
+                                           ('S3', 'S3'),
+                                           ('S4', 'S4')))
+
+    # Define autocomplete fields for grapelli search in admin
+    @staticmethod
+    def autocomplete_search_fields():
+        return (
+            'user__username__icontains',
+            'user__first_name__icontains',
+            'user__last_name__icontains',
+        )
+
+    def __unicode__(self):
+        return unicode(_("user registration for {season}: {user}")
+                       .format(user=self.user.username,
+                               season=self.season))
+
+    class Meta:
+        verbose_name = _('user season registration')
+        verbose_name_plural = _('user season registrations')
+        unique_together = ('season', 'user')
