@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^$', IndexView.as_view(), name='roots_index'),
     url(r'^login/$', LoginRedirectView.as_view(), name='roots_login'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^protected/', include('downloads.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns('',
@@ -55,7 +56,7 @@ urlpatterns += i18n_patterns('',
 # Add django-wiki related patterns
 urlpatterns += i18n_patterns('',
     (_(r'^wiki/notify/'), get_notify_pattern()),
-    (_(r'^wiki/'), get_wiki_pattern())
+    (_(r'^wiki/'), get_wiki_pattern()),
 )
 
 
