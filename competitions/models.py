@@ -571,6 +571,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
         # Fetch the UserSolution model manually, since importing causes cyclical imports
         UserSolution = get_model('problems', 'UserSolution')
+        UserSeasonRegistration = get_model('profiles', 'UserSeasonRegistration')
 
         custom_total_func = getattr(settings,
                                     (self.sum_method or ''),
@@ -590,9 +591,14 @@ class Series(models.Model, SeasonSeriesBaseMixin):
             if current_user != solution.user:
                 # User has changed, compute the previous line if we are not processing the first solution
                 if current_user is not None:
+                    # Fint the current user's registration to the given season
+                    registration = UserSeasonRegistration.objects.get(
+                        user=current_user, season=self.season)
+
                     # Process the previous line
                     user_solutions = self.sort_solutions(user_solutions)
                     total = custom_total_func(user=current_user,
+                                              registration=registration,
                                               solutions=user_solutions)
                     results.append((current_user, user_solutions, total))
 
@@ -658,13 +664,23 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         This defaults to simple sum.
         """
 
+        UserSeasonRegistration = get_model('profiles', 'UserSeasonRegistration')
         solutions = self.get_user_solutions(user)
 
         custom_total_func = getattr(settings,
                                     self.sum_method or '',
                                     simple_solution_sum)
 
-        return solutions, custom_total_func(user, solutions)
+        # Fint the current user's registration to the given season
+        registration = UserSeasonRegistration.objects.get(
+            user=user, season=self.season)
+
+        # Process the previous line
+        total = custom_total_func(user=current_user,
+                                  registration=registration,
+                                  solutions=user_solutions)
+
+        return solutions, total
 
     def is_past_submission_deadline(self):
         return now() > self.submission_deadline
