@@ -287,7 +287,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
         # Find all problems for all series in this season
         all_problems = [
-            series.problemset.problems.all()
+            series.problems.all()
             for series in self.series_set.all()
         ]
 
@@ -506,9 +506,9 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
     @cached_property
     def num_problems(self):
-        return self.problemset.problems.count()
+        return self.problems.count()
 
-    @property
+    @cached_property
     def problems(self):
         return self.problemset.problems.all()
 
@@ -553,7 +553,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
         sorted_solutions = [None] * self.num_problems
         problem_ids = list(
-            self.problemset.problems.values_list('id', flat=True)
+            self.problems.values_list('id', flat=True)
         )
 
         for solution in solutions:
@@ -577,7 +577,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                                     (self.sum_method or ''),
                                     simple_solution_sum)
 
-        series_problem_ids = self.problemset.problems.values_list('id', flat=True)
+        series_problem_ids = self.problems.values_list('id', flat=True)
 
         solutions = (UserSolution.objects.only('problem', 'user', 'score', 'classlevel')
                                          .filter(problem__in=series_problem_ids)
@@ -629,7 +629,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
         competitors = User.objects.filter(
                 usersolution__problem__in=
-                    self.problemset.problems.values_list('pk', flat=True)
+                    self.problems.values_list('pk', flat=True)
             ).distinct()
 
         return competitors
@@ -637,7 +637,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
     @cached_property
     def solutions(self):
         UserSolution = get_model('problems', 'UserSolution')
-        series_problem_ids = self.problemset.problems.values_list('id', flat=True)
+        series_problem_ids = self.problems.values_list('id', flat=True)
         return UserSolution.objects.filter(problem__in=series_problem_ids)
 
     @property
