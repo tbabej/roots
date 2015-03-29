@@ -186,5 +186,9 @@
     </div> <!-- /container -->
   {% endblock %}
 
+  {% render_block "late_js" %}
+  {% block roots_late_js %}
+  {% endblock %}
+
   </body>
 </html>
