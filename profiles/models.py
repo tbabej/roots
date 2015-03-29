@@ -265,6 +265,20 @@ class UserSeasonRegistration(models.Model):
             'user__last_name__icontains',
         )
 
+    @classmethod
+    def register_user(cls, user, season):
+        profile = user.userprofile
+
+        registration = cls(
+            user=user,
+            season=season,
+            school=profile.school,
+            school_class=profile.school_class,
+            classlevel=profile.classlevel,
+            )
+
+        registration.save()
+
     def __unicode__(self):
         return unicode(_("user registration for {season}: {user}")
                        .format(user=self.user.username,
