@@ -512,6 +512,10 @@ class Series(models.Model, SeasonSeriesBaseMixin):
     def problems(self):
         return self.problemset.problems.all()
 
+    @cached_property
+    def problems_ids(self):
+        return list(self.problems.values_list('id', flat=True))
+
     @property
     def time_to_deadline(self):
         """
@@ -552,13 +556,10 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         """
 
         sorted_solutions = [None] * self.num_problems
-        problem_ids = list(
-            self.problems.values_list('id', flat=True)
-        )
 
         for solution in solutions:
             try:
-                sorted_solutions[problem_ids.index(solution.problem.pk)] = solution
+                sorted_solutions[self.problems_ids.index(solution.problem.pk)] = solution
             except ValueError:
                 raise ValueError("Given solution %s is not for any problem in the problemset %s" %
                                  (solution, self.problemset))
@@ -577,10 +578,8 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                                     (self.sum_method or ''),
                                     simple_solution_sum)
 
-        series_problem_ids = self.problems.values_list('id', flat=True)
-
         solutions = (UserSolution.objects.only('problem', 'user', 'score', 'classlevel')
-                                         .filter(problem__in=series_problem_ids)
+                                         .filter(problem__in=self.problems_ids)
                                          .order_by('user', 'problem')
                                          .select_related('user', 'problem'))
 
@@ -633,8 +632,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
         """
 
         competitors = User.objects.filter(
-                usersolution__problem__in=
-                    self.problems.values_list('pk', flat=True)
+                usersolution__problem__in=self.problems_ids
             ).distinct()
 
         return competitors
@@ -642,8 +640,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
     @cached_property
     def solutions(self):
         UserSolution = get_model('problems', 'UserSolution')
-        series_problem_ids = self.problems.values_list('id', flat=True)
-        return UserSolution.objects.filter(problem__in=series_problem_ids)
+        return UserSolution.objects.filter(problem__in=self.problems_ids)
 
     @property
     def not_corrected_solutions(self):
