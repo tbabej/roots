@@ -62,7 +62,7 @@
   <tr>
     <th> {% trans "Rank" %}</th>
     <th> {% trans "Name" %} </th>
-    {% for problem in series.problemset.problems.all %}
+    {% for problem in series.problems.all %}
       <th> {% trans "Problem" %} {{forloop.counter}} </th>
     {% endfor %}
     <th> {% trans "Total" %} </th>
@@ -129,7 +129,7 @@
     <th> {% trans "Rank" %} </th>
     <th> {% trans "Name" %} </th>
     {% for season_series in season.series %}
-        {% for problem in season_series.problemset.problems.all %}
+        {% for problem in season_series.problems.all %}
           <th> {{forloop.counter}}. </th>
         {% endfor %}
     {% endfor %}
