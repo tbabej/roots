@@ -586,14 +586,19 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
         current_user = None
 
+        # Keep registrations in a dict for performance
+        registrations = {
+            registration.user.pk: registration for registration in
+            UserSeasonRegistration.objects.filter(season=self.season).select_related('user')
+            }
+
         # Solutions are sorted by the user ids first, then by the problem ids
         for solution in solutions:
             if current_user != solution.user:
                 # User has changed, compute the previous line if we are not processing the first solution
                 if current_user is not None:
                     # Fint the current user's registration to the given season
-                    registration = UserSeasonRegistration.objects.get(
-                        user=current_user, season=self.season)
+                    registration = registrations[current_user.pk]
 
                     # Process the previous line
                     user_solutions = self.sort_solutions(user_solutions)
