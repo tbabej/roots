@@ -364,6 +364,7 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
     }
 
     list_editable = (
+        'note',
         'score',
     )
 
@@ -390,7 +391,7 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
     fieldsets = (
         (None, {
             'fields': ('user', 'problem', 'solution', 'corrected_solution',
-                       'classlevel', 'school', 'school_class')
+                       'note', 'classlevel', 'school', 'school_class')
         }),
     )
 
@@ -398,7 +399,7 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
         ('Details', {
             'classes': ('grp-collapse', 'grp-closed'),
             'fields': ('added_by', 'modified_by', 'added_at', 'modified_at',
-                       'corrected_by', 'note')
+                       'corrected_by',)
         }),
     )
 
