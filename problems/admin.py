@@ -323,12 +323,28 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
         return redirect('problems_import_solutions_from_zip')
     import_from_zip.short_description = 'Import solutions from zip'
 
+    def solution_link(self, solution):
+        if solution and solution.solution:
+            return "<a href='{0}'>{1}</a>".format(solution.solution.url,
+                                                  solution.solution.name)
+
+    solution_link.allow_tags = True
+
+    def corrected_solution_link(self, solution):
+        corrected = solution.corrected_solution
+        if solution and corrected:
+            return "<a href='{0}'>{1}</a>".format(corrected.url,
+                                                  corrected.name)
+
+    corrected_solution_link.allow_tags = True
+
     actions = ['import_from_zip']
 
     list_display = (
         'user',
         'problem',
-        'solution',
+        'solution_link',
+        'corrected_solution_link',
         'score',
     )
 
