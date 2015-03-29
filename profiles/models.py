@@ -288,3 +288,22 @@ class UserSeasonRegistration(models.Model):
         verbose_name = _('user season registration')
         verbose_name_plural = _('user season registrations')
         unique_together = ('season', 'user')
+
+
+@receiver(post_save, sender=UserSolution)
+def register_user_to_season(sender, instance, created, **kwargs):
+    # If we created a UserSolution, we need to check if the user
+    # is registered for the given Season
+    if created:
+        # Get the most relevant season
+        season = season=instance.problem.currently_used_in_season()
+
+        # Check if the user is already registered
+        registration = UserSeasonRegistration.objects.filter(
+            user=instance.user,
+            season=season,
+            )
+
+        # If not, entroll him with current data
+        if not registration:
+            UserSeasonRegistration.register_user(instance.user, season)
