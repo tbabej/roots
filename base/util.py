@@ -2,6 +2,7 @@ import datetime
 import os
 import unicodedata
 import subprocess
+import shutil
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -211,13 +212,24 @@ def merge_pdf_files(path_root, output_path, filepaths):
     elif not output_path:
         raise ValidationError(u"No path given.")
 
+    # The place where the merged file will be stored
+    new_location = os.path.join(path_root, output_path)
+
+    # If there is only one file, do not even try to merge,
+    # just move the file to the new location
+    if len(filepaths) == 1:
+        shutil.move(filepaths[0], new_location)
+        return output_path
+
+    # For more than a one file, try to merge them
     out, err, rc = run(['pdftk'] +
                        filepaths +
-                       ['cat', 'output', os.path.join(path_root, output_path)])
+                       ['cat', 'output', new_location])
 
     if rc != 0:
         raise ValidationError(u"Failed to merge PDF files.")
 
+    # This is correct, we just want to return the partial path
     return output_path
 
 
