@@ -323,7 +323,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         # Keep registrations in a dict for performance
         return {
             registration.user.pk: registration for registration in
-            self.userseasonregistration_set.all().select_related('user')
+            self.userseasonregistration_set.all().select_related('user', 'school')
             }
 
     @cached_property
@@ -336,10 +336,6 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
         for competitor in self.competitors:
             user_results = []
-
-            # For each user, we must find at least one filled in
-            # result fow, which wil contain the registration.
-            registration = None
             for series in self.series:
                 # Find the user's line in the results table
                 matching_lines = [line[1:] for line in series.results
@@ -349,7 +345,6 @@ class Season(models.Model, SeasonSeriesBaseMixin):
                 # in the results table. If there is none, make a empty line.
                 if matching_lines:
                     user_result = matching_lines[0][:-1]
-                    registration = matching_lines[-1]
                 else:
                     user_result = ([None] * series.num_problems, 0)
 
@@ -357,7 +352,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
             total = custom_total_func(user_results)
             season_results.append((competitor, user_results, total,
-                                   registration))
+                                   self.registrations[competitor.pk]))
 
         season_results.sort(key=lambda x: x[2], reverse=True)
         return season_results
