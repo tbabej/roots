@@ -63,6 +63,7 @@
     <th> {% trans "Rank" %}</th>
     <th> {% trans "Name" %} </th>
     <th> {% trans "Class level" %} </th>
+    <th> {% trans "School" %} </th>
     {% for problem in series.problems.all %}
       <th> {{forloop.counter}}. </th>
     {% endfor %}
@@ -96,6 +97,9 @@
         {% endwith %}
         <td>
           {{ result_row.3.classlevel }}
+        </td>
+        <td>
+          {{ result_row.3.school }}
         </td>
         {% for solution in result_row.1 %}
         <td>
@@ -133,6 +137,7 @@
     <th> {% trans "Rank" %} </th>
     <th> {% trans "Name" %} </th>
     <th> {% trans "Class level" %} </th>
+    <th> {% trans "School" %} </th>
     {% for season_series in season.series %}
         {% for problem in season_series.problems.all %}
           <th> {{forloop.counter}}. </th>
@@ -166,6 +171,9 @@
       </td>
       <td>
         {{ result_row.3.classlevel }}
+      </td>
+      <td>
+        {{ result_row.3.school }}
       </td>
       {% for series_result in result_row.1 %}
         {% for solution in series_result.0 %}
