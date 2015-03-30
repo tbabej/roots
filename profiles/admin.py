@@ -6,7 +6,7 @@ from base.admin import PrettyFilterMixin, ImprovedFilteringVersionAdminMixin
 from problems.admin import LimitToSeasonFilter
 
 from competitions.models import Competition, Season
-from .models import UserProfile, OrganizerProfile
+from .models import UserProfile, OrganizerProfile, UserSeasonRegistration
 
 
 class LimitProfilesToSeasonFilter(LimitToSeasonFilter):
@@ -81,6 +81,37 @@ class OrganizerProfileAdmin(ImprovedFilteringVersionAdminMixin, reversion.Versio
         'fk': ['user'],
     }
 
+class UserSeasonRegistrationAdmin(ImprovedFilteringVersionAdminMixin, reversion.VersionAdmin):
+
+    list_display = (
+        'user',
+        'season',
+        'school',
+        'classlevel',
+    )
+
+    list_filter = (
+        'school',
+        'classlevel',
+        LimitProfilesToSeasonFilter,
+    )
+
+    search_fields = (
+        'user__username',
+        'user__first_name',
+        'user__last_name',
+        'school__name',
+        'season__name',
+        'classlevel'
+    )
+
+    raw_id_fields = ('user', 'school', 'season')
+
+    autocomplete_lookup_fields = {
+        'fk': ['user', 'school', 'season'],
+    }
+
 # Register to the admin site
 admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(UserSeasonRegistration, UserSeasonRegistrationAdmin)
 admin.site.register(OrganizerProfile, OrganizerProfileAdmin)
