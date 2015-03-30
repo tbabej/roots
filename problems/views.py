@@ -63,7 +63,10 @@ class UserSolutionSubmissionView(View):
                 messages.error(request, _("Problem does not belong to the series"))
                 return redirect('competitions_season_detail_latest', competition_id=1)
 
-            submission, created = UserSolution.objects.get_or_create(**data)
+            try:
+                submission =  UserSolution.objects.get(**data)
+            except UserSolution.DoesNotExist:
+                submission = UserSolution(**data)
 
             try:
                 filelist = request.FILES.getlist('solution')
@@ -74,7 +77,7 @@ class UserSolutionSubmissionView(View):
                 submission.user_modified_at = now()
                 submission.save()
             except ValidationError, e:
-                messages.error(request, str(e))
+                messages.error(request, str('\n'.join(e.messages)))
         else:
             for field, errors in form.errors.iteritems():
                 messages.error(request, u"{error}".format(
