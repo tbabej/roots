@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
 from django.template.defaultfilters import truncatewords
 from django.utils.translation import ugettext_lazy as _
@@ -147,11 +147,20 @@ class UserSolution(MediaRemovalMixin,
                                problem_id=unicode(self.problem.pk))
                )
 
+    def clean(self):
+        required_attrs = ('school', 'school_class', 'classlevel')
+
+        if any(getattr(self.user.userprofile, attr, None) is None
+               for attr in required_attrs):
+            raise ValidationError("User profile does not contain all required fields")
+
     def save(self, *args, **kwargs):
         self.school = self.school or self.user.userprofile.school
         self.school_class = (self.school_class or
                              self.user.userprofile.school_class)
         self.classlevel = self.classlevel or self.user.userprofile.classlevel
+
+        self.clean()
 
         super(UserSolution, self).save(*args, **kwargs)
 
