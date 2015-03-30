@@ -319,6 +319,14 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         return self.series_set.filter(submission_deadline__lt=now())
 
     @cached_property
+    def registrations(self):
+        # Keep registrations in a dict for performance
+        return {
+            registration.user.pk: registration for registration in
+            self.userseasonregistration_set.all().select_related('user')
+            }
+
+    @cached_property
     def results(self):
         custom_total_func = getattr(settings,
                                     self.sum_method or '',
@@ -326,14 +334,12 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
         season_results = []
 
-        # Keep registrations in a dict for performance
-        registrations = {
-            registration.user.pk: registration for registration in
-            self.userseasonregistration_set.all().select_related('user')
-            }
-
         for competitor in self.competitors:
             user_results = []
+
+            # For each user, we must find at least one filled in
+            # result fow, which wil contain the registration.
+            registration = None
             for series in self.series:
                 # Find the user's line in the results table
                 matching_lines = [line[1:] for line in series.results
@@ -343,6 +349,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
                 # in the results table. If there is none, make a empty line.
                 if matching_lines:
                     user_result = matching_lines[0][:-1]
+                    registration = matching_lines[-1]
                 else:
                     user_result = ([None] * series.num_problems, 0)
 
@@ -350,7 +357,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
             total = custom_total_func(user_results)
             season_results.append((competitor, user_results, total,
-                                   registrations[competitor.pk]))
+                                   registration))
 
         season_results.sort(key=lambda x: x[2], reverse=True)
         return season_results
@@ -592,19 +599,13 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
         current_user = None
 
-        # Keep registrations in a dict for performance
-        registrations = {
-            registration.user.pk: registration for registration in
-            UserSeasonRegistration.objects.filter(season=self.season).select_related('user')
-            }
-
         # Solutions are sorted by the user ids first, then by the problem ids
         for solution in solutions:
             if current_user != solution.user:
                 # User has changed, compute the previous line if we are not processing the first solution
                 if current_user is not None:
                     # Fint the current user's registration to the given season
-                    registration = registrations[current_user.pk]
+                    registration = self.season.registrations[current_user.pk]
 
                     # Process the previous line
                     user_solutions = self.sort_solutions(user_solutions)
