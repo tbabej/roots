@@ -1,5 +1,6 @@
 Django==1.6.2
 Markdown==2.4
+South==1.0.2
 Wand==0.3.5
 django-allauth==0.19.1
 django-appconf==0.6
