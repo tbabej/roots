@@ -30,7 +30,13 @@ class SchoolAdmin(PrettyFilterMixin, reversion.VersionAdmin):
 
     list_display = (
         'name',
+        'abbreviation',
         'get_num_competitors',
+        'address',
+    )
+
+    list_editable = (
+        'abbreviation',
     )
 
     list_filter = (
