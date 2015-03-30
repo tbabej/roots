@@ -168,7 +168,7 @@ class SeasonSeriesBaseMixin(object):
         user_in_this_interval = False
 
         for i in range(0, len(results)):
-            competitor, solutions, total = results[i]
+            competitor, solutions, total, registration = results[i]
 
             # Compute the start and end of the interval of users with the same score
             if total != current_total:
@@ -212,7 +212,7 @@ class SeasonSeriesBaseMixin(object):
         first_users_score = None
 
         if index < len(results):
-            for competitor, solutions, total in results[index:]:
+            for competitor, solutions, total, registration in results[index:]:
 
                 # Mark the first user's score
                 if first_users_score is None:
@@ -326,6 +326,12 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
         season_results = []
 
+        # Keep registrations in a dict for performance
+        registrations = {
+            registration.user.pk: registration for registration in
+            self.userseasonregistration_set.all().select_related('user')
+            }
+
         for competitor in self.competitors:
             user_results = []
             for series in self.series:
@@ -336,14 +342,15 @@ class Season(models.Model, SeasonSeriesBaseMixin):
                 # There should be at most one line matching the user's name
                 # in the results table. If there is none, make a empty line.
                 if matching_lines:
-                    user_result = matching_lines[0]
+                    user_result = matching_lines[0][:-1]
                 else:
                     user_result = ([None] * series.num_problems, 0)
 
                 user_results.append(user_result)
 
             total = custom_total_func(user_results)
-            season_results.append((competitor, user_results, total))
+            season_results.append((competitor, user_results, total,
+                                   registrations[competitor.pk]))
 
         season_results.sort(key=lambda x: x[2], reverse=True)
         return season_results
@@ -604,7 +611,8 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                     total = custom_total_func(user=current_user,
                                               registration=registration,
                                               solutions=user_solutions)
-                    results.append((current_user, user_solutions, total))
+                    results.append((current_user, user_solutions, total,
+                                    registration))
 
                 # Prepare the new result line
                 current_user = solution.user
@@ -617,7 +625,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
             user_solutions = self.sort_solutions(user_solutions)
             total = custom_total_func(user=current_user,
                                       solutions=user_solutions)
-            results.append((current_user, user_solutions, total))
+            results.append((current_user, user_solutions, total, registration))
 
         # Sort the results by total_score
         results.sort(key=lambda x: x[2], reverse=True)
