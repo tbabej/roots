@@ -152,7 +152,9 @@ class UserSolution(MediaRemovalMixin,
 
         if any(getattr(self.user.userprofile, attr, None) is None
                for attr in required_attrs):
-            raise ValidationError("User profile does not contain all required fields")
+            raise ValidationError(_(
+                "User profile does not contain all required fields. "
+                "Please update your profile."))
 
     def save(self, *args, **kwargs):
         self.school = self.school or self.user.userprofile.school
