@@ -34,7 +34,7 @@ class LimitProfilesToSeasonFilter(LimitToSeasonFilter):
         season = Season.objects.get(pk=value)
         season_competitors = season.competitors.values_list('pk', flat=True)
 
-        return queryset.filter(user__pk__in=season_competitors)
+        return queryset.filter(user__pk__in=season_competitors, season=season)
 
 
 class UserProfileAdmin(ImprovedFilteringVersionAdminMixin, reversion.VersionAdmin):
