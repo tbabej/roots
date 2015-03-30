@@ -62,8 +62,9 @@
   <tr>
     <th> {% trans "Rank" %}</th>
     <th> {% trans "Name" %} </th>
+    <th> {% trans "Class level" %} </th>
     {% for problem in series.problems.all %}
-      <th> {% trans "Problem" %} {{forloop.counter}} </th>
+      <th> {{forloop.counter}}. </th>
     {% endfor %}
     <th> {% trans "Total" %} </th>
     </tr>
@@ -75,10 +76,10 @@
         {% with result_row.0 as row_user %}
           <td>
               {% ifchanged %}
-                  {% if result_row.3.0 != result_row.3.1 %}
-                    {{ result_row.3.0 }}. - {{ result_row.3.1 }}.
+                  {% if result_row.4.0 != result_row.4.1 %}
+                    {{ result_row.4.0 }}. - {{ result_row.4.1 }}.
                   {% else %}
-                    {{ result_row.3.0 }}.
+                    {{ result_row.4.0 }}.
                   {% endif %}
               {% endifchanged %}
           </td>
@@ -93,6 +94,9 @@
           {{row_user.get_full_name|default:row_user.username}}
           </td>
         {% endwith %}
+        <td>
+          {{ result_row.3.classlevel }}
+        </td>
         {% for solution in result_row.1 %}
         <td>
           {% if solution == None %}
@@ -128,6 +132,7 @@
     <tr>
     <th> {% trans "Rank" %} </th>
     <th> {% trans "Name" %} </th>
+    <th> {% trans "Class level" %} </th>
     {% for season_series in season.series %}
         {% for problem in season_series.problems.all %}
           <th> {{forloop.counter}}. </th>
@@ -142,10 +147,10 @@
       <tr>
       <td>
         {% ifchanged %}
-            {% if result_row.3.0 != result_row.3.1 %}
-              {{ result_row.3.0 }}. - {{ result_row.3.1 }}.
+            {% if result_row.4.0 != result_row.4.1 %}
+              {{ result_row.4.0 }}. - {{ result_row.4.1 }}.
             {% else %}
-              {{ result_row.3.0 }}.
+              {{ result_row.4.0 }}.
             {% endif %}
         {% endifchanged %}
       </td>
@@ -158,6 +163,9 @@
           {% endif %}
         </a>
         {{result_row.0.get_full_name|default:result_row.0.username}}
+      </td>
+      <td>
+        {{ result_row.3.classlevel }}
       </td>
       {% for series_result in result_row.1 %}
         {% for solution in series_result.0 %}
