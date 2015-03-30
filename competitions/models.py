@@ -599,7 +599,7 @@ class Series(models.Model, SeasonSeriesBaseMixin):
             if current_user != solution.user:
                 # User has changed, compute the previous line if we are not processing the first solution
                 if current_user is not None:
-                    # Fint the current user's registration to the given season
+                    # Find the current user's registration to the given season
                     registration = self.season.registrations[current_user.pk]
 
                     # Process the previous line
@@ -618,6 +618,9 @@ class Series(models.Model, SeasonSeriesBaseMixin):
 
         # Process the last user
         if current_user is not None:
+            # Find the current user's registration to the given season
+            registration = self.season.registrations[current_user.pk]
+
             user_solutions = self.sort_solutions(user_solutions)
             total = custom_total_func(user=current_user,
                                       solutions=user_solutions)
