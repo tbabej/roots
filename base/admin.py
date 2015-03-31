@@ -430,3 +430,15 @@ def foreign_field_filter_factory(field, title=None, sort=None):
             'sort_lookups': sort,
             }
     )
+
+
+# Overrides for flatpages
+from django.contrib.flatpages.admin import FlatPageAdmin
+
+class FlatPageMedia:
+    js = [
+        'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+        'grappelli/tinymce_setup/tinymce_setup.js',
+    ]
+
+FlatPageAdmin.Media = FlatPageMedia
