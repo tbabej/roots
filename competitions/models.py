@@ -143,7 +143,7 @@ class CompetitionOrgRegistration(models.Model):
         return ("organizer__name__icontains", "competition__name__icontains")
 
     def __unicode__(self):
-        return (self.organizer.user.__unicode__() + unicode(_(" organizes ")) +
+        return (self.organizer.__unicode__() + unicode(_(" organizes ")) +
                 self.competition.__unicode__())
 
     class Meta:
