@@ -19,7 +19,7 @@ django-jquery-lightbox==2.6
 django-mathjax==0.0.2
 django-model-utils==2.2
 django-mptt==0.6.0
-django-photologue==3.1.1
+django-photologue==2.7
 django-ratings==0.3.7
 django-reversion==1.8.0
 django-sekizai==0.7
