@@ -222,9 +222,9 @@ def merge_pdf_files(path_root, output_path, filepaths):
         return output_path
 
     # For more than a one file, try to merge them
-    out, err, rc = run(['pdftk'] +
+    out, err, rc = run(['pdfunite'] +
                        filepaths +
-                       ['cat', 'output', new_location])
+                       [new_location])
 
     if rc != 0:
         raise ValidationError(u"Failed to merge PDF files.")
