@@ -11,7 +11,7 @@ from wiki.core.http import send_file
 from wiki.decorators import get_article
 from wiki.views.mixins import ArticleMixin
 
-from .settings import EXPORT_FORMATS
+from pandoc_export.settings import EXPORT_FORMATS
 
 from django.http import HttpResponse
 from django.core.servers.basehttp import FileWrapper
