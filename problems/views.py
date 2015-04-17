@@ -77,7 +77,7 @@ class UserSolutionSubmissionView(View):
                 submission.user_modified_at = now()
                 submission.save()
             except ValidationError, e:
-                messages.error(request, str('\n'.join(e.messages)))
+                messages.error(request, u'\n'.join(e.messages))
         else:
             for field, errors in form.errors.iteritems():
                 messages.error(request, u"{error}".format(
