@@ -392,7 +392,7 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
     fieldsets = (
         (None, {
             'fields': ('user', 'problem', 'solution', 'corrected_solution',
-                       'note', 'classlevel', 'school', 'school_class')
+                       'score', 'note')
         }),
     )
 
