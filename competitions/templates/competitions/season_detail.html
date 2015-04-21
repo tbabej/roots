@@ -61,12 +61,12 @@
                 </h5>
               </div>
 
-              {% if not series.is_past_submission_deadline and series.get_elapsed_time_percentage > 33 %}
+              {% if not series.is_past_submission_deadline and series.get_elapsed_time_percentage > 0 %}
                   {% with bar_value_string=series.get_elapsed_time_percentage|floatformat:0 bar_value=series.get_elapsed_time_percentage %}
                   {% define bar_style %}{% if bar_value < 65 %}success{% elif bar_value < 90 %}warning{% else %}danger{% endif %}{% enddefine %}
 
                   <div class="progress" style="overflow: visible;">
-                    <div class="progress-bar progress-bar-striped progress-bar-{{ bar_style }}" role="progressbar" aria-valuenow="{{ bar_value_string }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bar_value_string }}%; overflow: visible;">
+                    <div class="progress-bar progress-bar-striped progress-bar-{{ bar_style }}" role="progressbar" aria-valuenow="{{ bar_value_string }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bar_value_string }}%; overflow: visible; min-width: 10em;">
                       {% if bar_value < 50 %}
                           {{ series.time_to_deadline|timedelta_to_string:'days' }} {% trans "remaining" %}
                       {% elif bar_value < 75 %}
