@@ -160,7 +160,9 @@
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                   <h4 class="modal-title" id="myModalLabel">
-                    {% blocktrans %} Problem submission: {{series.name}} - problem {{forloop.counter}} {% endblocktrans %}
+                    {% blocktrans series_name=series.name counter=forloop.counter %}
+                      Problem submission: {{ series_name }} - problem {{ counter }}
+                    {% endblocktrans %}
                   </h4>
                 </div>
 
