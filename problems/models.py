@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.template.defaultfilters import truncatewords
 from django.utils.translation import ugettext_lazy as _
 
@@ -524,3 +526,24 @@ class ProblemSeverity(models.Model):
         ordering = ['level']
         verbose_name = _('severity')
         verbose_name_plural = _('severities')
+
+
+@receiver(post_save, sender=UserSolution)
+def register_user_to_season(sender, instance, created, **kwargs):
+    # If we created a UserSolution, we need to check if the user
+    # is registered for the given Season
+    if created:
+        # Get the most relevant season
+        season = instance.problem.currently_used_in_season()
+
+        UserSeasonRegistration = models.get_model('profiles', 'UserSeasonRegistration')
+
+        # Check if the user is already registered
+        registration = UserSeasonRegistration.objects.filter(
+            user=instance.user,
+            season=season,
+            )
+
+        # If not, entroll him with current data
+        if not registration:
+            UserSeasonRegistration.register_user(instance.user, season)
