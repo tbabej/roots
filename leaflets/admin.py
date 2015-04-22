@@ -24,10 +24,9 @@ class LeafletAdmin(RestrictedCompetitionAdminMixin,
     )
 
     search_fields = (
-        'competition',
-        'user__name',
-        'user__first_name',
-        'user__last_name'
+        'competition__name',
+        'year',
+        'issue',
     )
 
     fieldsets = (
