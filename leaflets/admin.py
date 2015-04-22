@@ -29,6 +29,14 @@ class LeafletAdmin(RestrictedCompetitionAdminMixin,
         'issue',
     )
 
+    raw_id_fields = ('competition',)
+
+    # define the autocomplete_lookup_fields
+    autocomplete_lookup_fields = {
+        'fk': ['competition'],
+    }
+
+
     fieldsets = (
         (None, {
             'fields': ('competition', 'year', 'issue', 'leaflet')
