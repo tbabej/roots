@@ -1,6 +1,7 @@
 from django import template
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.template.base import TemplateSyntaxError
 from django.utils.text import ugettext_lazy as _
 from news.models import News
@@ -177,3 +178,8 @@ def get_last_news(num=5):
 @register.filter
 def representation(var):
     return repr(var) + " and type: " + str(type(var))
+
+@register.assignment_tag()
+def get_other_sites():
+    sites = Site.objects.exclude(domain=Site.objects.get_current().domain)
+    return sites

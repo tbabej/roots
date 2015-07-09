@@ -77,7 +77,10 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             {% block navbar-links  %}
-              <li class="active"><a href="{% url 'roots_index' %}">{% trans "Home" %}</a></li>
+              {% get_other_sites as other_sites %}
+              {% for site in other_sites %}
+                <li><a href="https://{{ site.domain }}">{{ site.name }}</a></li>
+              {% endfor %}
               {% if user.is_staff %}
                 <li><a href="{% url 'admin:index' %}">{% trans "Administration" %}</a></li>
               {% else %}
