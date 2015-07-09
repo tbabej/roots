@@ -5,6 +5,9 @@ SECRET_KEY = 'totally-secret-key'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# Set the current site id. Omit to enable autodetection using the hostname.
+SITE_ID = 1
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver', '.', '']
