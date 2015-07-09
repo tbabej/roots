@@ -66,9 +66,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand active" href="{% url 'roots_index' %}">
             {% block navbar-brand %}
-            {% current_site request %}
+              {% current_site request %}
             {% endblock %}
           </a>
         </div><!--/ navbar-header -->
