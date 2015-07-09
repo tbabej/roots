@@ -15,13 +15,11 @@ class PostAdmin(RestrictedCompetitionAdminMixin,
 
     list_display = (
         'title',
-        'competition',
         'added_by',
         'added_at',
     )
 
     list_filter = (
-        'competition',
         'added_at',
         'added_by'
     )
@@ -42,7 +40,7 @@ class PostAdmin(RestrictedCompetitionAdminMixin,
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'competition', 'slug', 'text', 'gallery')
+            'fields': ('title', 'slug', 'text', 'sites', 'gallery')
         }),
     )
 
