@@ -1,7 +1,9 @@
 from django.views.generic.list import ListView
+from django.views.generic.base import RedirectView
 from django.shortcuts import get_object_or_404
 
 from competitions.models import Competition
+from roots import settings
 
 from .models import Leaflet
 
@@ -40,6 +42,26 @@ class LeafletListView(ListView):
 
         context['data'] = data
         return context
+
+class LastLeafletView(RedirectView):
+    """
+    Redirects the user to the last published leaflet
+    for the given competition.
+    """
+
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        competition = get_object_or_404(Competition,
+                                        pk=kwargs['competition_id'])
+        leaflets = (
+            Leaflet.objects.filter(competition=competition)
+                           .order_by('-year', '-issue')
+        )
+
+        last_leaflet = leaflets[0]
+
+        return settings.MEDIA_URL + last_leaflet.get_leaflet_path()
 
 
 class LeafletCompetitionListView(ListView):
