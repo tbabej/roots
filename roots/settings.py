@@ -116,6 +116,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'django.contrib.comments',
     'django_comments',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -162,6 +163,7 @@ INSTALLED_APPS = (
     # Use django-wiki and its requirements
     'django.contrib.humanize',
     'django_nyt',
+    #'django_notify',
     'mptt',
     'sekizai',
     'sorl.thumbnail',

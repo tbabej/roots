@@ -1,5 +1,6 @@
 {% extends "photologue/root.html" %}
 {% load url from future %}
+{% load staticfiles %}
 {% load roots_tags %}
 {% load sekizai_tags %}
 {% load i18n %}
@@ -8,8 +9,8 @@
 
 {% block content %}
 
-{% addtoblock "js" %}
-<script src="https://pierrecle.github.io/brickwall/src/brickwall.js"></script>
+{% addtoblock "late_js" %}
+<script src="{% static "js/brickwall.js" %}"></script>
 <script type="text/javascript">
 	$(function() {
             $('.photo-gallery').brickwall({resizeLast:false});
