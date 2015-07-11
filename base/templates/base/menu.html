@@ -15,7 +15,7 @@
 {% trans "Results" %}</a>
   <a class="list-group-item {% url_active request 'leaflets_leaflet_list' %}" href="{% url 'leaflets_leaflet_list' %}"><i class="fa fa-newspaper-o" style="margin-right: 5px;"></i>
 {% trans "Leaflets" %}</a>
-  <a class="list-group-item {% url_active request 'pl-gallery-archive' %}" href="{% url 'photos_archive' %}"><i class="fa fa-camera-retro" style="margin-right: 7px;"></i>
+  <a class="list-group-item {% url_active request 'photologue:pl-gallery-archive' %}" href="{% url 'photos_archive' %}"><i class="fa fa-camera-retro" style="margin-right: 7px;"></i>
 {% trans "Photos" %}</a>
   <a class="list-group-item {% url_active request 'events_event_list' %}" href="{% url 'events_event_list' %}"><i class="fa fa-calendar" style="margin-right: 7px;"></i>
 {% trans "Events" %}</a>

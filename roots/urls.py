@@ -47,7 +47,7 @@ urlpatterns += i18n_patterns('',
     url(_(r'^problems/'), include('problems.urls')),
     url(_(r'^posts/'), include('posts.urls')),
     url(_(r'^photos/'), include('photos.urls')),
-    url(_(r'^photos/'), include('photologue.urls')),
+    url(_(r'^photos/'), include('photologue.urls', namespace='photologue')),
     url(_(r'^profiles/'), include('profiles.urls')),
     url(_(r'^schools/'), include('schools.urls')),
     url(_(r'^protected/'), include('downloads.urls'))
