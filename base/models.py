@@ -2,7 +2,7 @@ import os
 
 from django.contrib.auth.models import User
 from django.conf import settings
-from django.contrib.comments.signals import comment_was_posted
+from django_comments.signals import comment_was_posted
 from django.forms import forms
 from django.db.models import FileField
 from django.dispatch import receiver

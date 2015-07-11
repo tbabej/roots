@@ -102,7 +102,7 @@ def settings_value(name):
 # The following comment tags are altered versions of django.contrib.comments's
 # template tags. Alternation happens by allowing private comments
 
-from django.contrib.comments.templatetags.comments import BaseCommentNode
+from django_comments.templatetags.comments import BaseCommentNode
 from django.utils.encoding import smart_text
 
 class PrivateCommentNode(BaseCommentNode):
