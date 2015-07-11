@@ -11,15 +11,17 @@ from .models import Post
 @admin_commentable
 @editonly_fieldsets
 class PostAdmin(RestrictedCompetitionAdminMixin,
-                PrettyFilterMixin, VersionAdmin):
+                VersionAdmin):
 
     list_display = (
         'title',
+        'published',
         'added_by',
         'added_at',
     )
 
     list_filter = (
+        'published',
         'added_at',
         'added_by'
     )
@@ -40,7 +42,7 @@ class PostAdmin(RestrictedCompetitionAdminMixin,
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'text', 'sites', 'gallery')
+            'fields': ('title', 'slug', 'text', 'sites', 'published', 'gallery')
         }),
     )
 
