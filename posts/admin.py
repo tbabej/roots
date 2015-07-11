@@ -23,6 +23,7 @@ class PostAdmin(RestrictedCompetitionAdminMixin,
 
     list_filter = (
         'published',
+        'sites',
         'added_at',
         'added_by'
     )
