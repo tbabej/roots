@@ -1,116 +1,74 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+from django.conf import settings
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'UserProfile'
-        db.create_table(u'profiles_userprofile', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('date_of_birth', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('sex', self.gf('django.db.models.fields.CharField')(max_length=1, null=True, blank=True)),
-            ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=30, null=True, blank=True)),
-            ('parent_phone_number', self.gf('django.db.models.fields.CharField')(max_length=30, null=True, blank=True)),
-            ('address', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['schools.Address'], null=True, blank=True)),
-            ('school', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['schools.School'], null=True, blank=True)),
-            ('school_class', self.gf('django.db.models.fields.CharField')(max_length=20, null=True, blank=True)),
-            ('classlevel', self.gf('django.db.models.fields.CharField')(max_length=2, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'profiles', ['UserProfile'])
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('schools', '0001_initial'),
+        ('competitions', '0001_initial'),
+    ]
 
-        # Adding model 'OrganizerProfile'
-        db.create_table(u'profiles_organizerprofile', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('motto', self.gf('django.db.models.fields.CharField')(max_length=250, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'profiles', ['OrganizerProfile'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'UserProfile'
-        db.delete_table(u'profiles_userprofile')
-
-        # Deleting model 'OrganizerProfile'
-        db.delete_table(u'profiles_organizerprofile')
-
-
-    models = {
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'profiles.organizerprofile': {
-            'Meta': {'object_name': 'OrganizerProfile'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'motto': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
-        },
-        u'profiles.userprofile': {
-            'Meta': {'object_name': 'UserProfile'},
-            'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['schools.Address']", 'null': 'True', 'blank': 'True'}),
-            'classlevel': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
-            'date_of_birth': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'parent_phone_number': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
-            'phone_number': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
-            'school': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['schools.School']", 'null': 'True', 'blank': 'True'}),
-            'school_class': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
-            'sex': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
-        },
-        u'schools.address': {
-            'Meta': {'object_name': 'Address'},
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'postal_number': ('django.db.models.fields.CharField', [], {'max_length': '10', 'blank': 'True'}),
-            'region': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'street': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'})
-        },
-        u'schools.school': {
-            'Meta': {'object_name': 'School'},
-            'abbreviation': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['schools.Address']", 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '150'})
-        }
-    }
-
-    complete_apps = ['profiles']
+    operations = [
+        migrations.CreateModel(
+            name='OrganizerProfile',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('motto', models.CharField(max_length=250, null=True, verbose_name='motto', blank=True)),
+                ('user', models.OneToOneField(verbose_name='user', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name': 'organizer profile',
+                'verbose_name_plural': 'organizer profiles',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='UserProfile',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date_of_birth', models.DateField(null=True, verbose_name='date of birth', blank=True)),
+                ('sex', models.CharField(blank=True, max_length=1, null=True, verbose_name='sex', choices=[(b'M', 'male'), (b'F', 'female')])),
+                ('phone_number', models.CharField(max_length=30, null=True, verbose_name='phone number', blank=True)),
+                ('parent_phone_number', models.CharField(max_length=30, null=True, verbose_name='parent phone number', blank=True)),
+                ('school_class', models.CharField(max_length=20, null=True, verbose_name='school class', blank=True)),
+                ('classlevel', models.CharField(blank=True, max_length=2, null=True, verbose_name='class level', choices=[(b'Z2', b'Z2'), (b'Z3', b'Z3'), (b'Z4', b'Z4'), (b'Z5', b'Z5'), (b'Z6', b'Z6'), (b'Z7', b'Z7'), (b'Z8', b'Z8'), (b'Z9', b'Z9'), (b'S1', b'S1'), (b'S2', b'S2'), (b'S3', b'S3'), (b'S4', b'S4')])),
+                ('address', models.ForeignKey(verbose_name='address', blank=True, to='schools.Address', null=True)),
+                ('school', models.ForeignKey(verbose_name='school', blank=True, to='schools.School', null=True)),
+                ('user', models.OneToOneField(verbose_name='user', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name': 'user profile',
+                'verbose_name_plural': 'user profiles',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='UserSeasonRegistration',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('school_class', models.CharField(max_length=20, null=True, verbose_name='school class', blank=True)),
+                ('classlevel', models.CharField(blank=True, max_length=2, null=True, verbose_name='class level', choices=[(b'Z2', b'Z2'), (b'Z3', b'Z3'), (b'Z4', b'Z4'), (b'Z5', b'Z5'), (b'Z6', b'Z6'), (b'Z7', b'Z7'), (b'Z8', b'Z8'), (b'Z9', b'Z9'), (b'S1', b'S1'), (b'S2', b'S2'), (b'S3', b'S3'), (b'S4', b'S4')])),
+                ('added_at', models.DateTimeField(auto_now_add=True, verbose_name='added at')),
+                ('modified_at', models.DateTimeField(auto_now=True, verbose_name='modified at')),
+                ('added_by', models.ForeignKey(related_name='UserSeasonRegistration_created', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='author')),
+                ('modified_by', models.ForeignKey(related_name='UserSeasonRegistration_modified', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='last modified by')),
+                ('school', models.ForeignKey(verbose_name='school', blank=True, to='schools.School', null=True)),
+                ('season', models.ForeignKey(verbose_name='season', to='competitions.Season')),
+                ('user', models.ForeignKey(verbose_name='user', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name': 'user season registration',
+                'verbose_name_plural': 'user season registrations',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AlterUniqueTogether(
+            name='userseasonregistration',
+            unique_together=set([('season', 'user')]),
+        ),
+    ]
