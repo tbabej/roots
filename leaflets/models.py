@@ -8,6 +8,11 @@ from base.models import MediaRemovalMixin
 from base.storage import OverwriteFileSystemStorage
 
 
+# TODO: Remove once Python3 is required
+def get_leaflet_path_global(model):
+    return model.get_leaflet_path()
+
+
 class Leaflet(MediaRemovalMixin, models.Model):
     '''
     Represents a given (generated) leaflet.
@@ -41,7 +46,7 @@ class Leaflet(MediaRemovalMixin, models.Model):
                                     verbose_name=_('competition'))
     year = models.IntegerField(verbose_name=_('year'))
     issue = models.IntegerField(verbose_name=_('issue'))
-    leaflet = models.FileField(upload_to=get_leaflet_path,
+    leaflet = models.FileField(upload_to=get_leaflet_path_global,
                                storage=OverwriteFileSystemStorage(),
                                verbose_name=_('leaflet'))
 

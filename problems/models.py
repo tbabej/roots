@@ -20,6 +20,13 @@ from downloads.models import AccessFilePermissionMixin
 
 # Solution-related models
 
+def get_solution_path_global(model):
+    return model.get_solution_path()
+
+def get_corrected_solution_path_global(model):
+    return mode.get_corrected_solution_path()
+
+
 @with_author
 @with_timestamp
 class UserSolution(MediaRemovalMixin,
@@ -51,14 +58,14 @@ class UserSolution(MediaRemovalMixin,
             organizer_group = self.problem.competition.organizer_group
             return user.groups.filter(id=organizer_group.pk).exists()
 
-    def get_media_files(self):
-        return [self.get_solution_path()]
-
     def get_solution_path(self, *args, **kwargs):
         return 'solutions/' + self.get_id_string()
 
     def get_corrected_solution_path(self, *args, **kwargs):
         return 'corrected_solutions/' + self.get_id_string()
+
+    def get_media_files(self):
+        return [self.get_solution_path()]
 
     def get_id_string(self):
         return '{user}-{problem}.pdf'.format(
@@ -76,7 +83,7 @@ class UserSolution(MediaRemovalMixin,
 
     solution = ContentTypeRestrictedFileField(
                                 null=True,
-                                upload_to=get_solution_path,
+                                upload_to=get_solution_path_global,
                                 storage=OverwriteFileSystemStorage(location=settings.SENDFILE_ROOT,
                                                                    base_url=settings.SENDFILE_URL),
                                 max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
@@ -85,7 +92,7 @@ class UserSolution(MediaRemovalMixin,
     corrected_solution = ContentTypeRestrictedFileField(
                                 blank=True,
                                 null=True,
-                                upload_to=get_corrected_solution_path,
+                                upload_to=get_corrected_solution_path_global,
                                 storage=OverwriteFileSystemStorage(location=settings.SENDFILE_ROOT,
                                                                    base_url=settings.SENDFILE_URL),
                                 max_size=settings.ROOTS_MAX_SOLUTION_SIZE,
