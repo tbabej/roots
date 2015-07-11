@@ -15,6 +15,14 @@ class PostListView(ListView):
         """
 
         queryset = super(PostListView, self).get_queryset()
+
+        # If user does not manage the site, do not display
+        # not-published articles
+        # TODO: This needs to be done properly with respect
+        # to the actual permissions
+        if not self.request.user.is_staff:
+            queryset = queryset.filter(published=True)
+
         return queryset.order_by('-added_at')
 
 
