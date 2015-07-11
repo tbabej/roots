@@ -38,6 +38,10 @@ class Post(models.Model):
     def autocomplete_search_fields():
         return ("title__icontains", "competition__name__icontains")
 
+    def get_sites(self):
+        return ','.join([site.name for site in self.sites.all()])
+    get_sites.short_description = _("Published on sites")
+
     def __unicode__(self):
         return self.title
 
