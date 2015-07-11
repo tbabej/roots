@@ -8,7 +8,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from wiki.urls import get_pattern as get_wiki_pattern
-from django_notify.urls import get_pattern as get_notify_pattern
+from django_nyt.urls import get_pattern as get_notify_pattern
 from filebrowser.sites import site
 
 admin.autodiscover()

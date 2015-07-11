@@ -111,12 +111,12 @@ INSTALLED_APPS = (
     # Non-roots specific apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.comments',
     'django.contrib.flatpages',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_comments',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -133,8 +133,6 @@ INSTALLED_APPS = (
     # 'allauth.socialaccount.providers.twitter',
     # Support for django-extensions
     'django_extensions',
-    # Support database migrations
-    'south',
     # Use django-ratings
     'djangoratings',
     # Use django-avatar
@@ -163,7 +161,7 @@ INSTALLED_APPS = (
     'sortedm2m',
     # Use django-wiki and its requirements
     'django.contrib.humanize',
-    'django_notify',
+    'django_nyt',
     'mptt',
     'sekizai',
     'sorl.thumbnail',
