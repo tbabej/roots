@@ -5,7 +5,6 @@ import subprocess
 import shutil
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db import models
@@ -46,17 +45,16 @@ def with_author(cls):
     Decorator to add added_by/modified_by field to particular model
     """
 
-    user_model = get_user_model()
     cls_name = cls.__name__
 
-    created_by = models.ForeignKey(user_model,
+    created_by = models.ForeignKey('auth.User',
                                    related_name=u'%s_created' % cls_name,
                                    verbose_name=_('author'),
                                    null=True,
                                    blank=True,
                                    editable=False)
 
-    modified_by = models.ForeignKey(user_model,
+    modified_by = models.ForeignKey('auth.User',
                                     related_name=u'%s_modified' % cls_name,
                                     verbose_name=_('last modified by'),
                                     null=True,
