@@ -20,6 +20,12 @@ class Post(models.Model):
     sites = models.ManyToManyField(Site)
     text = models.TextField(verbose_name=_('text'))
     slug = models.SlugField(verbose_name=_('slug'))
+    published = models.BooleanField(
+            default=False,
+            verbose_name=_('published'),
+            help_text=_('Post is hidden from non-administrators unless '
+                        'explicitly marked as published here.'),
+            )
     gallery = models.ForeignKey('photologue.Gallery',
                                 blank=True,
                                 null=True,
