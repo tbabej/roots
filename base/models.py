@@ -59,13 +59,6 @@ class MediaRemovalMixin(object):
 
         return super(MediaRemovalMixin, self).save(*args, **kwargs)
 
-# Add ContentTypeRestrictedFileField to South introspection rules
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^base\.models\.ContentTypeRestrictedFileField"])
-
-# Add Photologue related introspection rules
-add_introspection_rules([], ["^photologue\.models\.TagField"])
-add_introspection_rules([], ["^tagging\.fields\.TagField"])
 
 class ContentTypeRestrictedFileField(FileField):
     """
