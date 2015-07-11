@@ -1,3 +1,5 @@
+from django.contrib.sites.models import Site
+
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
@@ -15,6 +17,10 @@ class PostListView(ListView):
         """
 
         queryset = super(PostListView, self).get_queryset()
+
+        # Display posts only relevant for this site
+        current_site = Site.objects.get_current()
+        queryset = queryset.filter(sites=current_site)
 
         # If user does not manage the site, do not display
         # not-published articles
