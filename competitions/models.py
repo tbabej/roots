@@ -135,7 +135,8 @@ class CompetitionOrgRegistration(models.Model):
                                     verbose_name=_('competition'))
     organizer = models.ForeignKey('auth.User',
                                   verbose_name=_('organizer'))
-    approved = models.BooleanField(verbose_name=_('registration approved'))
+    approved = models.BooleanField(verbose_name=_('registration approved'),
+                                   default=False)
 
     # Define autocomplete fields for grapelli search in admin
     @staticmethod
