@@ -8,9 +8,9 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sites', '0001_initial'),
+        ('photologue', '0008_auto_20150509_1557'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('photologue', '__first__'),
+        ('sites', '0001_initial'),
     ]
 
     operations = [

@@ -99,7 +99,7 @@ class Migration(migrations.Migration):
                 ('event', models.ForeignKey(verbose_name='event', blank=True, to='events.Event', null=True)),
                 ('leaflet', models.ForeignKey(verbose_name='leaflet', blank=True, to='leaflets.Leaflet', null=True)),
                 ('modified_by', models.ForeignKey(related_name='ProblemSet_modified', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='last modified by')),
-                ('problems', sortedm2m.fields.SortedManyToManyField(help_text=None, to='problems.Problem', verbose_name='problems', through='problems.ProblemInSet')),
+                ('problems', sortedm2m.fields.SortedManyToManyField(help_text=None, to='problems.Problem', sort_value_field_name=b'position', verbose_name='problems', through='problems.ProblemInSet')),
             ],
             options={
                 'verbose_name': 'Problem set',
