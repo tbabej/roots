@@ -187,10 +187,6 @@ GRAPPELLI_ADMIN_TITLE = 'Roots'
 AUTHOR_CREATED_BY_FIELD_NAME = 'added_by'
 AUTHOR_UPDATED_BY_FIELD_NAME = 'modified_by'
 
-# Remove (None) values from the Admin
-from django.contrib.admin.views import main
-main.EMPTY_CHANGELIST_VALUE = u''
-
 # Set the message tags as classes in Bootstrap
 from django.contrib.messages import constants as message_constants
 MESSAGE_TAGS = {

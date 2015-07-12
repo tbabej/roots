@@ -19,6 +19,10 @@ User.autocomplete_search_fields = staticmethod(
         'last_name__icontains',
     ))
 
+# Remove (None) values from the Admin
+from django.contrib.admin.views import main
+main.EMPTY_CHANGELIST_VALUE = u''
+
 
 class MediaRemovalMixin(object):
     """
