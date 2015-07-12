@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(unique=True, max_length=100, verbose_name='competition name')),
+                ('organizer_group', models.ForeignKey(verbose_name='organizer_group', blank=True, to='auth.Group', null=True)),
                 ('added_at', models.DateTimeField(auto_now_add=True, verbose_name='added at')),
                 ('modified_at', models.DateTimeField(auto_now=True, verbose_name='modified at')),
             ],

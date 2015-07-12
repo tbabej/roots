@@ -26,7 +26,7 @@ class Competition(models.Model):
     name = models.CharField(max_length=100,
                             verbose_name=_('competition name'),
                             unique=True)
-    organizer_group = models.ForeignKey(Group,
+    organizer_group = models.ForeignKey('auth.Group',
                                         blank=True,
                                         null=True,
                                         verbose_name=_('organizer group'))
