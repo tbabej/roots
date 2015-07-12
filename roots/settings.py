@@ -285,3 +285,6 @@ LOGIN_REDIRECT_URL = '/'
 
 FILEBROWSER_DIRECTORY = 'uploads/'
 FILEBROWSER_VERSIONS_BASEDIR = 'uploads_tmp/'
+
+# Implicitly support multisite behaviour in Photologue
+PHOTOLOGUE_MULTISITE = True
