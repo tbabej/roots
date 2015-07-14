@@ -92,6 +92,7 @@ AUTHENTICATION_BACKENDS = (
 
 INSTALLED_APPS = (
     # Roots specific apps
+    'admin_custom',
     'base',
     'competitions',
     'downloads',
