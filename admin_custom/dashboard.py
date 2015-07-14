@@ -121,3 +121,23 @@ class ContentDashboard(Dashboard):
                 },
             ]
         ))
+
+
+class CompetitionDashboard(Dashboard):
+    """
+    Custom problems dashboard for Roots.
+    """
+
+    def init_with_context(self, context):
+        site_name = get_admin_site_name(context)
+
+        # append an app list module for "Administration"
+        self.children.append(modules.ModelList(
+            _('Content'),
+            column=1,
+            collapsible=False,
+            models=(
+                'competitions.*',
+                'profiles.*',
+                ),
+        ))
