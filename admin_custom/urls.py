@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 from django.conf.urls import patterns, url
 from django.utils.translation import ugettext_lazy as _
 
 from .views import (
-    DashboardIndexView, DashboardContentView,
-    DashboardCompetitionView,
+    DashboardIndexView, DashboardProblemsView, DashboardContentView,
+    DashboardCompetitionView, DashboardUsersView
     )
 
 urlpatterns = patterns('',
@@ -16,4 +15,6 @@ urlpatterns = patterns('',
         name="admin_dashboard_content"),
     url(_(r'dashboards/competition/$'), DashboardCompetitionView.as_view(),
         name="admin_dashboard_competition"),
+    url(_(r'dashboards/users/$'), DashboardUsersView.as_view(),
+        name="admin_dashboard_users"),
 )

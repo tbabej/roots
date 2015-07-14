@@ -1,8 +1,8 @@
 from django.views.generic.base import TemplateView
 
-from .dashboard import (IndexDashboard
+from .dashboard import (IndexDashboard,
     ProblemsDashboard, ContentDashboard,
-    CompetitionDashboard,
+    CompetitionDashboard, UserDashboard
     )
 
 
@@ -43,4 +43,14 @@ class DashboardCompetitionView(TemplateView):
         context = super(DashboardCompetitionView, self).get_context_data(*args,
                                                                       **kwargs)
         context['dashboard'] = CompetitionDashboard()
+        return context
+
+
+class DashboardUsersView(TemplateView):
+    template_name = "admin_custom/index.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DashboardUsersView, self).get_context_data(*args,
+                                                                      **kwargs)
+        context['dashboard'] = UserDashboard()
         return context
