@@ -1,0 +1,9 @@
+{% extends "admin/index.html" %}
+{% load grp_tags grp_dashboard_tags %}
+
+{% block content_title %}
+{% endblock %}
+
+{% block content %}
+{% grp_render_dashboard 'index' dashboard %}
+{% endblock %}
