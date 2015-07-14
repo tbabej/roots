@@ -7,4 +7,6 @@ from .views import DashboardIndexView
 urlpatterns = patterns('',
     url(_(r'^$'), DashboardIndexView.as_view(),
         name="admin_dashboard_index"),
+    url(_(r'dashboards/problems/$'), DashboardProblemsView.as_view(),
+        name="admin_dashboard_problems"),
 )
