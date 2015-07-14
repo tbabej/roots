@@ -104,6 +104,7 @@ INSTALLED_APPS = (
     'profiles',
     'schools',
     # Grapelli comes first
+    'grappelli.dashboard',
     'grappelli',
     'filebrowser',
     # Fluent comments come before contrib.comments
