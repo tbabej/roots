@@ -78,3 +78,46 @@ class ProblemsDashboard(Dashboard):
                 'problems.*',
                 ),
         ))
+
+
+class ContentDashboard(Dashboard):
+    """
+    Custom static content dashboard for Roots.
+    """
+
+    def init_with_context(self, context):
+        site_name = get_admin_site_name(context)
+
+        self.children.append(modules.ModelList(
+            _('Content'),
+            column=1,
+            collapsible=False,
+            models=(
+                'posts.*',
+                'django.contrib.flatpages.*',
+                'news.*',
+                'leaflets.*',
+                'photologue.*',
+                ),
+            exclude=(
+                'photologue.models.PhotoEffect',
+                'photologue.models.PhotoSize',
+                'photologue.models.Watermark',
+                ),
+        ))
+
+        # append another link list module for "support".
+        self.children.append(modules.LinkList(
+            _('File management'),
+            column=2,
+            children=[
+                {
+                    'title': _('FileBrowser'),
+                    'url': '/admin/filebrowser/browse/',
+                    'external': False,
+                    'description': _('Use to upload images or other files '
+                                     'to use in posts, news, static pages, '
+                                     'and elsewhere on the site.'),
+                },
+            ]
+        ))

@@ -9,4 +9,6 @@ urlpatterns = patterns('',
         name="admin_dashboard_index"),
     url(_(r'dashboards/problems/$'), DashboardProblemsView.as_view(),
         name="admin_dashboard_problems"),
+    url(_(r'dashboards/content/$'), DashboardContentView.as_view(),
+        name="admin_dashboard_content"),
 )
