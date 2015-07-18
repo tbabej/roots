@@ -1,4 +1,7 @@
 from django.views.generic.base import TemplateView
+from django.contrib.admin.views.decorators import staff_member_required
+
+from base.util import class_view_decorator
 
 from .dashboard import (IndexDashboard,
     ProblemsDashboard, ContentDashboard,
@@ -6,6 +9,7 @@ from .dashboard import (IndexDashboard,
     )
 
 
+@class_view_decorator(staff_member_required)
 class DashboardIndexView(TemplateView):
     template_name = "admin_custom/index.html"
 
@@ -16,6 +20,7 @@ class DashboardIndexView(TemplateView):
         return context
 
 
+@class_view_decorator(staff_member_required)
 class DashboardProblemsView(TemplateView):
     template_name = "admin_custom/index.html"
 
@@ -26,6 +31,7 @@ class DashboardProblemsView(TemplateView):
         return context
 
 
+@class_view_decorator(staff_member_required)
 class DashboardContentView(TemplateView):
     template_name = "admin_custom/index.html"
 
@@ -36,6 +42,7 @@ class DashboardContentView(TemplateView):
         return context
 
 
+@class_view_decorator(staff_member_required)
 class DashboardCompetitionView(TemplateView):
     template_name = "admin_custom/index.html"
 
@@ -46,6 +53,7 @@ class DashboardCompetitionView(TemplateView):
         return context
 
 
+@class_view_decorator(staff_member_required)
 class DashboardUsersView(TemplateView):
     template_name = "admin_custom/index.html"
 
