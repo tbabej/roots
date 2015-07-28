@@ -27,12 +27,17 @@ for path in paths:
     if path not in sys.path:
         sys.path.append(path)
 
-# This application object is used by any WSGI server configured to use this
-# file. This includes Django's development server, if the WSGI_APPLICATION
-# setting points here.
-from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+from django.core.handlers.wsgi import WSGIHandler
+import django
 
-# Apply WSGI middleware here.
-# from helloworld.wsgi import HelloWorldApplication
-# application = HelloWorldApplication(application)
+class WSGIEnvironment(WSGIHandler):
+
+    def __call__(self, environ, start_response):
+
+        if 'DJANGO_SITE_ID' in environ:
+            os.environ['DJANGO_SITE_ID'] = environ['DJANGO_SITE_ID']
+
+        django.setup()
+        return super(WSGIEnvironment, self).__call__(environ, start_response)
+
+application = WSGIEnvironment()
