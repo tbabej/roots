@@ -59,7 +59,7 @@ class PandocExportView(ArticleMixin, View):
         converted_data = pypandoc.convert(current_data, export_format, format='md', outputfile=temp.name)
 
         # Serve it as an attachment
-        response = HttpResponse(FileWrapper(temp), mimetype='application/octet-stream')
+        response = HttpResponse(FileWrapper(temp), content_type='application/octet-stream')
         header = 'attachment; filename=export.{0}'.format(export_format)
         response['Content-Disposition'] = header
 
