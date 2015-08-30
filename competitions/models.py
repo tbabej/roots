@@ -2,6 +2,7 @@ import datetime
 from operator import or_
 from django.conf import settings
 from django.contrib.auth.models import User, Group
+from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import get_model
@@ -18,9 +19,11 @@ from base.util import (with_timestamp, with_author, remove_accents,
 @with_timestamp
 class Competition(models.Model):
     """
-    Represents a competition. One roots site will usually hold several
+    Represents a competition. One roots portal will usually hold several
     competitions, as there are usually several age categories or several
     subjects categories. Or both.
+
+    Each competition has its own site assigned.
     """
 
     name = models.CharField(max_length=100,
@@ -30,6 +33,8 @@ class Competition(models.Model):
                                         blank=True,
                                         null=True,
                                         verbose_name=_('organizer group'))
+
+    site = models.ForeignKey(Site, blank=True, null=True)
 
     # Fields added via foreign keys:
 
