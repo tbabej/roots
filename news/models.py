@@ -11,8 +11,6 @@ class News(models.Model):
     Represents a short information message.
     """
 
-    competition = models.ForeignKey('competitions.Competition',
-                                    verbose_name=_('competition'))
     heading = models.CharField(max_length=500,
                                verbose_name=_('heading'))
     text = models.CharField(max_length=500,
@@ -27,7 +25,7 @@ class News(models.Model):
 
     @staticmethod
     def autocomplete_search_fields():
-        return ("competition__name__icontains", "heading__icontains")
+        return ("heading__icontains",)
 
     def __unicode__(self):
         return self.heading

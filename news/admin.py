@@ -9,7 +9,6 @@ from news.models import News
 class NewsAdmin(PrettyFilterMixin, VersionAdmin):
 
     list_display = (
-        'competition',
         'heading',
         'get_sites',
         'added_at',
@@ -17,7 +16,6 @@ class NewsAdmin(PrettyFilterMixin, VersionAdmin):
     )
 
     list_filter = (
-        'competition',
         'sites',
         'added_at'
     )
@@ -34,17 +32,9 @@ class NewsAdmin(PrettyFilterMixin, VersionAdmin):
         'modified_at'
     )
 
-    raw_id_fields = ('competition',)
-
-    # define the autocomplete_lookup_fields
-    autocomplete_lookup_fields = {
-        'fk': ['competition'],
-    }
-
-
     fieldsets = (
         (None, {
-            'fields': ('competition', 'heading', 'text', 'sites')
+            'fields': ('heading', 'text', 'sites')
         }),
     )
 
