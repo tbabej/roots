@@ -16,6 +16,7 @@ from django.views.generic import View
 
 from base.util import convert_files_to_single_pdf, get_uploaded_filepath, remove_accents
 from competitions.models import Series
+from competitions.views import CurrentSiteCompetitionMixin
 
 from problems.models import Problem, UserSolution
 from problems.forms import UserSolutionForm, ImportCorrectedSolutionsForm
@@ -39,7 +40,7 @@ class UserSolutionSubmissionView(View):
     form_class = UserSolutionForm
 
     def get(self, request, *args, **kwargs):
-        return redirect('competitions_season_detail_latest', competition_id=1)
+        return redirect('competitions_season_detail_latest')
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
@@ -57,11 +58,11 @@ class UserSolutionSubmissionView(View):
 
             if series.is_past_submission_deadline():
                 messages.error(request, _("Series is past its submission deadline"))
-                return redirect('competitions_season_detail_latest', competition_id=1)
+                return redirect('competitions_season_detail_latest')
 
             if not series.problemset.problems.filter(pk=form.cleaned_data['problem']).exists():
                 messages.error(request, _("Problem does not belong to the series"))
-                return redirect('competitions_season_detail_latest', competition_id=1)
+                return redirect('competitions_season_detail_latest')
 
             try:
                 submission =  UserSolution.objects.get(**data)
@@ -84,7 +85,7 @@ class UserSolutionSubmissionView(View):
                                     error=', '.join(errors))
                               )
 
-        return redirect('competitions_season_detail_latest', competition_id=1)
+        return redirect('competitions_season_detail_latest')
 
 
 # TODO: make this view protected so that only staff members can use it

@@ -13,6 +13,21 @@ from .models import Competition, CompetitionUserRegistration, Season, Series
 
 from avatar.models import Avatar
 
+class CurrentSiteCompetitionMixin(object):
+    """
+    Little mixin which gives access to the relevant competition
+    for the view.
+    """
+
+    @property
+    def competition(self):
+        try:
+            competition_id = self.kwargs.get('competition_id')
+            return Competition.objects.get(pk=competition_id)
+        except Competition.DoesNotExist:
+            return Competition.get_by_current_site()
+
+
 class CompetitionRegistrationView(FormView):
 
     form_class = CompetitionRegistrationForm
@@ -31,18 +46,13 @@ class CompetitionRegistrationView(FormView):
         return super(CompetitionRegistrationView, self).dispatch(*arg, **kwarg)
 
 
-class CompetitionDiscussionView(DetailView):
+class CompetitionDiscussionView(CurrentSiteCompetitionMixin, DetailView):
     model = Competition
     context_object_name = 'competition'
     template_name = 'competitions/competition_discussion.html'
 
     def get_object(self):
-        competition = get_object_or_404(
-            Competition,
-            pk=self.kwargs.get('competition_id')
-        )
-
-        return competition
+        return self.competition
 
 
 class SeasonResultsView(DetailView):
@@ -157,13 +167,11 @@ class SeasonDetailView(DetailView):
         return context
 
 
-class LatestSeasonDetailView(SeasonDetailView):
+class LatestSeasonDetailView(CurrentSiteCompetitionMixin, SeasonDetailView):
     def get_object(self):
-        competition = get_object_or_404(Competition, pk=self.kwargs.get('competition_id'))
-        return competition.season_set.order_by('-end')[0]
+        return self.competition.season_set.order_by('-end')[0]
 
 
-class LatestSeasonResultsView(SeasonResultsView):
+class LatestSeasonResultsView(CurrentSiteCompetitionMixin, SeasonResultsView):
     def get_object(self):
-        competition = get_object_or_404(Competition, pk=self.kwargs.get('competition_id'))
-        return competition.season_set.order_by('-end')[0]
+        return self.competition.season_set.order_by('-end')[0]
