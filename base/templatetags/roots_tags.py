@@ -16,9 +16,16 @@ def rereverse(request):
     if request.resolver_match is None:
         return ""
 
+    # Filter out None values from kwargs, they represent optional parts
+    # of urls
+    filtered_kwargs = {
+        k:v for k,v in request.resolver_match.kwargs.iteritems()
+        if v is not None
+    }
+
     return reverse(request.resolver_match.view_name,
                    args=request.resolver_match.args,
-                   kwargs=request.resolver_match.kwargs)
+                   kwargs=filtered_kwargs)
 
 @register.simple_tag
 def url_active(request, urls, *args, **kwargs):
