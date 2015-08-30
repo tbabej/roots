@@ -18,6 +18,7 @@ class CompetitionAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'organizer_group',
+        'site',
         'added_at'
     )
 
@@ -25,7 +26,7 @@ class CompetitionAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'organizer_group')
+            'fields': ('name', 'organizer_group', 'site')
         }),
     )
 
