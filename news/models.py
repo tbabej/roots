@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from base.util import with_author, with_timestamp
 
+from django.contrib.sites.models import Site
+
 @with_author
 @with_timestamp
 class News(models.Model):
@@ -17,6 +19,7 @@ class News(models.Model):
                             verbose_name=_('text'),
                             null=True,
                             blank=True)
+    sites = models.ManyToManyField(Site)
 
     @staticmethod
     def autocomplete_search_fields():
