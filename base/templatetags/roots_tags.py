@@ -172,7 +172,7 @@ def timedelta_to_string(delta, form='days_hours_minutes_seconds'):
 
 @register.assignment_tag
 def get_last_news(num=5):
-    news = News.objects.order_by('-added_at')[:num]
+    news = News.objects.filter(sites=Site.objects.get_current()).order_by('-added_at')[:num]
     return news
 
 @register.filter
