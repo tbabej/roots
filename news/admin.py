@@ -17,6 +17,7 @@ class NewsAdmin(PrettyFilterMixin, VersionAdmin):
 
     list_filter = (
         'competition',
+        'sites',
         'added_at'
     )
 
@@ -42,7 +43,7 @@ class NewsAdmin(PrettyFilterMixin, VersionAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('competition', 'heading', 'text')
+            'fields': ('competition', 'heading', 'text', 'sites')
         }),
     )
 
