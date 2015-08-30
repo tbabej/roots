@@ -11,6 +11,7 @@ class NewsAdmin(PrettyFilterMixin, VersionAdmin):
     list_display = (
         'competition',
         'heading',
+        'get_sites',
         'added_at',
         'added_by',
     )

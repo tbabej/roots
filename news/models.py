@@ -21,6 +21,10 @@ class News(models.Model):
                             blank=True)
     sites = models.ManyToManyField(Site)
 
+    def get_sites(self):
+        return ','.join([site.name for site in self.sites.all()])
+    get_sites.short_description = _("Published on sites")
+
     @staticmethod
     def autocomplete_search_fields():
         return ("competition__name__icontains", "heading__icontains")
