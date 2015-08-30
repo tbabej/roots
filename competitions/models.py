@@ -52,6 +52,14 @@ class Competition(models.Model):
     def autocomplete_search_fields():
         return ("name__icontains",)
 
+    @classmethod
+    def get_by_site(cls, site):
+        return cls.objects.get(site=site)
+
+    @classmethod
+    def get_by_current_site(cls):
+        return cls.get_by_site(Site.objects.get_current())
+
     def __unicode__(self):
         return self.name
 
