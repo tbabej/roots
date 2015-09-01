@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     url(_(r'^season/results/tex/(?P<pk>\d+)$'),
         SeasonResultExportTeXView.as_view(),
         name='competitions_season_results_tex'),
-    url(_(r'^discussion/(?P<competition_id>\d+)?/'),
+    url(_(r'^discussion/(?P<competition_id>\d+)?'),
         CompetitionDiscussionView.as_view(),
         name='competitions_competition_discussion'),
 )
