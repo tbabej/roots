@@ -376,7 +376,7 @@ msgstr "^semester/poradie/(?P<pk>\\d+)$"
 
 #: competitions/urls.py:26
 msgid "^series/results/tex/(?P<pk>\\d+)$"
-msgstr "^semester/poradie/tex/(?P<pk>\\d+)$"
+msgstr "^seria/poradie/tex/(?P<pk>\\d+)$"
 
 #: competitions/urls.py:29
 msgid "^season/results/tex/(?P<pk>\\d+)$"
