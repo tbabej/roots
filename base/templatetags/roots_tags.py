@@ -186,7 +186,11 @@ def get_last_news(num=5):
 def representation(var):
     return repr(var) + " and type: " + str(type(var))
 
-@register.assignment_tag()
+@register.assignment_tag
 def get_other_sites():
     sites = Site.objects.exclude(domain=Site.objects.get_current().domain)
     return sites
+
+@register.assignment_tag
+def current_site_domain():
+    return Site.objects.get_current().domain
