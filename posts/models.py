@@ -19,7 +19,7 @@ class Post(models.Model):
                              verbose_name=_('title'))
     sites = models.ManyToManyField(Site)
     text = models.TextField(verbose_name=_('text'))
-    slug = models.SlugField(verbose_name=_('slug'))
+    slug = models.SlugField(verbose_name=_('slug'), unique=True)
     published = models.BooleanField(
             default=False,
             verbose_name=_('published'),
