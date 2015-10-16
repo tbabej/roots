@@ -130,7 +130,7 @@ class DownloadMediaFilesMixin(object):
 
         # Grab ZIP file from in-memory, make response with correct MIME-type
         response = HttpResponse(s.getvalue(),
-                                mimetype="application/x-zip-compressed")
+                                content_type="application/x-zip-compressed")
         # ..and correct content-disposition
         response['Content-Disposition'] = (
             'attachment; filename=%s' % export_file
