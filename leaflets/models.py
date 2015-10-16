@@ -9,7 +9,7 @@ from base.storage import OverwriteFileSystemStorage
 
 
 # TODO: Remove once Python3 is required
-def get_leaflet_path_global(model):
+def get_leaflet_path_global(model, name):
     return model.get_leaflet_path()
 
 

@@ -20,10 +20,10 @@ from downloads.models import AccessFilePermissionMixin
 
 # Solution-related models
 
-def get_solution_path_global(model):
+def get_solution_path_global(model, name):
     return model.get_solution_path()
 
-def get_corrected_solution_path_global(model):
+def get_corrected_solution_path_global(model, name):
     return mode.get_corrected_solution_path()
 
 
