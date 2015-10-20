@@ -24,7 +24,7 @@ def get_solution_path_global(model, name):
     return model.get_solution_path()
 
 def get_corrected_solution_path_global(model, name):
-    return mode.get_corrected_solution_path()
+    return model.get_corrected_solution_path()
 
 
 @with_author
