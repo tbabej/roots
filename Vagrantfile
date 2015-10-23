@@ -1,7 +1,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-    config.vm.box = "rarguello/fedora-22"
+    config.vm.box = "chedi/f22-cloud"
     config.vm.synced_folder ".", "/home/vagrant/roots", type: "rsync"
     config.vm.network "forwarded_port", guest: 8080, host: 8080
     config.vm.hostname = "roots-devel"
