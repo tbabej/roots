@@ -30,7 +30,29 @@ Standing on the shoulders of giants, build on Django.
 Install
 -------
 
-Recommended approach for trying Roots out is to use virtualenv, since Roots has a lot of version-fixed dependencies:
+### Using Vagrant
+
+A quickest platform independent way to try out (or develop) Roots is using
+Vagrant.
+
+    $ git clone git://git.github.com/tbabej/roots.git         # clone the repository
+    $ cd roots
+    $ vagrant up
+
+Vagrant will bring the development machine up, and configure development
+enviroment for you. To start your Roots instance, you simply:
+
+    $ vagrant ssh
+    $ cd roots
+    $ python manage.py runserver 0.0.0.0:8080
+
+Roots instance from within the Vagrant VM will be forwarded
+to http://localhost:8080.
+
+### Local setup
+
+Another recommended approach for trying Roots out is to use virtualenv,
+since Roots has a lot of version-fixed dependencies:
 
     $ virtualenv rootsenv
     $ source rootsenv/bin/activate
