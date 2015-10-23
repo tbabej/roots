@@ -37,7 +37,7 @@ python-openid==2.2.5
 pytz==2015.2
 requests==2.7.0
 requests-oauthlib==0.5.0
-six==1.9.0
+six==1.10.0
 sorl-thumbnail==12.3
 sqlparse==0.1.15
 Unidecode==0.4.17
