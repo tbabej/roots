@@ -148,7 +148,6 @@ def get_uploaded_filepath(f):
         return f.temporary_file_path()
     else:
         temp_file = NamedTemporaryFile(delete=False)
-        #temp_file = open('/home/tbabej/temp/%s' % f.name, 'w')
         for chunk in f.chunks():
             temp_file.write(chunk)
         temp_file.flush()
