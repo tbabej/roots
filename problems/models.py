@@ -82,6 +82,7 @@ class UserSolution(MediaRemovalMixin,
                                 verbose_name=_('problem'))
 
     solution = ContentTypeRestrictedFileField(
+                                blank=True,
                                 null=True,
                                 upload_to=get_solution_path_global,
                                 storage=OverwriteFileSystemStorage(location=settings.SENDFILE_ROOT,
