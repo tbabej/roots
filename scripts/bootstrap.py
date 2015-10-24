@@ -5,12 +5,16 @@ import datetime
 
 site = Site.objects.get_current()
 
-competition = Competition(
-  name="Sample competition",
-  site=site
+# Create the admin user
+admin = User.objects.create(
+    username="rootsadmin",
+    email="rootsadmin@example.com"
 )
 
-competition.save()
+# Verify his email
+email = admin.emailaddress_set.get(pk=1)
+email.verified = True
+email.save()
 
 season = Season(
     competition=competition,
