@@ -514,8 +514,6 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                             verbose_name=_('name'))
     number = models.PositiveSmallIntegerField(verbose_name=_('number'))
     problemset = models.OneToOneField('problems.ProblemSet',
-                                      blank=True,
-                                      null=True,
                                       verbose_name=_('problem set assigned'))
     submission_deadline = models.DateTimeField(verbose_name=_('series submission deadline'))
     is_active = models.BooleanField(default=False,
