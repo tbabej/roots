@@ -51,19 +51,6 @@ class UserSolutionSubmissionView(View):
                 problem=Problem.objects.get(pk=form.cleaned_data['problem'])
             )
 
-            # Since series is a part of the POST request, check that problem belongs to this series and that
-            # this series is not past its deadline
-
-            series = Series.objects.get(pk=form.cleaned_data['series'])
-
-            if series.is_past_submission_deadline():
-                messages.error(request, _("Series is past its submission deadline"))
-                return redirect('competitions_season_detail_latest')
-
-            if not series.problemset.problems.filter(pk=form.cleaned_data['problem']).exists():
-                messages.error(request, _("Problem does not belong to the series"))
-                return redirect('competitions_season_detail_latest')
-
             try:
                 submission =  UserSolution.objects.get(**data)
             except UserSolution.DoesNotExist:
