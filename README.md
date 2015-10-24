@@ -49,6 +49,10 @@ enviroment for you. To start your Roots instance, you simply:
 Roots instance from within the Vagrant VM will be forwarded
 to http://localhost:8080.
 
+It will be initialized with a small set of sample data (competition, season,
+series, problemset). The default admin user has username 'admin' and password
+'admin'.
+
 ### Local setup
 
 Another recommended approach for trying Roots out is to use virtualenv,
