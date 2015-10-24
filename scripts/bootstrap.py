@@ -12,12 +12,6 @@ competition = Competition(
 
 competition.save()
 
-problemset_series_1 = ProblemSet(
-    name="Problems in the first series",
-    competition=competition
-)
-problemset_series_1.save()
-
 season = Season(
     competition=competition,
     name="First season",
@@ -25,14 +19,20 @@ season = Season(
     number=1,
     start=datetime.datetime.now(),
     end=datetime.datetime.now()+datetime.timedelta(days=30),
-    problemset=problemset_series_1
 )
 season.save()
+
+problemset_series_1 = ProblemSet(
+    name="Problems in the first series",
+    competition=competition
+)
+problemset_series_1.save()
 
 series = Series(
    season=season,
    name="First series",
    number=1,
-   submission_deadline=datetime.datetime.now()+datetime.timedelta(days=30)
+   submission_deadline=datetime.datetime.now()+datetime.timedelta(days=30),
+   problemset=problemset_series_1
 )
 series.save()
