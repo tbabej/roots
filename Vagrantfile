@@ -51,5 +51,8 @@ Vagrant.configure(2) do |config|
     else
       python manage.py migrate
     fi
+
+    # Ensure everything in the repository is owned by vagrant
+    chown -R vagrant:vagrant .
     SHELL
 end
