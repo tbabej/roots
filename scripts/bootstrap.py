@@ -16,7 +16,14 @@ email = admin.emailaddress_set.get(pk=1)
 email.verified = True
 email.save()
 
-season = Season(
+# Add competition with 1 season composed of 1 series
+# with its corresponding problem set
+competition = Competition.objects.create(
+    name="Sample competition",
+    site=site
+)
+
+season = Season.objects.create(
     competition=competition,
     name="First season",
     year=datetime.date.today().year,
@@ -24,19 +31,16 @@ season = Season(
     start=datetime.datetime.now(),
     end=datetime.datetime.now()+datetime.timedelta(days=30),
 )
-season.save()
 
-problemset_series_1 = ProblemSet(
+problemset_series_1 = ProblemSet.objects.create(
     name="Problems in the first series",
     competition=competition
 )
-problemset_series_1.save()
 
-series = Series(
+series = Series.objects.create(
    season=season,
    name="First series",
    number=1,
    submission_deadline=datetime.datetime.now()+datetime.timedelta(days=30),
    problemset=problemset_series_1
 )
-series.save()
