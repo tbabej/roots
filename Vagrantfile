@@ -26,5 +26,30 @@ Vagrant.configure(2) do |config|
     pip install -r /home/vagrant/roots/requirements.txt
     pip install git+git://github.com/django-wiki/django-wiki
     pip install git+git://github.com/tbabej/django-avatar
+
+    # Reinstall of six seems to be necessary for some weird reason
+    pip uninstall -y six
+    pip install six
+
+    # Create defaults from the .in template files if they do not exist
+    cd /home/vagrant/roots
+
+    if [[ ! -f roots/local_settings.py ]]
+    then
+      cp roots/local_settings.py.in roots/local_settings.py
+    fi
+
+    if [[ ! -d templates_custom ]]
+    then
+      cp -r templates_custom.in templates_custom
+    fi
+
+    if [[ ! -f roots.db ]]
+    then
+      python manage.py migrate
+      python manage.py shell_plus <<< "execfile('scripts/bootstrap.py')"
+    else
+      python manage.py migrate
+    fi
     SHELL
 end
