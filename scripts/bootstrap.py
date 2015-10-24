@@ -48,3 +48,13 @@ series = Series.objects.create(
    submission_deadline=datetime.datetime.now()+datetime.timedelta(days=30),
    problemset=problemset_series_1
 )
+
+# Create a Facebook social provider
+facebook = SocialApp.objects.create(
+    provider="facebook",
+    name="Facebook",
+    client_id="random_client_id",
+    secret="random_secret",
+)
+facebook.sites.add(site)
+facebook.save()
