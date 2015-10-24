@@ -12,16 +12,16 @@ Vagrant.configure(2) do |config|
 
     config.vm.provision "shell", inline: <<-SHELL
     # Build essentials
-    sudo dnf install -y python-pip git gcc python-devel
+    dnf install -y python-pip git gcc python-devel
 
     # Developer essentials
-    sudo dnf install -y vim
+    dnf install -y vim
 
     # Requirements for Pillow and Wand
-    sudo dnf install -y libjpeg-turbo-devel zlib-devel ImageMagick-devel
+    dnf install -y libjpeg-turbo-devel zlib-devel ImageMagick-devel
 
     # Requirement for pypandoc
-    sudo dnf install -y pandoc
+    dnf install -y pandoc
 
     pip install -r /home/vagrant/roots/requirements.txt
     pip install git+git://github.com/django-wiki/django-wiki
