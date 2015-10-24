@@ -7,18 +7,18 @@ site = Site.objects.get_current()
 
 # Create the admin user
 admin = User.objects.create(
-    username="rootsadmin",
-    email="rootsadmin@example.com",
+    username="admin",
+    email="admin@example.com",
     is_staff=True,
     is_superuser=True,
 )
-admin.set_password('rootspassword')
+admin.set_password('admin')
 admin.save()
 
 # Add his email to allauth table as verified and primary
 email = EmailAddress.objects.create(
     user=admin,
-    email="rootsadmin@example.com",
+    email="admin@example.com",
     verified=True,
     primary=True
 )
