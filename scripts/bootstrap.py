@@ -8,8 +8,12 @@ site = Site.objects.get_current()
 # Create the admin user
 admin = User.objects.create(
     username="rootsadmin",
-    email="rootsadmin@example.com"
+    email="rootsadmin@example.com",
+    is_staff=True,
+    is_superuser=True,
 )
+admin.set_password('rootspassword')
+admin.save()
 
 # Verify his email
 email = admin.emailaddress_set.get(pk=1)
