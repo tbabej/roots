@@ -134,6 +134,10 @@ class SeasonDetailView(DetailView):
 
             context['solutions'][series.pk] = dict()
 
+            # If there is no problemset assigned, skip
+            if not series.problemset:
+                continue
+
             for problem in series.problemset.problems.all():
                 solutions = UserSolution.objects.filter(
                                                  user=self.request.user.pk,
@@ -148,6 +152,10 @@ class SeasonDetailView(DetailView):
         for series in self.object.series_set.all():
 
             context['forms'][series.pk] = dict()
+
+            # If there is no problemset assigned, skip
+            if not series.problemset:
+                continue
 
             for problem in series.problemset.problems.all():
                 solutions = UserSolution.objects.filter(
