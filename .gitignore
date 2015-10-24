@@ -1,4 +1,5 @@
 .idea
+.vagrant
 /allauth
 /email-messages/*
 !email-messages/README
