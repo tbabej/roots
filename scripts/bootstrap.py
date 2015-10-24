@@ -15,10 +15,13 @@ admin = User.objects.create(
 admin.set_password('rootspassword')
 admin.save()
 
-# Verify his email
-email = admin.emailaddress_set.get(pk=1)
-email.verified = True
-email.save()
+# Add his email to allauth table as verified and primary
+email = EmailAddress.objects.create(
+    user=admin,
+    email="rootsadmin@example.com",
+    verified=True,
+    primary=True
+)
 
 # Add competition with 1 season composed of 1 series
 # with its corresponding problem set
