@@ -268,6 +268,17 @@ class Problem(models.Model):
         if sets:
             return sets[0].series.season
 
+    def current_series_problem(self):
+        sets = self.problemset_set.order_by('-series__submission_deadline')
+        sets = sets.filter(series__isnull=False)
+
+        if sets:
+            problemset = sets[0]
+            order = list(problemset.problems.all()).index(self) + 1
+            series = problemset.series
+            competition = series.season.competition
+            return "%s, %s: %d" % (competition, series, order)
+
     def times_used(self):
         return len(self.get_usages())
 
