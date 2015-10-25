@@ -23,6 +23,9 @@ Vagrant.configure(2) do |config|
     # Requirement for pypandoc
     dnf install -y pandoc
 
+    # pip wishes to be upgraded
+    pip install --upgrade pip
+
     pip install -r /home/vagrant/roots/requirements.txt
     pip install git+git://github.com/django-wiki/django-wiki
     pip install git+git://github.com/tbabej/django-avatar
