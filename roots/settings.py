@@ -207,6 +207,7 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # Get the projet root
 settings_dir = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(settings_dir) + '/'
+BASE_DIR = PROJECT_ROOT
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or
@@ -290,3 +291,6 @@ FILEBROWSER_VERSIONS_BASEDIR = 'uploads_tmp/'
 
 # Implicitly support multisite behaviour in Photologue
 PHOTOLOGUE_MULTISITE = True
+
+# Acknowledge upgrade to Django 1.7 (suppresses message 1_6.W001)
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
