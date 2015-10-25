@@ -349,8 +349,8 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
         'problem',
         'solution_link',
         'corrected_solution_link',
-        'note',
         'score',
+        'note',
     )
 
     list_filter = (
