@@ -25,7 +25,7 @@ class Address(models.Model):
     @staticmethod
     def autocomplete_search_fields():
         return (
-            "street_icontains",
+            "street__icontains",
             "city__icontains",
             )
 
