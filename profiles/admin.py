@@ -11,18 +11,6 @@ from .models import UserProfile, OrganizerProfile, UserSeasonRegistration
 
 class LimitProfilesToSeasonFilter(LimitToSeasonFilter):
 
-    title = _('limit to season')
-    parameter_name = 'season'
-
-    def lookups(self, request, model_admin):
-        for competition in Competition.objects.all():
-            for season in competition.season_set.all():
-                # First yield the whole season
-                yield (
-                    season.pk,
-                    "%s" % season
-                )
-
     def queryset(self, request, queryset):
         value = self.value()
 
