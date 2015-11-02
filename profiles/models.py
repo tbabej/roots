@@ -271,15 +271,15 @@ class UserSeasonRegistration(models.Model):
     def register_user(cls, user, season):
         profile = user.userprofile
 
-        registration = cls(
+        registration = cls.objects.update_or_create(
             user=user,
             season=season,
-            school=profile.school,
-            school_class=profile.school_class,
-            classlevel=profile.classlevel,
-            )
-
-        registration.save()
+            defaults=dict(
+                school=profile.school,
+                school_class=profile.school_class,
+                classlevel=profile.classlevel,
+            ),
+        )
 
     def __unicode__(self):
         return unicode(_("user registration for {season}: {user}")
@@ -290,3 +290,18 @@ class UserSeasonRegistration(models.Model):
         verbose_name = _('user season registration')
         verbose_name_plural = _('user season registrations')
         unique_together = ('season', 'user')
+
+@receiver(post_save, sender=UserProfile)
+def update_user_season_registration(sender, instance, created, **kwargs):
+    """
+    Updates UserSeasonRegistration for any season that has currently a
+    active series in progress.
+
+    This will make sure the changes done to the profile will propagate to the
+    UserSeasonRegistration as long as they have been done while the season was
+    running.
+    """
+
+    for season in instance.participated_seasons:
+        if season.active_series:
+            UserSeasonRegistration.register_user(instance.user, season)
