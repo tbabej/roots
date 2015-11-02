@@ -66,8 +66,8 @@ class School(models.Model):
     @staticmethod
     def autocomplete_search_fields():
         return (
-            "name__incontains",
-            "abbreviation__incontains",
+            "name__icontains",
+            "abbreviation__icontains",
             "address__street_icontains",
             "address__city__icontains",
             )
