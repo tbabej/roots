@@ -68,7 +68,7 @@ class School(models.Model):
         return (
             "name__icontains",
             "abbreviation__icontains",
-            "address__street_icontains",
+            "address__street__icontains",
             "address__city__icontains",
             )
 
