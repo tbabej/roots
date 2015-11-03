@@ -166,16 +166,6 @@ class UserSolution(MediaRemovalMixin,
                 "User profile does not contain all required fields. "
                 "Please update your profile."))
 
-    def save(self, *args, **kwargs):
-        self.school = self.school or self.user.userprofile.school
-        self.school_class = (self.school_class or
-                             self.user.userprofile.school_class)
-        self.classlevel = self.classlevel or self.user.userprofile.classlevel
-
-        self.clean()
-
-        super(UserSolution, self).save(*args, **kwargs)
-
     class Meta:
         order_with_respect_to = 'problem'
         verbose_name = _('user solution')
