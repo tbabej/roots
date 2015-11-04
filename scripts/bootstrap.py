@@ -23,6 +23,26 @@ email = EmailAddress.objects.create(
     primary=True
 )
 
+# Create sample address and school for admin
+address = Address.objects.create(
+    street="Street1",
+    city="City1",
+    postal_number="ZipCode1",
+    region="Region1"
+)
+
+school = School.objects.create(
+    name="Sample School",
+    address=address,
+    abbreviation="SmpSch"
+)
+
+userprofile = admin.userprofile
+userprofile.school = school
+userprofile.school_class = "Z9"
+userprofile.classlevel = "Z9"
+userprofile.save()
+
 # Add competition with 1 season composed of 1 series
 # with its corresponding problem set
 competition = Competition.objects.create(
