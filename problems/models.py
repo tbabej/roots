@@ -135,6 +135,7 @@ class UserSolution(MediaRemovalMixin,
     note = models.CharField(max_length=200, blank=True, null=True)
 
     corrected_by = models.ManyToManyField('auth.User',
+                       blank=True,
                        related_name='usersolutions_corrected_set',
                        verbose_name=_('corrected by'))
 
