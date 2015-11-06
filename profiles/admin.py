@@ -76,6 +76,7 @@ class UserSeasonRegistrationAdmin(ImprovedFilteringVersionAdminMixin, reversion.
         'season',
         'school',
         'classlevel',
+        'class',
     )
 
     list_filter = (
