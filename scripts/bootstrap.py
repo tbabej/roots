@@ -27,7 +27,7 @@ email = EmailAddress.objects.create(
 address = Address.objects.create(
     street="Street1",
     city="City1",
-    postal_number="ZipCode1",
+    postal_number="10001",
     region="Region1"
 )
 
