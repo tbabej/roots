@@ -233,6 +233,39 @@ class LimitToCurrentSeasonProblemFilter(admin.SimpleListFilter):
             return queryset
 
 
+class HasUploadedSolutionFilter(admin.SimpleListFilter):
+
+    title = _('users with uploaded solution')
+    parameter_name = 'has_uploaded_solution'
+
+    def lookups(self, request, model_admin):
+        # Only two options are possible
+        values = [
+            ('yes', "With solution"),
+            ('no', "Without solution")
+        ]
+        for entry in values:
+            yield entry
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        # Check that any value was passed, if not, return unmodified queryset
+        if not value:
+            return queryset
+
+        # The solution file field is represented in database as a file path
+        # and Django stores non-files as an empty string ''
+        if value == "no":
+            return queryset.filter(solution='')
+
+        elif value == "yes":
+            return queryset.exclude(solution='')
+
+        else:
+            return queryset
+
+
 class LimitToSeasonFilter(admin.SimpleListFilter):
 
     title = _('limit to season')
@@ -358,6 +391,7 @@ class UserSolutionAdmin(RestrictedCompetitionAdminMixin,
         foreign_field_filter_factory('problem'),
         CurrentSeasonUserFilter,
         CurrentSeasonProblemFilter,
+        HasUploadedSolutionFilter,
         LimitToCurrentSeasonProblemFilter,
         LimitToSeasonFilter,
     )
