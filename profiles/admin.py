@@ -33,6 +33,7 @@ class UserProfileAdmin(ImprovedFilteringVersionAdminMixin, reversion.VersionAdmi
         'date_of_birth',
         'school',
         'classlevel',
+        'school_class',
     )
 
     list_filter = (
