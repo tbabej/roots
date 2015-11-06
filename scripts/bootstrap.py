@@ -43,11 +43,31 @@ userprofile.school_class = "Z9"
 userprofile.classlevel = "Z9"
 userprofile.save()
 
-# Add competition with 1 season composed of 1 series
-# with its corresponding problem set
+# Add competition with sample severity, category
+# with 1 season composed of 1 series
+# with its corresponding problem set of 1 problem 
 competition = Competition.objects.create(
     name="Sample competition",
     site=site
+)
+
+severity = ProblemSeverity.objects.create(
+    name="Sample Severity",
+    level=1,
+    competition=competition
+)
+
+category = ProblemCategory.objects.create(
+    name="Sample Category",
+    competition=competition
+)
+
+problem = Problem.objects.create(
+    text="Given numbers 5 and 6, calculate their sum.",
+    result="11",
+    severity=severity,
+    category=category,
+    competition=competition
 )
 
 season = Season.objects.create(
@@ -64,12 +84,25 @@ problemset_series_1 = ProblemSet.objects.create(
     competition=competition
 )
 
+probleminset = ProblemInSet.objects.create(
+    problem=problem,
+    problemset=problemset_series_1,
+    position=0
+)
+
 series = Series.objects.create(
    season=season,
    name="First series",
    number=1,
    submission_deadline=datetime.datetime.now()+datetime.timedelta(days=30),
    problemset=problemset_series_1
+)
+
+# Create admin's solution for the problem
+usersolution = UserSolution.objects.create(
+    user=admin,
+    problem=problem,
+    score=9
 )
 
 # Create a Facebook social provider
