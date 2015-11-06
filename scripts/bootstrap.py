@@ -45,7 +45,7 @@ userprofile.save()
 
 # Add competition with sample severity, category
 # with 1 season composed of 1 series
-# with its corresponding problem set of 1 problem 
+# with its corresponding problem set of 1 problem
 competition = Competition.objects.create(
     name="Sample competition",
     site=site
