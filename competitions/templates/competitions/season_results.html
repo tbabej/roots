@@ -57,10 +57,11 @@
           </div>
       </div>
 
+  {% block notes %}
     {% if series.is_active %}
       <div class="alert alert-warning" role="alert">
-          <b>{% trans "Series has not been declared as finished yet." %} </b>
-          {% trans "Results may be incomplete and are subject to change." %}
+        <b>{% trans "Series has not been declared as finished yet." %} </b>
+        {% trans "Results may be incomplete and are subject to change." %}
       </div>
     {% endif %}
 
@@ -69,6 +70,7 @@
         {{ series.results_note }}
       </div>
     {% endif %}
+  {% endblock %}
 
   <table class="table table-condensed table-striped">
   <thead>
