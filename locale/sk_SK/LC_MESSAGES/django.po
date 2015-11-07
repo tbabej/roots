@@ -30,7 +30,7 @@ msgstr "Tu môžeš tvoriť statický obsah, akým sú príspevky, novinky či g
 
 #: admin_custom/dashboard.py:29
 msgid "Competition management"
-msgstr "názov súťaže / seminára"
+msgstr "Správa seminára"
 
 #: admin_custom/dashboard.py:33
 msgid ""
@@ -39,7 +39,7 @@ msgstr "Zahŕňa položky spojené so správou seminára, jeho semestrov a séri
 
 #: admin_custom/dashboard.py:37
 msgid "Problem database"
-msgstr "Sada príkladov"
+msgstr "Databáza príkladov"
 
 #: admin_custom/dashboard.py:41
 msgid ""
@@ -658,6 +658,7 @@ msgid ""
 "Series has not been declared as finished yet. Results may be incomplete and "
 "are subject to change."
 msgstr ""
+"Séria nie je uzavretá. Výsledky sú predbežné a môžu sa meniť."
 
 #: competitions/templates/competitions/season_results.html:75
 #: competitions/templates/competitions/season_results.html:149
