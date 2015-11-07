@@ -1,0 +1,12 @@
+Use this directory to override and extend app-specific templates.
+This leverages the django-apptemplate loader.
+
+EXAMPLE:
+To override (and possible extend) the "posts/post_detail.html" template,
+you will need to:
+
+* Create a "posts" directory inside "templates_custom"
+* Create post_detail.html (templates_custom/posts/post_detail.html)
+* Use apptemplate specific way of referencing the parent template:
+
+{% extends "posts:posts/post_detail.html" %}
