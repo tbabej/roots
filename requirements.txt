@@ -2,6 +2,7 @@ akismet==0.2.0
 Django==1.7.8
 django-allauth==0.21.0
 django-appconf==0.6
+django-apptemplates==1.0
 django-author==0.1
 # pip install git+git://github.com/tbabej/django-avatar
 # django-avatar==2.0

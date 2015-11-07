@@ -52,12 +52,14 @@ if not DEBUG:
         ('django.template.loaders.cached.Loader', (
             'django.template.loaders.filesystem.Loader',
             'django.template.loaders.app_directories.Loader',
+            'apptemplates.Loader',
         )),
     )
 else:
     TEMPLATE_LOADERS = (
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
+        'apptemplates.Loader',
     )
 
 
@@ -144,6 +146,8 @@ INSTALLED_APPS = (
     'avatar',
     # Use django-author
     'author',
+    # Use django-apptemplates
+    'apptemplates',
     # Use django-reversion
     'reversion',
     # Use django-photologue
