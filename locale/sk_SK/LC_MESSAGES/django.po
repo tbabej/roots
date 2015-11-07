@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-07 13:07+0100\n"
+"POT-Creation-Date: 2015-11-07 14:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,9 @@ msgstr "Správa seminára"
 #: admin_custom/dashboard.py:33
 msgid ""
 "Manage seminar activities, add seasons, deal with user solutions and more."
-msgstr "Zahŕňa položky spojené so správou seminára, jeho semestrov a sérii. Okrem iného tu nájdeš užívateľské riešenia."
+msgstr ""
+"Zahŕňa položky spojené so správou seminára, jeho semestrov a sérii. Okrem "
+"iného tu nájdeš užívateľské riešenia."
 
 #: admin_custom/dashboard.py:37
 msgid "Problem database"
@@ -46,7 +48,8 @@ msgid ""
 "Find problem statements. Create problem sets. Add new problems to help us "
 "grow the database."
 msgstr ""
-"Nájdi príklady, vytváraj sady príkladov. Pridaj nový príklad a rozšír tak existujúcu databázu."
+"Nájdi príklady, vytváraj sady príkladov. Pridaj nový príklad a rozšír tak "
+"existujúcu databázu."
 
 #: admin_custom/dashboard.py:45
 msgid "User and school database"
@@ -654,34 +657,35 @@ msgid "Complete results"
 msgstr "Celkové poradie"
 
 #: competitions/templates/competitions/season_results.html:62
-msgid ""
-"Series has not been declared as finished yet. Results may be incomplete and "
-"are subject to change."
-msgstr ""
-"Séria nie je uzavretá. Výsledky sú predbežné a môžu sa meniť."
+msgid "Series has not been declared as finished yet."
+msgstr "Séria nie je uzavretá."
 
-#: competitions/templates/competitions/season_results.html:75
-#: competitions/templates/competitions/season_results.html:149
-msgid "Rank"
-msgstr "Poradie"
+#: competitions/templates/competitions/season_results.html:63
+msgid "Results may be incomplete and are subject to change."
+msgstr "Výsledky sú predbežné a môžu sa meniť."
 
 #: competitions/templates/competitions/season_results.html:76
 #: competitions/templates/competitions/season_results.html:150
-msgid "Name"
-msgstr "Meno"
+msgid "Rank"
+msgstr "Poradie"
 
 #: competitions/templates/competitions/season_results.html:77
 #: competitions/templates/competitions/season_results.html:151
-msgid "Class level"
-msgstr "Ročník"
+msgid "Name"
+msgstr "Meno"
 
 #: competitions/templates/competitions/season_results.html:78
 #: competitions/templates/competitions/season_results.html:152
+msgid "Class level"
+msgstr "Ročník"
+
+#: competitions/templates/competitions/season_results.html:79
+#: competitions/templates/competitions/season_results.html:153
 msgid "School"
 msgstr "Škola"
 
-#: competitions/templates/competitions/season_results.html:82
-#: competitions/templates/competitions/season_results.html:158
+#: competitions/templates/competitions/season_results.html:83
+#: competitions/templates/competitions/season_results.html:159
 msgid "Total"
 msgstr "Celkovo"
 
@@ -950,7 +954,8 @@ msgid ""
 "Post is hidden from non-administrators unless explicitly marked as published "
 "here."
 msgstr ""
-"Príspevok je skrytý pred užívateľmi kým nie je explicitne označený ako publikovaný"
+"Príspevok je skrytý pred užívateľmi kým nie je explicitne označený ako "
+"publikovaný"
 
 #: posts/models.py:32
 msgid "associated gallery"
