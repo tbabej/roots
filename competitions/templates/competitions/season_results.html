@@ -57,6 +57,12 @@
           </div>
       </div>
 
+    {% if series.is_active %}
+      <div class="alert alert-info" role="alert">
+          {% trans "Series has not been declared as finished yet. Results may be incomplete and are subject to change." %}
+      </div>
+    {% endif %}
+
     {% if series.results_note %}
       <div class="alert alert-info" role="alert">
         {{ series.results_note }}
