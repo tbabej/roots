@@ -199,7 +199,8 @@ class SeriesAdmin(PrettyFilterMixin, VersionAdmin):
     fieldsets = (
         (None, {
             'fields': ('season', 'name', 'number', 'problemset',
-                       'submission_deadline', 'is_active', 'sum_method')
+                       'submission_deadline', 'is_active', 'sum_method',
+                       'results_note')
         }),
     )
 

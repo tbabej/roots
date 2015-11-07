@@ -525,6 +525,11 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                                   help_text=_('Method that is used to compute the sum of the series'),
                                   choices=settings.ROOTS_SERIES_TOTAL_SUM_METHOD_CHOICES)
 
+    results_note = models.CharField(max_length=500,
+                            blank=True,
+                            null=True,
+                            verbose_name=_('note in results'))
+
     @cached_property
     def num_problems(self):
         return self.problems.count()
