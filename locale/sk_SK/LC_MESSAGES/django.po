@@ -442,11 +442,11 @@ msgstr "^semester/(?P<pk>\\d+)$"
 
 #: competitions/urls.py:18
 msgid "^season/latest/(?P<competition_id>\\d+)?$"
-msgstr "^semester/posledny/(?P<competition_id>\\d+)$"
+msgstr "^semester/posledny/(?P<competition_id>\\d+)?$"
 
 #: competitions/urls.py:21
 msgid "^season/results/latest/(?P<competition_id>\\d+)?$"
-msgstr "^semester/poradie/posledny/(?P<competition_id>\\d+)$"
+msgstr "^semester/poradie/posledny/(?P<competition_id>\\d+)?$"
 
 #: competitions/urls.py:24
 msgid "^season/results/(?P<pk>\\d+)$"
