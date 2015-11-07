@@ -68,7 +68,6 @@ After that, setup itself is just running few commands:
     $ cd roots
     $ pip install -r requirements.txt                         # install the dependencies
     $ cp roots/local_settings.py.in roots/local_settings.py   # setup default local settings
-    $ cp -r templates_custom.in templates_custom              # setup default custom templates
     $ python manage.py syncdb --noinput                       # setup the database
     $ python manage.py migrate                                # apply the migrations
 

@@ -42,11 +42,6 @@ Vagrant.configure(2) do |config|
       cp roots/local_settings.py.in roots/local_settings.py
     fi
 
-    if [[ ! -d templates_custom ]]
-    then
-      cp -r templates_custom.in templates_custom
-    fi
-
     if [[ ! -f roots.db ]]
     then
       python manage.py migrate
