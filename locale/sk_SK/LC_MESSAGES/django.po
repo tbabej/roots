@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Roots \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-22 16:30+0200\n"
+"POT-Creation-Date: 2015-11-07 13:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tomáš Babej <tomasbabej@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,89 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: admin_custom/dashboard.py:17
+msgid "Administration modules"
+msgstr "Administrácia"
+
+#: admin_custom/dashboard.py:21
+msgid "Content management"
+msgstr "Správa obsahu"
+
+#: admin_custom/dashboard.py:25
+msgid "Add/change static content, such as posts, news or galleries."
+msgstr "Tu môžeš tvoriť statický obsah, akým sú príspevky, novinky či galérie"
+
+#: admin_custom/dashboard.py:29
+msgid "Competition management"
+msgstr "názov súťaže / seminára"
+
+#: admin_custom/dashboard.py:33
+msgid ""
+"Manage seminar activities, add seasons, deal with user solutions and more."
+msgstr "Zahŕňa položky spojené so správou seminára, jeho semestrov a sérii. Okrem iného tu nájdeš užívateľské riešenia."
+
+#: admin_custom/dashboard.py:37
+msgid "Problem database"
+msgstr "Sada príkladov"
+
+#: admin_custom/dashboard.py:41
+msgid ""
+"Find problem statements. Create problem sets. Add new problems to help us "
+"grow the database."
+msgstr ""
+"Nájdi príklady, vytváraj sady príkladov. Pridaj nový príklad a rozšír tak existujúcu databázu."
+
+#: admin_custom/dashboard.py:45
+msgid "User and school database"
+msgstr "Databáza škôl a súťažiacich"
+
+#: admin_custom/dashboard.py:49
+msgid "Manage users and their profiles. Edit our database of schools."
+msgstr "Spravuj užívateľov a ich profily. Upravuj našú databázu škôl."
+
+#: admin_custom/dashboard.py:57
+msgid "Recent Actions"
+msgstr "Posledné udalosti"
+
+#: admin_custom/dashboard.py:74 admin_custom/dashboard.py:92
+#: admin_custom/dashboard.py:136 admin_custom/dashboard.py:156
+msgid "Content"
+msgstr "Obsah"
+
+#: admin_custom/dashboard.py:111
+msgid "File management"
+msgstr "Správa súborov"
+
+#: admin_custom/dashboard.py:115
+msgid "FileBrowser"
+msgstr "Prehliadač súborov"
+
+#: admin_custom/dashboard.py:118
+msgid ""
+"Use to upload images or other files to use in posts, news, static pages, and "
+"elsewhere on the site."
+msgstr ""
+
+#: admin_custom/urls.py:10
+msgid "^$"
+msgstr "^$"
+
+#: admin_custom/urls.py:12
+msgid "dashboards/problems/$"
+msgstr "nastenky/priklady/$"
+
+#: admin_custom/urls.py:14
+msgid "dashboards/content/$"
+msgstr "nastenky/obsah/$"
+
+#: admin_custom/urls.py:16
+msgid "dashboards/competition/$"
+msgstr "nastenky/sutaze/$"
+
+#: admin_custom/urls.py:18
+msgid "dashboards/users/$"
+msgstr "nastenky/uzivatelia/$"
 
 #: base/admin.py:211
 msgid "Database error"
@@ -51,52 +134,48 @@ msgstr "0 z %(cnt)s zvolených"
 msgid "All"
 msgstr "Všetko"
 
-#: base/models.py:103
+#: base/models.py:100
 #, python-format
 msgid "Please keep filesize under %s. Current filesize %s"
 msgstr "Maximálna veľkosť je %s. Aktuálna veľkosť %s"
 
-#: base/models.py:107
+#: base/models.py:104
 msgid "Filetype not supported."
 msgstr "Typ súboru nie je podporovaný."
 
-#: base/util.py:29
+#: base/util.py:28
 msgid "added at"
 msgstr "pridané"
 
-#: base/util.py:32
+#: base/util.py:31
 msgid "modified at"
 msgstr "modifikované"
 
-#: base/util.py:54
+#: base/util.py:52
 msgid "author"
 msgstr "autor"
 
-#: base/util.py:61
+#: base/util.py:59
 msgid "last modified by"
 msgstr "naposledy modifikované"
 
-#: base/util.py:324
+#: base/util.py:321
 msgid "Order cannot be higher tha number of year segments."
 msgstr "Poradie segmentu nemôže by vyššie ako počet segmentov v roku."
 
-#: base/templates/base/base_base.html:80 templates/admin/base.html:120
-msgid "Home"
-msgstr "Domov"
-
-#: base/templates/base/base_base.html:82
+#: base/templates/base/base_base.html:85
 msgid "Administration"
 msgstr "Administrácia"
 
-#: base/templates/base/base_base.html:99
+#: base/templates/base/base_base.html:102
 msgid "Logged in as "
 msgstr "Prihlásený ako "
 
-#: base/templates/base/base_base.html:102
+#: base/templates/base/base_base.html:105
 msgid "You are not logged in."
 msgstr "Nie si prihlásený."
 
-#: base/templates/base/base_base.html:163 news/models.py:29 news/models.py:30
+#: base/templates/base/base_base.html:166 news/models.py:34 news/models.py:35
 msgid "News"
 msgstr "Aktuality"
 
@@ -161,196 +240,195 @@ msgstr "Udalosti"
 msgid "Discussion"
 msgstr "Debata"
 
-#: base/templates/base/menu.html:25
-msgid "About us"
-msgstr "O nás"
-
-#: base/templates/base/menu.html:28
+#: base/templates/base/menu.html:26
 msgid "Account stuff"
 msgstr "Správa účtu"
 
-#: base/templates/base/menu.html:32
+#: base/templates/base/menu.html:30
 msgid "Display your profile"
 msgstr "Zobraziť profil"
 
-#: base/templates/base/menu.html:33
+#: base/templates/base/menu.html:31
 #: profiles/templates/profiles/userprofile_form.html:9
 msgid "Update your profile"
 msgstr "Aktualizovať profil"
 
-#: base/templates/base/menu.html:34
+#: base/templates/base/menu.html:32
 msgid "Change your avatar"
 msgstr "Zmeniť profilovú fotografiu"
 
-#: base/templates/base/menu.html:35
+#: base/templates/base/menu.html:33
 msgid "Change E-mail"
 msgstr "Zmeniť email"
 
-#: base/templates/base/menu.html:36
+#: base/templates/base/menu.html:34
 msgid "Connect external account"
 msgstr "Pripojiť externý účet"
 
-#: base/templates/base/menu.html:37 templates/account/logout.html:6
+#: base/templates/base/menu.html:35 templates/account/logout.html:6
 #: templates/account/logout.html.py:7 templates/account/logout.html:18
 msgid "Sign Out"
 msgstr "Odhlásiť sa"
 
-#: base/templates/base/menu.html:39 templates/account/login.html:7
+#: base/templates/base/menu.html:37 templates/account/login.html:7
 #: templates/account/login.html.py:8 templates/account/login.html:41
 msgid "Sign In"
 msgstr "Prihlásiť sa"
 
-#: base/templates/base/menu.html:40 templates/account/signup.html:19
+#: base/templates/base/menu.html:38 templates/account/signup.html:19
 msgid "Sign Up"
 msgstr "Zaregistrovať sa"
 
-#: base/templates/base/menu.html:45
+#: base/templates/base/menu.html:43
 msgid "Organizer stuff"
 msgstr "Vedúcovské veci"
 
-#: base/templates/base/menu.html:48
+#: base/templates/base/menu.html:46
 msgid "Wiki"
 msgstr "Wiki"
 
-#: base/templatetags/roots_tags.py:160
+#: base/templatetags/roots_tags.py:168
 #, python-brace-format
 msgid "{days} days, {hours} hours, {minutes} minutes and {seconds} seconds"
 msgstr "{days} dní, {hours} hodín, {minutes} minút a {seconds} sekúnd"
 
-#: base/templatetags/roots_tags.py:162
+#: base/templatetags/roots_tags.py:170
 #, python-brace-format
 msgid "{days} days, {hours} hours and {minutes} minutes"
 msgstr "{days} dní, {hours} hodín a {minutes} minút"
 
-#: base/templatetags/roots_tags.py:164
+#: base/templatetags/roots_tags.py:172
 #, python-brace-format
 msgid "{days} days and {hours} hours"
 msgstr "{days} dní a {hours} hodín"
 
-#: base/templatetags/roots_tags.py:166
+#: base/templatetags/roots_tags.py:174
 #, python-brace-format
 msgid "{days} days"
 msgstr "{days} dní"
 
-#: competitions/models.py:27
+#: competitions/models.py:30
 msgid "competition name"
 msgstr "názov súťaže / seminára"
 
-#: competitions/models.py:32
+#: competitions/models.py:35
 msgid "organizer group"
 msgstr "skupina vedúcich pre súťaž / seminár"
 
-#: competitions/models.py:93 competitions/models.py:106
-#: competitions/models.py:135 competitions/models.py:254 events/models.py:27
-#: leaflets/models.py:41 news/models.py:13 posts/models.py:21
-#: problems/models.py:283 problems/models.py:394 problems/models.py:467
-#: problems/models.py:510
+#: competitions/models.py:106 competitions/models.py:119
+#: competitions/models.py:148 competitions/models.py:268 events/models.py:27
+#: leaflets/models.py:46 problems/models.py:298 problems/models.py:409
+#: problems/models.py:482 problems/models.py:525
 msgid "competition"
 msgstr "súťaž / seminár"
 
-#: competitions/models.py:94
+#: competitions/models.py:107
 msgid "competitions"
 msgstr "súťaže / semináre"
 
-#: competitions/models.py:108 events/models.py:116 events/models.py:250
-#: problems/models.py:72 profiles/models.py:23 profiles/models.py:169
+#: competitions/models.py:121 events/models.py:116 events/models.py:250
+#: problems/models.py:80 profiles/models.py:23 profiles/models.py:169
 #: profiles/models.py:229
 msgid "user"
 msgstr "užívateľ"
 
-#: competitions/models.py:116
+#: competitions/models.py:129
 msgid " competes in "
 msgstr " súťaží v: "
 
-#: competitions/models.py:121 events/models.py:135
+#: competitions/models.py:134 events/models.py:135
 msgid "user registration"
 msgstr "registrácia užívateľa"
 
-#: competitions/models.py:122 events/models.py:136
+#: competitions/models.py:135 events/models.py:136
 msgid "user registrations"
 msgstr "registrácie užívateľov"
 
-#: competitions/models.py:137 events/models.py:150 problems/models.py:189
+#: competitions/models.py:150 events/models.py:150 problems/models.py:193
 msgid "organizer"
 msgstr "vedúci"
 
-#: competitions/models.py:138
+#: competitions/models.py:151
 msgid "registration approved"
 msgstr "registrácie schválená"
 
-#: competitions/models.py:146 events/models.py:164
+#: competitions/models.py:160 events/models.py:164
 msgid " organizes "
 msgstr " organizuje "
 
-#: competitions/models.py:151 competitions/models.py:152 events/models.py:170
+#: competitions/models.py:165 competitions/models.py:166 events/models.py:170
 msgid "organizer registration"
 msgstr "registrácia vedúceho"
 
-#: competitions/models.py:255 leaflets/models.py:42
+#: competitions/models.py:269 leaflets/models.py:47
 msgid "year"
 msgstr "rok"
 
-#: competitions/models.py:256 competitions/models.py:501
+#: competitions/models.py:270 competitions/models.py:515
 msgid "number"
 msgstr "číslo"
 
-#: competitions/models.py:257 competitions/models.py:500
-#: problems/models.py:464 problems/models.py:506 schools/models.py:52
+#: competitions/models.py:271 competitions/models.py:514
+#: problems/models.py:479 problems/models.py:521 schools/models.py:52
 msgid "name"
 msgstr "názov"
 
-#: competitions/models.py:260
+#: competitions/models.py:274
 msgid "join deadline"
 msgstr "termín na prihĺasenie"
 
-#: competitions/models.py:261
+#: competitions/models.py:275
 msgid "season start"
 msgstr "začiatok semestra"
 
-#: competitions/models.py:262
+#: competitions/models.py:276
 msgid "season end"
 msgstr "koniec semestra"
 
-#: competitions/models.py:266
+#: competitions/models.py:280
 msgid "Method that is used to compute the sum of the season"
 msgstr ""
 "Metóda, ktorá je použitá na výpočet celkového súčtu bodov riešiteľa v "
 "semestri"
 
-#: competitions/models.py:486
+#: competitions/models.py:500
 msgid "Season"
 msgstr "semester"
 
-#: competitions/models.py:487
+#: competitions/models.py:501
 msgid "Seasons"
 msgstr "semestre"
 
-#: competitions/models.py:498 profiles/models.py:232
+#: competitions/models.py:512 profiles/models.py:232
 msgid "season"
 msgstr "semester"
 
-#: competitions/models.py:505
+#: competitions/models.py:517
 msgid "problem set assigned"
 msgstr "priradený súbor príkladov"
 
-#: competitions/models.py:506
+#: competitions/models.py:518
 msgid "series submission deadline"
 msgstr "termín série"
 
-#: competitions/models.py:508
+#: competitions/models.py:520
 msgid "is series active"
 msgstr "je séria aktívna"
 
-#: competitions/models.py:512
+#: competitions/models.py:524
 msgid "total method"
 msgstr "Metóda na výpočet súčtu bodov"
 
-#: competitions/models.py:513
+#: competitions/models.py:525
 msgid "Method that is used to compute the sum of the series"
 msgstr ""
 "Metóda, ktorá je použitá na výpočet celkového súčtu bodov riešiteľa v sérii"
 
-#: competitions/models.py:731 competitions/models.py:732
+#: competitions/models.py:531
+msgid "note in results"
+msgstr "poznámka v poradí"
+
+#: competitions/models.py:748 competitions/models.py:749
 msgid "Series"
 msgstr "Séria"
 
@@ -363,11 +441,11 @@ msgid "^season/(?P<pk>\\d+)$"
 msgstr "^semester/(?P<pk>\\d+)$"
 
 #: competitions/urls.py:18
-msgid "^season/latest/(?P<competition_id>\\d+)$"
+msgid "^season/latest/(?P<competition_id>\\d+)?$"
 msgstr "^semester/posledny/(?P<competition_id>\\d+)$"
 
 #: competitions/urls.py:21
-msgid "^season/results/latest/(?P<competition_id>\\d+)$"
+msgid "^season/results/latest/(?P<competition_id>\\d+)?$"
 msgstr "^semester/poradie/posledny/(?P<competition_id>\\d+)$"
 
 #: competitions/urls.py:24
@@ -383,8 +461,8 @@ msgid "^season/results/tex/(?P<pk>\\d+)$"
 msgstr "^semester/poradie/tex/(?P<pk>\\d+)$"
 
 #: competitions/urls.py:32
-msgid "^discussion/(?P<competition_id>\\d+)/"
-msgstr "^debata/(?P<competition_id>\\d+)/$"
+msgid "^discussion/(?P<competition_id>\\d+)?"
+msgstr "^debata/(?P<competition_id>\\d+)?"
 
 #: competitions/templates/competitions/competition_discussion.html:13
 msgid "You can discuss whatever here!"
@@ -482,6 +560,7 @@ msgid "Download"
 msgstr "Stiahnuť"
 
 #: competitions/templates/competitions/season_detail.html:163
+#, python-format
 msgid ""
 "\n"
 "                      Problem submission: %(series_name)s - problem "
@@ -489,8 +568,7 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                      Odovzdávanie: %(series_name)s - príklad "
-"%(counter)s\n"
+"                      Odovzdávanie: %(series_name)s - príklad %(counter)s\n"
 "                    "
 
 #: competitions/templates/competitions/season_detail.html:180
@@ -545,8 +623,8 @@ msgid "Problem discussion:"
 msgstr "Diskusia k zadaniu"
 
 #: competitions/templates/competitions/season_detail.html:228
-#: problems/models.py:75 problems/models.py:191 problems/models.py:321
-#: problems/models.py:328 problems/models.py:373
+#: problems/models.py:83 problems/models.py:195 problems/models.py:336
+#: problems/models.py:343 problems/models.py:388
 msgid "problem"
 msgstr "príklad"
 
@@ -575,28 +653,34 @@ msgstr ""
 msgid "Complete results"
 msgstr "Celkové poradie"
 
-#: competitions/templates/competitions/season_results.html:63
-#: competitions/templates/competitions/season_results.html:137
+#: competitions/templates/competitions/season_results.html:62
+msgid ""
+"Series has not been declared as finished yet. Results may be incomplete and "
+"are subject to change."
+msgstr ""
+
+#: competitions/templates/competitions/season_results.html:75
+#: competitions/templates/competitions/season_results.html:149
 msgid "Rank"
 msgstr "Poradie"
 
-#: competitions/templates/competitions/season_results.html:64
-#: competitions/templates/competitions/season_results.html:138
+#: competitions/templates/competitions/season_results.html:76
+#: competitions/templates/competitions/season_results.html:150
 msgid "Name"
 msgstr "Meno"
 
-#: competitions/templates/competitions/season_results.html:65
-#: competitions/templates/competitions/season_results.html:139
+#: competitions/templates/competitions/season_results.html:77
+#: competitions/templates/competitions/season_results.html:151
 msgid "Class level"
 msgstr "Ročník"
 
-#: competitions/templates/competitions/season_results.html:66
-#: competitions/templates/competitions/season_results.html:140
+#: competitions/templates/competitions/season_results.html:78
+#: competitions/templates/competitions/season_results.html:152
 msgid "School"
 msgstr "Škola"
 
-#: competitions/templates/competitions/season_results.html:70
-#: competitions/templates/competitions/season_results.html:146
+#: competitions/templates/competitions/season_results.html:82
+#: competitions/templates/competitions/season_results.html:158
 msgid "Total"
 msgstr "Celkovo"
 
@@ -657,7 +741,7 @@ msgstr ""
 "skončila {end}"
 
 #: events/models.py:103 events/models.py:114 events/models.py:148
-#: problems/models.py:402
+#: problems/models.py:417
 msgid "event"
 msgstr "udalosť"
 
@@ -799,21 +883,25 @@ msgstr "Počet vedúcich"
 msgid "Comments: "
 msgstr "Komentáre: "
 
-#: leaflets/models.py:43
+#: leaflets/models.py:48
 msgid "issue"
 msgstr "číslo"
 
-#: leaflets/models.py:46 leaflets/models.py:58 problems/models.py:398
+#: leaflets/models.py:51 leaflets/models.py:63 problems/models.py:413
 msgid "leaflet"
 msgstr "časopis"
 
-#: leaflets/models.py:59
+#: leaflets/models.py:64
 msgid "leaflets"
 msgstr "časopisy"
 
-#: leaflets/urls.py:8
+#: leaflets/urls.py:9
 msgid "^competitions/(?P<competition_id>\\d+)/$"
 msgstr "^sutaze/(?P<competition_id>\\d+)/$"
+
+#: leaflets/urls.py:12
+msgid "^competitions/(?P<competition_id>\\d+)/last/$"
+msgstr "^sutaze/(?P<competition_id>\\d+)/posledny/$"
 
 #: leaflets/templates/leaflets/leaflet_list.html:30
 msgid "show all leaflets for"
@@ -823,9 +911,13 @@ msgstr "zobraziť všetky časopisy pre"
 msgid "heading"
 msgstr "nadpis"
 
-#: news/models.py:17 posts/models.py:22
+#: news/models.py:17 posts/models.py:21
 msgid "text"
 msgstr "text"
+
+#: news/models.py:24 posts/models.py:43
+msgid "Published on sites"
+msgstr "Publikovaný na portáloch"
 
 #: pandoc_export/wiki_plugin.py:23
 #: pandoc_export/templates/wiki/plugins/pandoc_export/index.html:5
@@ -840,27 +932,38 @@ msgstr "Táto wiki stránka môže byť exportovaná do nasledujúcich formátov
 msgid "^gallery/$"
 msgstr "^galeria/$"
 
-#: posts/models.py:17
+#: posts/models.py:19
 msgid "title"
 msgstr "titulok"
 
-#: posts/models.py:23
+#: posts/models.py:22
 msgid "slug"
 msgstr "skratka (pre url)"
 
-#: posts/models.py:27
+#: posts/models.py:25
+msgid "published"
+msgstr "publikovaný"
+
+#: posts/models.py:26
+msgid ""
+"Post is hidden from non-administrators unless explicitly marked as published "
+"here."
+msgstr ""
+"Príspevok je skrytý pred užívateľmi kým nie je explicitne označený ako publikovaný"
+
+#: posts/models.py:32
 msgid "associated gallery"
 msgstr "priradená galéria"
 
-#: posts/models.py:28
+#: posts/models.py:33
 msgid "gallery to be previewed with thepost"
 msgstr "galéria zobrazovaná s príspevkom"
 
-#: posts/models.py:40
+#: posts/models.py:49
 msgid "post"
 msgstr "príspevok"
 
-#: posts/models.py:41
+#: posts/models.py:50
 msgid "posts"
 msgstr "príspevky"
 
@@ -884,49 +987,61 @@ msgstr "Parametre príkladu"
 msgid "limit to following current season/series"
 msgstr "obmedziť na súčastný semester/sériu"
 
-#: problems/admin.py:238 profiles/admin.py:14
+#: problems/admin.py:238
+msgid "users with uploaded solution"
+msgstr "užívatelia s nahraným riešením"
+
+#: problems/admin.py:271
 msgid "limit to season"
 msgstr "obmedziť na semester"
 
-#: problems/models.py:83
+#: problems/forms.py:25
+msgid "Series is past its submission deadline"
+msgstr "Séria je po termíne"
+
+#: problems/forms.py:28
+msgid "Problem does not belong to the series"
+msgstr "Príklad nepatrí do série"
+
+#: problems/models.py:92
 msgid "solution"
 msgstr "riešenie"
 
-#: problems/models.py:92
+#: problems/models.py:101
 msgid "corrected solution"
 msgstr "opravené riešenie"
 
-#: problems/models.py:96
+#: problems/models.py:105
 msgid "score"
 msgstr "hodnotenie"
 
-#: problems/models.py:101
+#: problems/models.py:110
 msgid "class level at the time of submission"
 msgstr "ročník v čase odovzdania riešenia"
 
-#: problems/models.py:119 profiles/models.py:55 profiles/models.py:237
-#: schools/models.py:79
+#: problems/models.py:128 profiles/models.py:55 profiles/models.py:237
+#: schools/models.py:78
 msgid "school"
 msgstr "škola"
 
-#: problems/models.py:124 profiles/models.py:59 profiles/models.py:242
+#: problems/models.py:133 profiles/models.py:59 profiles/models.py:242
 msgid "school class"
 msgstr "trieda"
 
-#: problems/models.py:130
+#: problems/models.py:140
 msgid "corrected by"
 msgstr "opravené vedúcim"
 
-#: problems/models.py:132
+#: problems/models.py:142
 msgid "last user modification"
 msgstr "posledná modifikácia užívateľom"
 
-#: problems/models.py:147
+#: problems/models.py:157
 #, python-brace-format
 msgid "User solution: {user} - {problem_id}"
 msgstr "Užívateľské riešenie: {user} - {problem_id}"
 
-#: problems/models.py:158
+#: problems/models.py:169
 msgid ""
 "User profile does not contain all required fields. Please update your "
 "profile."
@@ -934,43 +1049,44 @@ msgstr ""
 "Užívateľský profil neobsahuje všetky povinné položky. Prosím, aktualizujte "
 "si ho."
 
-#: problems/models.py:173
+#: problems/models.py:177
 msgid "user solution"
 msgstr "užívateľské riešenie"
 
-#: problems/models.py:174
+#: problems/models.py:178
 msgid "user solutions"
 msgstr "užívateľské riešenia"
 
-#: problems/models.py:204
+#: problems/models.py:208
+#, python-brace-format
 msgid "organizer solution: {user} - {problem_id}"
 msgstr "Vzorové riešenie: {user} - {problem_id}"
 
-#: problems/models.py:211
+#: problems/models.py:215
 msgid "organizer solution"
 msgstr "vzorové riešenie"
 
-#: problems/models.py:212
+#: problems/models.py:216
 msgid "organizer solutions"
 msgstr "vzorové riešenia"
 
-#: problems/models.py:226 problems/models.py:360
+#: problems/models.py:230 problems/models.py:375
 msgid "Rating"
 msgstr "Rating"
 
-#: problems/models.py:266
+#: problems/models.py:281
 msgid "problem text"
 msgstr "zadanie príkladu"
 
-#: problems/models.py:267
+#: problems/models.py:282
 msgid "The problem itself. Please insert it in a valid TeX formatting."
 msgstr "Text samotného zadania príkladu. Prosím vložte príklad v TeX formáte."
 
-#: problems/models.py:269
+#: problems/models.py:284
 msgid "Result / short solution outline"
 msgstr "Výsledok / náčrt riešenia"
 
-#: problems/models.py:270
+#: problems/models.py:285
 msgid ""
 "The result of the problem. For problems that do not have simple results, a "
 "hint or short outline of the solution."
@@ -978,98 +1094,98 @@ msgstr ""
 "Výsledok príkladu. Pre problémy vysvetľovacieho charakteru vložte krátku "
 "nápovedu alebo náčrt riešenia."
 
-#: problems/models.py:277
+#: problems/models.py:292
 msgid "rating"
 msgstr "rating"
 
-#: problems/models.py:279 problems/models.py:527
+#: problems/models.py:294 problems/models.py:542
 msgid "severity"
 msgstr "obtiažnosť"
 
-#: problems/models.py:281 problems/models.py:487
+#: problems/models.py:296 problems/models.py:502
 msgid "category"
 msgstr "kategória"
 
-#: problems/models.py:287
+#: problems/models.py:302
 msgid "problem source"
 msgstr "zdroj"
 
-#: problems/models.py:288
+#: problems/models.py:303
 msgid "Source where you found the problem(if not original)."
 msgstr "Zdroj z ktorého príklad pochádza (ak nie je originálny)"
 
-#: problems/models.py:294
+#: problems/models.py:309
 msgid "image"
 msgstr "obrázok"
 
-#: problems/models.py:295
+#: problems/models.py:310
 msgid "Image added to the problem text."
 msgstr "Obrázok doprevádzajúci zadanie."
 
-#: problems/models.py:301
+#: problems/models.py:316
 msgid "additional files"
 msgstr "dodatočné súbory"
 
-#: problems/models.py:302
+#: problems/models.py:317
 msgid "Additional files stored with the problem (such as editable images)."
 msgstr ""
 "Dodatočné súbory prislúchajúce k príkladu (ako napríklad upraviteľné verzie "
 "obrázkov)."
 
-#: problems/models.py:322 problems/models.py:374 problems/models.py:406
-#: problems/models.py:441
+#: problems/models.py:337 problems/models.py:389 problems/models.py:421
+#: problems/models.py:456
 msgid "problems"
 msgstr "príklady"
 
-#: problems/models.py:330
+#: problems/models.py:345
 msgid "problem set"
 msgstr "súbor príkladov"
 
-#: problems/models.py:331
+#: problems/models.py:346
 msgid "position"
 msgstr "pozícia"
 
-#: problems/models.py:361
+#: problems/models.py:376
 msgid "Usages"
 msgstr "Použitia"
 
-#: problems/models.py:362
+#: problems/models.py:377
 msgid "Last used at"
 msgstr "Naposledy použitý"
 
-#: problems/models.py:363
+#: problems/models.py:378
 msgid "Last five usages"
 msgstr "Posledných päť použití"
 
-#: problems/models.py:364
+#: problems/models.py:379
 msgid "Times used"
 msgstr "Počet použití"
 
-#: problems/models.py:365
+#: problems/models.py:380
 msgid "Category"
 msgstr "Kategória"
 
-#: problems/models.py:366
+#: problems/models.py:381
 msgid "Severity"
 msgstr "Obtiažnosť"
 
-#: problems/models.py:367
+#: problems/models.py:382
 msgid "Competition"
 msgstr "Súťaž"
 
-#: problems/models.py:450
+#: problems/models.py:465
 msgid "average difficulty"
 msgstr "priemerná obtiažnosť"
 
-#: problems/models.py:454
+#: problems/models.py:469
 msgid "Problem set"
 msgstr "Sada príkladov"
 
-#: problems/models.py:455
+#: problems/models.py:470
 msgid "Problem sets"
 msgstr "Sady príkladov"
 
-#: problems/models.py:468
+#: problems/models.py:483
 msgid ""
 "The reference to the competition that uses this category. It makes sense to "
 "have categories specific to each competition, since problem types in "
@@ -1079,15 +1195,15 @@ msgstr ""
 "špecifické pre každý seminár, pretože typy príkladov sa môžu medzi seminármi "
 "podstatne líšiť."
 
-#: problems/models.py:488
+#: problems/models.py:503
 msgid "categories"
 msgstr "kategória"
 
-#: problems/models.py:507
+#: problems/models.py:522
 msgid "level"
 msgstr "level"
 
-#: problems/models.py:511
+#: problems/models.py:526
 msgid ""
 "The reference to the competition that uses this severity. It makes sense to "
 "have severities specific to each competition, since organizers might have "
@@ -1097,7 +1213,7 @@ msgstr ""
 "semináre sú oddelené, pretože ich vedúci môžu používať rozličné stupnice "
 "hodnotenia obtiažnosti."
 
-#: problems/models.py:528
+#: problems/models.py:543
 msgid "severities"
 msgstr "obtiažnosti"
 
@@ -1109,15 +1225,7 @@ msgstr "^odovzdaj/$"
 msgid "^import-solutions/$"
 msgstr "^import-rieseni/$"
 
-#: problems/views.py:59
-msgid "Series is past its submission deadline"
-msgstr "Séria je po termíne"
-
-#: problems/views.py:63
-msgid "Problem does not belong to the series"
-msgstr "Príklad nepatrí do série"
-
-#: problems/views.py:163
+#: problems/views.py:151
 #, python-format
 msgid "%s assigned %d points"
 msgstr "%s dostal %d bodov"
@@ -1168,7 +1276,7 @@ msgstr "telefónne číslo"
 msgid "parent phone number"
 msgstr "telefónne číslo na rodičov"
 
-#: profiles/models.py:49 schools/models.py:41 schools/models.py:56
+#: profiles/models.py:49 schools/models.py:41 schools/models.py:55
 msgid "address"
 msgstr "adresa"
 
@@ -1207,6 +1315,7 @@ msgid "organizer profiles"
 msgstr "vedúcovské profily"
 
 #: profiles/models.py:285
+#, python-brace-format
 msgid "user registration for {season}: {user}"
 msgstr "registrácia užívateľa na {season}: {user}"
 
@@ -1319,71 +1428,71 @@ msgstr "^admin/filebrowser/"
 msgid "^admin/doc/"
 msgstr "^admin/doc/"
 
-#: roots/urls.py:36
+#: roots/urls.py:36 roots/urls.py:37
 msgid "^admin/"
 msgstr "^admin/"
 
-#: roots/urls.py:37
+#: roots/urls.py:38
 msgid "^grappelli/"
 msgstr "^grappelli/"
 
-#: roots/urls.py:38
+#: roots/urls.py:39
 msgid "^accounts/"
 msgstr "^ucty/"
 
-#: roots/urls.py:39
+#: roots/urls.py:40
 msgid "^avatar/"
 msgstr "^profilovky/"
 
-#: roots/urls.py:40
+#: roots/urls.py:41
 msgid "^accounts/profile/"
 msgstr "^ucty/profil/"
 
-#: roots/urls.py:43
+#: roots/urls.py:44
 msgid "^competitions/"
 msgstr "^sutaze/"
 
-#: roots/urls.py:44
+#: roots/urls.py:45
 msgid "^comments/"
 msgstr "^komentare/"
 
-#: roots/urls.py:45
+#: roots/urls.py:46
 msgid "^events/"
 msgstr "^udalosti/"
 
-#: roots/urls.py:46
+#: roots/urls.py:47
 msgid "^leaflets/"
 msgstr "^casopisy/"
 
-#: roots/urls.py:47
+#: roots/urls.py:48
 msgid "^problems/"
 msgstr "^priklady/"
 
-#: roots/urls.py:48
+#: roots/urls.py:49
 msgid "^posts/"
 msgstr "^prispevky/"
 
-#: roots/urls.py:49 roots/urls.py:50
+#: roots/urls.py:50 roots/urls.py:51
 msgid "^photos/"
 msgstr "^fotky/"
 
-#: roots/urls.py:51
+#: roots/urls.py:52
 msgid "^profiles/"
 msgstr "^profily/"
 
-#: roots/urls.py:52
+#: roots/urls.py:53
 msgid "^schools/"
 msgstr "^skoly/"
 
-#: roots/urls.py:53
+#: roots/urls.py:54
 msgid "^protected/"
 msgstr "^chranene/"
 
-#: roots/urls.py:58
+#: roots/urls.py:59
 msgid "^wiki/notify/"
 msgstr "^wiki/notify/"
 
-#: roots/urls.py:59
+#: roots/urls.py:60
 msgid "^wiki/"
 msgstr "^wiki/"
 
@@ -1407,15 +1516,15 @@ msgstr "kraj"
 msgid "addresses"
 msgstr "adresy"
 
-#: schools/models.py:58
+#: schools/models.py:57
 msgid "abbreviation"
 msgstr "skratka"
 
-#: schools/models.py:63
+#: schools/models.py:62
 msgid "Number of competitors"
 msgstr "Počet súťažiacich:"
 
-#: schools/models.py:80
+#: schools/models.py:79
 msgid "schools"
 msgstr "školy"
 
@@ -1564,6 +1673,10 @@ msgstr "Odhlásiť sa"
 msgid "Documentation"
 msgstr "Dokumentácia"
 
+#: templates/admin/base.html:120
+msgid "Home"
+msgstr "Domov"
+
 #: templates/avatar/base.html:4
 msgid "Avatar"
 msgstr "Profilovka"
@@ -1659,6 +1772,9 @@ msgstr "Táto revízia bola odstránená."
 #: templates/wiki/preview_inline.html:32
 msgid "Restoring to this revision will mark the article as deleted."
 msgstr "Obnovenie k tejto revízii označí článok ako odstránený."
+
+#~ msgid "About us"
+#~ msgstr "O nás"
 
 #~ msgid "Slovak"
 #~ msgstr "Slovenčina"
