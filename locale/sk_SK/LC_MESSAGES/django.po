@@ -656,36 +656,41 @@ msgstr ""
 msgid "Complete results"
 msgstr "Celkové poradie"
 
-#: competitions/templates/competitions/season_results.html:62
+#: competitions/templates/competitions/season_results.html:63
+#: competitions/templates/competitions/season_results.html:161
+msgid "Export to TeX"
+msgstr "Exportuj do TeXu"
+
+#: competitions/templates/competitions/season_results.html:75
 msgid "Series has not been declared as finished yet."
 msgstr "Séria nie je uzavretá."
 
-#: competitions/templates/competitions/season_results.html:63
+#: competitions/templates/competitions/season_results.html:76
 msgid "Results may be incomplete and are subject to change."
 msgstr "Výsledky sú predbežné a môžu sa meniť."
 
-#: competitions/templates/competitions/season_results.html:76
-#: competitions/templates/competitions/season_results.html:150
+#: competitions/templates/competitions/season_results.html:90
+#: competitions/templates/competitions/season_results.html:174
 msgid "Rank"
 msgstr "Poradie"
 
-#: competitions/templates/competitions/season_results.html:77
-#: competitions/templates/competitions/season_results.html:151
+#: competitions/templates/competitions/season_results.html:91
+#: competitions/templates/competitions/season_results.html:175
 msgid "Name"
 msgstr "Meno"
 
-#: competitions/templates/competitions/season_results.html:78
-#: competitions/templates/competitions/season_results.html:152
+#: competitions/templates/competitions/season_results.html:92
+#: competitions/templates/competitions/season_results.html:176
 msgid "Class level"
 msgstr "Ročník"
 
-#: competitions/templates/competitions/season_results.html:79
-#: competitions/templates/competitions/season_results.html:153
+#: competitions/templates/competitions/season_results.html:93
+#: competitions/templates/competitions/season_results.html:177
 msgid "School"
 msgstr "Škola"
 
-#: competitions/templates/competitions/season_results.html:83
-#: competitions/templates/competitions/season_results.html:159
+#: competitions/templates/competitions/season_results.html:97
+#: competitions/templates/competitions/season_results.html:183
 msgid "Total"
 msgstr "Celkovo"
 
