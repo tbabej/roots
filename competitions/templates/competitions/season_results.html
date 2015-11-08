@@ -52,7 +52,19 @@
                   </h4>
               </blockquote>
           </div>
+
           <div class="col-md-4">
+
+          {% if request.user.is_staff %}
+            <div class="btn-group pull-right" style="margin-top:15px;">
+              <a href="{% url 'competitions_series_results_tex' series.pk %}">
+                <button type="button" class="btn btn-default" style="margin-left:5px;">
+                    <small><span class="glyphicon glyphicon-paperclip"></span></small>
+                    {% trans "Export to TeX" %}
+                </button>
+            </div>
+          {% endif %}
+
             {{ season_dropdown_button }}
           </div>
       </div>
@@ -141,6 +153,16 @@
               <!-- There is no content here yet. -->
           </div>
           <div class="col-md-4">
+            {% if request.user.is_staff %}
+            <div class="btn-group pull-right" style="margin-top:15px;">
+              <a href="{% url 'competitions_season_results_tex' season.pk %}">
+                <button type="button" class="btn btn-default" style="margin-left:5px;">
+                    <small><span class="glyphicon glyphicon-paperclip"></span></small>
+                    {% trans "Export to TeX" %}
+                </button>
+            </div>
+            {% endif %}
+
             {{ season_dropdown_button }}
           </div>
       </div>
