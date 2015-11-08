@@ -8,7 +8,6 @@ install:
   - pip install git+git://github.com/tbabej/django-avatar
   - pip install git+git://github.com/django-wiki/django-wiki
   - cp roots/local_settings.py.in roots/local_settings.py
-  - cp -r templates_custom.in templates_custom
   - python manage.py collectstatic --noinput
 script:
   - coverage run --source=. manage.py test
