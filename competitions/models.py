@@ -385,7 +385,7 @@ class Season(models.Model, SeasonSeriesBaseMixin):
 
     @property
     def is_over(self):
-        return self.not_corrected_solutions.count() == 0
+        return self.series_set.filter(is_active=True).count() == 0
 
     @cached_property
     def competitors(self):
