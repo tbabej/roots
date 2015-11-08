@@ -111,7 +111,7 @@
           </td>
         {% endwith %}
         <td>
-          {{ result_row.3.classlevel }}
+          {{ result_row.3.classlevel|default:'' }}
         </td>
         <td>
           {{ result_row.3.school }}
