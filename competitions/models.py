@@ -731,10 +731,6 @@ class Series(models.Model, SeasonSeriesBaseMixin):
                 raise ValidationError("Corresponding set of problems must be "
                                       "set to make the series active")
 
-            if self.is_past_submission_deadline():
-                raise ValidationError("Series that is past its submission "
-                                      "deadline cannot be made active")
-
         super(Series, self).clean(*args, **kwargs)
 
     # Define autocomplete fields for grapelli search in admin
