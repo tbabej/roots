@@ -383,9 +383,10 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         UserSolution = get_model('problems', 'UserSolution')
         return reduce(or_, [series.not_corrected_solutions for series in self.series], UserSolution.objects.none())
 
-    @property
-    def is_over(self):
-        return self.series_set.filter(is_active=True).count() == 0
+    @cached_property
+    def is_active(self):
+    	# Season is active if at least one series is active
+        return self.series_set.filter(is_active=True).count() > 0
 
     @cached_property
     def competitors(self):
@@ -480,10 +481,6 @@ class Season(models.Model, SeasonSeriesBaseMixin):
                 return self.series_set.all()[0]
             else:
                 return None
-
-    def is_active(self):
-        # Season is active if at least one series is active
-        return self.series_set.filter(is_active=True).count() > 0
 
     # Define autocomplete fields for grapelli search in admin
     @staticmethod

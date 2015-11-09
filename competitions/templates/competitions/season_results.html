@@ -23,11 +23,11 @@
   <!-- navigation-tabs -->
   <ul class="nav nav-tabs">
   {% for series in season.series %}
-        <li {% if series.is_first_past_deadline and not series.season.is_over %}class="active"{% endif %}>
+        <li {% if series.is_first_past_deadline and series.season.is_active %}class="active"{% endif %}>
           <a href="#series-{{series.pk}}" data-toggle="tab">{{series.name}}</a>
         </li>
   {% endfor %}
-        <li {% if season.is_over %}class="active"{% endif %}>
+        <li {% if not season.is_active %}class="active"{% endif %}>
           <a href="#complete_results" data-toggle="tab">{% trans "Complete results" %}</a>
         </li>
   </ul>
@@ -37,7 +37,7 @@
   <div class="tab-content">
 
   {% for series in season.series %}
-      <div class="tab-pane fade {% if series.is_first_past_deadline and not series.season.is_over %}in active{% endif %}" id="series-{{series.pk}}">
+      <div class="tab-pane fade {% if series.is_first_past_deadline and series.season.is_active %}in active{% endif %}" id="series-{{series.pk}}">
 
       <br/>
       <div class="row">
@@ -146,7 +146,7 @@
     </div><!-- tabe-panel -->
     {% endfor %}
 
-    <div class="tab-pane fade {% if season.is_over %}in active{% endif %}" id="complete_results">
+    <div class="tab-pane fade {% if not season.is_active %}in active{% endif %}" id="complete_results">
 
     <br/>
       <div class="row">
