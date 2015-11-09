@@ -481,6 +481,10 @@ class Season(models.Model, SeasonSeriesBaseMixin):
             else:
                 return None
 
+    def is_active(self):
+        # Season is active if at least one series is active
+        return self.series_set.filter(is_active=True).count() > 0
+
     # Define autocomplete fields for grapelli search in admin
     @staticmethod
     def autocomplete_search_fields():
