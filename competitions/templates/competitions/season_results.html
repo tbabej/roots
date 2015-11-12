@@ -170,12 +170,14 @@
       </div>
     <br/>
 
-    {% if season.is_active %}
-      <div class="alert alert-warning" role="alert">
-        <b>{% trans "Season has not been declared as finished yet." %} </b>
-        {% trans "Results may be incomplete and are subject to change." %}
-      </div>
-    {% endif %}
+    {% block season_notes %}
+      {% if season.is_active %}
+        <div class="alert alert-warning" role="alert">
+          <b>{% trans "Season has not been declared as finished yet." %} </b>
+          {% trans "Results may be incomplete and are subject to change." %}
+        </div>
+      {% endif %}
+    {% endblock %}
 
     <table class="table table-condensed table-striped">
     <thead>
