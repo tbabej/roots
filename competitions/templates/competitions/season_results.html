@@ -20,6 +20,8 @@
 
 {% define content %}
 
+  {% organizes_competition request.user season.competition as user_organizes_this_competition %}
+
   <!-- navigation-tabs -->
   <ul class="nav nav-tabs">
   {% for series in season.series %}
@@ -120,6 +122,11 @@
               <span class="glyphicon glyphicon-user" style="padding-right: 2px; padding-left: 2px;"></span>
             {% endif %}
           </a>
+          {% if user_organizes_this_competition %}
+            <a href={% url 'admin:profiles_userprofile_change' result_row.0.userprofile.id %}>
+              <span class="glyphicon glyphicon-pencil" style="color: gray; opacity:0.5; hover:none;"></span>
+            </a>
+          {% endif %}
           {{row_user.get_full_name|default:row_user.username}}
           </td>
         {% endwith %}
@@ -215,6 +222,11 @@
             <span class="glyphicon glyphicon-user" style="padding-right: 4px; padding-left: 3px;"></span>
           {% endif %}
         </a>
+        {% if user_organizes_this_competition %}
+          <a href={% url 'admin:profiles_userprofile_change' result_row.0.userprofile.id %}>
+            <span class="glyphicon glyphicon-pencil" style="color: gray; opacity:0.5; hover:none;"></span>
+          </a>
+        {% endif %}
         {{result_row.0.get_full_name|default:result_row.0.username}}
       </td>
       <td>

@@ -194,3 +194,7 @@ def get_other_sites():
 @register.assignment_tag
 def current_site_domain():
     return Site.objects.get_current().domain
+
+@register.assignment_tag
+def organizes_competition(user, competition):
+    return competition.organizer_group.user_set.filter(pk=user.pk).exists()
