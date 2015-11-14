@@ -212,7 +212,7 @@
           {% if result_row.0.pk in user_avatars_list %}
             <img src="{% avatar_url result_row.0 17 %}" class="img-circle" style="margin-top: -4px;"/>
           {% else %}
-            <span class="glyphicon glyphicon-user" style="padding-right: 2px; padding-left: 2px;"></span>
+            <span class="glyphicon glyphicon-user" style="padding-right: 4px; padding-left: 3px;"></span>
           {% endif %}
         </a>
         {{result_row.0.get_full_name|default:result_row.0.username}}
