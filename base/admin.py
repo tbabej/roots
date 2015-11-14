@@ -433,12 +433,28 @@ def foreign_field_filter_factory(field, title=None, sort=None):
 
 
 # Overrides for flatpages
+from django.contrib import admin
 from django.contrib.flatpages.admin import FlatPageAdmin
+from django.contrib.flatpages.models import FlatPage
 
-class FlatPageMedia:
-    js = [
-        'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-        'grappelli/tinymce_setup/tinymce_setup.js',
-    ]
+class CustomFlatPageAdmin(FlatPageAdmin):
+    def get_sites(self):
+        return ','.join([site.name for site in self.sites.all()])
+    get_sites.short_description = _("Published on sites")
 
-FlatPageAdmin.Media = FlatPageMedia
+    list_display = (
+        'url',
+        'title',
+        get_sites,
+        'enable_comments',
+        'registration_required'
+    )
+
+    class Media:
+        js = [
+            'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+            'grappelli/tinymce_setup/tinymce_setup.js',
+        ]
+
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, CustomFlatPageAdmin)
