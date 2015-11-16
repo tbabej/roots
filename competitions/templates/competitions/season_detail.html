@@ -292,7 +292,16 @@
 
 {% enddefine %}
 
-{% include "base/panel.html" with content_heading=content_heading content=content %}
+{% define heading_toolbar %}
+{% if request.user.is_staff %}
+<a href={% url 'admin:competitions_season_change' season.pk %}>
+  <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
+  </span>
+</a>
+{% endif %}
+{% enddefine %}
+
+{% include "base/panel.html" with content_heading=content_heading content=content heading_toolbar=heading_toolbar %}
 
 {% addtoblock "js" %}
   <script language="javascript">
