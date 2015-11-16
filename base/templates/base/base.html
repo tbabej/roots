@@ -164,7 +164,8 @@
                   <div class="panel panel-info">
                     <div class="panel-heading">
                       <h1 class="panel-title"><b>{% trans "News" %}</b>
-                        {% if request.user.is_staff %}
+                        {% manages_this_site request as can_edit %}
+                        {% if can_edit %}
                           <div class="pull-right">
                             <a href={% url 'admin:news_news_changelist' %}>
                               <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">

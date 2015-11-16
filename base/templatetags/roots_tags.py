@@ -206,3 +206,11 @@ def current_site_domain():
 @register.assignment_tag
 def organizes_competition(user, competition):
     return competition.organizer_group.user_set.filter(pk=user.pk).exists()
+
+@register.assignment_tag
+def manages_this_site(request):
+    site = get_current_site(request)
+    return any([
+        competition.organizer_group.user_set.filter(pk=request.user.pk).exists()
+        for competition in site.competition_set.all()
+    ])

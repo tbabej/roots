@@ -9,7 +9,8 @@
     {% enddefine %}
 
     {% define heading_toolbar %}
-      {% if request.user.is_staff %}
+      {% manages_this_site request as can_edit %}
+      {% if can_edit %}
       <a href={% url 'admin:posts_post_change' post.pk %}>
         <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
         </span>
