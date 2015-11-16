@@ -36,15 +36,13 @@ class RestrictedCompetitionAdminMixin(object):
         if request.user.is_superuser:
             return qs
 
-        # TODO: Investigate adding querysets, for now exclude all objects
-        #       associated with the competitions user does not organize
+        result = self.model.objects.none()
 
-        competitions = [c.id for c
-                        in request.user.userprofile.organized_competitions]
-        not_organized_competitions = Competition.objects.exclude(
-                                                           id__in=competitions)
-        kwargs = {self.competition_field + '__in': not_organized_competitions}
-        return qs.exclude(**kwargs)
+        for competition in request.user.userprofile.organized_competitions:
+            kwargs = {self.competition_field: competition}
+            result = result | qs.filter(**kwargs)
+
+        return result
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 
