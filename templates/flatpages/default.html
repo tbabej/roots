@@ -3,20 +3,28 @@
 {% load roots_tags %}
 {% load comments %}
 
-{% block head_title %}{{ flatpage.title }}{% endblock %}
-
 {% block content %}
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h1 class="panel-title"><b>{{ flatpage.title }}</b></h1>
-    </div><!-- panel-heading -->
 
-    <div class="panel-body">
-      {% autoescape off %}
-      {{ flatpage.content }}
-      {% endautoescape %}
-    </div><!-- panel-body -->
+{% define heading %}
+{{ flatpage.title }}
+{% enddefine %}
 
-  </div><!-- panel -->
+{% define heading_toolbar %}
+  {% if request.user.is_staff %}
+  <a href={% url 'admin:flatpages_flatpage_change' flatpage.pk %}>
+    <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
+    </span>
+  </a>
+  {% endif %}
+{% enddefine %}
+
+
+{% define content %}
+{% autoescape off %}
+{{ flatpage.content }}
+{% endautoescape %}
+{% enddefine %}
+
+{% include "base/panel.html" with content_heading=heading content=content content_footer=footer heading_toolbar=heading_toolbar %}
 
 {% endblock %}
