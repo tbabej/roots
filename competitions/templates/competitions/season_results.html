@@ -57,7 +57,7 @@
 
           <div class="col-md-4">
 
-          {% if request.user.is_staff %}
+          {% if user_organizes_this_competition %}
             <div class="btn-group pull-right" style="margin-top:15px;">
               <a href="{% url 'competitions_series_results_tex' series.pk %}">
                 <button type="button" class="btn btn-default" style="margin-left:5px;">
@@ -139,7 +139,7 @@
         {% for solution in result_row.1 %}
         <td>
           {% if solution == None %}
-            {% if request.user.is_staff %}
+            {% if user_organizes_this_competition %}
               {% with series.problems.all|index:forloop.counter0 as problem %}
                 <a href="{% url 'admin:problems_usersolution_add' %}?user={{ result_row.0.pk }}&problem={{ problem.pk }}">
               {% endwith %}
@@ -149,7 +149,7 @@
               --
             {% endif %}
           {% else %}
-            {% if request.user.is_staff %}
+            {% if user_organizes_this_competition %}
               <a href="{% url 'admin:problems_usersolution_change' solution.pk %}">
               {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
               </a>
@@ -175,7 +175,7 @@
               <!-- There is no content here yet. -->
           </div>
           <div class="col-md-4">
-            {% if request.user.is_staff %}
+            {% if user_organizes_this_competition %}
             <div class="btn-group pull-right" style="margin-top:15px;">
               <a href="{% url 'competitions_season_results_tex' season.pk %}">
                 <button type="button" class="btn btn-default" style="margin-left:5px;">
@@ -253,7 +253,7 @@
         {% for solution in series_result.0 %}
           <td>
           {% if solution == None %}
-            {% if request.user.is_staff %}
+            {% if user_organizes_this_competition %}
               {% with series.problems.all|index:forloop.counter0 as problem %}
                 <a href="{% url 'admin:problems_usersolution_add' %}?user={{ result_row.0.pk }}&problem={{ problem.pk }}">
               {% endwith %}
@@ -263,7 +263,7 @@
               --
             {% endif %}
           {% else %}
-            {% if request.user.is_staff %}
+            {% if user_organizes_this_competition %}
               <a href="{% url 'admin:problems_usersolution_change' solution.pk %}">
               {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
               </a>

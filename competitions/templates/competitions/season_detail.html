@@ -31,13 +31,14 @@
 {% enddefine %}
 
 {% define content %}
+  {% organizes_competition request.user season.competition as user_organizes_this_competition %}
 
   <!-- navigation-tabs -->
   <ul class="nav nav-tabs">
   {% for series in season.series_set.all %}
         <li {% if series.is_nearest_deadline %}class="active"{% endif %}>
           <a href="#series-{{series.pk}}" data-toggle="tab">{{series.name}}
-          {% if request.user.is_staff %}
+          {% if user_organizes_this_competition %}
             <button style="border:none; background:none;" onclick="location.href='{% url 'admin:competitions_series_change' series.pk %}'">
               <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
               </span>
@@ -123,7 +124,7 @@
             <div class="row">
               <div class="col-md-9">
                 <div class="well">
-                  {% if request.user.is_staff %}
+                  {% if user_organizes_this_competition %}
                   <a class="pull-right" style="margin-left:5px; margin-top:-10px; margin-right:-10px;" href={% url 'admin:problems_problem_change' problem.pk %}>
                     <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
                     </span>
@@ -293,7 +294,7 @@
 {% enddefine %}
 
 {% define heading_toolbar %}
-{% if request.user.is_staff %}
+{% if user_organizes_this_competition %}
 <a href={% url 'admin:competitions_season_change' season.pk %}>
   <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
   </span>
