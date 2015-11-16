@@ -102,6 +102,14 @@ def access(value, arg):
     return value.get(arg, {})
 
 
+@register.filter
+def index(value, arg):
+    try:
+        return value[arg]
+    except KeyError:
+        return None
+
+
 @register.simple_tag
 def settings_value(name):
     return getattr(settings, name, "")

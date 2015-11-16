@@ -139,9 +139,23 @@
         {% for solution in result_row.1 %}
         <td>
           {% if solution == None %}
-            --
+            {% if request.user.is_staff %}
+              {% with series.problems.all|index:forloop.counter0 as problem %}
+                <a href="{% url 'admin:problems_usersolution_add' %}?user={{ result_row.0.pk }}&problem={{ problem.pk }}">
+              {% endwith %}
+              --
+              </a>
+            {% else %}
+              --
+            {% endif %}
           {% else %}
-            {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
+            {% if request.user.is_staff %}
+              <a href="{% url 'admin:problems_usersolution_change' solution.pk %}">
+              {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
+              </a>
+            {% else %}
+              {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
+            {% endif %}
           {% endif %}
         </td>
         {% endfor %}
@@ -238,11 +252,25 @@
       {% for series_result in result_row.1 %}
         {% for solution in series_result.0 %}
           <td>
-            {% if solution == None %}
+          {% if solution == None %}
+            {% if request.user.is_staff %}
+              {% with series.problems.all|index:forloop.counter0 as problem %}
+                <a href="{% url 'admin:problems_usersolution_add' %}?user={{ result_row.0.pk }}&problem={{ problem.pk }}">
+              {% endwith %}
               --
+              </a>
+            {% else %}
+              --
+            {% endif %}
+          {% else %}
+            {% if request.user.is_staff %}
+              <a href="{% url 'admin:problems_usersolution_change' solution.pk %}">
+              {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
+              </a>
             {% else %}
               {% if solution.score == None %} ? {% else %}{{ solution.score }}{% endif %}
             {% endif %}
+          {% endif %}
           </td>
         {% endfor %}
       {% endfor %}
