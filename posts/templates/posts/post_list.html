@@ -12,6 +12,16 @@
     {{ post.title }}
     {% enddefine %}
 
+
+    {% define heading_toolbar %}
+    {% if request.user.is_staff %}
+    <a href={% url 'admin:posts_post_change' post.pk %}>
+      <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
+      </span>
+    </a>
+    {% endif %}
+    {% enddefine %}
+
     {% define content %}
     {% autoescape off %}
     {{ post.text | truncatewords_html:150 | remove_uncomplete_latex}}
@@ -38,7 +48,7 @@
     </div>
     {% enddefine %}
 
-    {% include "base/panel.html" with content_heading=heading content=content content_footer=footer %}
+    {% include "base/panel.html" with content_heading=heading content=content content_footer=footer heading_toolbar=heading_toolbar %}
 
   {% endfor %}
 {% endblock %}
