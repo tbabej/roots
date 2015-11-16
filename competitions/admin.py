@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 
-from base.admin import PrettyFilterMixin
+from base.admin import PrettyFilterMixin, RestrictedCompetitionAdminMixin
 from base.util import editonly_fieldsets
 
 from .models import (Competition, Season, Series,
@@ -39,7 +39,8 @@ class CompetitionAdmin(admin.ModelAdmin):
 
 
 @editonly_fieldsets
-class CompetitionUserRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
+class CompetitionUserRegistrationAdmin(RestrictedCompetitionAdminMixin,
+                                       PrettyFilterMixin, VersionAdmin):
 
     list_display = (
         'user',
@@ -78,7 +79,8 @@ class CompetitionUserRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
 
 
 @editonly_fieldsets
-class CompetitionOrgRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
+class CompetitionOrgRegistrationAdmin(RestrictedCompetitionAdminMixin,
+                                      PrettyFilterMixin, VersionAdmin):
 
     list_display = (
         'organizer',
@@ -118,7 +120,8 @@ class CompetitionOrgRegistrationAdmin(PrettyFilterMixin, VersionAdmin):
 
 
 @editonly_fieldsets
-class SeasonAdmin(PrettyFilterMixin, VersionAdmin):
+class SeasonAdmin(RestrictedCompetitionAdminMixin,
+                  PrettyFilterMixin, VersionAdmin):
 
     list_display = (
         'competition',
@@ -172,7 +175,10 @@ class SeasonAdmin(PrettyFilterMixin, VersionAdmin):
 
 
 @editonly_fieldsets
-class SeriesAdmin(PrettyFilterMixin, VersionAdmin):
+class SeriesAdmin(RestrictedCompetitionAdminMixin,
+                  PrettyFilterMixin, VersionAdmin):
+
+    competition_field = 'season__competition'
 
     list_display = (
         'season',
