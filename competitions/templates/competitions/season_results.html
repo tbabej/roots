@@ -250,6 +250,7 @@
         {{ result_row.3.school }}
       </td>
       {% for series_result in result_row.1 %}
+        {% with season.series.all|index:forloop.counter0 as series %}
         {% for solution in series_result.0 %}
           <td>
           {% if solution == None %}
@@ -273,6 +274,7 @@
           {% endif %}
           </td>
         {% endfor %}
+        {% endwith %}
       {% endfor %}
       <td>{{ result_row.2 }}</td>
       </tr>
