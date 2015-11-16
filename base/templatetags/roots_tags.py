@@ -106,7 +106,7 @@ def access(value, arg):
 def index(value, arg):
     try:
         return value[arg]
-    except KeyError:
+    except IndexError:
         return None
 
 
