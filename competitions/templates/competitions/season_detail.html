@@ -114,13 +114,19 @@
             {% define disabled %}{% if not user.is_authenticated %}disabled="disabled"{% endif %}{% enddefine %}
 
             <div class="row">
-              <div class="col-lg-9">
+              <div class="col-md-9">
                 <div class="well">
+                  {% if request.user.is_staff %}
+                  <a class="pull-right" style="margin-left:5px; margin-top:-10px; margin-right:-10px;" href={% url 'admin:problems_problem_change' problem.pk %}>
+                    <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
+                    </span>
+                  </a>
+                  {% endif %}
                   {{forloop.counter}}. {{problem.text|safe}}
                 </div>
               </div>
 
-              <div class="col-lg-3">
+              <div class="col-md-3">
                 <button type="button" class="btn btn-{{button_level}} btn-default center-block" {{disabled}} data-placement="top" title="{{button_title}}" {{submission_modal}}>
                   {{button_text}}
                 </button>
