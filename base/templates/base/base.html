@@ -163,7 +163,16 @@
                 <div class="col-sm-2 col-md-2">
                   <div class="panel panel-info">
                     <div class="panel-heading">
-                      <h1 class="panel-title"><b>{% trans "News" %}</b></h1>
+                      <h1 class="panel-title"><b>{% trans "News" %}</b>
+                        {% if request.user.is_staff %}
+                          <div class="pull-right">
+                            <a href={% url 'admin:news_news_changelist' %}>
+                              <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
+                              </span>
+                            </a>
+                          </div>
+                        {% endif %}
+                      </h1>
                     </div><!-- panel-heading -->
 
                     <div class="panel-body">
