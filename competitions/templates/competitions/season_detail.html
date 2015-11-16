@@ -36,7 +36,14 @@
   <ul class="nav nav-tabs">
   {% for series in season.series_set.all %}
         <li {% if series.is_nearest_deadline %}class="active"{% endif %}>
-          <a href="#series-{{series.pk}}" data-toggle="tab">{{series.name}}</a>
+          <a href="#series-{{series.pk}}" data-toggle="tab">{{series.name}}
+          {% if request.user.is_staff %}
+            <button style="border:none; background:none;" onclick="location.href='{% url 'admin:competitions_series_change' series.pk %}'">
+              <span class="glyphicon glyphicon-pencil" style="text-decoration: none !important; color: gray; opacity:0.5; hover:none;">
+              </span>
+            </button>
+          {% endif %}
+          </a>
         </li>
   {% endfor %}
   </ul>
