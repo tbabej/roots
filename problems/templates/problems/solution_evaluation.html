@@ -1,0 +1,44 @@
+{% extends "base/base_single.html" %}
+{% load static %}
+{% load sekizai_tags %}
+
+{% block body %}
+
+{% addtoblock "css" %}
+<link href="{% static "literallycanvas/css/literallycanvas.css" %}" rel="stylesheet">
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+<script src="{% static "js/react-with-addons.js" %} "></script>
+<script src="{% static "literallycanvas/js/literallycanvas.js" %} "></script>
+{% endaddtoblock %}
+
+<div class="literally backgrounds" style="height: 580px; width:600px;"></div>
+
+<script>
+  $(document).ready(function() {
+    var backgroundImage = new Image()
+    backgroundImage.src = '/_static/sample_image.png';
+
+    var lc = LC.init(
+        document.getElementsByClassName('literally backgrounds')[0],
+        {
+          imageURLPrefix: '{% static "literallycanvas/img" %}',
+          imageSize: {width: 200, height: 100},
+          backgroundShapes: [
+            LC.createShape(
+              'Image', {x: 0, y: 0, image: backgroundImage, scale: 2}),
+          ]
+        });
+    // the background image is not included in the shape list that is
+    // saved/loaded here
+    var localStorageKey = 'drawing-with-background'
+    if (localStorage.getItem(localStorageKey)) {
+      lc.loadSnapshotJSON(localStorage.getItem(localStorageKey));
+    }
+    lc.on('drawingChange', function() {
+      localStorage.setItem(localStorageKey, lc.getSnapshotJSON());
+    });
+  });
+</script>
+{% endblock %}

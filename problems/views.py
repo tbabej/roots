@@ -35,6 +35,13 @@ class ProblemDetailView(DetailView):
     context_object_name = 'problem'
 
 
+class UserSolutionEvaluationView(DetailView):
+
+    model = UserSolution
+    context_object_name = 'usersolution'
+    template_name = 'problems/solution_evaluation.html'
+
+
 class UserSolutionSubmissionView(View):
 
     form_class = UserSolutionForm
