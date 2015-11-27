@@ -316,6 +316,24 @@ class Season(models.Model, SeasonSeriesBaseMixin):
         return self.series_set.all()
 
     @cached_property
+    def open_series(self):
+        """
+        Returns all the series that are active (as declared by organizers,
+        might be after their submission deadline).
+        """
+
+        return self.series_set.filter(is_active=True)
+
+    @cached_property
+    def closed_series(self):
+        """
+        Returns all the series that are considered closed (as declared
+        by organizers).
+        """
+
+        return self.series_set.filter(is_active=False)
+
+    @cached_property
     def active_series(self):
         """
         Returns all the series that are active (before their submussion
