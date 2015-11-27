@@ -303,5 +303,5 @@ def update_user_season_registration(sender, instance, created, **kwargs):
     """
 
     for season in instance.participated_seasons:
-        if season.active_series:
+        if season.open_series:
             UserSeasonRegistration.register_user(instance.user, season)
