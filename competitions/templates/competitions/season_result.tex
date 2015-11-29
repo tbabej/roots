@@ -7,10 +7,10 @@
 {% spaceless %}
 {% for row in season.results_with_ranking %}
     {% ifchanged %}
-        {% if row.3.0 != row.3.1 %}
-            {{ row.3.0 }}. - {{ row.3.1 }}.
+        {% if row.4.0 != row.4.1 %}
+            {{ row.4.0 }}. - {{ row.4.1 }}.
         {% else %}
-            {{ row.3.0 }}.
+            {{ row.4.0 }}.
         {% endif %}
     {% endifchanged %}
     &
