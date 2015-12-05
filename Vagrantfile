@@ -22,9 +22,9 @@ Vagrant.configure(2) do |config|
 
     # Requirement for pypandoc
     dnf install -y pandoc
-	
+
 	# Requirements for managing doc and pdf files
-	dfn install -y openoffice 
+	dfn install -y libreoffice
 	dnf install -y poppler-utils
 	dnf install -y Xvfb
 
