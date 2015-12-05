@@ -22,6 +22,9 @@ from problems.models import Problem, UserSolution
 from problems.forms import UserSolutionForm, ImportCorrectedSolutionsForm
 from roots import settings
 
+from profiles.models import UserProfile
+
+
 
 class ProblemListView(ListView):
 
@@ -63,6 +66,24 @@ class UserSolutionSubmissionView(View):
             except UserSolution.DoesNotExist:
                 submission = UserSolution(**data)
 
+            # do not save and return if user does not have filled profile
+            try:
+                userprofile = UserProfile.objects.get(user = data['user'])
+                required_attrs = ('school', 'school_class', 'classlevel')
+                
+                for attr in required_attrs:
+                    if (getattr(userprofile, attr, None) is None):               
+                        raise ValidationError(_('incomplete_profile'))
+                        
+            except (ValidationError, UserProfile.DoesNotExist):
+                messages.error(
+                    request, 
+                    _("User profile does not contain all required fields. "
+                        "Please update your profile.")
+                    )
+                return redirect('competitions_season_detail_latest')
+            
+            # save submission 
             try:
                 filelist = request.FILES.getlist('solution')
                 submission.solution = convert_files_to_single_pdf(
@@ -71,8 +92,21 @@ class UserSolutionSubmissionView(View):
                                           filelist)
                 submission.user_modified_at = now()
                 submission.save()
+                
+                # warn user if converting files could have gone wrong
+                risky_extensions = ['.doc', '.docx']
+                for file in filelist:
+                    for extension in risky_extensions:
+                        if file.name.endswith(extension):
+                            messages.error(
+                                request, 
+                                _('Converting %s files to .pdf sometimes does not work properly, '
+                                    'please check the result!' %" ".join(risky_extensions))
+                                )
+                         
             except ValidationError, e:
                 messages.error(request, u'\n'.join(e.messages))
+                
         else:
             for field, errors in form.errors.iteritems():
                 messages.error(request, u"{error}".format(
