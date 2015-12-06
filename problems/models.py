@@ -157,21 +157,8 @@ class UserSolution(MediaRemovalMixin,
         return unicode(_("User solution: {user} - {problem_id}")
                        .format(user=unicode(self.user),
                                problem_id=unicode(self.problem.pk))
-               )
-
-    def clean(self):
-        required_attrs = ('school', 'school_class', 'classlevel')
-
-        try:
-            if any(getattr(self.user.userprofile, attr, None) is None
-                   for attr in required_attrs):
-                raise ValidationError(_(
-                    "User profile does not contain all required fields. "
-                    "Please update your profile."))
-        except User.DoesNotExist:
-            # In this case we let the classic message about required fields be showed
-            pass
-
+               )     
+        
     class Meta:
         order_with_respect_to = 'problem'
         verbose_name = _('user solution')
