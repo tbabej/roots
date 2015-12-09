@@ -141,7 +141,7 @@
           {% if solution == None %}
             {% if user_organizes_this_competition %}
               {% with series.problems.all|index:forloop.counter0 as problem %}
-                <a style="color:inherit;" href="{% url 'admin:problems_usersolution_add' %}?user={{ result_row.0.pk }}&problem={{ problem.pk }}">
+                <a style="color:inherit;" target="blank" href="{% url 'admin:problems_usersolution_add' %}?user={{ result_row.0.pk }}&problem={{ problem.pk }}">
               {% endwith %}
               --
               </a>
@@ -256,7 +256,7 @@
           {% if solution == None %}
             {% if user_organizes_this_competition %}
               {% with series.problems.all|index:forloop.counter0 as problem %}
-                <a style="color:inherit;" href="{% url 'admin:problems_usersolution_add' %}?user={{ result_row.0.pk }}&problem={{ problem.pk }}">
+                <a style="color:inherit;" target="blank" href="{% url 'admin:problems_usersolution_add' %}?user={{ result_row.0.pk }}&problem={{ problem.pk }}">
               {% endwith %}
               --
               </a>
