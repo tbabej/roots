@@ -34,7 +34,7 @@
   <a class="list-group-item {% url_active request 'socialaccount_connections' %}" href="{% url 'socialaccount_connections' %}">{% trans "Connect external account" %}</a>
   <a class="list-group-item {% url_active request 'account_logout' %}" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
   {% else %}
-  <a class="list-group-item {% url_active request 'account_login' %}" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+  <a class="list-group-item {% url_active request 'account_login' %}" href="{% url 'account_login' %}?next={% firstof request.path '/' %}">{% trans "Sign In" %}</a>
   <a class="list-group-item {% url_active request 'account_signup' %}" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
   {% endif %}
 

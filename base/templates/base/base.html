@@ -102,7 +102,7 @@
                 {% trans "Logged in as " %}{% user_display user %}.
               </a>
             {% else %}
-              <a href={% url 'account_login' %}>{% trans "You are not logged in." %}</a>
+              <a href="{% url 'account_login' %}?next={% firstof request.path '/' %}">{% trans "You are not logged in." %}</a>
             {% endif %}
             </li>
           </ul><!--/.navbar-nav pull-right -->
