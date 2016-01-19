@@ -6,6 +6,7 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import get_model
+from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
@@ -54,7 +55,7 @@ class Competition(models.Model):
 
     @classmethod
     def get_by_site(cls, site):
-        return cls.objects.get(site=site)
+        return get_object_or_404(cls, site=site)
 
     @classmethod
     def get_by_current_site(cls):
