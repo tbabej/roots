@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% load roots_tags %}
+{% load comments %}
+
+{% block head_title %}{{ flatpage.title }}{% endblock %}
+
+{% block content %}
+
+{% autoescape off %}
+{{ flatpage.content }}
+{% endautoescape %}
+
+{% endblock %}
